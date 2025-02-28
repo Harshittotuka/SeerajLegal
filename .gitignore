@@ -20,8 +20,3 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
-vendor/
-node_modules/
-storage/
-bootstrap/cache/
-
