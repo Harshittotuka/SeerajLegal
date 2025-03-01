@@ -1,0 +1,4 @@
+-----FOR CHIRAYU------
+vscode->new termina->command prompt
+cd c:\xampp\mysql\bin
+mysqld --console
