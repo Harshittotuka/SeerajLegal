@@ -3,13 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\MembershipController;
 
 
 Route::get('/api/about/faqs', [AboutController::class, 'getFaqs']);
 
 
 Route::get('/api/services', [ServiceController::class, 'index']);
-
+Route::get('/api/members', [MembershipController::class, 'getAllMembers']);
 
 
 // Home Route
