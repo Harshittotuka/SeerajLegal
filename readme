@@ -2,3 +2,14 @@
 vscode->new termina->command prompt
 cd c:\xampp\mysql\bin
 mysqld --console
+php artisan serve
+
+php artisan migrate
+
+
+
+CREATE NEW TABLE command
+
+php artisan make:migration create_services_table
+AFTER CODE UPDATE 
+php artisan migrate
