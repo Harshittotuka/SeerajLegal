@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FaqController;
+
+Route::get('/api/faqs', [FaqController::class, 'index']);
 
 // Home Route
 Route::get('/', function () {
