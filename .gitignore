@@ -21,16 +21,8 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
-<<<<<<< Updated upstream
 .env
 vendor/
 node_modules/
 storage/
 bootstrap/cache/
-=======
-vendor/
-node_modules/
-storage/
-bootstrap/cache/
-
->>>>>>> Stashed changes
