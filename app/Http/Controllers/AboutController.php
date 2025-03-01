@@ -20,4 +20,11 @@ class AboutController extends Controller
         $faqs = $this->aboutService->getFaqs();
         return response()->json($faqs);
     }
+        // Function to fetch articles using AboutService
+        public function getArticles()
+        {
+            $articles = $this->aboutService->getArticles();
+            return response()->json($articles);
+        }
+    
 }

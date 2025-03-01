@@ -18,4 +18,9 @@ class AboutService
     {
         return $this->AboutRepository->getFaqs();
     }
+    // Function to fetch articles
+    public function getArticles()
+    {
+        return $this->AboutRepository->getArticles();
+    }
 }
