@@ -10,4 +10,10 @@ class ServiceRepository
     {
         return Service::all();
     }
+
+    public function getServiceByName($name)
+    {
+        return Service::where('service_name', $name)->get(); // Fetch all matching records
+    }
+    
 }

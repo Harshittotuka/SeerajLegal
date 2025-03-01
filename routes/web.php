@@ -7,10 +7,12 @@ use App\Http\Controllers\MembershipController;
 
 
 Route::get('/api/about/faqs', [AboutController::class, 'getFaqs']);
+Route::get('/api/members', [MembershipController::class, 'getAllMembers']);
 
 
 Route::get('/api/services', [ServiceController::class, 'index']);
-Route::get('/api/members', [MembershipController::class, 'getAllMembers']);
+Route::get('/api/service/{name}', [ServiceController::class, 'show']);
+
 
 
 // Home Route
