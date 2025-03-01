@@ -18,7 +18,7 @@
     @include('partials.navbar')
 
     <!-- Header Banner -->
-    <div class="banner-header valign bg-img bg-fixed" data-overlay-dark="5" data-background="{{ asset('assets/img/FAQ.webp2') }}">
+    <div class="banner-header valign bg-img bg-fixed" data-overlay-dark="5" data-background="{{ asset('assets/img/FAQ.webp') }}">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 caption mt-60 text-center">
@@ -34,80 +34,60 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-12">
-                    <ul class="accordion-box clearfix">
-                        <li class="accordion block">
-                            <div class="acc-btn size-20">Social Media and Family Law</div>
-                            <div class="acc-content">
-                                <div class="content">
-                                    <div class="text">Lorem ut nisl quam nestibulum drana nec odio elementum sceisue the aucan ligula. Orci varius natoque penatibus et magnis dis the monte nascete ridiculus mus morbine fermen.</div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion block">
-                            <div class="acc-btn size-20">Coerced marriage and the law</div>
-                            <div class="acc-content">
-                                <div class="content">
-                                    <div class="text">Lorem ut nisl quam nestibulum drana nec odio elementum sceisue the aucan ligula. Orci varius natoque penatibus et magnis dis the monte nascete ridiculus mus morbine fermen.</div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion block">
-                            <div class="acc-btn size-20">What Is A Family Visa?</div>
-                            <div class="acc-content">
-                                <div class="content">
-                                    <div class="text">Lorem ut nisl quam nestibulum drana nec odio elementum sceisue the aucan ligula. Orci varius natoque penatibus et magnis dis the monte nascete ridiculus mus morbine fermen.</div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion block">
-                            <div class="acc-btn size-20">Can anyone give immigration advice?</div>
-                            <div class="acc-content">
-                                <div class="content">
-                                    <div class="text">Lorem ut nisl quam nestibulum drana nec odio elementum sceisue the aucan ligula. Orci varius natoque penatibus et magnis dis the monte nascete ridiculus mus morbine fermen.</div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <ul id="faq-list-left" class="accordion-box clearfix"></ul>
                 </div>
                 <div class="col-lg-6 col-md-12">
-                    <ul class="accordion-box clearfix">
-                        <li class="accordion block">
-                            <div class="acc-btn size-20">What should my attorney expect from me?</div>
-                            <div class="acc-content">
-                                <div class="content">
-                                    <div class="text">Lorem ut nisl quam nestibulum drana nec odio elementum sceisue the aucan ligula. Orci varius natoque penatibus et magnis dis the monte nascete ridiculus mus morbine fermen.</div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion block">
-                            <div class="acc-btn size-20">What is the role of witness in court?</div>
-                            <div class="acc-content">
-                                <div class="content">
-                                    <div class="text">Lorem ut nisl quam nestibulum drana nec odio elementum sceisue the aucan ligula. Orci varius natoque penatibus et magnis dis the monte nascete ridiculus mus morbine fermen.</div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion block">
-                            <div class="acc-btn size-20">Do I need legal advice just to form my business?</div>
-                            <div class="acc-content">
-                                <div class="content">
-                                    <div class="text">Lorem ut nisl quam nestibulum drana nec odio elementum sceisue the aucan ligula. Orci varius natoque penatibus et magnis dis the monte nascete ridiculus mus morbine fermen.</div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion block">
-                            <div class="acc-btn size-20">What types of business entities are there?</div>
-                            <div class="acc-content">
-                                <div class="content">
-                                    <div class="text">Lorem ut nisl quam nestibulum drana nec odio elementum sceisue the aucan ligula. Orci varius natoque penatibus et magnis dis the monte nascete ridiculus mus morbine fermen.</div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <ul id="faq-list-right" class="accordion-box clearfix"></ul>
                 </div>
             </div>
         </div>
     </section>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("/api/about/faqs")
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Fetched FAQ Data:", data); // Debugging
+    
+                    if (!Array.isArray(data)) {
+                        console.error("Unexpected API response format:", data);
+                        return;
+                    }
+    
+                    const leftColumn = document.getElementById("faq-list-left");
+                    const rightColumn = document.getElementById("faq-list-right");
+    
+                    data.forEach((faq, index) => {
+                        if (!faq.Question || !faq.Answer) {
+                            console.error("Missing Question or Answer in FAQ:", faq);
+                            return;
+                        }
+    
+                        const faqItem = `
+                            <li class="accordion block">
+                                <div class="acc-btn size-20">${faq.Question}</div>
+                                <div class="acc-content">
+                                    <div class="content">
+                                        <div class="text">${faq.Answer}</div>
+                                    </div>
+                                </div>
+                            </li>
+                        `;
+    
+                        // Distribute FAQs between two columns
+                        if (index % 2 === 0) {
+                            leftColumn.innerHTML += faqItem;
+                        } else {
+                            rightColumn.innerHTML += faqItem;
+                        }
+                    });
+                })
+                .catch(error => console.error("Error fetching FAQs:", error));
+        });
+    </script>
+    
+    
 
     <!-- Footer -->
     @include('partials.footer')
