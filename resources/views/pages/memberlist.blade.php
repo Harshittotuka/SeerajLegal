@@ -52,168 +52,42 @@
 
                     <!-- Members Table -->
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">S.No</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Membership Type</th>
-                                </tr>
-                            </thead>
-                            <tbody id="membersTable">
-                                <tr>
-                                    <td>1</td>
-                                    <td>John Doe</td>
-                                    <td>Premium</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jane Smith</td>
-                                    <td>Basic</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Michael Johnson</td>
-                                    <td>VIP</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Emily Brown</td>
-                                    <td>Basic</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>David Wilson</td>
-                                    <td>Premium</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>Sarah Davis</td>
-                                    <td>VIP</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>James Miller</td>
-                                    <td>Basic</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>Olivia Garcia</td>
-                                    <td>Premium</td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>Daniel Martinez</td>
-                                    <td>VIP</td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>Sophia Rodriguez</td>
-                                    <td>Basic</td>
-                                </tr>
-                                <tr>
-                                    <td>11</td>
-                                    <td>Matthew Hernandez</td>
-                                    <td>Premium</td>
-                                </tr>
-                                <tr>
-                                    <td>12</td>
-                                    <td>Emma Lopez</td>
-                                    <td>VIP</td>
-                                </tr>
-                                <tr>
-                                    <td>13</td>
-                                    <td>Christopher Gonzalez</td>
-                                    <td>Basic</td>
-                                </tr>
-                                <tr>
-                                    <td>14</td>
-                                    <td>Ava Perez</td>
-                                    <td>Premium</td>
-                                </tr>
-                                <tr>
-                                    <td>15</td>
-                                    <td>Andrew Taylor</td>
-                                    <td>VIP</td>
-                                </tr>
-                                <tr>
-                                    <td>16</td>
-                                    <td>Mia Anderson</td>
-                                    <td>Basic</td>
-                                </tr>
-                                <tr>
-                                    <td>17</td>
-                                    <td>Joseph Thomas</td>
-                                    <td>Premium</td>
-                                </tr>
-                                <tr>
-                                    <td>18</td>
-                                    <td>Abigail Moore</td>
-                                    <td>VIP</td>
-                                </tr>
-                                <tr>
-                                    <td>19</td>
-                                    <td>William Jackson</td>
-                                    <td>Basic</td>
-                                </tr>
-                                <tr>
-                                    <td>20</td>
-                                    <td>Elizabeth Martin</td>
-                                    <td>Premium</td>
-                                </tr>
-                                <tr>
-                                    <td>21</td>
-                                    <td>Alexander Lee</td>
-                                    <td>VIP</td>
-                                </tr>
-                                <tr>
-                                    <td>22</td>
-                                    <td>Ella White</td>
-                                    <td>Basic</td>
-                                </tr>
-                                <tr>
-                                    <td>23</td>
-                                    <td>Ryan Harris</td>
-                                    <td>Premium</td>
-                                </tr>
-                                <tr>
-                                    <td>24</td>
-                                    <td>Grace Clark</td>
-                                    <td>VIP</td>
-                                </tr>
-                                <tr>
-                                    <td>25</td>
-                                    <td>Nathan Lewis</td>
-                                    <td>Basic</td>
-                                </tr>
-                                <tr>
-                                    <td>26</td>
-                                    <td>Chloe Walker</td>
-                                    <td>Premium</td>
-                                </tr>
-                                <tr>
-                                    <td>27</td>
-                                    <td>Samuel Hall</td>
-                                    <td>VIP</td>
-                                </tr>
-                                <tr>
-                                    <td>28</td>
-                                    <td>Lily Young</td>
-                                    <td>Basic</td>
-                                </tr>
-                                <tr>
-                                    <td>29</td>
-                                    <td>Benjamin Allen</td>
-                                    <td>Premium</td>
-                                </tr>
-                                <tr>
-                                    <td>30</td>
-                                    <td>Zoe King</td>
-                                    <td>VIP</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Name</th>
+                <th scope="col">Membership Type</th>
+            </tr>
+        </thead>
+        <tbody id="membersTable">
+            <!-- Data will be dynamically inserted here -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch("http://127.0.0.1:8000/api/members")
+            .then(response => response.json())
+            .then(data => {
+                const membersTable = document.getElementById("membersTable");
+                membersTable.innerHTML = ""; // Clear existing rows
+
+                data.forEach((member, index) => {
+                    const row = `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${member.name}</td>
+                            <td>${member.membership_type.charAt(0).toUpperCase() + member.membership_type.slice(1)}</td>
+                        </tr>
+                    `;
+                    membersTable.innerHTML += row;
+                });
+            })
+            .catch(error => console.error("Error fetching data:", error));
+    });
+</script>
                 </div>
                 <div class="col-lg-3 col-md-12">
                     <div class="sidebar custom-box">
