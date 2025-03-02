@@ -20,11 +20,11 @@ class AboutController extends Controller
         $faqs = $this->aboutService->getFaqs();
         return response()->json($faqs);
     }
-        // Function to fetch about_us using AboutService
+        // Function to fetch AboutUs using AboutService
         public function getWhoWeAre()
         {
-            $about_us = $this->aboutService->getWhoWeAre();
-            return response()->json($about_us);
+            $AboutUs = $this->aboutService->getWhoWeAre();
+            return response()->json($AboutUs);
         }
     
 }

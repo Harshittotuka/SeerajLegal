@@ -18,7 +18,7 @@ class AboutService
     {
         return $this->AboutRepository->getFaqs();
     }
-    // Function to fetch about_us
+    // Function to fetch AboutUs
     public function getWhoWeAre()
     {
         return $this->AboutRepository->getWhoWeAre();
