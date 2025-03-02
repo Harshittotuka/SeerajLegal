@@ -9,8 +9,8 @@ return new class extends Migration {
     {
         Schema::create('about_us', function (Blueprint $table) {
             $table->id(); // Auto-increment primary key
-            $table->string('title'); // Title of the AboutUs
-            $table->text('para'); // Paragraph content
+            $table->string('title')->nullable(); // Title of the AboutUs
+            $table->text('para')->nullable(); // Paragraph content
             $table->json('points')->nullable(); // Additional points related to the article
             $table->enum('status', ['active', 'inactive'])->default('active'); // Status of the article
             $table->string('image')->nullable(); // Image path
