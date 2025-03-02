@@ -5,10 +5,15 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PracticeController;
 
 Route::get('/api/articles', [AboutController::class, 'getArticles']);
 
 Route::get('/api/contacts', [ContactController::class, 'getAllContacts']);
+
+
+Route::get('/api/practices', [PracticeController::class, 'index']); // Fetch all practices
+Route::get('/api/practices/search', [PracticeController::class, 'search']); // Fetch a practice by name
 
 
 Route::get('/api/about/faqs', [AboutController::class, 'getFaqs']);
