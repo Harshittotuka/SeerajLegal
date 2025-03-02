@@ -2,6 +2,8 @@
 vscode->new termina->command prompt
 cd c:\xampp\mysql\bin
 mysqld --console
+
+Code For Powershell
 php artisan serve
 
 php artisan migrate
