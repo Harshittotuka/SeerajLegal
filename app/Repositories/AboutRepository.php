@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Faq;
+use App\Models\Article;
 
 class AboutRepository
 {
@@ -11,4 +12,10 @@ class AboutRepository
     {
         return Faq::all();
     }
+    // Function to fetch articles from the Articles model
+    public function getArticles()
+    {
+        return Article::all();
+    }
+    
 }

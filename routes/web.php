@@ -6,7 +6,9 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\ContactController;
 
-Route::get('api/contacts', [ContactController::class, 'getAllContacts']);
+Route::get('/api/articles', [AboutController::class, 'getArticles']);
+
+Route::get('/api/contacts', [ContactController::class, 'getAllContacts']);
 
 
 Route::get('/api/about/faqs', [AboutController::class, 'getFaqs']);
