@@ -13,7 +13,7 @@ class AboutRepository
         return Faq::all();
     }
     // Function to fetch articles from the Articles model
-    public function getArticles()
+    public function getWhoWeAre()
     {
         return Article::all();
     }
