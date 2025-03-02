@@ -8,6 +8,13 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\TeamController;
+
+Route::get('/api/teams', [TeamController::class, 'index'])->name('teams.index');
+Route::get('/api/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
+Route::get('/api/teams/practice/{practice}', [TeamController::class, 'filterByPractice'])->name('teams.filterByPractice');
+Route::get('/api/teams/service/{service}', [TeamController::class, 'filterByADRService'])->name('teams.filterByADRService');
+
 Route::get('/api/membership-types', [MembershipTypeController::class, 'index']);
 
 // Route to fetch all homepage data

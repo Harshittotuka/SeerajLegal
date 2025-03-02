@@ -23,7 +23,10 @@ class DatabaseSeeder extends Seeder
             ContactsSeeder::class,
             MembershipTypesSeeder::class,
             PracticesSeeder::class,
-            ServicesSeeder::class
+            ServicesSeeder::class,
+        
         ]);
+        $this->call(TeamsSeeder::class);
+
     }
 }
