@@ -64,10 +64,6 @@ Route::get('/service_rules', function () {
     return view('pages.service_rules');
 })->name('service_rules');
 
-// AOP Page
-Route::get('/aop', function () {
-    return view('pages.aop');
-})->name('aop');
 
 Route::get('/practice/{name}', function ($name) {
     return view('pages.practice', ['practiceName' => $name]);
