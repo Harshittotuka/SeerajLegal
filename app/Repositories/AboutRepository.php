@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Faq;
-use App\Models\Article;
+use App\Models\AboutUs;
 
 class AboutRepository
 {
@@ -12,10 +12,10 @@ class AboutRepository
     {
         return Faq::all();
     }
-    // Function to fetch articles from the Articles model
+    // Function to fetch AboutUs from the AboutUs model
     public function getWhoWeAre()
     {
-        return Article::all();
+        return AboutUs::all();
     }
     
 }
