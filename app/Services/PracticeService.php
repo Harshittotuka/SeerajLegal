@@ -23,4 +23,8 @@ class PracticeService
     {
         return $this->practiceRepository->getPracticeByName($name);
     }
+    public function getPracticeNames()
+    {
+        return $this->practiceRepository->getPracticeNames();
+    }
 }

@@ -16,4 +16,8 @@ class PracticeRepository
     {
         return Practice::where('practice_name', $name)->get();
     }
+    public function getPracticeNames()
+    {
+        return Practice::distinct()->pluck('practice_name'); // Fetch unique practice names
+    }
 }

@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Services\PracticeService;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse; 
 
 class PracticeController extends Controller
 {
@@ -49,5 +50,11 @@ class PracticeController extends Controller
             'success' => true,
             'data' => $practice
         ]);
+    }
+
+    public function getPracticeNames(): JsonResponse
+    {
+        $practiceNames = $this->practiceService->getPracticeNames();
+        return response()->json(['success' => true, 'data' => $practiceNames]);
     }
 }

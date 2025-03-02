@@ -18,8 +18,11 @@
                                 <div class="title">Banking and
                                     <br>Finance
                                 </div>
-                                <div class="arrow"> <a href="{{ route('aop') }}"><span
-                                            class="fa-light fa-arrow-right"></span></a> </div>
+                                <div class="arrow"> 
+                                    <a href="{{ route('practice.details', ['name' => 'Banking and Finance']) }}">
+                                        <span class="fa-light fa-arrow-right"></span>
+                                    </a> 
+                                </div>
                             </div>
                         </div>
                         <div class="item">
@@ -28,8 +31,11 @@
                                 <div class="title">Criminal
                                     <br>Law
                                 </div>
-                                <div class="arrow"> <a href="{{ route('aop') }}"><span
-                                            class="fa-light fa-arrow-right"></span></a> </div>
+                                <div class="arrow"> 
+                                    <a href="{{ route('practice.details', ['name' => 'Criminal Law']) }}">
+                                        <span class="fa-light fa-arrow-right"></span>
+                                    </a> 
+                                </div>
                             </div>
                         </div>
                         <div class="item">
@@ -38,8 +44,11 @@
                                 <div class="title">Private
                                     <br>Firms
                                 </div>
-                                <div class="arrow"> <a href="{{ route('aop') }}"><span
-                                            class="fa-light fa-arrow-right"></span></a> </div>
+                                <div class="arrow"> 
+                                    <a href="{{ route('practice.details', ['name' => 'Private Firms']) }}">
+                                        <span class="fa-light fa-arrow-right"></span>
+                                    </a> 
+                                </div>
                             </div>
                         </div>
                         <div class="item">
@@ -47,19 +56,24 @@
                             <div class="con">
                                 <div class="title">Civil Law
                                 </div>
-                                <div class="arrow"> <a href="{{ route('aop') }}"><span
-                                            class="fa-light fa-arrow-right"></span></a> </div>
+                                <div class="arrow"> 
+                                    <a href="{{ route('practice.details', ['name' => 'Civil Law']) }}">
+                                        <span class="fa-light fa-arrow-right"></span>
+                                    </a> 
+                                </div>
                             </div>
                         </div>
                         <div class="item">
-                            <div class="img"> <img src="{{ asset('assets/img/Real_Estate_resized (2).webp') }}" alt="">
-                            </div>
+                            <div class="img"> <img src="{{ asset('assets/img/Real_Estate_resized (2).webp') }}" alt=""> </div>
                             <div class="con">
                                 <div class="title">Real Estate
                                     <br>& Construction
                                 </div>
-                                <div class="arrow"> <a href="{{ route('aop') }}"><span
-                                            class="fa-light fa-arrow-right"></span></a> </div>
+                                <div class="arrow"> 
+                                    <a href="{{ route('practice.details', ['name' => 'Real Estate and Construction']) }}">
+                                        <span class="fa-light fa-arrow-right"></span>
+                                    </a> 
+                                </div>
                             </div>
                         </div>
                         <div class="item">
@@ -68,13 +82,16 @@
                                 <div class="title">Consumer
                                     <br>Forums
                                 </div>
-                                <div class="arrow"> <a href="{{ route('aop') }}"><span
-                                            class="fa-light fa-arrow-right"></span></a> </div>
+                                <div class="arrow"> 
+                                    <a href="{{ route('practice.details', ['name' => 'Consumer Forums']) }}">
+                                        <span class="fa-light fa-arrow-right"></span>
+                                    </a> 
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
         </div>
     </div>
 </section>

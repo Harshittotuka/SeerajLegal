@@ -10,6 +10,8 @@ use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
 
+
+
 Route::get('/api/teams', [TeamController::class, 'index'])->name('teams.index');
 Route::get('/api/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
 Route::get('/api/teams/practice/{practice}', [TeamController::class, 'filterByPractice'])->name('teams.filterByPractice');
@@ -26,6 +28,7 @@ Route::get('/api/contacts', [ContactController::class, 'getAllContacts']);
 
 Route::get('/api/practices', [PracticeController::class, 'index']); // Fetch all practices
 Route::get('/api/practices/search', [PracticeController::class, 'search']); // Fetch a practice by name
+Route::get('/api/practices/list', [PracticeController::class, 'getPracticeNames']);
 
 
 Route::get('/api/about/faqs', [AboutController::class, 'getFaqs']);
@@ -65,6 +68,11 @@ Route::get('/service_rules', function () {
 Route::get('/aop', function () {
     return view('pages.aop');
 })->name('aop');
+
+Route::get('/practice/{name}', function ($name) {
+    return view('pages.practice', ['practiceName' => $name]);
+})->name('practice.details');
+
 
 // Membership Pages
 Route::get('/membership/become-a-member', function () {
