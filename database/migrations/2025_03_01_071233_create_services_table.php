@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->string('title'); // Title of the paragraph
             $table->text('para'); // Paragraph content
             $table->json('points')->nullable(); // Points related to the service
-            $table->text('rules'); // JSON field for rules
+            $table->text('rules')->nullable();; // JSON field for rules
             $table->timestamps(); // Created at and Updated at timestamps
         });
     }

@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ContactsSeeder::class,
             MembershipTypesSeeder::class,
-            PracticesSeeder::class
+            PracticesSeeder::class,
+            ServicesSeeder::class
         ]);
     }
 }
