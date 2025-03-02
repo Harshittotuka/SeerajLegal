@@ -31,38 +31,42 @@
 
     <!-- Contact -->
     <section class="info-box section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                        <div class="section-subtitle"><div class="icon"><i class="flaticon-courthouse"></i></div> Get in touch</div>
-                        <div class="section-title">Do you need help? <span>Contact with us now!</span></div>
-                    <div class="item"> <i class="icon fa-regular fa-location-dot"></i>
-                        <div class="cont">
-                            <h5>Address</h5>
-                            <p>E-273,2nd Floor,Lal Kothi Scheme,Barkat Nagar,
-                                <br>Jaipur,Rajasthan,India,302015 </p>
-                        </div>
-                    </div>
-                    <div class="item"> <i class="icon fa-solid fa-phone"></i>
-                        <div class="cont">
-                            <h5>Phone</h5>
-                            <p><a href="tel:+918107000333">+91 8107000333</a></p>
-                        </div>
-                    </div>
-                    <div class="item"> <i class="icon fa-regular fa-envelope"></i>
-                        <div class="cont">
-                            <h5>e-Mail</h5>
-                            <p>seerajlegal@gmail.com</p>
-                        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="section-subtitle">
+                    <div class="icon"><i class="flaticon-courthouse"></i></div> Get in touch
+                </div>
+                <div class="section-title">Do you need help? <span>Contact with us now!</span></div>
+
+                <div class="item">
+                    <i class="icon fa-regular fa-location-dot"></i>
+                    <div class="cont">
+                        <h5>Address</h5>
+                        <p id="contact-address">Loading...</p>
                     </div>
                 </div>
-                <div class="col-md-5 offset-md-1">
+                <div class="item">
+                    <i class="icon fa-solid fa-phone"></i>
+                    <div class="cont">
+                        <h5>Phone</h5>
+                        <p><a href="tel:#" id="contact-phone">Loading...</a></p>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="icon fa-regular fa-envelope"></i>
+                    <div class="cont">
+                        <h5>e-Mail</h5>
+                        <p id="contact-email">Loading...</p>
+                    </div>
+                </div>
+            </div>
 
-                    
-                    <div class="contact-form">
+            <div class="col-md-5 offset-md-1">
+                <div class="contact-form">
                     <form method="post">
-                           <h3>Contact with us <span>now!</span></h3>
-                           <div class="row">
+                        <h3>Contact with us <span>now!</span></h3>
+                        <div class="row">
                             <div class="col-md-12">
                                 <input type="text" name="name" id="name" placeholder="Full Name" required="">
                             </div>
@@ -75,15 +79,34 @@
                             <div class="col-md-12">
                                 <button class="button-3"><a href="#0"><span>Send Message</span></a></button>
                             </div>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
+
         </div>
-    </section>
+    </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    fetch("http://127.0.0.1:8000/api/contacts")
+    .then(response => response.json())
+    .then(data => {
+        if (data.length > 0) {
+            let contact = data[0]; // Assuming the first object contains the required data
+            document.getElementById("contact-address").innerText = contact.address;
+            document.getElementById("contact-phone").innerText = contact.phone_no;
+            document.getElementById("contact-phone").href = "tel:" + contact.phone_no;
+            document.getElementById("contact-email").innerText = contact.email;
+        }
+    })
+    .catch(error => console.error("Error fetching contact data:", error));
+});
+</script>
 
 
+   
     <!-- Get in touch -->
     @include('partials.getintouch')
 
