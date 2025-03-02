@@ -157,17 +157,32 @@
 
                                 <div class="row mb-3">
                                     <div class="col-md-12 mb-2">
-                                        <label for="membershipType" class="form-label fw-semibold"><i
-                                                class="bi bi-card-list"></i> Membership Type</label>
+                                        <label for="membershipType" class="form-label fw-semibold">
+                                            <i class="bi bi-card-list"></i> Membership Type
+                                        </label>
                                         <select class="form-select rounded-3 shadow-sm" id="membershipType" required>
                                             <option value="">Select Membership Type</option>
-                                            <option value="basic">Basic</option>
-                                            <option value="standard">Standard</option>
-                                            <option value="premium">Premium</option>
                                         </select>
                                     </div>
                                 </div>
 
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        fetch("http://127.0.0.1:8000/api/membership-types") // API Call
+                                            .then(response => response.json()) // Convert to JSON
+                                            .then(data => {
+                                                let dropdown = document.getElementById("membershipType");
+                                                
+                                                data.forEach(item => {
+                                                    let option = document.createElement("option");
+                                                    option.value = item.membership_type;
+                                                    option.textContent = item.membership_type.charAt(0).toUpperCase() + item.membership_type.slice(1); // Capitalize
+                                                    dropdown.appendChild(option);
+                                                });
+                                            })
+                                            .catch(error => console.error("Error fetching membership types:", error));
+                                    });
+                                </script>
                                 <!-- Submit Button -->
 
                                 <div class="text-center">
