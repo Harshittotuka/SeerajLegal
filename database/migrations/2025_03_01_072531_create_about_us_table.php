@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('about_us', function (Blueprint $table) {
             $table->id(); // Auto-increment primary key
-            $table->string('title'); // Title of the article
+            $table->string('title'); // Title of the AboutUs
             $table->text('para'); // Paragraph content
             $table->json('points')->nullable(); // Additional points related to the article
             $table->enum('status', ['active', 'inactive'])->default('active'); // Status of the article
@@ -20,6 +20,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('about_us');
     }
 };
