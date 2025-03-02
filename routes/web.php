@@ -7,9 +7,11 @@ use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\MembershipTypeController;
-
+use App\Http\Controllers\HomepageController;
 Route::get('/api/membership-types', [MembershipTypeController::class, 'index']);
 
+// Route to fetch all homepage data
+Route::get('/api/homepage', [HomepageController::class, 'getAllData']);
 Route::get('/api/about/who_we_are', [AboutController::class, 'getWhoWeAre']);
 
 Route::get('/api/contacts', [ContactController::class, 'getAllContacts']);
