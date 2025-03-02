@@ -29,7 +29,7 @@
                     <h6>
                         <div class="icon"><i class="flaticon-courthouse"></i></div> Rules
                     </h6>
-                    <h1>Rules of Concilation</h1>
+                    <h1>Rules of Conciliation</h1>
                 </div>
             </div>
         </div>
@@ -40,8 +40,8 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-9 col-md-12 mb-3">
-                    <h4>Rules of Concilation</h4>
-                    <p>Content describing the rules of Concilation...</p>
+                    <h4>Rules of Conciliation</h4>
+                    <p>Content describing the rules of Conciliation...</p>
 
                     <!-- PDF Viewer -->
                     <iframe src="{{ asset('assets/pdf/mediation_Conciliation_Rules.pdf') }}"
@@ -86,7 +86,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="Service_Concilation.html" class="text-dark">Conciliation Law</a>
+                                <a href="Service_Conciliation.html" class="text-dark">Conciliation Law</a>
                                 <ul class="list-unstyled ms-3">
                                     <li><a href="#" class="text-secondary small fst-italic text-black">→
                                             Conciliations Regulations</a></li>

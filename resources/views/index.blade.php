@@ -60,13 +60,13 @@
                     <!-- <div class="section-title">General <span>&</span> Legal <span>Services</span></div> -->
                     <div class="section-title"><span>ADR</span> Services</div>
                     <p>Specializing in Alternative dispute resolution methods in contrast to conventional court
-                        proceedings.</p> <a href="{{ route('services') }}" class="button-2">Discover more<span></span></a>
+                        proceedings.</p> <a href="#" class="button-2">Discover more<span></span></a>
                 </div>
                 <div class="col-lg-7 offset-lg-1 col-md-12">
                     <div class="row">
                         <div class="col-lg-4 col-md-6">
                             <div class="item">
-                                <a href="{{ route('services') }}"> <i class="flaticon-suitcase"></i>
+                                <a href="{{ route('service.details', ['serviceName' => 'Arbitration']) }}"> <i class="flaticon-suitcase"></i>
                                     <h5>Arbitration</h5>
                                     <div class="shape"> <i class="flaticon-suitcase"></i> </div>
                                 </a>
@@ -74,15 +74,15 @@
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="item">
-                                <a href="{{ route('services') }}"> <i class="flaticon-balance"></i>
-                                    <h5>Concilation</h5>
+                                <a href="{{ route('service.details', ['serviceName' => 'Conciliation']) }}">  <i class="flaticon-balance"></i>
+                                    <h5>Conciliation</h5>
                                     <div class="shape"> <i class="flaticon-balance"></i> </div>
                                 </a>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="item">
-                                <a href="{{ route('services') }}"> <i class="flaticon-mortarboard"></i>
+                                <a href="{{ route('service.details', ['serviceName' => 'Mediation']) }}"> <i class="flaticon-mortarboard"></i>
                                     <h5>Mediation</h5>
                                     <div class="shape"> <i class="flaticon-mortarboard"></i> </div>
                                 </a>
@@ -90,7 +90,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="item">
-                                <a href="{{ route('services') }}"> <i class="flaticon-courthouse"></i>
+                                <a href="{{ route('service.details', ['serviceName' => 'Lok Adalat']) }}"> <i class="flaticon-courthouse"></i>
                                     <h5>Lok Adalat</h5>
                                     <div class="shape"> <i class="flaticon-courthouse"></i> </div>
                                 </a>
@@ -98,7 +98,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="item">
-                                <a href="{{ route('services') }}"> <i class="flaticon-wounded"></i>
+                                <a href="{{ route('service.details', ['serviceName' => 'Negotiation']) }}">  <i class="flaticon-wounded"></i>
                                     <h5>Negotiation</h5>
                                     <div class="shape"> <i class="flaticon-wounded"></i> </div>
                                 </a>

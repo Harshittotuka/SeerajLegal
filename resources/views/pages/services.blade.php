@@ -30,144 +30,127 @@
                     <h6>
                         <div class="icon"><i class="flaticon-courthouse"></i></div> Services
                     </h6>
-                    <h1>Conciliation</h1>
+                    <h1 id="serviceTitleMain">Loading...</h1>
+
                 </div>
             </div>
         </div>
     </div>
 
+    @php
+    $serviceName = request()->segment(2); // Assuming URL is /service/Conciliation
+    @endphp
+<script>
+    console.log($serviceName);
+</script>
+
     <!-- Page -->
-    <section class="page section-padding">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-9 col-md-12">
-                    <h4>What is Conciliation?</h4>
-                    <p>Conciliation is a method of alternative dispute resolution (ADR) where a neutral third party,
-                        called the conciliator, helps disputing parties to reach a mutually acceptable settlement. </p>
-                    <p>The conciliator plays a more proactive role than in mediation but does not impose a binding
-                        decision. Conciliation is often used in commercial, labor, and family disputes.</p>
-                    <ul class="page-list list-unstyled mb-60">
-                        <li>
-                            <div class="page-list-icon"> <span class="ti-check"></span> </div>
-                            <div class="page-list-text">
-                                <p>Conciliation is a voluntary process where a neutral conciliator assists in resolving
-                                    disputes.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="page-list-icon"> <span class="ti-check"></span> </div>
-                            <div class="page-list-text">
-                                <p>Unlike arbitration, it is non-binding, and parties decide whether to accept the
-                                    proposed solutions.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="page-list-icon"> <span class="ti-check"></span> </div>
-                            <div class="page-list-text">
-                                <p>It promotes cooperation and is widely used in workplace, business, and personal
-                                    conflicts.
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
-                    <h4>
-                        Our Role in Conciliation: How We Can Help You as Conciliators</h4>
-                    <p class="mb-60">As conciliators, we act as neutral facilitators to assist parties in resolving
-                        their disputes amicably. Here’s how we can help you throughout the conciliation process:</h5>
-                        <!--   <p>Criminal enim mi obortis eset uctus enec accumsan usto alisuame amet auctor orci golden vitae ehica risus duise nun sapien accumsan id mauris rutrum nie spaien drana lorem ipsum amet navida haretra nuam enim the miss fermen.</p>  -->
-                    <h5>Explaining the Conciliation Process
-                    </h5>
-
-                    <ul class="page-list list-unstyled">
-                        <li>
-                            <div class="page-list-icon"> <span class="ti-check"></span> </div>
-                            <div class="page-list-text">
-                                <p>We guide you through the conciliation process, ensuring you understand its benefits,
-                                    limitations, and how it differs from other dispute resolution methods like
-                                    arbitration or litigation.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="page-list-icon"> <span class="ti-check"></span> </div>
-                            <div class="page-list-text">
-                                <p>We create an environment that encourages open dialogue and constructive discussions
-                                    between the parties.</p>
-                            </div>
-                        </li>
-                    </ul>
-                    <h5>Clarifying Positions and Interests
-                    </h5>
-                    <ul class="page-list list-unstyled">
-                        <li>
-                            <div class="page-list-icon"> <span class="ti-check"></span> </div>
-                            <div class="page-list-text">
-                                <p>We help both parties identify the key issues, interests, and priorities that need to
-                                    be addressed for a resolution.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="page-list-icon"> <span class="ti-check"></span> </div>
-                            <div class="page-list-text">
-                                <p>By understanding each party's perspective, we ensure that discussions remain focused
-                                    and productive.</p>
-                            </div>
-                        </li>
-                    </ul>
-                    <h5>Facilitating Discussions</h5>
-                    <ul class="page-list list-unstyled">
-                        <li>
-                            <div class="page-list-icon"> <span class="ti-check"></span> </div>
-                            <div class="page-list-text">
-                                <p>During conciliation meetings, we facilitate conversations in a fair and balanced
-                                    manner, ensuring that both parties have an equal opportunity to present their case.
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="page-list-icon"> <span class="ti-check"></span> </div>
-                            <div class="page-list-text">
-                                <p>We offer impartial suggestions and options for resolving the dispute while
-                                    maintaining neutrality.</p>
-                            </div>
-                        </li>
-                    </ul>
-                    <h5>Evaluating Settlement Options</h5>
-                    <ul class="page-list list-unstyled">
-                        <li>
-                            <div class="page-list-icon"> <span class="ti-check"></span> </div>
-                            <div class="page-list-text">
-                                <p>We assist in analyzing and clarifying the terms of proposed settlements to ensure
-                                    they address the needs of all parties.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="page-list-icon"> <span class="ti-check"></span> </div>
-                            <div class="page-list-text">
-                                <p>We help you evaluate the practicality and fairness of the conciliator’s suggestions
-                                    while keeping your goals in mind.</p>
-                            </div>
-                        </li>
-                    </ul>
-
-                </div>
-                <div class="col-lg-3 col-md-12">
-                    <div class="sidebar custom-box">
-                        <h4>Related Services</h4>
-                        <ul class="list-unstyled">
-                            <li><a href="Service_arbitration.html"> Arbitration</a></li>
-                            <li><a href="Service_Concilation.html"><b>Conciliation</b></a></li>
-                            <li><a href="Service_Mediation.html">Mediation</a></li>
-                            <li><a href="Service_lokadalat.html">Judicial Statement</a></li>
-                            <li><a href="Service_negotiation.html">Negotiation</a></li>
-                        </ul>
+  
+        <section class="page section-padding">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-9 col-md-12">
+                        <h4 id="serviceTitle"></h4>
+                        <p id="serviceDescription"></p>
+                        
+                        <ul class="page-list list-unstyled mb-60" id="servicePoints"></ul>
+    
+                        <div id="serviceDetails"></div>
                     </div>
+    
+                    <div class="col-lg-3 col-md-12">
+                        <div class="sidebar custom-box">
+                            <h4>Related Services</h4>
+                            <ul class="list-unstyled" id="relatedServicesList">
+                                <!-- Dynamic content will be inserted here -->
+                            </ul>
+                        </div>
+                    </div>
+    
                 </div>
-
             </div>
-
-        </div>
-
-    </section>
+        </section>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                let currentService = "{{ $serviceName }}"; // Assuming this is passed from Laravel controller
+                let apiUrl = "http://127.0.0.1:8000/api/services/list";
+        
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            let services = data.data;
+                            let listContainer = document.getElementById('relatedServicesList');
+        
+                            listContainer.innerHTML = ''; // Clear existing content
+        
+                            services.forEach(service => {
+                                let li = document.createElement('li');
+                                let isActive = (service.toLowerCase() === currentService.toLowerCase()) ? 'font-weight: bold;' : '';
+                                li.innerHTML = `<a href="{{ url('service/') }}/${service}" style="${isActive}">${service}</a>`;
+                                listContainer.appendChild(li);
+                            });
+                        }
+                    })
+                    .catch(error => console.error("Error fetching related services:", error));
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                let serviceName = "{{ $serviceName }}"; 
+                let apiUrl = `http://127.0.0.1:8000/api/service/${serviceName}`;
+    
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            let serviceData = data.data;
+                            let firstService = serviceData[0];
+    
+                            document.getElementById('serviceTitle').textContent = firstService.title;
+                            document.getElementById('serviceDescription').textContent = firstService.para;
+                            document.getElementById('serviceTitleMain').textContent = firstService.service_name;
+                            let pointsList = document.getElementById('servicePoints');
+                            if (firstService.points) {
+                                let points = JSON.parse(firstService.points);
+                                points.forEach(point => {
+                                    let li = document.createElement('li');
+                                    li.innerHTML = `<div class="page-list-icon"><span class="ti-check"></span></div>
+                                                    <div class="page-list-text"><p>${point}</p></div>`;
+                                    pointsList.appendChild(li);
+                                });
+                            }
+    
+                            let serviceDetails = document.getElementById('serviceDetails');
+                            serviceData.slice(1).forEach(section => {
+                                let sectionHtml = `
+                                    <h5>${section.title}</h5>
+                                    <p>${section.para}</p>
+                                    <ul class="page-list list-unstyled">
+                                `;
+    
+                                if (section.points) {
+                                    let points = JSON.parse(section.points);
+                                    points.forEach(point => {
+                                        sectionHtml += `
+                                            <li>
+                                                <div class="page-list-icon"><span class="ti-check"></span></div>
+                                                <div class="page-list-text"><p>${point}</p></div>
+                                            </li>
+                                        `;
+                                    });
+                                }
+    
+                                sectionHtml += `</ul>`;
+                                serviceDetails.innerHTML += sectionHtml;
+                            });
+                        }
+                    })
+                    .catch(error => console.error("Error fetching service data:", error));
+            });
+        </script>
+  
+    
     <style>
         .custom-box {
             background: #fff;

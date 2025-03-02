@@ -27,4 +27,9 @@ class ServicesService
     {
         return $this->serviceRepository->getServiceByName($name);
     }
+
+    public function getUniqueServiceNames()
+    {
+        return $this->serviceRepository->fetchUniqueServiceNames();
+    }
 }

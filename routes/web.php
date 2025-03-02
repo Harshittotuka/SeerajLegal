@@ -34,8 +34,7 @@ Route::get('/api/members', [MembershipController::class, 'getAllMembers']);
 
 Route::get('/api/services', [ServiceController::class, 'index']);
 Route::get('/api/service/{name}', [ServiceController::class, 'show']);
-
-
+Route::get('/api/services/list', [ServiceController::class, 'getServiceNames']);
 
 // Home Route
 Route::get('/', function () {
@@ -52,9 +51,10 @@ Route::get('/faq', function () {
 })->name('faq');
 
 // Services (All services should be handled in a single blade file)
-Route::get('/services', function () {
-    return view('pages.services');
-})->name('services');
+Route::get('/service/{serviceName}', function ($serviceName) {
+    return view('pages.services', compact('serviceName'));
+})->name('service.details');
+
 
 // Rules (Redirect all rules to service_rules.blade.php)
 Route::get('/service_rules', function () {

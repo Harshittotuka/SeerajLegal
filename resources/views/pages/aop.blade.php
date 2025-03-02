@@ -97,7 +97,7 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="item">
                                         <a href="case-study-page.html"> <i class="flaticon-balance"></i>
-                                            <h5>Concilation</h5>
+                                            <h5>Conciliation</h5>
                                             <div class="shape"> <i class="flaticon-balance"></i> </div>
                                         </a>
                                     </div>

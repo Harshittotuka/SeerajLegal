@@ -15,5 +15,8 @@ class ServiceRepository
     {
         return Service::where('service_name', $name)->get(); // Fetch all matching records
     }
-    
+    public function fetchUniqueServiceNames()
+    {
+        return Service::select('service_name')->distinct()->pluck('service_name');
+    }
 }

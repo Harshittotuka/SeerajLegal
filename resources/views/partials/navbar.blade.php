@@ -49,17 +49,37 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{ request()->routeIs('services') ? 'active' : '' }}"
-                        href="{{ route('services') }}" role="button" data-bs-toggle="dropdown">Services <i
-                            class="ti-angle-down"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('services') }}" class="dropdown-item">Arbitration</a></li>
-                        <li><a href="{{ route('services') }}" class="dropdown-item">Conciliation</a></li>
-                        <li><a href="{{ route('services') }}" class="dropdown-item">Mediation</a></li>
-                        <li><a href="{{ route('services') }}" class="dropdown-item">Judicial Statement</a></li>
-                        <li><a href="{{ route('services') }}" class="dropdown-item">Negotiation</a></li>
+                    <a class="nav-link dropdown-toggle {{ request()->routeIs('services') ? 'active' : '' }}" 
+                        href="#" role="button" data-bs-toggle="dropdown">Services <i class="ti-angle-down"></i></a>
+                    <ul class="dropdown-menu" id="servicesDropdown">
+                        <!-- Dynamic service links will be inserted here -->
                     </ul>
                 </li>
+                
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        let apiUrl = "http://127.0.0.1:8000/api/services/list";
+                
+                        fetch(apiUrl)
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    let services = data.data;
+                                    let dropdownMenu = document.getElementById('servicesDropdown');
+                
+                                    dropdownMenu.innerHTML = ''; // Clear existing content
+                
+                                    services.forEach(service => {
+                                        let li = document.createElement('li');
+                                        li.innerHTML = `<a href="{{ url('service/') }}/${service}" class="dropdown-item">${service}</a>`;
+                                        dropdownMenu.appendChild(li);
+                                    });
+                                }
+                            })
+                            .catch(error => console.error("Error fetching services list:", error));
+                    });
+                </script>
+                
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{ request()->routeIs('service_rules') ? 'active' : '' }}"
                         href="{{ route('service_rules') }}" role="button" data-bs-toggle="dropdown">Rules <i

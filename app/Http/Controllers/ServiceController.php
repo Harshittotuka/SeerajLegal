@@ -37,4 +37,11 @@ class ServiceController extends Controller
     }
 }
 
+
+public function getServiceNames(): JsonResponse
+{
+    $serviceNames = $this->servicesService->getUniqueServiceNames();
+    return response()->json(['success' => true, 'data' => $serviceNames]);
+}
+
 }
