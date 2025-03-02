@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->string('title'); // Title of the paragraph
             $table->text('para'); // Paragraph content
             $table->json('points')->nullable(); // Additional points
-            $table->json('what_we_provide'); // JSON field for what we provide
+            $table->json('what_we_provide')->nullable(); // JSON field for what we provide
             $table->timestamps(); // Created at and Updated at timestamps
         });
     }
