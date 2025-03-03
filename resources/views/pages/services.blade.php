@@ -38,119 +38,154 @@
     </div>
 
     @php
-    $serviceName = request()->segment(2); // Assuming URL is /service/Conciliation
+        $serviceName = request()->segment(2); // Assuming URL is /service/Conciliation
     @endphp
-<script>
-    console.log($serviceName);
-</script>
+    <script>
+        console.log($serviceName);
+    </script>
 
     <!-- Page -->
-  
-        <section class="page section-padding">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-9 col-md-12">
-                        <h4 id="serviceTitle"></h4>
-                        <p id="serviceDescription"></p>
-                        
-                        <ul class="page-list list-unstyled mb-60" id="servicePoints"></ul>
-    
-                        <div id="serviceDetails"></div>
-                    </div>
-    
-                    <div class="col-lg-3 col-md-12">
-                        <div class="sidebar custom-box">
-                            <h4>Related Services</h4>
-                            <ul class="list-unstyled" id="relatedServicesList">
-                                <!-- Dynamic content will be inserted here -->
-                            </ul>
-                        </div>
-                    </div>
-    
+
+    <section class="page section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-9 col-md-12">
+                    <h4 id="serviceTitle"></h4>
+                    <p id="serviceDescription"></p>
+
+                    <ul class="page-list list-unstyled mb-60" id="servicePoints"></ul>
+
+                    <div id="serviceDetails"></div>
                 </div>
+
+                <div class="col-lg-3 col-md-12">
+                    <div class="sidebar custom-box">
+                        <h4>Related Services</h4>
+                        <ul class="list-unstyled" id="relatedServicesList">
+                            <!-- Dynamic content will be inserted here -->
+                        </ul>
+                    </div>
+                </div>
+
             </div>
-        </section>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                let currentService = "{{ $serviceName }}"; // Assuming this is passed from Laravel controller
-                let apiUrl = "http://127.0.0.1:8000/api/services/list";
-        
-                fetch(apiUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            let services = data.data;
-                            let listContainer = document.getElementById('relatedServicesList');
-        
-                            listContainer.innerHTML = ''; // Clear existing content
-        
-                            services.forEach(service => {
-                                let li = document.createElement('li');
-                                let isActive = (service.toLowerCase() === currentService.toLowerCase()) ? 'font-weight: bold;' : '';
-                                li.innerHTML = `<a href="{{ url('service/') }}/${service}" style="${isActive}">${service}</a>`;
-                                listContainer.appendChild(li);
-                            });
-                        }
-                    })
-                    .catch(error => console.error("Error fetching related services:", error));
-            });
-        </script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                let serviceName = "{{ $serviceName }}"; 
-                let apiUrl = `http://127.0.0.1:8000/api/service/${serviceName}`;
-    
-                fetch(apiUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            let serviceData = data.data;
-                            let firstService = serviceData[0];
-    
-                            document.getElementById('serviceTitle').textContent = firstService.title;
-                            document.getElementById('serviceDescription').textContent = firstService.para;
-                            document.getElementById('serviceTitleMain').textContent = firstService.service_name;
-                            let pointsList = document.getElementById('servicePoints');
-                            if (firstService.points) {
-                                let points = JSON.parse(firstService.points);
-                                points.forEach(point => {
-                                    let li = document.createElement('li');
-                                    li.innerHTML = `<div class="page-list-icon"><span class="ti-check"></span></div>
-                                                    <div class="page-list-text"><p>${point}</p></div>`;
-                                    pointsList.appendChild(li);
-                                });
-                            }
-    
-                            let serviceDetails = document.getElementById('serviceDetails');
-                            serviceData.slice(1).forEach(section => {
-                                let sectionHtml = `
-                                    <h5>${section.title}</h5>
-                                    <p>${section.para}</p>
-                                    <ul class="page-list list-unstyled">
+        </div>
+    </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let currentService = "{{ $serviceName }}"; // Assuming this is passed from Laravel controller
+            let apiUrl = "http://127.0.0.1:8000/api/services/list";
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        let services = data.data;
+                        let listContainer = document.getElementById('relatedServicesList');
+
+                        listContainer.innerHTML = ''; // Clear existing content
+
+                        services.forEach(service => {
+                            let li = document.createElement('li');
+                            let isActive = (service.toLowerCase() === currentService.toLowerCase()) ?
+                                'font-weight: bold;' : '';
+                            li.innerHTML =
+                                `<a href="{{ url('service/') }}/${service}" style="${isActive}">${service}</a>`;
+                            listContainer.appendChild(li);
+                        });
+                    }
+                })
+                .catch(error => console.error("Error fetching related services:", error));
+        });
+    </script>
+    <script>
+ document.addEventListener("DOMContentLoaded", function() {
+    let serviceName = "{{ $serviceName }}";
+    let apiUrl = `http://127.0.0.1:8000/api/service/${serviceName}`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                let serviceData = data.data;
+                let firstService = serviceData[0];
+
+                if (firstService.title) {
+                    document.getElementById('serviceTitle').innerHTML = `${firstService.title}`;
+                } else {
+                    document.getElementById('serviceTitle').style.display = 'none';
+                }
+
+                if (firstService.para) {
+                    document.getElementById('serviceDescription').textContent = firstService.para;
+                } else {
+                    document.getElementById('serviceDescription').style.display = 'none';
+                }
+
+                if (firstService.service_name) {
+                    document.getElementById('serviceTitleMain').innerHTML = `<br>${firstService.service_name}`;
+                } else {
+                    document.getElementById('serviceTitleMain').style.display = 'none';
+                }
+
+                let pointsList = document.getElementById('servicePoints');
+                if (firstService.points) {
+                    let points = JSON.parse(firstService.points);
+                    if (points.length > 0) {
+                        points.forEach(point => {
+                            let li = document.createElement('li');
+                            li.innerHTML = `<div class="page-list-icon"><span class="ti-check"></span></div>
+                                            <div class="page-list-text"><p>${point}</p></div><br>`;
+                            pointsList.appendChild(li);
+                        });
+                    } else {
+                        pointsList.style.display = 'none';
+                    }
+                } else {
+                    pointsList.style.display = 'none';
+                }
+
+                let serviceDetails = document.getElementById('serviceDetails');
+                serviceData.slice(1).forEach(section => {
+                    if (!section.title && !section.para && (!section.points || JSON.parse(section.points).length === 0)) {
+                        return; // Skip empty sections
+                    }
+
+                    let sectionHtml = ``;
+
+                    if (section.title) {
+                        sectionHtml += `<br><h5>${section.title}</h5>`;
+                    }
+
+                    if (section.para) {
+                        sectionHtml += `<p>${section.para}</p>`;
+                    }
+
+                    if (section.points) {
+                        let points = JSON.parse(section.points);
+                        if (points.length > 0) {
+                            sectionHtml += `<ul class="page-list list-unstyled">`;
+                            points.forEach(point => {
+                                sectionHtml += `
+                                    <li>
+                                        <div class="page-list-icon"><span class="ti-check"></span></div>
+                                        <div class="page-list-text"><p>${point}</p></div>
+                                    </li>
                                 `;
-    
-                                if (section.points) {
-                                    let points = JSON.parse(section.points);
-                                    points.forEach(point => {
-                                        sectionHtml += `
-                                            <li>
-                                                <div class="page-list-icon"><span class="ti-check"></span></div>
-                                                <div class="page-list-text"><p>${point}</p></div>
-                                            </li>
-                                        `;
-                                    });
-                                }
-    
-                                sectionHtml += `</ul>`;
-                                serviceDetails.innerHTML += sectionHtml;
                             });
+                            sectionHtml += `</ul>`;
                         }
-                    })
-                    .catch(error => console.error("Error fetching service data:", error));
-            });
-        </script>
-  
-    
+                    }
+
+                    serviceDetails.innerHTML += sectionHtml;
+                });
+            }
+        })
+        .catch(error => console.error("Error fetching service data:", error));
+});
+
+    </script>
+
+
     <style>
         .custom-box {
             background: #fff;
