@@ -13,6 +13,7 @@ class PracticeController extends Controller
     {
         $this->practiceService = $practiceService;
     }
+    
 
     // Fetch all practices
     public function index()
@@ -56,5 +57,38 @@ class PracticeController extends Controller
     {
         $practiceNames = $this->practiceService->getPracticeNames();
         return response()->json(['success' => true, 'data' => $practiceNames]);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'practice_name' => 'required|string',
+            'para_sno' => 'required|integer',
+            'title' => 'required|string',
+            'para' => 'required|string',
+            'points' => 'nullable|array',
+            'what_we_provide' => 'nullable|array',
+        ]);
+
+        return response()->json($this->practiceService->createPractice($data));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->validate([
+            'practice_name' => 'required|string',
+            'para_sno' => 'required|integer',
+            'title' => 'required|string',
+            'para' => 'required|string',
+            'points' => 'nullable|array',
+            'what_we_provide' => 'nullable|array',
+        ]);
+
+        return response()->json($this->practiceService->updatePractice($id, $data));
+    }
+
+    public function destroy($id)
+    {
+        return response()->json($this->practiceService->deletePractice($id));
     }
 }

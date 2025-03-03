@@ -27,4 +27,20 @@ class PracticeService
     {
         return $this->practiceRepository->getPracticeNames();
     }
+
+    //insert,update,delete
+    public function createPractice(array $data)
+    {
+        return $this->practiceRepository->create($data);
+    }
+
+    public function updatePractice($id, array $data)
+    {
+        return $this->practiceRepository->update($id, $data);
+    }
+
+    public function deletePractice($id)
+    {
+        return $this->practiceRepository->delete($id);
+    }
 }

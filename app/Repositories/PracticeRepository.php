@@ -20,4 +20,22 @@ class PracticeRepository
     {
         return Practice::distinct()->pluck('practice_name'); // Fetch unique practice names
     }
+
+    //insert,update,delete
+    public function create(array $data)
+    {
+        return Practice::create($data);
+    }
+
+    public function update($id, array $data)
+    {
+        $practice = Practice::findOrFail($id);
+        $practice->update($data);
+        return $practice;
+    }
+
+    public function delete($id)
+    {
+        return Practice::destroy($id);
+    }
 }
