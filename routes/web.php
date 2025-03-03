@@ -10,7 +10,13 @@ use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
 
+//apis for insert,update,delete in practice
 
+// Route::prefix('practices')->group(function () {
+//     Route::post('/create', [PracticeController::class, 'store']);
+//     Route::put('/update/{id}', [PracticeController::class, 'update']);
+//     Route::delete('/delete/{id}', [PracticeController::class, 'destroy']);
+// });
 
 Route::get('/api/teams', [TeamController::class, 'index'])->name('teams.index');
 Route::get('/api/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
