@@ -11,3 +11,4 @@ Route::prefix('practices')->group(function () {
 });
 
 Route::post('/services/create', [ServiceController::class, 'store']);
+Route::delete('/services/delete/{name}', [ServiceController::class, 'deleteByName']);

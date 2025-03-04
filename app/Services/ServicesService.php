@@ -37,4 +37,8 @@ class ServicesService
     {
         return $this->serviceRepository->create($data);
 }
+public function deleteServiceByName($name): bool
+    {
+        return $this->serviceRepository->deleteByName($name);
+    }
 }
