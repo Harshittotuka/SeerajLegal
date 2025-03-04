@@ -18,6 +18,10 @@ use App\Http\Controllers\TeamController;
 //     Route::delete('/delete/{id}', [PracticeController::class, 'destroy']);
 // });
 
+
+Route::get('/api/services/list', [ServiceController::class, 'getServiceNames']);
+
+
 Route::get('/api/teams', [TeamController::class, 'index'])->name('teams.index');
 Route::get('/api/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
 Route::get('/api/teams/practice/{practice}', [TeamController::class, 'filterByPractice'])->name('teams.filterByPractice');
