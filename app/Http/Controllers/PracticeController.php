@@ -94,9 +94,16 @@ class PracticeController extends Controller
         $deletedRows = Practice::where('practice_name', $practice_name)->delete();
         
         if ($deletedRows > 0) {
-            return response()->json(['message' => "$deletedRows practice(s) deleted successfully!"]);
+            return response()->json([
+                'success' => true,  // ✅ Success flag
+                'message' => "$deletedRows practice(s) deleted successfully!"
+            ]);
         } else {
-            return response()->json(['message' => "No practices found with name: $practice_name"], 404);
+            return response()->json([
+                'success' => false,  // ❌ Failure flag
+                'message' => "No practices found with name: $practice_name"
+            ], 404);
         }
+        
     }
 }

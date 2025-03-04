@@ -1,21 +1,28 @@
 <div class="container-fluid overflow-hidden py-3">
     <div class="row g-4">
         <div class="ms-3">
-            
-            <div class="d-flex justify-content-between align-items-center ms-3 me-3">
-                <div>
-                    <h3 class="mb-0 h4 font-weight-bolder">Arbitration</h3>
-                    <p class="mb-4">Data</p>
-                </div>
-                <div class="me-3">
-                    <button class="btn btn-primary me-2">
-                        <i class="material-symbols-rounded">save</i> Save
-                    </button>
-                    <button class="btn btn-secondary">
-                        <i class="material-symbols-rounded">visibility</i> Preview
-                    </button>
+
+            <div class="container-fluid overflow-hidden py-3">
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center ms-3 me-3">
+                            <div class="mb-2 mb-md-0"> 
+                                <h3 class="mb-0 h4 font-weight-bolder">Name</h3>
+                                <p class="mb-4">Data</p>
+                            </div>
+                            <div class="d-flex flex-wrap">
+                                <button class="btn btn-primary me-2 mb-2" id="saveButton">
+                                    <i class="material-symbols-rounded">save</i> Save
+                                </button>
+                                <button class="btn btn-secondary mb-2">
+                                    <i class="material-symbols-rounded">visibility</i> Preview
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
 
             <div class="p-4 bg-white shadow rounded" style="max-width: 80%;">
                 <form>
@@ -50,8 +57,7 @@
                         </div>
                         <div class="mb-3 d-flex align-items-center">
                             <label class="me-3" style="width: 100px;">Paragraph:</label>
-                            <textarea class="form-control flex-grow-1 border-1 border-bottom" rows="2"
-                                placeholder="Enter paragraph"></textarea>
+                            <textarea class="form-control flex-grow-1 border-1 border-bottom" rows="2" placeholder="Enter paragraph"></textarea>
                         </div>
                         <div class="pointsContainer">
                             <div class="mb-3 d-flex align-items-center">
@@ -70,7 +76,7 @@
             </div>
 
             <script>
-                document.addEventListener("click", function (event) {
+                document.addEventListener("click", function(event) {
                     // Create a new form when clicking the plus button inside a form
                     if (event.target.classList.contains("addFormInside")) {
                         const currentForm = event.target.closest(".form-box"); // Get the form where the button was clicked
@@ -101,7 +107,7 @@
 <path d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
 </svg>
 `;
-                            deleteButton.addEventListener("click", function () {
+                            deleteButton.addEventListener("click", function() {
                                 if (newForm.nextElementSibling?.tagName === "BR") {
                                     newForm.nextElementSibling.remove(); // Remove associated <br> tag
                                 }
@@ -145,7 +151,6 @@
                         event.target.closest(".mb-3").remove();
                     }
                 });
-
             </script>
 
             <style>
@@ -194,7 +199,6 @@
                 .addFormInside:hover {
                     background-color: #0056b3;
                 }
-                
             </style>
 
         </div>

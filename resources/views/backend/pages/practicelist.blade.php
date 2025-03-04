@@ -110,157 +110,92 @@
         <!-- End Navbar -->
 
         <div class="container-fluid overflow-hidden py-2">
-            <div class="row g-4">
-
+            <div class="row g-4" id="practices-container">
                 <div class="ms-3">
                     <h3 class="mb-0 h4 font-weight-bolder">Practice</h3>
                     <p class="mb-4">What all Practices we provide.</p>
                 </div>
-
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 enabled">
-                    <div class="card">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Practice</p>
-                                    <h4 class="mb-0">Banking and Finance</h4>
-                                </div>
-                                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">account_balance</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4 </span>Banking Experts</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 enabled">
-                    <div class="card">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Practice</p>
-                                    <h4 class="mb-0">Criminal Law</h4>
-                                </div>
-                                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">gavel</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4 </span>Criminal Lawyers</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 enabled">
-                    <div class="card">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Practice</p>
-                                    <h4 class="mb-0">Private Firms</h4>
-                                </div>
-                                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">business</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4 </span>Legal Consultants</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 enabled">
-                    <div class="card">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Practice</p>
-                                    <h4 class="mb-0">Civil</h4>
-                                </div>
-                                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">balance</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4 </span>Civil Lawyers</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 enabled">
-                    <div class="card">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Practice</p>
-                                    <h4 class="mb-0">Real Estate & Construction</h4>
-                                </div>
-                                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">apartment</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4 </span>Property Lawyers</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 enabled">
-                    <div class="card">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Practice</p>
-                                    <h4 class="mb-0">Consumer Forums</h4>
-                                </div>
-                                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">support</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4 </span>Consumer Rights Lawyers</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                    <div class="card card1">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Add</p>
-                                    <h4 class="mb-0">Add Practices</h4>
-                                </div>
-                                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg"
-                                    style="cursor: pointer;">
-                                    <i class="material-symbols-rounded opacity-10">Add</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">5 </span> Services
-                                Practices</p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                fetch("http://127.0.0.1:8000/api/practices/list")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const practices = data.data;
+                            const container = document.getElementById("practices-container");
+
+                            // Define a constant icon for all practices
+                            const icon = "gavel"; // You can change this to any other Material Symbols icon
+
+                            practices.forEach(practice => {
+                                const cardHtml = `
+                                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 enabled">
+                                    <div class="card">
+                                        <div class="card-header p-2 ps-3">
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <p class="text-sm mb-0 text-capitalize">Practice</p>
+                                                    <h4 class="mb-0">${practice}</h4>
+                                                </div>
+                                                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                                    <i class="material-symbols-rounded opacity-10">${icon}</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="dark horizontal my-0">
+                                        <div class="card-footer p-2 ps-3">
+                                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4 </span>Experts</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+
+                                container.insertAdjacentHTML("beforeend", cardHtml);
+                            });
+
+                            // Add "Add Practices" Card
+                            const addPracticeCard = `
+                            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                                <div class="card card1">
+                                    <div class="card-header p-2 ps-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <p class="text-sm mb-0 text-capitalize">Add</p>
+                                                <h4 class="mb-0">Add Practices</h4>
+                                            </div>
+                                            <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg"
+                                                style="cursor: pointer;">
+                                                <i class="material-symbols-rounded opacity-10">${icon}</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="dark horizontal my-0">
+                                    <div class="card-footer p-2 ps-3">
+                                        <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">${practices.length} </span>Practices Currently</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                            container.insertAdjacentHTML("beforeend", addPracticeCard);
+                        } else {
+                            console.error("API response unsuccessful");
+                        }
+                    })
+                    .catch(error => console.error("Error fetching practices:", error));
+            });
+        </script>
+        <script>
+            document.addEventListener("click", function(event) {
+                const card = event.target.closest(".card1");
+                if (card) {
+                    window.open("/backend/practice/form", "_blank"); // Open in a new tab
+                }
+            });
+        </script>
 
         <!-- Custom Context Menu -->
         <!-- Custom Context Menu -->
@@ -277,15 +212,12 @@
 
             .card1:hover {
                 transform: translateY(-5px);
-                /* Moves the card up slightly */
                 box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-                /* Adds a lifted shadow */
             }
 
             .custom-menu {
                 display: none;
                 position: fixed;
-                /* Fixed to viewport to avoid scrolling */
                 background: white;
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
                 list-style: none;
@@ -293,7 +225,6 @@
                 border-radius: 5px;
                 z-index: 1000;
                 min-width: 120px;
-                border-radius: 5%;
             }
 
             .custom-menu li {
@@ -308,47 +239,126 @@
         </style>
 
         <script>
-            const cards = document.querySelectorAll(".card");
-            const menu = document.getElementById("custom-menu");
+            document.addEventListener("DOMContentLoaded", function() {
+                const menu = document.getElementById("custom-menu");
+                let selectedCard = null; // Stores the clicked card
 
-            cards.forEach(card => {
-                card.addEventListener("contextmenu", (event) => {
-                    event.preventDefault();
+                // Use event delegation for dynamically loaded cards
+                document.addEventListener("contextmenu", function(event) {
+                    if (event.target.closest(".card")) {
+                        event.preventDefault();
 
-                    // Get viewport width & height
-                    const viewportWidth = window.innerWidth;
-                    const viewportHeight = window.innerHeight;
+                        selectedCard = event.target.closest(".card"); // Store clicked card
 
-                    // Get menu dimensions
-                    const menuWidth = menu.offsetWidth;
-                    const menuHeight = menu.offsetHeight;
+                        // Get viewport width & height
+                        const viewportWidth = window.innerWidth;
+                        const viewportHeight = window.innerHeight;
 
-                    // Adjust position to prevent overflow
-                    let posX = event.clientX;
-                    let posY = event.clientY;
+                        // Get menu dimensions
+                        const menuWidth = menu.offsetWidth;
+                        const menuHeight = menu.offsetHeight;
 
-                    if (posX + menuWidth > viewportWidth) {
-                        posX -= menuWidth; // Move left if it overflows
+                        // Adjust position to prevent overflow
+                        let posX = event.clientX;
+                        let posY = event.clientY;
+
+                        if (posX + menuWidth > viewportWidth) {
+                            posX -= menuWidth;
+                        }
+                        if (posY + menuHeight > viewportHeight) {
+                            posY -= menuHeight;
+                        }
+
+                        menu.style.left = `${posX}px`;
+                        menu.style.top = `${posY}px`;
+                        menu.style.display = "block";
                     }
-                    if (posY + menuHeight > viewportHeight) {
-                        posY -= menuHeight; // Move up if it overflows
-                    }
-
-                    menu.style.left = `${posX}px`;
-                    menu.style.top = `${posY}px`;
-                    menu.style.display = "block";
                 });
-            });
 
-            document.addEventListener("click", () => {
-                menu.style.display = "none";
-            });
+                // Hide menu when clicking anywhere else
+                document.addEventListener("click", function() {
+                    menu.style.display = "none";
+                });
 
-            function handleOption(action) {
-                alert(`You clicked ${action}`);
-            }
+                // Close menu on 'Escape' key press
+                document.addEventListener("keydown", function(event) {
+                    if (event.key === "Escape") {
+                        menu.style.display = "none";
+                    }
+                });
+
+                // Handle menu actions
+                function handleOption(action) {
+                    if (!selectedCard) return;
+
+                    const practiceName = selectedCard.querySelector("h4").innerText
+                        .trim(); // Get practice name dynamically
+
+                    if (action === 'Delete') {
+                        if (!confirm(`Are you sure you want to delete ${practiceName}?`)) {
+                            return;
+                        }
+
+                        fetch(`http://127.0.0.1:8000/api/practices/delete/${practiceName}`, {
+                                method: "DELETE",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Remove the deleted card from DOM
+                                    selectedCard.remove();
+
+                                    // Show success notification
+                                    Toastify({
+                                        text: `Deleted ${practiceName} successfully!`,
+                                        duration: 3000,
+                                        gravity: "top",
+                                        position: "right",
+                                        backgroundColor: "linear-gradient(to right, #28a745, #218838)", // Green Success Color
+                                        stopOnFocus: true,
+                                    }).showToast();
+                                    window.location.reload();
+                                } else {
+                                    // Show error notification
+                                    Toastify({
+                                        text: `Failed to delete ${practiceName}! Try again.`,
+                                        duration: 3000,
+                                        gravity: "top",
+                                        position: "right",
+                                        backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
+                                        stopOnFocus: true,
+                                    }).showToast();
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                                Toastify({
+                                    text: "Something went wrong!",
+                                    duration: 3000,
+                                    gravity: "top",
+                                    position: "right",
+                                    backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
+                                    stopOnFocus: true,
+                                }).showToast();
+                            });
+                    }
+                }
+
+                
+                window.handleOption = handleOption; // Make function globally accessible
+            });
         </script>
+
     </main>
+
+
+    <!-- Include Toastify CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <!-- Include Toastify JS -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 
     <style>

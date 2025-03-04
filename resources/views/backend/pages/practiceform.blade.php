@@ -388,7 +388,66 @@
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-   
+   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("saveButton").addEventListener("click", function () {
+        const forms = document.querySelectorAll(".form-box"); // Get all form sections
+        let practiceName = document.getElementById("name").value; // Get main service name
+
+        let promises = [];
+
+        forms.forEach((form, index) => {
+            let title = form.querySelector("input[placeholder='Enter title']").value;
+            let para = form.querySelector("textarea[placeholder='Enter paragraph']").value;
+
+            // Collect points in an array
+            let points = [];
+            form.querySelectorAll(".pointsContainer input[placeholder='Enter point']").forEach(pointInput => {
+                if (pointInput.value.trim() !== "") {
+                    points.push(pointInput.value.trim());
+                }
+            });
+
+            // Collect "what we provide" values (if applicable, modify as needed)
+            let whatWeProvide = ["Legal advice", "Drafting contracts"]; // Hardcoded, change based on form input if needed
+
+            // Construct payload
+            let formData = {
+                practice_name: practiceName,
+                para_sno: index + 1, // Auto-increment para_sno
+                title: title,
+                para: para,
+                points: points,
+                what_we_provide: whatWeProvide
+            };
+
+            // Send POST request
+            let promise = fetch("http://127.0.0.1:8000/api/practices/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Success:", data);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+
+            promises.push(promise);
+        });
+
+        // Wait for all requests to finish
+        Promise.all(promises).then(() => {
+            alert("All data saved successfully!");
+        });
+    });
+});
+
+   </script>
     
 </body>
 
