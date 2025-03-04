@@ -43,4 +43,9 @@ class PracticeService
     {
         return $this->practiceRepository->delete($id);
     }
+    //toggle practice
+    public function togglePracticeFlag($practiceName)
+    {
+        return $this->practiceRepository->toggleFlag($practiceName);
+    }
 }
