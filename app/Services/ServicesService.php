@@ -32,4 +32,9 @@ class ServicesService
     {
         return $this->serviceRepository->fetchUniqueServiceNames();
     }
+
+    public function createService(array $data)
+    {
+        return $this->serviceRepository->create($data);
+}
 }

@@ -19,4 +19,10 @@ class ServiceRepository
     {
         return Service::select('service_name')->distinct()->pluck('service_name');
     }
+
+    public function create(array $data)
+    {
+        $data['points'] = json_encode($data['points'] ?? []);
+        return Service::create($data);
+    }
 }
