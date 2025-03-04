@@ -11,8 +11,8 @@ return new class extends Migration {
             $table->id(); // Auto-increment primary key
             $table->string('practice_name'); // Name of the practice
             $table->integer('para_sno'); // Serial number for paragraph
-            $table->string('title'); // Title of the paragraph
-            $table->text('para'); // Paragraph content
+            $table->string('title')->nullable(); // Title of the paragraph
+            $table->text('para')->nullable(); // Paragraph content
             $table->json('points')->nullable(); // Additional points
             $table->json('what_we_provide')->nullable(); // JSON field for what we provide
             $table->timestamps(); // Created at and Updated at timestamps

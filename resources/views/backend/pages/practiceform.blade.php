@@ -19,6 +19,11 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('assets/backend/css/material-dashboard.css?v=3.2.0') }}" rel="stylesheet" />
+    <!-- Include Toastify CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <!-- Include Toastify JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 </head>
 
@@ -133,43 +138,67 @@
 
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    
+
+
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("saveButton").addEventListener("click", function() {
-                const forms = document.querySelectorAll(".form-box"); // Get all form sections
-                let practiceName = document.getElementById("name").value; // Get main service name
+                const forms = document.querySelectorAll(".form-box");
+                let practiceName = document.getElementById("name").value.trim();
+
+                // Ensure practiceName is not empty
+                if (!practiceName) {
+                    showToast("Practice name is required.", "error");
+                    return;
+                }
 
                 let promises = [];
+                let validForms = 0; // Counter to check if any form is submitted
 
                 forms.forEach((form, index) => {
-                    let title = form.querySelector("input[placeholder='Enter title']").value;
-                    let para = form.querySelector("textarea[placeholder='Enter paragraph']").value;
+                    let title = form.querySelector("input[placeholder='Enter title']").value.trim();
+                    let para = form.querySelector("textarea[placeholder='Enter paragraph']").value
+                        .trim();
 
-                    // Collect points in an array
+                    // Convert empty values to "null"
+                    title = title === "" ? "null" : title;
+                    para = para === "" ? "null" : para;
+
                     let points = [];
                     form.querySelectorAll(".pointsContainer input[placeholder='Enter point']")
                         .forEach(pointInput => {
-                            if (pointInput.value.trim() !== "") {
-                                points.push(pointInput.value.trim());
-                            }
+                            let pointValue = pointInput.value.trim();
+                            points.push(pointValue === "" ? "null" : pointValue);
                         });
 
-                    // Collect "what we provide" values (if applicable, modify as needed)
-                    let whatWeProvide = ["Legal advice",
-                    "Drafting contracts"]; // Hardcoded, change based on form input if needed
+                    // If no points are provided, ensure at least ["null"]
+                    if (points.length === 0) {
+                        points = ["null"];
+                    }
 
-                    // Construct payload
+                    // Skip form if ALL three fields (title, para, points) are "null"
+                    if (title === "null" && para === "null" && points.every(p => p === "null")) {
+                        console.warn(`Skipping form ${index + 1} as all fields are null.`);
+                        return; // Do not send this form
+                    }
+
+                    validForms++; // Count valid forms
+
+                    let whatWeProvide = ["Legal advice",
+                        "Drafting contracts"
+                    ]; // Keep as per requirement
+
                     let formData = {
-                        practice_name: practiceName,
-                        para_sno: index + 1, // Auto-increment para_sno
+                        practice_name: practiceName, // Required field
+                        para_sno: index + 1,
                         title: title,
                         para: para,
                         points: points,
                         what_we_provide: whatWeProvide
                     };
 
-                    // Send POST request
+
                     let promise = fetch("http://127.0.0.1:8000/api/practices/create", {
                             method: "POST",
                             headers: {
@@ -183,18 +212,48 @@
                         })
                         .catch(error => {
                             console.error("Error:", error);
+                            showToast("Error saving data. Please try again.", "error");
                         });
 
                     promises.push(promise);
                 });
 
-                // Wait for all requests to finish
+                if (validForms === 0) {
+                    showToast("No valid forms to submit.", "error");
+                    return;
+                }
+
                 Promise.all(promises).then(() => {
-                    alert("All data saved successfully!");
+                    showToast("All valid data saved successfully!", "success");
+
+                    // Redirect to the given URL after a short delay
+                    setTimeout(() => {
+                        window.location.href =
+                            "http://127.0.0.1:8000/backend/practice/list";
+                    }, 2000); // 2-second delay for user to see success message
                 });
             });
+
+            // Function to show Toastify notifications
+            function showToast(message, type) {
+                Toastify({
+                    text: message,
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: type === "success" ? "green" : "red",
+                }).showToast();
+            }
         });
     </script>
+
+    </script>
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <!-- Toastify JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 </body>
 
