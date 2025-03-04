@@ -45,6 +45,54 @@ Route::get('/api/services', [ServiceController::class, 'index']);
 Route::get('/api/service/{name}', [ServiceController::class, 'show']);
 Route::get('/api/services/list', [ServiceController::class, 'getServiceNames']);
 
+
+
+
+
+
+Route::get('/backend/', function () {
+    return view('backend/index');
+})->name('backend.home');
+
+
+
+
+
+Route::get('/backend/service/form', function () {
+    return view('backend/pages/serviceform');
+})->name('backend.service.form');
+
+Route::get('/backend/service/list', function () {
+    return view('backend/pages/servicelist');
+})->name('backend.service.list');
+
+
+Route::get('/backend/practice/form', function () {
+    return view('backend/pages/practiceform');
+})->name('backend.practice.form');
+
+Route::get('/backend/practice/list', function () {
+    return view('backend/pages/practicelist');
+})->name('backend.practice.list');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Home Route
 Route::get('/', function () {
     return view('index');
