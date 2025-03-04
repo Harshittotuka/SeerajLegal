@@ -3,7 +3,8 @@ namespace App\Http\Controllers;
 
 use App\Services\PracticeService;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse; 
+use Illuminate\Http\JsonResponse;
+use App\Models\Practice; 
 
 class PracticeController extends Controller
 {
@@ -58,7 +59,7 @@ class PracticeController extends Controller
         $practiceNames = $this->practiceService->getPracticeNames();
         return response()->json(['success' => true, 'data' => $practiceNames]);
     }
-
+    //insert,update,delete
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -87,8 +88,15 @@ class PracticeController extends Controller
         return response()->json($this->practiceService->updatePractice($id, $data));
     }
 
-    public function destroy($id)
+    public function destroy($practice_name)
     {
-        return response()->json($this->practiceService->deletePractice($id));
+        
+        $deletedRows = Practice::where('practice_name', $practice_name)->delete();
+        
+        if ($deletedRows > 0) {
+            return response()->json(['message' => "$deletedRows practice(s) deleted successfully!"]);
+        } else {
+            return response()->json(['message' => "No practices found with name: $practice_name"], 404);
+        }
     }
 }
