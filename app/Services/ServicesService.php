@@ -11,7 +11,10 @@ class ServicesService
     {
         $this->serviceRepository = $serviceRepository;
     }
-
+    public function createService(array $data)
+    {
+        return $this->serviceRepository->create($data);
+}
     /**
      * Get all services.
      */
@@ -32,4 +35,7 @@ class ServicesService
     {
         return $this->serviceRepository->fetchUniqueServiceNames();
     }
+    
+
+   
 }

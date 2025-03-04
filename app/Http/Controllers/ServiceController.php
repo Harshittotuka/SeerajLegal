@@ -43,5 +43,20 @@ public function getServiceNames(): JsonResponse
     $serviceNames = $this->servicesService->getUniqueServiceNames();
     return response()->json(['success' => true, 'data' => $serviceNames]);
 }
+public function store(Request $request): JsonResponse
+{
+    $data = $request->validate([
+        'service_name' => 'required|string',
+        'para_sno' => 'required|integer',
+        'title' => 'nullable|string',
+        'para' => 'nullable|string',
+        'points' => 'nullable|array',
+        'rules' => 'nullable|string',
+    ]);
+
+    $service = $this->servicesService->createService($data);
+
+    return response()->json(['message' => 'Service created successfully', 'data' => $service], 201);
+}
 
 }

@@ -10,6 +10,10 @@ use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
 
+
+
+Route::post('/services/create', [ServiceController::class, 'store']);
+
 //apis for insert,update,delete in practice
 
 // Route::prefix('practices')->group(function () {
