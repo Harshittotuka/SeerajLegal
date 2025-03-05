@@ -170,7 +170,7 @@
                         .forEach(pointInput => {
                             let pointValue = pointInput.value.trim();
                             points.push(pointValue === "" ? null :
-                            pointValue); // Convert empty points to null
+                                pointValue); // Convert empty points to null
                         });
 
                     // Ensure points is always an array, even if empty
@@ -188,16 +188,18 @@
                     validForms++; // Count valid forms
 
                     let whatWeProvide = ["Legal advice",
-                    "Drafting contracts"]; // Keep as per requirement
+                        "Drafting contracts"
+                    ]; // Keep as per requirement
 
                     let formData = {
-    practice_name: practiceName, // Required field
-    para_sno: index + 1,
-    title: title === "null" ? null : title,
-    para: para === "null" ? null : para,
-    points: points.every(point => point === null) ? null : points.filter(point => point !== null), // Store as null if empty
-    what_we_provide: whatWeProvide
-};
+                        practice_name: practiceName, // Required field
+                        para_sno: index + 1,
+                        title: title === "null" ? null : title,
+                        para: para === "null" ? null : para,
+                        points: points.every(point => point === null) ? null : points.filter(
+                            point => point !== null), // Store as null if empty
+                        what_we_provide: whatWeProvide
+                    };
 
 
 
@@ -229,9 +231,9 @@
                     showToast("All valid data saved successfully!", "success");
 
                     // Redirect to the given URL after a short delay
-                    // setTimeout(() => {
-                    //     window.location.href = "http://127.0.0.1:8000/backend/practice/list";
-                    // }, 2000); // 2-second delay for user to see success message
+                    setTimeout(() => {
+                        window.location.href = "http://127.0.0.1:8000/backend/practice/list";
+                    }, 2000); // 2-second delay for user to see success message
                 });
             });
 
