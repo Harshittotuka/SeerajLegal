@@ -48,4 +48,17 @@ public function deleteServiceByName($name): bool
     {
         return $this->serviceRepository->deleteByName($name);
     }
+    public function updateService($serviceName, $newData)
+{
+   
+    $existingService = $this->serviceRepository->checkIfServiceExists($serviceName);
+
+    if (!$existingService) {
+        return ['success' => false, 'message' => 'No such service exists'];
+    }
+
+    return $this->serviceRepository->updateService($serviceName, $newData);
+}
+
+
 }

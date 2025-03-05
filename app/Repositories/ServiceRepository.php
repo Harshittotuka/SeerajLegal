@@ -52,6 +52,37 @@ class ServiceRepository
         return false;
     }
 }
+public function updateService($serviceName, $newData)
+{
+    $existingService = Service::where('service_name', $serviceName)->exists();
+
+    if (!$existingService) {
+        return ['success' => false, 'message' => 'No such service exists'];
+    }
+
+    // Remove existing records for the service
+    Service::where('service_name', $serviceName)->delete();
+
+    // Insert new records
+    foreach ($newData as $data) {
+        Service::create([
+            'service_name' => $serviceName,
+            'para_sno' => $data['para_sno'] ?? null,
+            'title' => $data['title'] ?? null,
+            'para' => $data['para'] ?? null,
+            'points' => isset($data['points']) ? json_encode($data['points']) : null,
+            'rules' => $data['rules'] ?? null,
+            'flag' => $data['flag'] ?? 'null',
+        ]);
+    }
+
+    return ['success' => true];
+}
+public function checkIfServiceExists($serviceName)
+{
+    return Service::where('service_name', $serviceName)->exists();
+}
+
 
 
 }

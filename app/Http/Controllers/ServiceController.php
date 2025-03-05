@@ -89,4 +89,19 @@ public function deleteByName($name): JsonResponse
         ], 404);
     }
 }
+public function update(Request $request, $serviceName)
+{ 
+    $validatedData = $request->validate([
+        'data' => 'required|array',
+    ]);
+
+    $result = $this->servicesService->updateService($serviceName, $validatedData['data']);
+
+    if ($result['success']) {
+        return response()->json(['success' => true, 'message' => 'Service updated successfully']);
+    } else {
+        return response()->json(['success' => false, 'message' => $result['message']], 404);
+    }
+}
+
 }
