@@ -119,22 +119,22 @@
         </div>
 
         <script>
-        document.addEventListener("DOMContentLoaded", function () {
-    fetch("http://127.0.0.1:8000/api/practices/list")
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const practices = data.data;
-                const container = document.getElementById("practices-container");
+            document.addEventListener("DOMContentLoaded", function() {
+                fetch("http://127.0.0.1:8000/api/practices/list")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const practices = data.data;
+                            const container = document.getElementById("practices-container");
 
-                // Define a constant icon for all practices
-                const icon = "gavel"; // Change this to any other Material Symbols icon
+                            // Define a constant icon for all practices
+                            const icon = "gavel"; // Change this to any other Material Symbols icon
 
-                practices.forEach(practice => {
-                    // Determine the class based on the flag
-                    const statusClass = practice.flag === "enabled" ? "enabled" : "disabled";
+                            practices.forEach(practice => {
+                                // Determine the class based on the flag
+                                const statusClass = practice.flag === "enabled" ? "enabled" : "disabled";
 
-                    const cardHtml = `
+                                const cardHtml = `
                         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 ${statusClass}">
                             <div class="card">
                                 <div class="card-header p-2 ps-3">
@@ -156,11 +156,11 @@
                         </div>
                     `;
 
-                    container.insertAdjacentHTML("beforeend", cardHtml);
-                });
+                                container.insertAdjacentHTML("beforeend", cardHtml);
+                            });
 
-                // Add "Add Practices" Card
-                const addPracticeCard = `
+                            // Add "Add Practices" Card
+                            const addPracticeCard = `
                     <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                         <div class="card card1">
                             <div class="card-header p-2 ps-3">
@@ -183,15 +183,15 @@
                     </div>
                 `;
 
-                container.insertAdjacentHTML("beforeend", addPracticeCard);
-            } else {
-                console.error("API response unsuccessful");
-            }
-        })
-        .catch(error => console.error("Error fetching practices:", error));
-});
-
+                            container.insertAdjacentHTML("beforeend", addPracticeCard);
+                        } else {
+                            console.error("API response unsuccessful");
+                        }
+                    })
+                    .catch(error => console.error("Error fetching practices:", error));
+            });
         </script>
+
         <script>
             document.addEventListener("click", function(event) {
                 const card = event.target.closest(".card1");
@@ -204,7 +204,7 @@
         <!-- Custom Context Menu -->
         <!-- Custom Context Menu -->
         <ul id="custom-menu" class="custom-menu">
-            <li onclick="handleOption('Disable')">Disable</li>
+            <li onclick="handleOption('Change Status')">Change Status</li>
             <li onclick="handleOption('Edit')">Edit</li>
             <li onclick="handleOption('Delete')">Delete</li>
         </ul>
@@ -296,7 +296,7 @@
                     if (!selectedCard) return;
 
                     const practiceName = selectedCard.querySelector("h4").innerText
-                        .trim(); // Get practice name dynamically
+                .trim(); // Get practice name dynamically
 
                     if (action === 'Delete') {
                         if (!confirm(`Are you sure you want to delete ${practiceName}?`)) {
@@ -348,10 +348,54 @@
                                     stopOnFocus: true,
                                 }).showToast();
                             });
+                    } else if (action === 'Change Status') {
+                        fetch(`http://127.0.0.1:8000/api/toggle-practice-flag/${encodeURIComponent(practiceName)}`, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Show success notification
+                                    Toastify({
+                                        text: `Status of ${practiceName} changed successfully!`,
+                                        duration: 3000,
+                                        gravity: "top",
+                                        position: "right",
+                                        backgroundColor: "linear-gradient(to right, #28a745, #218838)", // Green Success Color
+                                        stopOnFocus: true,
+                                    }).showToast();
+                                    window.location.reload();
+                                } else {
+                                    // Show error notification
+                                    Toastify({
+                                        text: `Failed to change status of ${practiceName}! Try again.`,
+                                        duration: 3000,
+                                        gravity: "top",
+                                        position: "right",
+                                        backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
+                                        stopOnFocus: true,
+                                    }).showToast();
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                                Toastify({
+                                    text: "Something went wrong!",
+                                    duration: 3000,
+                                    gravity: "top",
+                                    position: "right",
+                                    backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
+                                    stopOnFocus: true,
+                                }).showToast();
+                            });
                     }
                 }
 
-                
+
+
                 window.handleOption = handleOption; // Make function globally accessible
             });
         </script>
@@ -391,7 +435,7 @@
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('assets/backend/js/material-dashboard.min.js?v=3.2.0') }}"></script>
 
- 
+
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
