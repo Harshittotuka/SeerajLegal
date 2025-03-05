@@ -14,6 +14,17 @@ class ServiceController extends Controller
     {
         $this->servicesService = $servicesService;
     }
+//toggle api code
+public function toggleFlag($serviceName)
+{
+    if (!$serviceName) {
+        return response()->json(['message' => 'Service name is required'], 400);
+    }
+
+    $this->servicesService->toggleServiceFlag($serviceName);
+    return response()->json(['message' => 'Service flag updated successfully']);
+}
+
 
     /**
      * Fetch all services.

@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->text('para')->nullable();; // Paragraph content
             $table->json('points')->nullable(); // Points related to the service
             $table->text('rules')->nullable();; // JSON field for rules
+            $table->enum('flag', ['enabled', 'disabled','null'])->default('enabled'); // Flag to enable or disable the service
             $table->timestamps(); // Created at and Updated at timestamps
         });
     }
