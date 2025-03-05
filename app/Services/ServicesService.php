@@ -36,10 +36,16 @@ class ServicesService
     public function createService(array $data)
     {
         return $this->serviceRepository->create($data);
+
     }
     //toggle service
     public function toggleServiceFlag($serviceName)
     {
         return $this->serviceRepository->toggleFlag($serviceName);
+
+}
+public function deleteServiceByName($name): bool
+    {
+        return $this->serviceRepository->deleteByName($name);
     }
 }

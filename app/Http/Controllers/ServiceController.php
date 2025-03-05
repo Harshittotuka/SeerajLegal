@@ -73,4 +73,20 @@ public function store(Request $request): JsonResponse
 
     return response()->json(['message' => 'Service created successfully', 'data' => $service], 201);
 }
+public function deleteByName($name): JsonResponse
+{
+    $deleted = $this->servicesService->deleteServiceByName($name);
+
+    if ($deleted) {
+        return response()->json([
+            'success' => true,
+            'message' => 'Service deleted successfully'
+        ], 200);
+    } else {
+        return response()->json([
+            'success' => false,
+            'message' => 'Service not found'
+        ], 404);
+    }
+}
 }
