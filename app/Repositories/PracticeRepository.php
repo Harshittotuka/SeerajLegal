@@ -38,4 +38,11 @@ class PracticeRepository
     {
         return Practice::destroy($id);
     }
+    //toggle api
+    public function toggleFlag($practiceName)
+    {
+        $currentFlag = Practice::where('practice_name', $practiceName)->first()->flag;
+        $newFlag = $currentFlag === 'enabled' ? 'disabled' : 'enabled';
+        return Practice::where('practice_name', $practiceName)->first()->update(['flag' => $newFlag]);
+    }
 }

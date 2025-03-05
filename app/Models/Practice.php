@@ -13,12 +13,7 @@ class Practice extends Model
     protected $table = 'practices'; // Table name
 
     protected $fillable = [
-        'practice_name',
-        'para_sno',
-        'title',
-        'para',
-        'points',
-        'what_we_provide',
+        'practice_name','para_sno','title','para','points','what_we_provide','flag',
     ];
 
     protected $casts = [

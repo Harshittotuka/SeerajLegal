@@ -14,6 +14,17 @@ class ServiceController extends Controller
     {
         $this->servicesService = $servicesService;
     }
+//toggle api code
+public function toggleFlag($serviceName)
+{
+    if (!$serviceName) {
+        return response()->json(['message' => 'Service name is required'], 400);
+    }
+
+    $this->servicesService->toggleServiceFlag($serviceName);
+    return response()->json(['message' => 'Service flag updated successfully']);
+}
+
 
     /**
      * Fetch all services.
@@ -61,5 +72,21 @@ public function store(Request $request): JsonResponse
     $service = $this->servicesService->createService($data);
 
     return response()->json(['message' => 'Service created successfully', 'data' => $service], 201);
+}
+public function deleteByName($name): JsonResponse
+{
+    $deleted = $this->servicesService->deleteServiceByName($name);
+
+    if ($deleted) {
+        return response()->json([
+            'success' => true,
+            'message' => 'Service deleted successfully'
+        ], 200);
+    } else {
+        return response()->json([
+            'success' => false,
+            'message' => 'Service not found'
+        ], 404);
+    }
 }
 }

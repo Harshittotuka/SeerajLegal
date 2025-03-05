@@ -18,6 +18,7 @@ class ServicesSeeder extends Seeder
                 'para' => 'Conciliation is a method of alternative dispute resolution (ADR) where a neutral third party, called the conciliator, helps disputing parties to reach a mutually acceptable settlement.',
                 'points' =>null,
                 'rules' => null,
+                'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -33,6 +34,7 @@ class ServicesSeeder extends Seeder
                 ])
             ,
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -42,6 +44,7 @@ class ServicesSeeder extends Seeder
                 'para' => 'As conciliators, we act as neutral facilitators to assist parties in resolving their disputes amicably. Here’s how we can help you throughout the conciliation process.',
                 'points' => null,
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -55,6 +58,7 @@ class ServicesSeeder extends Seeder
                     'We create an environment that encourages open dialogue and constructive discussions.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -68,6 +72,7 @@ class ServicesSeeder extends Seeder
                     'By understanding each party’s perspective, we ensure that discussions remain focused and productive.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -81,6 +86,7 @@ class ServicesSeeder extends Seeder
                     'We offer impartial suggestions and options for resolving the dispute while maintaining neutrality.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -94,6 +100,7 @@ class ServicesSeeder extends Seeder
                     'We help you evaluate the practicality and fairness of the conciliator’s suggestions while keeping your goals in mind.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],  [
@@ -103,6 +110,7 @@ class ServicesSeeder extends Seeder
                 'para' => 'Arbitration is a form of alternative dispute resolution (ADR) used to resolve disputes outside of court. It involves parties in a dispute agreeing to present their case to a neutral third party, known as an arbitrator, who hears the arguments and evidence and makes a binding decision.',
                 'points' =>null,
                 'rules' => null,
+                'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -117,6 +125,7 @@ class ServicesSeeder extends Seeder
                     'It is commonly used in commercial, contractual, and trade disputes.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]
@@ -130,6 +139,7 @@ class ServicesSeeder extends Seeder
                 'para' => 'As arbitrators, our primary responsibility is to act as neutral decision-makers in the arbitration process, ensuring a fair, impartial, and efficient resolution to your dispute. Here’s how we can assist you:',
                 'points' => null,
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -143,6 +153,7 @@ class ServicesSeeder extends Seeder
                     'We ensure that the arbitration is conducted in compliance with the terms of the arbitration agreement and relevant laws.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -156,6 +167,7 @@ class ServicesSeeder extends Seeder
                     'We verify the scope of the arbitration, ensuring only the issues agreed upon by the parties are addressed.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -169,6 +181,7 @@ class ServicesSeeder extends Seeder
                     'We maintain neutrality, allowing for a balanced presentation of arguments, evidence, and witness testimony.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -182,6 +195,7 @@ class ServicesSeeder extends Seeder
                     'We may request additional clarifications or evidence where necessary to ensure a comprehensive understanding of the dispute.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -195,6 +209,7 @@ class ServicesSeeder extends Seeder
                     'In case a settlement is reached, we ensure it is documented properly and enforceable under the law.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -208,6 +223,7 @@ class ServicesSeeder extends Seeder
 'Our award is final and enforceable, providing a conclusive resolution to the dispute.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -221,6 +237,7 @@ class ServicesSeeder extends Seeder
                     'In case of challenges to the award, we ensure that the arbitration record reflects a fair and lawful process.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -231,6 +248,7 @@ class ServicesSeeder extends Seeder
                 'para' => "Lok Adalat (translated as 'People's Court') is a statutory forum in India that provides an alternative dispute resolution mechanism for resolving cases amicably.",
                 'points' => null,
                 'rules' => null,
+                'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -245,6 +263,7 @@ class ServicesSeeder extends Seeder
                     'Lok Adalat is a cost-effective forum for resolving disputes outside regular courts.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -257,6 +276,7 @@ class ServicesSeeder extends Seeder
                 'para' => 'As facilitators in Lok Adalat, we ensure that disputes are resolved amicably, fairly, and efficiently. Our focus is on helping both parties reach a mutually acceptable solution while reducing the burden of litigation.',
                 'points' => null,
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -270,6 +290,7 @@ class ServicesSeeder extends Seeder
                     'We help you understand the types of cases eligible for Lok Adalat and the binding nature of its awards.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -283,6 +304,7 @@ class ServicesSeeder extends Seeder
                     'We help identify common ground and promote fair compromise to resolve disputes amicably.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -296,6 +318,7 @@ class ServicesSeeder extends Seeder
                     'We provide clarity on how settling through Lok Adalat can be beneficial, saving time and resources.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -309,6 +332,7 @@ class ServicesSeeder extends Seeder
                     'Our role is to ensure both sides are heard and that the discussions remain focused on resolving the matter.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -322,6 +346,7 @@ class ServicesSeeder extends Seeder
                     'The settlement award is documented as per legal standards and made binding on both parties.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -335,6 +360,7 @@ class ServicesSeeder extends Seeder
                     'We ensure that all processes in Lok Adalat are conducted transparently and with mutual respect.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],  [
@@ -348,6 +374,7 @@ class ServicesSeeder extends Seeder
                     'Used in legal, business, and personal conflicts, it promotes mutually beneficial agreements.' ])
                ,
                 'rules' => null,
+                'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -358,6 +385,7 @@ class ServicesSeeder extends Seeder
                 'para' => 'As negotiators, we act as facilitators to help you reach an agreement that satisfies your needs and interests. Here’s how we can assist you throughout the negotiation process:',
                 'points' => null,
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -371,6 +399,7 @@ class ServicesSeeder extends Seeder
                     'We ensure that you are aware of the goals and strategies that can lead to a successful outcome.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -384,6 +413,7 @@ class ServicesSeeder extends Seeder
                     'We assist in developing negotiation strategies and tactics to maximize your chances of achieving a favorable outcome.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -397,6 +427,7 @@ class ServicesSeeder extends Seeder
                     'We help create a balanced, respectful environment where both parties feel heard and understood.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -410,6 +441,7 @@ class ServicesSeeder extends Seeder
                     'We help brainstorm mutually beneficial solutions and compromise points that satisfy both parties.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -423,6 +455,7 @@ class ServicesSeeder extends Seeder
                     'We help document the agreement, making sure it reflects the negotiated terms and is enforceable.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -436,6 +469,7 @@ class ServicesSeeder extends Seeder
  'We ensure that any agreements are properly implemented and assist in resolving any issues that may arise post-negotiation.'
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ], [
@@ -445,6 +479,7 @@ class ServicesSeeder extends Seeder
                 'para' => 'Mediation is another form of ADR where a neutral third party, called a mediator, facilitates discussions between disputing parties to help them reach a mutually acceptable resolution.',
                 'points' =>null,
                 'rules' => null,
+                'flag' => 'enabled', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -459,6 +494,7 @@ class ServicesSeeder extends Seeder
                     'It fosters communication to maintain relationships and resolve disputes.',
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
            
@@ -470,6 +506,7 @@ class ServicesSeeder extends Seeder
                 'para' => 'As mediators, our primary role is to facilitate effective communication between the disputing parties and guide them toward a mutually acceptable resolution. Here is how we can assist you:',
                 'points' => null,
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -483,6 +520,7 @@ class ServicesSeeder extends Seeder
                     'We will provide insights into legal and practical aspects of the dispute, ensuring you understand the negotiable points and what’s achievable.',
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -496,6 +534,7 @@ class ServicesSeeder extends Seeder
                     'We will help you anticipate the other party’s arguments and prepare strategies to effectively present your position.',
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -509,6 +548,7 @@ class ServicesSeeder extends Seeder
                     'We will ensure that the discussions remain constructive, and we will help both parties work toward favorable and realistic terms.',
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -522,6 +562,7 @@ class ServicesSeeder extends Seeder
                     'We will assist in drafting a clear, enforceable agreement that satisfies both parties.',
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -535,6 +576,7 @@ class ServicesSeeder extends Seeder
                     'We will provide guidance on the next steps to ensure that your rights and interests are protected.',
                 ]),
                 'rules' => null,
+                'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
             ]

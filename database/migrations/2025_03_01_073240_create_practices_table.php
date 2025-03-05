@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->text('para')->nullable(); // Paragraph content
             $table->json('points')->nullable(); // Additional points
             $table->json('what_we_provide')->nullable(); // JSON field for what we provide
+            $table->enum('flag', ['enabled', 'disabled','null'])->default('enabled'); // Flag to enable or disable the practice
             $table->timestamps(); // Created at and Updated at timestamps
         });
     }

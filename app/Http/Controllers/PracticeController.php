@@ -14,7 +14,17 @@ class PracticeController extends Controller
     {
         $this->practiceService = $practiceService;
     }
+
+    //toggle api code
+    public function toggleFlag($practiceName)
+    {
+        if (!$practiceName) {
+            return response()->json(['message' => 'Practice name is required'], 400);
+        }
     
+        $this->practiceService->togglePracticeFlag($practiceName);
+        return response()->json(['message' => 'Practice flag updated successfully']);
+    }
 
     // Fetch all practices
     public function index()
