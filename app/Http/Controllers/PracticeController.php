@@ -18,13 +18,22 @@ class PracticeController extends Controller
     //toggle api code
     public function toggleFlag($practiceName)
     {
+        // Check if practice name is provided
         if (!$practiceName) {
-            return response()->json(['message' => 'Practice name is required'], 400);
+            return response()->json(['success' => false, 'message' => 'Practice name is required'], 400);
         }
     
-        $this->practiceService->togglePracticeFlag($practiceName);
-        return response()->json(['message' => 'Practice flag updated successfully']);
+        // Attempt to toggle the practice flag
+        $success = $this->practiceService->togglePracticeFlag($practiceName);
+    
+        // Return JSON response with success status
+        if ($success) {
+            return response()->json(['success' => true, 'message' => 'Practice flag updated successfully']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Failed to update practice flag'], 500);
+        }
     }
+    
 
     // Fetch all practices
     public function index()
@@ -71,18 +80,46 @@ class PracticeController extends Controller
     }
     //insert,update,delete
     public function store(Request $request)
-    {
+{
+    try {
+        // Validate the request
         $data = $request->validate([
             'practice_name' => 'required|string',
             'para_sno' => 'required|integer',
-            'title' => 'required|string',
-            'para' => 'required|string',
+            'title' => 'nullable|string', // Allow nullable titles
+            'para' => 'nullable|string',  // Allow nullable paragraphs
             'points' => 'nullable|array',
             'what_we_provide' => 'nullable|array',
         ]);
 
-        return response()->json($this->practiceService->createPractice($data));
+        // Create practice using the service
+        $practice = $this->practiceService->createPractice($data);
+
+        // Return success response
+        return response()->json([
+            'success' => true,
+            'message' => 'Practice created successfully',
+            'data' => $practice
+        ], 201);
+
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        // Handle validation errors
+        return response()->json([
+            'success' => false,
+            'message' => 'Validation failed',
+            'errors' => $e->errors()
+        ], 422);
+
+    } catch (\Exception $e) {
+        // Handle general errors
+        return response()->json([
+            'success' => false,
+            'message' => 'Something went wrong',
+            'error' => $e->getMessage()
+        ], 500);
     }
+}
+
 
     public function update(Request $request, $id)
     {

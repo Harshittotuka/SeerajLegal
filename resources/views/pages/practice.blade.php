@@ -81,6 +81,7 @@
     });
 </script>
 <!-- Pass API URL from Laravel Blade to JavaScript -->
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
     let apiUrl = "{{ url('/api/practices/search?name=') . urlencode($practiceName) }}";
@@ -106,18 +107,24 @@ function updatePracticeAreas(practiceData) {
     let whatWeProvideContent = ""; // Store "What We Provide" section separately
 
     // Update the H1 title with the first practice name
-    if (practiceData.length > 0 && practiceData[0].title) {
+    if (practiceData.length > 0 && practiceData[0].title && practiceData[0].title !== "null") {
+
         practiceTitleMain.textContent = practiceData[0].practice_name;
     }
 
     practiceData.forEach(practice => {
-        let sectionHTML = `
-            <h4>${practice.title}</h4>
-            <p>${practice.para}</p>
-        `;
+        let sectionHTML = "";
+if (practice.title && practice.title !== "null") {
+    sectionHTML += `<h4>${practice.title}</h4>`;
+}
+if (practice.para && practice.para !== "null") {
+    sectionHTML += `<p>${practice.para}</p>`;
+}
+
 
         // If points exist, add them as a list
-        if (practice.points && practice.points.length > 0) {
+        if (practice.points && practice.points.length > 0 && practice.points.some(p => p && p !== "null")) {
+
             sectionHTML += `<ul class="page-list list-unstyled mb-60">`;
             practice.points.forEach(point => {
                 sectionHTML += `
@@ -133,7 +140,8 @@ function updatePracticeAreas(practiceData) {
         container.innerHTML += sectionHTML;
 
         // Store "What We Provide" section separately if available
-        if (practice.what_we_provide && practice.what_we_provide.length > 0) {
+        if (practice.what_we_provide && practice.what_we_provide.length > 0 && practice.what_we_provide.some(w => w && w !== "null")) {
+
             whatWeProvideContent = `
                 <br>
                 <div class="col-md-12 text-center mb-20">
