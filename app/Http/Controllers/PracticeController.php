@@ -121,18 +121,25 @@ class PracticeController extends Controller
 }
 
 
-    public function update(Request $request, $id)
+public function update(Request $request, $practiceName)
     {
-        $data = $request->validate([
-            'practice_name' => 'required|string',
-            'para_sno' => 'required|integer',
-            'title' => 'required|string',
-            'para' => 'required|string',
-            'points' => 'nullable|array',
+        $validated = $request->validate([
+            'paragraphs' => 'required|array',
+            'paragraphs.*.para_sno' => 'required|integer',
+            'paragraphs.*.title' => 'required|string',
+            'paragraphs.*.para' => 'required|string',
+            'paragraphs.*.points' => 'nullable|array',
             'what_we_provide' => 'nullable|array',
+            'flag' => 'nullable|in:enabled,disabled',
         ]);
 
-        return response()->json($this->practiceService->updatePractice($id, $data));
+        $result = $this->practiceService->updatePractice($practiceName, $validated);
+
+        if (!$result['success']) {
+            return response()->json(['success' => false, 'message' => $result['message']], 404);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Practice updated successfully']);
     }
 
     public function destroy($practice_name)

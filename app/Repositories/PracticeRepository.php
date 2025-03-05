@@ -30,13 +30,12 @@ class PracticeRepository
     {
         return Practice::create($data);
     }
-
-    public function update($id, array $data)
+    //update temporary code
+    public function deleteByPracticeName($practiceName)
     {
-        $practice = Practice::findOrFail($id);
-        $practice->update($data);
-        return $practice;
+        Practice::where('practice_name', $practiceName)->delete();
     }
+
 
     public function delete($id)
     {
