@@ -161,7 +161,7 @@
                     let para = form.querySelector("textarea[placeholder='Enter paragraph']").value
                         .trim();
 
-                    // Convert empty values to "null"
+                    // Convert empty values to null
                     title = title === "" ? "null" : title;
                     para = para === "" ? "null" : para;
 
@@ -169,16 +169,18 @@
                     form.querySelectorAll(".pointsContainer input[placeholder='Enter point']")
                         .forEach(pointInput => {
                             let pointValue = pointInput.value.trim();
-                            points.push(pointValue === "" ? "null" : pointValue);
+                            points.push(pointValue === "" ? null :
+                            pointValue); // Convert empty points to null
                         });
 
-                    // If no points are provided, ensure at least ["null"]
+                    // Ensure points is always an array, even if empty
                     if (points.length === 0) {
-                        points = ["null"];
+                        points = []; // Send an empty array instead of [null]
                     }
+                    console.log(points);
 
-                    // Skip form if ALL three fields (title, para, points) are "null"
-                    if (title === "null" && para === "null" && points.every(p => p === "null")) {
+                    // Skip form if ALL three fields (title, para, points) are null
+                    if (title === null && para === null && points.every(p => p === null)) {
                         console.warn(`Skipping form ${index + 1} as all fields are null.`);
                         return; // Do not send this form
                     }
@@ -186,17 +188,17 @@
                     validForms++; // Count valid forms
 
                     let whatWeProvide = ["Legal advice",
-                        "Drafting contracts"
-                    ]; // Keep as per requirement
+                    "Drafting contracts"]; // Keep as per requirement
 
                     let formData = {
-                        practice_name: practiceName, // Required field
-                        para_sno: index + 1,
-                        title: title,
-                        para: para,
-                        points: points,
-                        what_we_provide: whatWeProvide
-                    };
+    practice_name: practiceName, // Required field
+    para_sno: index + 1,
+    title: title === "null" ? null : title,
+    para: para === "null" ? null : para,
+    points: points.every(point => point === null) ? null : points.filter(point => point !== null), // Store as null if empty
+    what_we_provide: whatWeProvide
+};
+
 
 
                     let promise = fetch("http://127.0.0.1:8000/api/practices/create", {
@@ -227,10 +229,9 @@
                     showToast("All valid data saved successfully!", "success");
 
                     // Redirect to the given URL after a short delay
-                    setTimeout(() => {
-                        window.location.href =
-                            "http://127.0.0.1:8000/backend/practice/list";
-                    }, 2000); // 2-second delay for user to see success message
+                    // setTimeout(() => {
+                    //     window.location.href = "http://127.0.0.1:8000/backend/practice/list";
+                    // }, 2000); // 2-second delay for user to see success message
                 });
             });
 
