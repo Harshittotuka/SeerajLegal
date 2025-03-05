@@ -34,115 +34,126 @@
         </div>
     </div>
 
-<!-- Page -->
-<section class="page section-padding practice-areas animate-box">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-9 col-md-12" id="practice-content">
-                <!-- Content will be inserted here by JavaScript -->
-            </div>
-
-            <div class="col-lg-3 col-md-12">
-                <div class="sidebar custom-box">
-                    <h4>Related Practices</h4>
-                    <ul class="list-unstyled" id="relatedPracticesList">
-                        <!-- Dynamic content will be inserted here -->
-                    </ul>
+    <!-- Page -->
+    <section class="page section-padding practice-areas animate-box">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-9 col-md-12" id="practice-content">
+                    <!-- Content will be inserted here by JavaScript -->
                 </div>
+
+                <div class="col-lg-3 col-md-12">
+                    <div class="sidebar custom-box">
+                        <h4>Related Practices</h4>
+                        <ul class="list-unstyled" id="relatedPracticesList">
+                            <!-- Dynamic content will be inserted here -->
+                        </ul>
+                    </div>
+                </div>
+
             </div>
-
         </div>
-    </div>
-</section>
+    </section>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let currentService = "{{ $practiceName }}"; // Assuming this is passed from Laravel controller
-        let apiUrl = "http://127.0.0.1:8000/api/practices/list";
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let currentService = "{{ $practiceName }}"; // Assuming this is passed from Laravel controller
+            let apiUrl = "http://127.0.0.1:8000/api/practices/list";
 
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    let services = data.data;
-                    let listContainer = document.getElementById('relatedPracticesList');
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        let services = data.data;
+                        let listContainer = document.getElementById('relatedPracticesList');
 
-                    listContainer.innerHTML = ''; // Clear existing content
+                        listContainer.innerHTML = ''; // Clear existing content
 
-                    services.forEach(service => {
-                        let li = document.createElement('li');
-                        let isActive = (service.toLowerCase() === currentService.toLowerCase()) ? 'font-weight: bold;' : '';
-                        li.innerHTML = `<a href="{{ url('practice/') }}/${service}" style="${isActive}">${service}</a>`;
-                        listContainer.appendChild(li);
-                    });
-                }
-            })
-            .catch(error => console.error("Error fetching related services:", error));
-    });
-</script>
-<!-- Pass API URL from Laravel Blade to JavaScript -->
+                        services.forEach(service => {
+                            let li = document.createElement('li');
+                            let isActive = (service.practice_name.toLowerCase() === currentService
+                                .toLowerCase()) ? 'font-weight: bold;' : '';
+                            li.innerHTML =
+                                `<a href="{{ url('practice/') }}/${service.practice_name}" style="${isActive}">${service.practice_name}</a>`;
+                            listContainer.appendChild(li);
+                        });
+                    } else {
+                        console.error("Error: Data fetch was unsuccessful.");
+                    }
+                })
+                .catch(error => console.error("Error fetching related services:", error));
+        });
+    </script>
+    <!-- Pass API URL from Laravel Blade to JavaScript -->
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-    let apiUrl = "{{ url('/api/practices/search?name=') . urlencode($practiceName) }}";
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let apiUrl = "{{ url('/api/practices/search?name=') . urlencode($practiceName) }}";
 
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.success && data.data.length > 0) {
-                updatePracticeAreas(data.data);
-            } else {
-                document.getElementById("practice-content").innerHTML = "<p>No data available for this practice area.</p>";
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.data.length > 0) {
+                        updatePracticeAreas(data.data);
+                    } else {
+                        document.getElementById("practice-content").innerHTML =
+                            "<p>No data available for this practice area.</p>";
+                    }
+                })
+                .catch(error => console.error("Error fetching practice areas:", error));
+        });
+
+        function updatePracticeAreas(practiceData) {
+            let container = document.getElementById("practice-content");
+            let practiceTitleMain = document.getElementById("practiceeTitleMain");
+
+            container.innerHTML = ""; // Clear existing content
+
+            let whatWeProvideContent = ""; // Store "What We Provide" section separately
+
+            // Update the H1 title with the first practice name
+            if (practiceData.length > 0 && practiceData[0].title && practiceData[0].title !== "null") {
+
+                practiceTitleMain.textContent = practiceData[0].practice_name;
             }
-        })
-        .catch(error => console.error("Error fetching practice areas:", error));
-});
 
-function updatePracticeAreas(practiceData) {
-    let container = document.getElementById("practice-content");
-    let practiceTitleMain = document.getElementById("practiceeTitleMain");
-    
-    container.innerHTML = ""; // Clear existing content
-
-    let whatWeProvideContent = ""; // Store "What We Provide" section separately
-
-    // Update the H1 title with the first practice name
-    if (practiceData.length > 0 && practiceData[0].title && practiceData[0].title !== "null") {
-
-        practiceTitleMain.textContent = practiceData[0].practice_name;
-    }
-
-    practiceData.forEach(practice => {
-        let sectionHTML = "";
-if (practice.title && practice.title !== "null") {
-    sectionHTML += `<h4>${practice.title}</h4>`;
-}
-if (practice.para && practice.para !== "null") {
-    sectionHTML += `<p>${practice.para}</p>`;
-}
+            practiceData.forEach(practice => {
+                let sectionHTML = "";
+                if (practice.title && practice.title !== "null") {
+                    sectionHTML += `<h4>${practice.title}</h4>`;
+                }
+                if (practice.para && practice.para !== "null") {
+                    sectionHTML += `<p>${practice.para}</p>`;
+                }
 
 
-        // If points exist, add them as a list
-        if (practice.points && practice.points.length > 0 && practice.points.some(p => p && p !== "null")) {
+                // If points exist, add them as a list
+                if (practice.points && practice.points.length > 0 && practice.points.some(p => p && p !== "null")) {
 
-            sectionHTML += `<ul class="page-list list-unstyled mb-60">`;
-            practice.points.forEach(point => {
-                sectionHTML += `
+                    sectionHTML += `<ul class="page-list list-unstyled mb-60">`;
+                    practice.points.forEach(point => {
+                        sectionHTML += `
                     <li>
                         <div class="page-list-icon"><span class="ti-check"></span></div>
                         <div class="page-list-text"><p>${point}</p></div>
                     </li>
                 `;
-            });
-            sectionHTML += `</ul>`;
-        }
+                    });
+                    sectionHTML += `</ul>`;
+                }
 
-        container.innerHTML += sectionHTML;
+                container.innerHTML += sectionHTML;
 
-        // Store "What We Provide" section separately if available
-        if (practice.what_we_provide && practice.what_we_provide.length > 0 && practice.what_we_provide.some(w => w && w !== "null")) {
+                // Store "What We Provide" section separately if available
+                if (practice.what_we_provide && practice.what_we_provide.length > 0 && practice.what_we_provide
+                    .some(w => w && w !== "null")) {
 
-            whatWeProvideContent = `
+                    whatWeProvideContent = `
                 <br>
                 <div class="col-md-12 text-center mb-20">
                     <div class="section-title"><span>What we </span> Provide?</div>
@@ -151,8 +162,8 @@ if (practice.para && practice.para !== "null") {
                     <div class="col-md-12">
                         <div class="row">
             `;
-            practice.what_we_provide.forEach(service => {
-                whatWeProvideContent += `
+                    practice.what_we_provide.forEach(service => {
+                        whatWeProvideContent += `
                     <div class="col-lg-4 col-md-6">
                         <div class="item">
                             <a href="case-study-page.html"> 
@@ -163,19 +174,18 @@ if (practice.para && practice.para !== "null") {
                         </div>
                     </div>
                 `;
+                    });
+
+                    whatWeProvideContent += `</div></div></div>`;
+                }
             });
 
-            whatWeProvideContent += `</div></div></div>`;
+            // Append "What We Provide" at the END of the content
+            if (whatWeProvideContent !== "") {
+                container.innerHTML += whatWeProvideContent;
+            }
         }
-    });
-
-    // Append "What We Provide" at the END of the content
-    if (whatWeProvideContent !== "") {
-        container.innerHTML += whatWeProvideContent;
-    }
-}
-
-</script>
+    </script>
 
 
     <style>
