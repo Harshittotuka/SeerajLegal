@@ -48,7 +48,7 @@
                             <input type="text" class="form-control">
                         </div>
                     </div>
-                    <ul class="navbar-nav d-flex align-items-center  justify-content-end">
+                    <ul class="navbar-nav d-flex align-items-center justify-content-end">
 
                         <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
@@ -60,19 +60,18 @@
                             </a>
                         </li>
 
-
                         <li class="nav-item dropdown pe-3 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="material-symbols-rounded">notifications</i>
                             </a>
-                            <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
+                            <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
                                 aria-labelledby="dropdownMenuButton">
                                 <li class="mb-2">
                                     <a class="dropdown-item border-radius-md" href="javascript:;">
                                         <div class="d-flex py-1">
                                             <div class="my-auto">
-                                                <img src="../assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
+                                                <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 ">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="text-sm font-weight-normal mb-1">
@@ -86,8 +85,6 @@
                                         </div>
                                     </a>
                                 </li>
-
-
                             </ul>
                         </li>
 
@@ -110,154 +107,103 @@
         <!-- End Navbar -->
 
         <div class="container-fluid overflow-hidden py-2">
-            <div class="row g-4">
-
+            <div class="row g-4" id="services-container">
                 <div class="ms-3">
                     <h3 class="mb-0 h4 font-weight-bolder">Services</h3>
                     <p class="mb-4">What all services we provide.</p>
                 </div>
-
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 disabled">
-                    <div class="card">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Service</p>
-                                    <h4 class="mb-0">Arbitration</h4>
-                                </div>
-                                <div
-                                    class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">weekend</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4 </span>Arbitrators
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 enabled">
-                    <div class="card">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Service</p>
-                                    <h4 class="mb-0">Concilation</h4>
-                                </div>
-                                <div
-                                    class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">weekend</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4
-                                </span>Concilatiors
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 enabled">
-                    <div class="card">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Service</p>
-                                    <h4 class="mb-0">Mediation</h4>
-                                </div>
-                                <div
-                                    class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">weekend</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4 </span>Mediators
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 enabled">
-                    <div class="card">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Service</p>
-                                    <h4 class="mb-0">lok adalat</h4>
-                                </div>
-                                <div
-                                    class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">weekend</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4 </span>lok adalat
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 enabled">
-                    <div class="card">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Service</p>
-                                    <h4 class="mb-0">Negotiation</h4>
-                                </div>
-                                <div
-                                    class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">weekend</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4 </span>Negotiators
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                    <div class="card card1">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Add</p>
-                                    <h4 class="mb-0">Add Service</h4>
-                                </div>
-                                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg"
-                                    style="cursor: pointer;">
-                                    <i class="material-symbols-rounded opacity-10">Add</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">5 </span> Services
-                                Currently</p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                fetch("http://127.0.0.1:8000/api/services/list")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const services = data.data;
+                            const container = document.getElementById("services-container");
+                            const icon = "gavel"; // Change this to any other Material Symbols icon
+        
+                            services.forEach(service => {
+                                const statusClass = service.flag === "enabled" ? "enabled" : "disabled";
+                                const encodedServiceName = encodeURIComponent(service.service_name);
+                                const serviceUrl = `http://127.0.0.1:8000/backend/service/form?servicename=${encodedServiceName}`;
+        
+                                const cardHtml = `
+                                    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 ${statusClass}">
+                                        <a href="${serviceUrl}" target="_blank" style="text-decoration: none; color: inherit;">
+                                            <div class="card">
+                                                <div class="card-header p-2 ps-3">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div>
+                                                            <p class="text-sm mb-0 text-capitalize">Service</p>
+                                                            <h4 class="mb-0">${service.service_name}</h4>
+                                                        </div>
+                                                        <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                                            <i class="material-symbols-rounded opacity-10">${icon}</i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr class="dark horizontal my-0">
+                                                <div class="card-footer p-2 ps-3">
+                                                    <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4 </span>Experts</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                `;
+                                container.insertAdjacentHTML("beforeend", cardHtml);
+                            });
+        
+                            const addServiceUrl = "http://127.0.0.1:8000/backend/service/form";
+                            const addServiceCard = `
+                                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                                    <a href="${addServiceUrl}" target="_blank" style="text-decoration: none; color: inherit;">
+                                        <div class="card card1">
+                                            <div class="card-header p-2 ps-3">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <p class="text-sm mb-0 text-capitalize">Add</p>
+                                                        <h4 class="mb-0">Add Services</h4>
+                                                    </div>
+                                                    <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg" style="cursor: pointer;">
+                                                        <i class="material-symbols-rounded opacity-10">${icon}</i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="dark horizontal my-0">
+                                            <div class="card-footer p-2 ps-3">
+                                                <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">${services.length} </span>Services Currently</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            `;
+                            container.insertAdjacentHTML("beforeend", addServiceCard);
+                        } else {
+                            console.error("API response unsuccessful");
+                        }
+                    })
+                    .catch(error => console.error("Error fetching services:", error));
+            });
+        </script>
+        
+
+        <script>
+            document.addEventListener("click", function(event) {
+                const card = event.target.closest(".card1");
+                if (card) {
+                    window.open("/backend/service/form", "_blank"); // Open in a new tab
+                }
+            });
+        </script>
 
         <!-- Custom Context Menu -->
         <!-- Custom Context Menu -->
         <ul id="custom-menu" class="custom-menu">
-            <li onclick="handleOption('Disable')">Disable</li>
-            <li onclick="handleOption('Edit')">Edit</li>
+            <li onclick="handleOption('Change Status')">Change Status</li>
+            {{-- <li onclick="handleOption('Edit')">Edit</li> --}}
             <li onclick="handleOption('Delete')">Delete</li>
         </ul>
 
@@ -268,15 +214,12 @@
 
             .card1:hover {
                 transform: translateY(-5px);
-                /* Moves the card up slightly */
                 box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-                /* Adds a lifted shadow */
             }
 
             .custom-menu {
                 display: none;
                 position: fixed;
-                /* Fixed to viewport to avoid scrolling */
                 background: white;
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
                 list-style: none;
@@ -284,7 +227,6 @@
                 border-radius: 5px;
                 z-index: 1000;
                 min-width: 120px;
-                border-radius: 5%;
             }
 
             .custom-menu li {
@@ -298,48 +240,170 @@
             }
         </style>
 
-        <script>
-            const cards = document.querySelectorAll(".card");
-            const menu = document.getElementById("custom-menu");
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const menu = document.getElementById("custom-menu");
+        let selectedCard = null; // Stores the clicked card
 
-            cards.forEach(card => {
-                card.addEventListener("contextmenu", (event) => {
-                    event.preventDefault();
+        // Use event delegation for dynamically loaded cards
+        document.addEventListener("contextmenu", function(event) {
+            if (event.target.closest(".card")) {
+                event.preventDefault();
 
-                    // Get viewport width & height
-                    const viewportWidth = window.innerWidth;
-                    const viewportHeight = window.innerHeight;
+                selectedCard = event.target.closest(".card"); // Store clicked card
 
-                    // Get menu dimensions
-                    const menuWidth = menu.offsetWidth;
-                    const menuHeight = menu.offsetHeight;
+                // Get viewport width & height
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
 
-                    // Adjust position to prevent overflow
-                    let posX = event.clientX;
-                    let posY = event.clientY;
+                // Get menu dimensions
+                const menuWidth = menu.offsetWidth;
+                const menuHeight = menu.offsetHeight;
 
-                    if (posX + menuWidth > viewportWidth) {
-                        posX -= menuWidth; // Move left if it overflows
-                    }
-                    if (posY + menuHeight > viewportHeight) {
-                        posY -= menuHeight; // Move up if it overflows
-                    }
+                // Adjust position to prevent overflow
+                let posX = event.clientX;
+                let posY = event.clientY;
 
-                    menu.style.left = `${posX}px`;
-                    menu.style.top = `${posY}px`;
-                    menu.style.display = "block";
-                });
-            });
+                if (posX + menuWidth > viewportWidth) {
+                    posX -= menuWidth;
+                }
+                if (posY + menuHeight > viewportHeight) {
+                    posY -= menuHeight;
+                }
 
-            document.addEventListener("click", () => {
-                menu.style.display = "none";
-            });
-
-            function handleOption(action) {
-                alert(`You clicked ${action}`);
+                menu.style.left = `${posX}px`;
+                menu.style.top = `${posY}px`;
+                menu.style.display = "block";
             }
-        </script>
+        });
+
+        // Hide menu when clicking anywhere else
+        document.addEventListener("click", function() {
+            menu.style.display = "none";
+        });
+
+        // Close menu on 'Escape' key press
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                menu.style.display = "none";
+            }
+        });
+
+        // Handle menu actions
+        function handleOption(action) {
+            if (!selectedCard) return;
+
+            const serviceName = selectedCard.querySelector("h4").innerText
+                .trim(); // Get service name dynamically
+
+            if (action === 'Delete') {
+                if (!confirm(`Are you sure you want to delete ${serviceName}?`)) {
+                    return;
+                }
+
+                fetch(`http://127.0.0.1:8000/api/services/delete/${serviceName}`, {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Remove the deleted card from DOM
+                            selectedCard.remove();
+
+                            // Show success notification
+                            Toastify({
+                                text: `Deleted ${serviceName} successfully!`,
+                                duration: 3000,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "linear-gradient(to right, #28a745, #218838)", // Green Success Color
+                                stopOnFocus: true,
+                            }).showToast();
+                            window.location.reload();
+                        } else {
+                            // Show error notification
+                            Toastify({
+                                text: `Failed to delete ${serviceName}! Try again.`,
+                                duration: 3000,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
+                                stopOnFocus: true,
+                            }).showToast();
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        Toastify({
+                            text: "Something went wrong!",
+                            duration: 3000,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
+                            stopOnFocus: true,
+                        }).showToast();
+                    });
+            } else if (action === 'Change Status') {
+                fetch(`http://127.0.0.1:8000/api/toggle-service-flag/${encodeURIComponent(serviceName)}`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Show success notification
+                            Toastify({
+                                text: `Status of ${serviceName} changed successfully!`,
+                                duration: 3000,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "linear-gradient(to right, #28a745, #218838)", // Green Success Color
+                                stopOnFocus: true,
+                            }).showToast();
+                            window.location.reload();
+                        } else {
+                            // Show error notification
+                            Toastify({
+                                text: `Failed to change status of ${serviceName}! Try again.`,
+                                duration: 3000,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
+                                stopOnFocus: true,
+                            }).showToast();
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        Toastify({
+                            text: "Something went wrong!",
+                            duration: 3000,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
+                            stopOnFocus: true,
+                        }).showToast();
+                    });
+            }
+        }
+
+        window.handleOption = handleOption; // Make function globally accessible
+    });
+</script>
+
+
     </main>
+
+
+    <!-- Include Toastify CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <!-- Include Toastify JS -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 
     <style>
@@ -355,7 +419,7 @@
     </style>
 
 
-@include('backend.partials.bottomsettings')
+    @include('backend.partials.bottomsettings')
 
 
 
@@ -365,244 +429,10 @@
     <script src="{{ asset('assets/backend/js/plugins/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/plugins/smooth-scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/plugins/chartjs.min.js') }}"></script>
-     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('assets/backend/js/material-dashboard.min.js?v=3.2.0') }}"></script>
 
-    <script>
-        var ctx = document.getElementById("chart-bars").getContext("2d");
 
-        new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: ["M", "T", "W", "T", "F", "S", "S"],
-                datasets: [{
-                    label: "Views",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    borderRadius: 4,
-                    borderSkipped: false,
-                    backgroundColor: "#43A047",
-                    data: [50, 45, 22, 28, 50, 60, 76],
-                    barThickness: 'flex'
-                }, ],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5],
-                            color: '#e5e5e5'
-                        },
-                        ticks: {
-                            suggestedMin: 0,
-                            suggestedMax: 500,
-                            beginAtZero: true,
-                            padding: 10,
-                            font: {
-                                size: 14,
-                                lineHeight: 2
-                            },
-                            color: "#737373"
-                        },
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#737373',
-                            padding: 10,
-                            font: {
-                                size: 14,
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                },
-            },
-        });
-
-
-        var ctx2 = document.getElementById("chart-line").getContext("2d");
-
-        new Chart(ctx2, {
-            type: "line",
-            data: {
-                labels: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
-                datasets: [{
-                    label: "Sales",
-                    tension: 0,
-                    borderWidth: 2,
-                    pointRadius: 3,
-                    pointBackgroundColor: "#43A047",
-                    pointBorderColor: "transparent",
-                    borderColor: "#43A047",
-                    backgroundColor: "transparent",
-                    fill: true,
-                    data: [120, 230, 130, 440, 250, 360, 270, 180, 90, 300, 310, 220],
-                    maxBarThickness: 6
-
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    },
-                    tooltip: {
-                        callbacks: {
-                            title: function(context) {
-                                const fullMonths = ["January", "February", "March", "April", "May", "June",
-                                    "July", "August", "September", "October", "November", "December"
-                                ];
-                                return fullMonths[context[0].dataIndex];
-                            }
-                        }
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [4, 4],
-                            color: '#e5e5e5'
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#737373',
-                            padding: 10,
-                            font: {
-                                size: 12,
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#737373',
-                            padding: 10,
-                            font: {
-                                size: 12,
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                },
-            },
-        });
-
-        var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
-
-        new Chart(ctx3, {
-            type: "line",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Tasks",
-                    tension: 0,
-                    borderWidth: 2,
-                    pointRadius: 3,
-                    pointBackgroundColor: "#43A047",
-                    pointBorderColor: "transparent",
-                    borderColor: "#43A047",
-                    backgroundColor: "transparent",
-                    fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                    maxBarThickness: 6
-
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [4, 4],
-                            color: '#e5e5e5'
-                        },
-                        ticks: {
-                            display: true,
-                            padding: 10,
-                            color: '#737373',
-                            font: {
-                                size: 14,
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [4, 4]
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#737373',
-                            padding: 10,
-                            font: {
-                                size: 14,
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                },
-            },
-        });
-    </script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -614,8 +444,8 @@
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-   
-    
+
+
 </body>
 
 </html>

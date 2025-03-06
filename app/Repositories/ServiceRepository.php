@@ -15,9 +15,21 @@ class ServiceRepository
     {
         return Service::where('service_name', $name)->get(); // Fetch all matching records
     }
+    public function getPracticeNames()
+    {
+        return Practice::where('para_sno', 1) // Filter records where para_sno = 1
+        ->select('id', 'practice_name', 'flag') // Select required columns
+        ->groupBy('practice_name', 'id', 'flag') // Group by practice_name to get unique ones
+        ->orderBy('id') // Order by ID to get the first inserted record
+        ->get();
+    }
     public function fetchUniqueServiceNames()
     {
-        return Service::select('service_name')->distinct()->pluck('service_name');
+        return Service::where('para_sno', 1) // Filter records where para_sno = 1
+        ->select('id', 'service_name', 'flag') // Select required columns
+        ->groupBy('service_name', 'id', 'flag') // Group by practice_name to get unique ones
+        ->orderBy('id') // Order by ID to get the first inserted record
+        ->get();
     }
 
     public function create(array $data)
