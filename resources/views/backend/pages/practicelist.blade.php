@@ -119,77 +119,89 @@
         </div>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                fetch("http://127.0.0.1:8000/api/practices/list")
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const practices = data.data;
-                            const container = document.getElementById("practices-container");
+         document.addEventListener("DOMContentLoaded", function() {
+    fetch("http://127.0.0.1:8000/api/practices/list")
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const practices = data.data;
+                const container = document.getElementById("practices-container");
 
-                            // Define a constant icon for all practices
-                            const icon = "gavel"; // Change this to any other Material Symbols icon
+                // Define a constant icon for all practices
+                const icon = "gavel"; // Change this to any other Material Symbols icon
 
-                            practices.forEach(practice => {
-                                // Determine the class based on the flag
-                                const statusClass = practice.flag === "enabled" ? "enabled" : "disabled";
+                practices.forEach(practice => {
+                    // Determine the class based on the flag
+                    const statusClass = practice.flag === "enabled" ? "enabled" : "disabled";
 
-                                const cardHtml = `
+                    // URL-encode the practice name
+                    const encodedPracticeName = encodeURIComponent(practice.practice_name);
+
+                    // Construct the URL with the practice name as a query parameter
+                    const practiceUrl = `http://127.0.0.1:8000/backend/practice/form?practicename=${encodedPracticeName}`;
+
+                    const cardHtml = `
                         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 ${statusClass}">
-                            <div class="card">
-                                <div class="card-header p-2 ps-3">
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <p class="text-sm mb-0 text-capitalize">Practice</p>
-                                            <h4 class="mb-0">${practice.practice_name}</h4>
+                            <a href="${practiceUrl}" target="_blank" style="text-decoration: none; color: inherit;">
+                                <div class="card">
+                                    <div class="card-header p-2 ps-3">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <p class="text-sm mb-0 text-capitalize">Practice</p>
+                                                <h4 class="mb-0">${practice.practice_name}</h4>
+                                            </div>
+                                            <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                                <i class="material-symbols-rounded opacity-10">${icon}</i>
+                                            </div>
                                         </div>
-                                        <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                    </div>
+                                    <hr class="dark horizontal my-0">
+                                    <div class="card-footer p-2 ps-3">
+                                        <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4 </span>Experts</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    `;
+
+                    container.insertAdjacentHTML("beforeend", cardHtml);
+                });
+
+                // Add "Add Practices" Card
+                const addPracticeUrl = "http://127.0.0.1:8000/backend/practice/form";
+                const addPracticeCard = `
+                    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                        <a href="${addPracticeUrl}" target="_blank" style="text-decoration: none; color: inherit;">
+                            <div class="card card1">
+                                <div class="card-header p-2 ps-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <p class="text-sm mb-0 text-capitalize">Add</p>
+                                            <h4 class="mb-0">Add Practices</h4>
+                                        </div>
+                                        <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg"
+                                            style="cursor: pointer;">
                                             <i class="material-symbols-rounded opacity-10">${icon}</i>
                                         </div>
                                     </div>
                                 </div>
                                 <hr class="dark horizontal my-0">
                                 <div class="card-footer p-2 ps-3">
-                                    <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4 </span>Experts</p>
+                                    <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">${practices.length} </span>Practices Currently</p>
                                 </div>
                             </div>
-                        </div>
-                    `;
-
-                                container.insertAdjacentHTML("beforeend", cardHtml);
-                            });
-
-                            // Add "Add Practices" Card
-                            const addPracticeCard = `
-                    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                        <div class="card card1">
-                            <div class="card-header p-2 ps-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <p class="text-sm mb-0 text-capitalize">Add</p>
-                                        <h4 class="mb-0">Add Practices</h4>
-                                    </div>
-                                    <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg"
-                                        style="cursor: pointer;">
-                                        <i class="material-symbols-rounded opacity-10">${icon}</i>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="dark horizontal my-0">
-                            <div class="card-footer p-2 ps-3">
-                                <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">${practices.length} </span>Practices Currently</p>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 `;
 
-                            container.insertAdjacentHTML("beforeend", addPracticeCard);
-                        } else {
-                            console.error("API response unsuccessful");
-                        }
-                    })
-                    .catch(error => console.error("Error fetching practices:", error));
-            });
+                container.insertAdjacentHTML("beforeend", addPracticeCard);
+            } else {
+                console.error("API response unsuccessful");
+            }
+        })
+        .catch(error => console.error("Error fetching practices:", error));
+});
+
         </script>
 
         <script>

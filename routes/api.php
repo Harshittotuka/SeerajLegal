@@ -8,6 +8,9 @@ use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
+
+
+
 //toggle api for service and practices(nova)
 
 Route::post('/toggle-service-flag/{service_name}', [ServiceController::class, 'toggleFlag']);
@@ -24,3 +27,6 @@ Route::prefix('practices')->group(function () {
 Route::post('/services/create', [ServiceController::class, 'store']);
 Route::delete('/services/delete/{name}', [ServiceController::class, 'deleteByName']);
 Route::post('/services/update/{serviceName}', [ServiceController::class, 'update']);
+
+Route::post('/teams/create', [TeamController::class, 'create']);
+Route::delete('/teams/{id}', [TeamController::class, 'delete']);

@@ -24,4 +24,18 @@ class TeamRepository
     {
         return Team::whereJsonContains('adr_services', $service)->get();
     }
+    public function create(array $data)
+    {
+        return Team::create($data);
+    }
+   
+    public function deleteById($id)
+    {
+        return Team::destroy($id);
+    }
+
+    public function findById($id)
+    {
+        return Team::find($id);
+    }
 }
