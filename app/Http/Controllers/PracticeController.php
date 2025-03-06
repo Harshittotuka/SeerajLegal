@@ -80,54 +80,56 @@ class PracticeController extends Controller
     }
     //insert,update,delete
     public function store(Request $request)
-{
-    try {
-        // Validate the request
-        $data = $request->validate([
-            'practice_name' => 'required|string',
-            'para_sno' => 'required|integer',
-            'title' => 'nullable|string', // Allow nullable titles
-            'para' => 'nullable|string',  // Allow nullable paragraphs
-            'points' => 'nullable|array',
-            'what_we_provide' => 'nullable|array',
-        ]);
-
-        // Create practice using the service
-        $practice = $this->practiceService->createPractice($data);
-
-        // Return success response
-        return response()->json([
-            'success' => true,
-            'message' => 'Practice created successfully',
-            'data' => $practice
-        ], 201);
-
-    } catch (\Illuminate\Validation\ValidationException $e) {
-        // Handle validation errors
-        return response()->json([
-            'success' => false,
-            'message' => 'Validation failed',
-            'errors' => $e->errors()
-        ], 422);
-
-    } catch (\Exception $e) {
-        // Handle general errors
-        return response()->json([
-            'success' => false,
-            'message' => 'Something went wrong',
-            'error' => $e->getMessage()
-        ], 500);
+    {
+        try {
+            // Validate the request
+            $data = $request->validate([
+                'practice_name' => 'required|string',
+                'paragraphs' => 'nullable|array',
+                'paragraphs.*.para_sno' => 'nullable|integer',
+                'paragraphs.*.title' => 'nullable|string',
+                'paragraphs.*.para' => 'nullable|string',
+                'paragraphs.*.points' => 'nullable|array',
+                'what_we_provide' => 'nullable|array',
+                'flag' => 'string'
+            ]);
+    
+            // Create practices using the service
+            $practice = $this->practiceService->createPractices($data);
+    
+            // Return success response
+            return response()->json([
+                'success' => true,
+                'message' => 'Practices created successfully',
+                'data' => $practice
+            ], 201);
+    
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $e->errors()
+            ], 422);
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
-}
+    
 
 
 public function update(Request $request, $practiceName)
     {
         $validated = $request->validate([
-            'paragraphs' => 'required|array',
-            'paragraphs.*.para_sno' => 'required|integer',
-            'paragraphs.*.title' => 'required|string',
-            'paragraphs.*.para' => 'required|string',
+            'practice_name' => 'required|string',
+            'paragraphs' => 'nullable|array',
+            'paragraphs.*.para_sno' => 'nullable|integer',
+            'paragraphs.*.title' => 'nullable|string',
+            'paragraphs.*.para' => 'nullable|string',
             'paragraphs.*.points' => 'nullable|array',
             'what_we_provide' => 'nullable|array',
             'flag' => 'nullable|in:enabled,disabled',

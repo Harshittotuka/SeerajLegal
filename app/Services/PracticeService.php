@@ -30,10 +30,31 @@ class PracticeService
     }
 
     //insert,update,delete
-    public function createPractice(array $data)
-    {
-        return $this->practiceRepository->create($data);
+   public function createPractices(array $data)
+{
+    $createdPractices = [];
+
+    foreach ($data['paragraphs'] as $paragraph) {
+        $createdPractice = $this->practiceRepository->create([
+            'practice_name' => $data['practice_name'],  // Corrected to use provided practice name
+            'para_sno' => $paragraph['para_sno'],
+            'title' => $paragraph['title'],
+            'para' => $paragraph['para'],
+            'points' => json_encode($paragraph['points'] ?? []), // Ensure points are stored properly
+            'what_we_provide' => json_encode($data['what_we_provide'] ?? []), // Store as JSON
+            'flag' => $data['flag'] ?? 'enabled',
+        ]);
+
+        $createdPractices[] = $createdPractice;
     }
+
+    return [
+        'success' => true,
+        'message' => 'Practices created successfully',
+        'data' => $createdPractices
+    ];
+}
+
 
     public function updatePractice($practiceName, $data)
     {
@@ -47,7 +68,7 @@ class PracticeService
 
         foreach ($data['paragraphs'] as $paragraph) {
             $this->practiceRepository->create([
-                'practice_name' => $practiceName,
+                'practice_name' => $data['practice_name'],  // Corrected to use provided practice name
                 'para_sno' => $paragraph['para_sno'],
                 'title' => $paragraph['title'],
                 'para' => $paragraph['para'],

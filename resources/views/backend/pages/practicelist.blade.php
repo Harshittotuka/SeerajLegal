@@ -217,7 +217,7 @@
         <!-- Custom Context Menu -->
         <ul id="custom-menu" class="custom-menu">
             <li onclick="handleOption('Change Status')">Change Status</li>
-            <li onclick="handleOption('Edit')">Edit</li>
+            {{-- <li onclick="handleOption('Edit')">Edit</li> --}}
             <li onclick="handleOption('Delete')">Delete</li>
         </ul>
 
