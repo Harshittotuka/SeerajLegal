@@ -30,3 +30,4 @@ Route::post('/services/update/{serviceName}', [ServiceController::class, 'update
 
 Route::post('/teams/create', [TeamController::class, 'create']);
 Route::delete('/teams/{id}', [TeamController::class, 'delete']);
+Route::put('/teams/{id}', [TeamController::class, 'update']);

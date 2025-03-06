@@ -38,4 +38,14 @@ class TeamRepository
     {
         return Team::find($id);
     }
+    public function update($id, array $data)
+    {
+        $team = $this->findById($id);
+        if (!$team) {
+            return null;
+        }
+
+        $team->update($data);
+        return $team;
+    }
 }
