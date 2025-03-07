@@ -33,15 +33,15 @@ class PracticeService
    public function createPractices(array $data)
 {
     $createdPractices = [];
-
+  
     foreach ($data['paragraphs'] as $paragraph) {
         $createdPractice = $this->practiceRepository->create([
             'practice_name' => $data['practice_name'],  // Corrected to use provided practice name
             'para_sno' => $paragraph['para_sno'],
             'title' => $paragraph['title'],
             'para' => $paragraph['para'],
-            'points' => json_encode($paragraph['points'] ?? []), // Ensure points are stored properly
-            'what_we_provide' => json_encode($data['what_we_provide'] ?? []), // Store as JSON
+            'points' => $paragraph['points'] ?? [], // Ensure points are stored properly
+            'what_we_provide' => $data['what_we_provide'] ?? [], // Store as JSON
             'flag' => $data['flag'] ?? 'enabled',
         ]);
 

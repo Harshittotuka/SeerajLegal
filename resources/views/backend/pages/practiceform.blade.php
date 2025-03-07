@@ -323,7 +323,8 @@
                         console.warn(`Skipping form ${index + 1} as all fields are empty.`);
                         return;
                     }
-
+                    
+                    
                     validForms++; // Count valid forms
 
                     paragraphs.push({
