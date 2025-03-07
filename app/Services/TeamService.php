@@ -63,4 +63,11 @@ class TeamService
 
         return ['success' => true, 'message' => 'Team member updated successfully', 'data' => $updatedTeam];
     }
+
+    public function getFilteredTeams(array $adrServices, array $areaOfPractice)
+    {
+        return $this->teamRepository->filterTeams($adrServices, $areaOfPractice);
     }
+}
+    
+

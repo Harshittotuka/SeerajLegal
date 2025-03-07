@@ -60,7 +60,19 @@ public function delete($id)
 {
     $response = $this->teamService->deleteTeam($id);
 
-    return response()->json($response, $response['success'] ? 200 : 404);
+    return response()->json($response, $response['success'] ? 200 : 4
+public function filterTeams(Request $request)
+{
+    $adrServices = $request->input('adr_services', []);
+    $areaOfPractice = $request->input('area_of_practice', []);
+
+    if (!is_array($adrServices) || !is_array($areaOfPractice)) {
+        return response()->json(['error' => 'Invalid input format. Arrays expected.'], 400);
+    }
+
+    $teams = $this->teamService->getFilteredTeams($adrServices, $areaOfPractice);
+
+    return response()->json($teams);
 }
 public function update(Request $request, $id)
 {
@@ -83,7 +95,5 @@ public function update(Request $request, $id)
             'message' => 'Validation error',
             'errors' => $e->errors(),
         ], 422);
-    }
-}
-
+ 
 }
