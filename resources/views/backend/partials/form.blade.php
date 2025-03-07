@@ -25,7 +25,7 @@
             
 
             <div class="p-4 bg-white shadow rounded" style="max-width: 80%;">
-                <form>
+                <form id="formContainer">
                     <div class="mb-3 d-flex align-items-center">
                         <label for="name" class="me-3" style="width: 100px;">Service Name:</label>
                         <input type="text" class="form-control border-2 border-bottom" id="name"

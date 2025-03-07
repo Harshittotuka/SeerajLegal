@@ -24,3 +24,6 @@ Route::prefix('practices')->group(function () {
 Route::post('/services/create', [ServiceController::class, 'store']);
 Route::delete('/services/delete/{name}', [ServiceController::class, 'deleteByName']);
 Route::post('/services/update/{serviceName}', [ServiceController::class, 'update']);
+Route::get('/teams/adr/{adrService}', [TeamController::class, 'getTeamsByADRService']);
+Route::get('/teams/practice/{practice}', [TeamController::class, 'getByPractice']);
+Route::get('/teams/adr/{adrService}', [TeamController::class, 'getTeamsByADRServices']);

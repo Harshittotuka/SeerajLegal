@@ -24,4 +24,12 @@ class TeamRepository
     {
         return Team::whereJsonContains('adr_services', $service)->get();
     }
+    public function getByPractice($practice)
+    {
+        return Team::whereJsonContains('area_of_practice', $practice)->get();
+    }
+    public function getTeamsByADRServices($adrService)
+    {
+        return Team::whereJsonContains('adr_services', $adrService)->get();
+    }
 }

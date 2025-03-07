@@ -140,6 +140,155 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const practiceName = urlParams.get("practicename");
+
+            if (!practiceName) {
+                console.error("Practice name not found in URL");
+                return;
+            }
+
+            fetch(`http://127.0.0.1:8000/api/practices/search?name=${encodeURIComponent(practiceName)}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Fetched Data:", data);
+
+                    if (!data.success || !Array.isArray(data.data)) {
+                        console.error("Invalid response format");
+                        return;
+                    }
+
+                    populateForm(data.data);
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                });
+        });
+
+        function populateForm(practiceData) {
+            const formContainer = document.getElementById("formContainer");
+            const formsContainer = document.getElementById("formsContainer");
+
+            if (!formContainer || !formsContainer) {
+                console.error("Form containers not found in the DOM.");
+                return;
+            }
+
+            // Clear previous form data
+            formsContainer.innerHTML = "";
+
+            // Populate Service Name, Image, and Icon (Assuming the first practice contains these)
+            if (practiceData.length > 0) {
+                document.getElementById("name").value = practiceData[0].practice_name || "";
+                document.getElementById("Image").value = practiceData[0].image || "";
+                document.getElementById("Icon").value = practiceData[0].icon || "";
+            }
+
+            // Populate dynamic forms for each practice
+            practiceData.forEach((practice, index) => {
+                let formHtml = `
+            <div class="p-4 bg-white shadow rounded form-box position-relative" style="max-width: 80%;">
+                <h5 class="mb-3">Section ${index + 1}</h5>
+                <form>
+                    <div class="mb-3 d-flex align-items-center">
+                        <label class="me-3" style="width: 100px;">Title:</label>
+                        <input type="text" class="form-control flex-grow-1 border-1 border-bottom"
+                            value="${practice.title || ''}" placeholder="Enter title">
+                    </div>
+                    <div class="mb-3 d-flex align-items-center">
+                        <label class="me-3" style="width: 100px;">Paragraph:</label>
+                        <textarea class="form-control flex-grow-1 border-1 border-bottom" rows="2"
+                            placeholder="Enter paragraph">${practice.para || ''}</textarea>
+                    </div>
+                    <div class="pointsContainer">
+                        <div class="mb-3 d-flex align-items-center">
+                            <label class="me-3" style="width: 100px;">Points:</label>
+                            <div class="flex-grow-1 d-flex">
+                                <input type="text" class="form-control border-1 border-bottom"
+                                    value="${practice.points?.[0] || ''}" placeholder="Enter point">
+                                <button type="button" class="btn btn-success ms-2 addPoint">+</button>
+                            </div>
+                        </div>
+                        ${practice.points?.slice(1).map(point => `
+                                <div class="mb-3 d-flex align-items-center">
+                                    <label class="me-3" style="width: 100px;"></label>
+                                    <div class="flex-grow-1 d-flex">
+                                        <input type="text" class="form-control border-1 border-bottom"
+                                            value="${point}" placeholder="Enter point">
+                                        <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
+                                    </div>
+                                </div>
+                            `).join('') || ''}
+                    </div>
+                </form>
+                
+                <button class="btn btn-primary addFormInside">+</button>
+              ${index !== 0 ? `
+    <button class="btn btn-danger delete-form">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
+            <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
+        </svg>
+    </button>` : ''}
+
+            </div>
+            <br>
+            <br>
+        `;
+
+                formsContainer.innerHTML += formHtml;
+            });
+
+            attachEventListeners();
+        }
+
+        // Function to attach event listeners for adding/removing forms and points
+        function attachEventListeners() {
+            document.addEventListener("click", function(event) {
+                if (event.target.classList.contains("addPoint")) {
+                    const pointsContainer = event.target.closest(".pointsContainer");
+                    const newPointField = document.createElement("div");
+                    newPointField.classList.add("mb-3", "d-flex", "align-items-center");
+                    newPointField.innerHTML = `
+                <label class="me-3" style="width: 100px;"></label>
+                <div class="flex-grow-1 d-flex">
+                    <input type="text" class="form-control border-1 border-bottom" placeholder="Enter point">
+                    <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
+                </div>
+            `;
+                    pointsContainer.appendChild(newPointField);
+                }
+
+                if (event.target.classList.contains("removePoint")) {
+                    event.target.closest(".mb-3").remove();
+                }
+
+                if (event.target.classList.contains("addFormInside")) {
+                    const currentForm = event.target.closest(".form-box");
+                    const newForm = currentForm.cloneNode(true);
+                    newForm.querySelectorAll("input, textarea").forEach(input => input.value = "");
+
+                    if (!newForm.querySelector(".delete-form")) {
+                        const deleteButton = document.createElement("button");
+                        deleteButton.classList.add("btn", "btn-danger", "delete-form");
+                        deleteButton.textContent = "Delete";
+                        deleteButton.addEventListener("click", function() {
+                            newForm.remove();
+                        });
+                        newForm.appendChild(deleteButton);
+                        
+                    }
+
+                    currentForm.insertAdjacentElement("afterend", newForm);
+                }
+
+                if (event.target.classList.contains("delete-form")) {
+                    event.target.closest(".form-box").remove();
+                }
+            });
+        }
+    </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {

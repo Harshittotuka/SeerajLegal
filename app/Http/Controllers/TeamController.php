@@ -32,4 +32,25 @@ class TeamController extends Controller
     {
         return response()->json($this->teamService->getTeamsByADRService($service));
     }
+    public function getByPractice($practice)
+    {
+        $response = $this->teamService->getByPractice($practice);
+        return response()->json($response, $response['success'] ? 200 : 404);
+    }
+    public function getTeamsByADRServices($adrService)
+    {
+        $teams = $this->teamService->getTeamsByADRServices($adrService);
+
+        if ($teams->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No teams found for this ADR service.'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $teams
+        ], 200);
+    }
 }
