@@ -9,6 +9,13 @@ use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
 
+//update,delete for faqs (nova)
+Route::prefix('faqs')->group(function () {
+Route::post('update/{Sno}', [AboutController::class, 'updateFaq']);
+Route::delete('delete/{Sno}', [AboutController::class, 'deleteFaq']);
+});
+
+
 //create, update, delete, for membership_type(nova)
 // Routes: api.php
 Route::prefix('membership-types')->group(function () {
