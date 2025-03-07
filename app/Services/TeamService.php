@@ -32,12 +32,26 @@ class TeamService
         return $this->teamRepository->getTeamsByADRService($service);
     }
 
-    //By Chirayu
-    public function createTeam(array $data)
-    {
-        return $this->teamRepository->create($data);
-    }
-    public function deleteTeam($id)
+     //By Chirayu
+     public function createTeam(array $data)
+     {
+         return $this->teamRepository->create($data);
+     }
+     public function deleteTeam($id)
+     {
+         $team = $this->teamRepository->findById($id);
+ 
+         if (!$team) {
+             return ['success' => false, 'message' => 'Team member not found'];
+         }
+ 
+         $deleted = $this->teamRepository->deleteById($id);
+ 
+         return $deleted
+             ? ['success' => true, 'message' => 'Team member deleted successfully']
+             : ['success' => false, 'message' => 'Failed to delete team member'];
+     }
+     public function updateTeam($id, array $data)
     {
         $team = $this->teamRepository->findById($id);
 
@@ -45,14 +59,15 @@ class TeamService
             return ['success' => false, 'message' => 'Team member not found'];
         }
 
-        $deleted = $this->teamRepository->deleteById($id);
+        $updatedTeam = $this->teamRepository->update($id, $data);
 
-        return $deleted
-            ? ['success' => true, 'message' => 'Team member deleted successfully']
-            : ['success' => false, 'message' => 'Failed to delete team member'];
+        return ['success' => true, 'message' => 'Team member updated successfully', 'data' => $updatedTeam];
     }
+
     public function getFilteredTeams(array $adrServices, array $areaOfPractice)
     {
         return $this->teamRepository->filterTeams($adrServices, $areaOfPractice);
     }
 }
+    
+
