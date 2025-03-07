@@ -14,6 +14,11 @@ class ServicesService
         $this->serviceRepository = $serviceRepository;
     }
 
+    //get rules for services by name
+    public function getServiceRuleByName($service_name)
+    {
+        return $this->serviceRepository->getServiceRuleByName($service_name);
+    }
     /**
      * Get all services.
      */

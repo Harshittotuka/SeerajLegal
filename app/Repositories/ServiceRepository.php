@@ -15,6 +15,12 @@ class ServiceRepository
     {
         return Service::where('service_name', $name)->get(); // Fetch all matching records
     }
+    public function getServiceRuleByName($service_name)
+    {
+        return Service::select('id', 'service_name', 'rules', 'flag')
+                      ->where('service_name', $service_name)
+                      ->first();
+    }
     public function getPracticeNames()
     {
         return Practice::where('para_sno', 1) // Filter records where para_sno = 1
