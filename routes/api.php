@@ -8,6 +8,16 @@ use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
+
+//create, update, delete, for membership_type(nova)
+// Routes: api.php
+Route::prefix('membership-types')->group(function () {
+    Route::post('create', [MembershipTypeController::class, 'create']);
+    Route::post('update/{membershipType}', [MembershipTypeController::class, 'update']);
+    Route::delete('delete/{membershipType}', [MembershipTypeController::class, 'delete']);
+});
+
+
 //toggle api for service and practices(nova)
 
 Route::post('/toggle-service-flag/{service_name}', [ServiceController::class, 'toggleFlag']);
