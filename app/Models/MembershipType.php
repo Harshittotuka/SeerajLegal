@@ -9,5 +9,5 @@ class MembershipType extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['membership_type'];
+    protected $fillable = ['membership_type', 'priority',];
 }
