@@ -23,3 +23,4 @@ Route::prefix('practices')->group(function () {
 
 Route::post('/services/create', [ServiceController::class, 'store']);
 Route::delete('/services/delete/{name}', [ServiceController::class, 'deleteByName']);
+Route::post('/services/update-service/{service_name}', [ServiceController::class, 'update']);

@@ -3,6 +3,8 @@ namespace App\Services;
 
 use App\Repositories\ServiceRepository;
 
+use App\Models\Service;
+
 class ServicesService
 {
     protected $serviceRepository;
@@ -35,9 +37,34 @@ class ServicesService
 
     public function createService(array $data)
     {
-        return $this->serviceRepository->create($data);
-
+        $createdServices = []; // Initialize an array to store created services
+    
+        // Check if paragraphs exist to prevent undefined array key error
+        if (!isset($data['paragraphs']) || !is_array($data['paragraphs'])) {
+            throw new \Exception("Invalid paragraphs data");
+        }
+    
+        foreach ($data['paragraphs'] as $paragraph) {
+            $service = $this->serviceRepository->create([
+                'service_name' => $data['service_name'],  // Ensure this column exists in DB
+                'para_sno' => $paragraph['para_sno'] ?? null,
+                'title' => $paragraph['title'] ?? null,
+                'para' => $paragraph['para'] ?? null,
+                'points' => $paragraph['points'] ?? [],
+            ]);
+    
+            // Store the created service in the array
+            $createdServices[] = $service;
+        }
+    
+        return [
+            'success' => true,
+            'message' => 'Practices created successfully',
+            'data' => $createdServices
+        ];
     }
+    
+
     //toggle service
     public function toggleServiceFlag($serviceName)
     {
@@ -48,4 +75,39 @@ public function deleteServiceByName($name): bool
     {
         return $this->serviceRepository->deleteByName($name);
     }
+
+
+    public function updateService($ServiceName, $data)
+    {
+        // Check if service exists
+        $existingService = Service::where('service_name', $ServiceName)->exists();
+    
+        if (!$existingService) {
+            return ['success' => false, 'message' => 'Practice does not exist'];
+        }
+    
+        // Delete existing records
+        $this->serviceRepository->deleteByName($ServiceName);
+    
+        $createdServices = [];
+    
+        foreach ($data['paragraphs'] as $paragraph) {
+            $createdService = $this->serviceRepository->create([
+                'service_name' => $data['service_name'], // Ensure consistency
+                'para_sno' => $paragraph['para_sno'],
+                'title' => $paragraph['title'],
+                'para' => $paragraph['para'],
+                'points' => $paragraph['points'] ?? [], // Ensure proper JSON encoding
+            ]);
+    
+            $createdServices[] = $createdService;
+        }
+    
+        return [
+            'success' => true,
+            'message' => 'Practice updated successfully',
+            'data' => $createdServices
+        ];
+    }
+    
 }

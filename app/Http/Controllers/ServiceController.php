@@ -21,8 +21,15 @@ public function toggleFlag($serviceName)
         return response()->json(['message' => 'Service name is required'], 400);
     }
 
-    $this->servicesService->toggleServiceFlag($serviceName);
-    return response()->json(['message' => 'Service flag updated successfully']);
+    $success = $this->servicesService->toggleServiceFlag($serviceName);
+   
+    
+    // Return JSON response with success status
+    if ($success) {
+        return response()->json(['success' => true, 'message' => 'Practice flag updated successfully']);
+    } else {
+        return response()->json(['success' => false, 'message' => 'Failed to update practice flag'], 500);
+    }
 }
 
 
@@ -35,9 +42,7 @@ public function toggleFlag($serviceName)
         return response()->json(['success' => true, 'data' => $services], 200);
     }
 
-    /**
-     * Fetch a specific service by name, or return all services if not found.
-     */
+
     public function show($name): JsonResponse
 {
     $services = $this->servicesService->getServiceByName($name);
@@ -60,18 +65,24 @@ public function getServiceNames(): JsonResponse
 
 public function store(Request $request): JsonResponse
 {
+
+
     $data = $request->validate([
         'service_name' => 'required|string',
-        'para_sno' => 'required|integer',
-        'title' => 'nullable|string',
-        'para' => 'nullable|string',
-        'points' => 'nullable|array',
-        'rules' => 'nullable|string',
+        'paragraphs' => 'nullable|array',
+        'paragraphs.*.para_sno' => 'nullable|integer',
+        'paragraphs.*.title' => 'nullable|string',
+        'paragraphs.*.para' => 'nullable|string',
+        'paragraphs.*.points' => 'nullable|array',
     ]);
 
     $service = $this->servicesService->createService($data);
 
-    return response()->json(['message' => 'Service created successfully', 'data' => $service], 201);
+    return response()->json([
+        'success' => true,
+        'message' => 'Services created successfully',
+        'data' => $service['data'], // ✅ Extracting only the `data` array to avoid nested responses
+    ], 201);
 }
 public function deleteByName($name): JsonResponse
 {
@@ -89,4 +100,32 @@ public function deleteByName($name): JsonResponse
         ], 404);
     }
 }
+
+public function update(Request $request, $ServiceName)
+{
+    $validated = $request->validate([
+        'service_name' => 'required|string',
+        'paragraphs' => 'nullable|array',
+        'paragraphs.*.para_sno' => 'nullable|integer',
+        'paragraphs.*.title' => 'nullable|string',
+        'paragraphs.*.para' => 'nullable|string',
+        'paragraphs.*.points' => 'nullable|array',
+        'flag' => 'nullable|string'
+    ]);
+
+    // Call the service to update records
+    $result = $this->servicesService->updateService($ServiceName, $validated);
+
+    if (!$result['success']) {
+        return response()->json(['success' => false, 'message' => $result['message']], 404);
+    }
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Practice updated successfully',
+        'data' => $result['data'] // Ensure the updated data is returned
+    ]);
+}
+
+
 }

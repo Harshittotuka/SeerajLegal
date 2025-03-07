@@ -212,25 +212,25 @@
                             </div>
                         </div>
                         ${practice.points?.slice(1).map(point => `
-                                <div class="mb-3 d-flex align-items-center">
-                                    <label class="me-3" style="width: 100px;"></label>
-                                    <div class="flex-grow-1 d-flex">
-                                        <input type="text" class="form-control border-1 border-bottom"
-                                            value="${point}" placeholder="Enter point">
-                                        <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
+                                    <div class="mb-3 d-flex align-items-center">
+                                        <label class="me-3" style="width: 100px;"></label>
+                                        <div class="flex-grow-1 d-flex">
+                                            <input type="text" class="form-control border-1 border-bottom"
+                                                value="${point}" placeholder="Enter point">
+                                            <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
+                                        </div>
                                     </div>
-                                </div>
-                            `).join('') || ''}
+                                `).join('') || ''}
                     </div>
                 </form>
                 
                 <button class="btn btn-primary addFormInside">+</button>
               ${index !== 0 ? `
-    <button class="btn btn-danger delete-form">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
-            <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
-        </svg>
-    </button>` : ''}
+        <button class="btn btn-danger delete-form">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
+                <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
+            </svg>
+        </button>` : ''}
 
             </div>
             <br>
@@ -277,7 +277,7 @@
                             newForm.remove();
                         });
                         newForm.appendChild(deleteButton);
-                        
+
                     }
 
                     currentForm.insertAdjacentElement("afterend", newForm);
@@ -302,7 +302,7 @@
                     return;
                 }
 
-                let promises = [];
+                let paragraphs = [];
                 let validForms = 0; // Counter to check if any form is submitted
 
                 forms.forEach((form, index) => {
@@ -310,65 +310,29 @@
                     let para = form.querySelector("textarea[placeholder='Enter paragraph']").value
                         .trim();
 
-                    // Convert empty values to null
-                    title = title === "" ? "null" : title;
-                    para = para === "" ? "null" : para;
-
                     let points = [];
                     form.querySelectorAll(".pointsContainer input[placeholder='Enter point']")
                         .forEach(pointInput => {
                             let pointValue = pointInput.value.trim();
-                            points.push(pointValue === "" ? null :
-                                pointValue); // Convert empty points to null
+                            if (pointValue) points.push(
+                            pointValue); // Only add non-empty points
                         });
 
-                    // Ensure points is always an array, even if empty
-                    if (points.length === 0) {
-                        points = []; // Send an empty array instead of [null]
+                    // Skip form if all fields (title, para, points) are empty
+                    if (!title && !para && points.length === 0) {
+                        console.warn(`Skipping form ${index + 1} as all fields are empty.`);
+                        return;
                     }
-                    console.log(points);
-
-                    // Skip form if ALL three fields (title, para, points) are null
-                    if (title === null && para === null && points.every(p => p === null)) {
-                        console.warn(`Skipping form ${index + 1} as all fields are null.`);
-                        return; // Do not send this form
-                    }
-
+                    
+                    
                     validForms++; // Count valid forms
 
-                    let whatWeProvide = ["Legal advice",
-                        "Drafting contracts"
-                    ]; // Keep as per requirement
-
-                    let formData = {
-                        practice_name: practiceName, // Required field
+                    paragraphs.push({
                         para_sno: index + 1,
-                        title: title === "null" ? null : title,
-                        para: para === "null" ? null : para,
-                        points: points.every(point => point === null) ? null : points.filter(
-                            point => point !== null), // Store as null if empty
-                        what_we_provide: whatWeProvide
-                    };
-
-
-
-                    let promise = fetch("http://127.0.0.1:8000/api/practices/create", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify(formData)
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log("Success:", data);
-                        })
-                        .catch(error => {
-                            console.error("Error:", error);
-                            showToast("Error saving data. Please try again.", "error");
-                        });
-
-                    promises.push(promise);
+                        title: title || null,
+                        para: para || null,
+                        points: points.length > 0 ? points : null // Store null if empty
+                    });
                 });
 
                 if (validForms === 0) {
@@ -376,14 +340,46 @@
                     return;
                 }
 
-                Promise.all(promises).then(() => {
-                    showToast("All valid data saved successfully!", "success");
+                let requestData = {
+                    practice_name: practiceName, // Required field
+                    paragraphs: paragraphs,
+                    what_we_provide: ["Arbitration", "Negotiation"], // Static as per requirement
+                    flag: "enabled"
+                };
 
-                    // Redirect to the given URL after a short delay
-                    setTimeout(() => {
-                        window.location.href = "http://127.0.0.1:8000/backend/practice/list";
-                    }, 2000); // 2-second delay for user to see success message
-                });
+                console.log("Final Request Data:", requestData);
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const practiceNameFromUrl = urlParams.get("practicename");
+
+                // Determine API endpoint dynamically
+                let apiUrl = "http://127.0.0.1:8000/api/practices/create"; // Default for new practice
+                if (practiceNameFromUrl) {
+                    apiUrl =
+                        `http://127.0.0.1:8000/api/practices/update-practice/${encodeURIComponent(practiceNameFromUrl)}`;
+                }
+
+                fetch(apiUrl, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(requestData)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("Success:", data);
+                        showToast("All valid data saved successfully!", "success");
+
+                        Redirect to the given URL after a short delay
+                        setTimeout(() => {
+                            window.location.href = "http://127.0.0.1:8000/backend/practice/list";
+                        }, 2000);
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        showToast("Error saving data. Please try again.", "error");
+                    });
             });
 
             // Function to show Toastify notifications
