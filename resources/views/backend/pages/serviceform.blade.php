@@ -166,29 +166,29 @@
                     console.error("Error fetching data:", error);
                 });
         });
-
+        console.log("Practice Data Received:", practiceData);
         function populateForm(practiceData) {
-            const formContainer = document.getElementById("formContainer");
-            const formsContainer = document.getElementById("formsContainer");
+    const formContainer = document.getElementById("formContainer");
+    const formsContainer = document.getElementById("formsContainer");
 
-            if (!formContainer || !formsContainer) {
-                console.error("Form containers not found in the DOM.");
-                return;
-            }
+    if (!formContainer || !formsContainer) {
+        console.error("Form containers not found in the DOM.");
+        return;
+    }
 
-            // Clear previous form data
-            formsContainer.innerHTML = "";
+    // Clear previous form data
+    formsContainer.innerHTML = "";
 
-            // Populate Service Name, Image, and Icon (Assuming the first practice contains these)
-            if (practiceData.length > 0) {
-                document.getElementById("name").value = practiceData[0].service_name || "";
-                document.getElementById("Image").value = practiceData[0].image || "";
-                document.getElementById("Icon").value = practiceData[0].icon || "";
-            }
+    // Populate Service Name, Image, and Icon (Assuming the first practice contains these)
+    if (practiceData.length > 0) {
+        document.getElementById("name").value = practiceData[0].service_name || "";
+        document.getElementById("Image").value = practiceData[0].image || "";
+        document.getElementById("Icon").value = practiceData[0].icon || "";
+    }
 
-            // Populate dynamic forms for each practice
-            practiceData.forEach((practice, index) => {
-                let formHtml = `
+    // Populate dynamic forms for each practice
+    practiceData.forEach((practice, index) => {
+        let formHtml = `
             <div class="p-4 bg-white shadow rounded form-box position-relative" style="max-width: 80%;">
                 <h5 class="mb-3">Section ${index + 1}</h5>
                 <form>
@@ -212,36 +212,36 @@
                             </div>
                         </div>
                         ${practice.points?.slice(1).map(point => `
-                                        <div class="mb-3 d-flex align-items-center">
-                                            <label class="me-3" style="width: 100px;"></label>
-                                            <div class="flex-grow-1 d-flex">
-                                                <input type="text" class="form-control border-1 border-bottom"
-                                                    value="${point}" placeholder="Enter point">
-                                                <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
-                                            </div>
-                                        </div>
-                                    `).join('') || ''}
+                            <div class="mb-3 d-flex align-items-center">
+                                <label class="me-3" style="width: 100px;"></label>
+                                <div class="flex-grow-1 d-flex">
+                                    <input type="text" class="form-control border-1 border-bottom"
+                                        value="${point}" placeholder="Enter point">
+                                    <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
+                                </div>
+                            </div>
+                        `).join('') || ''}
                     </div>
                 </form>
                 
                 <button class="btn btn-primary addFormInside">+</button>
-              ${index !== 0 ? `
-            <button class="btn btn-danger delete-form">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
-                    <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
-                </svg>
-            </button>` : ''}
-
+                ${index !== 0 ? `
+                    <button class="btn btn-danger delete-form">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
+                            <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
+                        </svg>
+                    </button>` : ''}
             </div>
-            <br>
             <br>
         `;
 
-                formsContainer.innerHTML += formHtml;
-            });
+        // Append form instead of replacing content
+        formsContainer.insertAdjacentHTML("beforeend", formHtml);
+    });
 
-            attachEventListeners();
-        }
+    attachEventListeners();
+}
+
 
         // Function to attach event listeners for adding/removing forms and points
         function attachEventListeners() {
@@ -349,13 +349,13 @@
                 console.log("Final Request Data:", requestData);
 
                 const urlParams = new URLSearchParams(window.location.search);
-                const practiceNameFromUrl = urlParams.get("practicename");
+                const serviceNameFromUrl = urlParams.get("servicename");
 
                 // Determine API endpoint dynamically
-                let apiUrl = "http://127.0.0.1:8000/api/practices/create"; // Default for new practice
+                let apiUrl = "http://127.0.0.1:8000/api/services/create"; // Default for new practice
                 if (practiceNameFromUrl) {
                     apiUrl =
-                        `http://127.0.0.1:8000/api/practices/update-practice/${encodeURIComponent(practiceNameFromUrl)}`;
+                        `http://127.0.0.1:8000/api/services/update-service/${encodeURIComponent(serviceNameFromUrl)}`;
                 }
 
                 fetch(apiUrl, {
@@ -370,10 +370,10 @@
                         console.log("Success:", data);
                         showToast("All valid data saved successfully!", "success");
 
-                        Redirect to the given URL after a short delay
+                        //Redirect to the given URL after a short delay
                         setTimeout(() => {
                             window.location.href =
-                            "http://127.0.0.1:8000/backend/practice/list";
+                                "http://127.0.0.1:8000/backend/service/list";
                         }, 2000);
                     })
                     .catch(error => {
