@@ -31,4 +31,24 @@ class TeamService
     {
         return $this->teamRepository->getTeamsByADRService($service);
     }
+
+    //By Chirayu
+    public function createTeam(array $data)
+    {
+        return $this->teamRepository->create($data);
+    }
+    public function deleteTeam($id)
+    {
+        $team = $this->teamRepository->findById($id);
+
+        if (!$team) {
+            return ['success' => false, 'message' => 'Team member not found'];
+        }
+
+        $deleted = $this->teamRepository->deleteById($id);
+
+        return $deleted
+            ? ['success' => true, 'message' => 'Team member deleted successfully']
+            : ['success' => false, 'message' => 'Failed to delete team member'];
+    }
 }
