@@ -38,3 +38,4 @@ Route::post('/services/update-service/{service_name}', [ServiceController::class
 
 Route::post('/teams/create', [TeamController::class, 'create']);
 Route::delete('/teams/{id}', [TeamController::class, 'delete']);
+Route::get('/teams/filter', [TeamController::class, 'filterTeams']);

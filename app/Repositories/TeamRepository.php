@@ -40,4 +40,15 @@ class TeamRepository
     {
         return Team::find($id);
     }
+    public function filterTeams(array $adrServices, array $areaOfPractice)
+    {
+        return Team::where(function ($query) use ($adrServices, $areaOfPractice) {
+            if (!empty($adrServices)) {
+                $query->whereJsonContains('adr_services', $adrServices);
+            }
+            if (!empty($areaOfPractice)) {
+                $query->orWhereJsonContains('area_of_practice', $areaOfPractice);
+            }
+        })->get();
+    }
 }

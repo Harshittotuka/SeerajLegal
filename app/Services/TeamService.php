@@ -51,4 +51,8 @@ class TeamService
             ? ['success' => true, 'message' => 'Team member deleted successfully']
             : ['success' => false, 'message' => 'Failed to delete team member'];
     }
+    public function getFilteredTeams(array $adrServices, array $areaOfPractice)
+    {
+        return $this->teamRepository->filterTeams($adrServices, $areaOfPractice);
+    }
 }
