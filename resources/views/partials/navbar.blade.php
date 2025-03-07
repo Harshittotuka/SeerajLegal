@@ -57,27 +57,29 @@
                 </li>
                 
                 <script>
-                    document.addEventListener("DOMContentLoaded", function () {
-                        let apiUrl = "http://127.0.0.1:8000/api/services/list";
+                  document.addEventListener("DOMContentLoaded", function () {
+    let apiUrl = "http://127.0.0.1:8000/api/services/list";
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                let services = data.data;
+                let dropdownMenu = document.getElementById('servicesDropdown');
                 
-                        fetch(apiUrl)
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    let services = data.data;
-                                    let dropdownMenu = document.getElementById('servicesDropdown');
+                dropdownMenu.innerHTML = ''; // Clear existing content
                 
-                                    dropdownMenu.innerHTML = ''; // Clear existing content
-                
-                                    services.forEach(service => {
-                                        let li = document.createElement('li');
-                                        li.innerHTML = `<a href="{{ url('service/') }}/${service}" class="dropdown-item">${service}</a>`;
-                                        dropdownMenu.appendChild(li);
-                                    });
-                                }
-                            })
-                            .catch(error => console.error("Error fetching services list:", error));
-                    });
+                services.forEach(service => {
+                    if (service.flag === "enabled") {
+                        let li = document.createElement('li');
+                        li.innerHTML = `<a href="/service/${service.id}" class="dropdown-item">${service.service_name}</a>`;
+                        dropdownMenu.appendChild(li);
+                    }
+                });
+            }
+        })
+        .catch(error => console.error("Error fetching services list:", error));
+});
                 </script>
                 
                 <li class="nav-item dropdown">
