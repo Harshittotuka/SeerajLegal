@@ -178,7 +178,140 @@
             }
         </style>
 
+        <!-- Modal for Adding Member -->
+        <div class="modal fade" id="memberModal" tabindex="-1" aria-labelledby="memberModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="memberModalLabel">Add New Member</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="memberForm">
+                            <div class="mb-3">
+                                <label for="memberName" class="form-label">Member Name</label>
+                                <input type="text" class="form-control" id="memberName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="membershipType" class="form-label">Membership Type</label>
+                                <select class="form-control" id="membershipType" required>
+                                    <!-- Membership options will be injected here -->
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-success" onclick="addMember()">Save</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- JavaScript to Add Member -->
+        <script>
+            function addMember() {
+                let name = document.getElementById("memberName").value.trim();
+                let type = document.getElementById("membershipType").value;
+                let list = document.getElementById("memberList");
+
+                if (name !== "") {
+                    let newItem = document.createElement("li");
+                    newItem.className = "list-group-item";
+                    newItem.textContent = `${name} - ${type}`;
+                    list.appendChild(newItem);
+
+                    // Clear input fields
+                    document.getElementById("memberName").value = "";
+                    document.getElementById("membershipType").value = "Basic";
+
+                    // Close modal
+                    var modal = new bootstrap.Modal(document.getElementById('memberModal'));
+                    modal.hide();
+                } else {
+                    alert("Please enter a valid member name.");
+                }
+            }
+        </script>
+
+        <!-- Modal for Adding Membership Type -->
+        <div class="modal fade" id="membershipModal" tabindex="-1" aria-labelledby="membershipModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="membershipModalLabel">Add Membership Type</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="membershipForm">
+                            <div class="mb-3">
+                                <label for="membershipName" class="form-label">Membership Type Name</label>
+                                <input type="text" class="form-control" id="membershipName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="membershipPriority" class="form-label">Priority</label>
+                                <input type="number" class="form-control" id="membershipPriority" required min="1">
+                            </div>
+        
+                            <!-- Success & Error Message Box -->
+                            <div id="message-container" class="alert mt-2" style="display: none;"></div>
+        
+                            <button type="button" class="btn btn-success" onclick="addMembership()">Save</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            async function addMembership() {
+                const membershipName = document.getElementById("membershipName").value;
+                const membershipPriority = document.getElementById("membershipPriority").value;
+                const messageContainer = document.getElementById("message-container");
+        
+                const apiUrl = "http://127.0.0.1:8000/api/membership-types/create";
+        
+                const requestData = {
+                    membership_type: membershipName,
+                    priority: parseInt(membershipPriority, 10)
+                };
+        
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(requestData)
+                    });
+        
+                    const result = await response.json();
+        
+                    if (result.success) {
+                        // Show success message inside modal
+                        messageContainer.innerText = "Membership Type Added Successfully!";
+                        messageContainer.className = "alert alert-success mt-2";
+                        messageContainer.style.display = "block";
+        
+                        // Wait for 2 seconds before refreshing the page
+                        setTimeout(() => {
+                            document.getElementById("membershipForm").reset();
+                            location.reload();
+                        }, 1000);
+                    } else {
+                        // Show error message inside modal
+                        messageContainer.innerText = result.error;
+                        messageContainer.className = "alert alert-danger mt-2";
+                        messageContainer.style.display = "block";
+                    }
+                } catch (error) {
+                    // Handle unexpected errors
+                    messageContainer.innerText = "Something went wrong! Please try again.";
+                    messageContainer.className = "alert alert-danger mt-2";
+                    messageContainer.style.display = "block";
+                }
+            }
+        </script>
+        
 
         <div class="container-fluid overflow-hidden py-2">
             <div class="row g-4">
@@ -191,71 +324,11 @@
                                 <h4 class="mb-0">Manage Members</h4>
                             </div>
                             <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon"
-                                style="cursor: pointer; width: 40px; height: 40px;" data-bs-toggle="modal" data-bs-target="#memberModal">
+                                style="cursor: pointer; width: 40px; height: 40px;" data-bs-toggle="modal"
+                                data-bs-target="#memberModal">
                                 <i class="material-symbols-rounded opacity-10">add</i>
                             </div>
                         </div>
-                        
-                    
-                        
-                        <!-- Modal for Adding Member -->
-                        <div class="modal fade" id="memberModal" tabindex="-1" aria-labelledby="memberModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="memberModalLabel">Add New Member</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="memberForm">
-                                            <div class="mb-3">
-                                                <label for="memberName" class="form-label">Member Name</label>
-                                                <input type="text" class="form-control" id="memberName" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="membershipType" class="form-label">Membership Type</label>
-                                                <select class="form-control" id="membershipType" required>
-                                                    <option value="Basic">Basic</option>
-                                                    <option value="Gold">Gold</option>
-                                                    <option value="Diamond">Diamond</option>
-                                                    <option value="Platinum">Platinum</option>
-                                                </select>
-                                            </div>
-                                            <button type="button" class="btn btn-success" onclick="addMember()">Save</button>
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- JavaScript to Add Member -->
-                        <script>
-                            function addMember() {
-                                let name = document.getElementById("memberName").value.trim();
-                                let type = document.getElementById("membershipType").value;
-                                let list = document.getElementById("memberList");
-                        
-                                if (name !== "") {
-                                    let newItem = document.createElement("li");
-                                    newItem.className = "list-group-item";
-                                    newItem.textContent = `${name} - ${type}`;
-                                    list.appendChild(newItem);
-                        
-                                    // Clear input fields
-                                    document.getElementById("memberName").value = "";
-                                    document.getElementById("membershipType").value = "Basic";
-                        
-                                    // Close modal
-                                    var modal = new bootstrap.Modal(document.getElementById('memberModal'));
-                                    modal.hide();
-                                } else {
-                                    alert("Please enter a valid member name.");
-                                }
-                            }
-                        </script>
-                        
-
 
 
                         <hr class="dark horizontal my-0">
@@ -300,8 +373,7 @@
                     </div>
                 </div>
 
-                <!-- Membership Sidebar (On Extreme Right) -->
-                <!-- Membership Sidebar -->
+
                 <div class="col-lg-3 col-md-4">
                     <div class="p-3 border rounded shadow-sm bg-white">
                         <div class="d-flex justify-content-between align-items-center">
@@ -316,44 +388,65 @@
                             </div>
                         </div>
                         <ul class="list-group bg-light mt-2" id="membershipList">
-                            <li class="list-group-item">Basic</li>
-                            <li class="list-group-item">Gold</li>
-                            <li class="list-group-item">Diamond</li>
-                            <li class="list-group-item">Platinum</li>
+                            <!-- Membership types will be injected here -->
                         </ul>
                     </div>
                 </div>
 
-                <!-- Modal for Adding Membership Type -->
-                <div class="modal fade" id="membershipModal" tabindex="-1" aria-labelledby="membershipModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="membershipModalLabel">Add Membership Type</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="membershipForm">
-                                    <div class="mb-3">
-                                        <label for="membershipName" class="form-label">Membership Type Name</label>
-                                        <input type="text" class="form-control" id="membershipName" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="membershipPriority" class="form-label">Priority</label>
-                                        <input type="number" class="form-control" id="membershipPriority" required
-                                            min="1">
-                                    </div>
-                                    <button type="button" class="btn btn-success"
-                                        onclick="addMembership()">Save</button>
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancel</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const apiUrl = "http://127.0.0.1:8000/api/membership-types";
+
+                        async function fetchMembershipTypes() {
+                            try {
+                                const response = await fetch(apiUrl);
+                                const data = await response.json();
+
+                                if (data.success && Array.isArray(data.data)) {
+                                    updateMembershipList(data.data);
+                                    updateMembershipDropdown(data.data);
+                                }
+                            } catch (error) {
+                                console.error("Error fetching membership types:", error);
+                            }
+                        }
+
+                        function updateMembershipList(memberships) {
+                            const membershipList = document.getElementById("membershipList");
+                            membershipList.innerHTML = ""; // Clear existing items
+
+                            memberships.sort((a, b) => a.priority - b.priority).forEach(item => {
+                                const li = document.createElement("li");
+                                li.className = "list-group-item";
+                                li.textContent = capitalizeFirstLetter(item.membership_type);
+                                membershipList.appendChild(li);
+                            });
+                        }
+
+                        function updateMembershipDropdown(memberships) {
+                            const membershipSelect = document.getElementById("membershipType");
+                            if (!membershipSelect) return; // Avoid error if dropdown doesn't exist
+                            membershipSelect.innerHTML = ""; // Clear old options
+
+                            memberships.sort((a, b) => a.priority - b.priority).forEach(item => {
+                                const option = document.createElement("option");
+                                option.value = item.membership_type.toLowerCase();
+                                option.textContent = capitalizeFirstLetter(item.membership_type);
+                                membershipSelect.appendChild(option);
+                            });
+                        }
+
+                        function capitalizeFirstLetter(str) {
+                            return str.charAt(0).toUpperCase() + str.slice(1);
+                        }
+
+                        fetchMembershipTypes();
+                    });
+                </script>
+
+
+
+
 
 
 
@@ -363,30 +456,7 @@
 
     </main>
     <!-- JavaScript for Adding Membership Type -->
-    <script>
-        function addMembership() {
-            let name = document.getElementById("membershipName").value;
-            let priority = document.getElementById("membershipPriority").value;
-            let list = document.getElementById("membershipList");
 
-            if (name.trim() !== "" && priority.trim() !== "") {
-                let newItem = document.createElement("li");
-                newItem.className = "list-group-item";
-                newItem.textContent = `${name} (Priority: ${priority})`;
-                list.appendChild(newItem);
-
-                // Clear input fields
-                document.getElementById("membershipName").value = "";
-                document.getElementById("membershipPriority").value = "";
-
-                // Close modal
-                var modal = new bootstrap.Modal(document.getElementById('membershipModal'));
-                modal.hide();
-            } else {
-                alert("Please enter valid details.");
-            }
-        }
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
