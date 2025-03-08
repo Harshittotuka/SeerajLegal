@@ -11,10 +11,6 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
 
 //api to get rules according to service name
-Route::get('/api/services/rules/{service_name}', [ServiceController::class, 'getServiceByName']);
-
-Route::get('/api/services/list', [ServiceController::class, 'getServiceNames']);
-
 
 Route::get('/api/teams', [TeamController::class, 'index'])->name('teams.index');
 Route::get('/api/teams/{id}', [TeamController::class, 'show'])->name('teams.show');
@@ -43,9 +39,7 @@ Route::get('/api/services', [ServiceController::class, 'index']);
 Route::get('/api/service/{name}', [ServiceController::class, 'show']);
 Route::get('/api/services/list', [ServiceController::class, 'getServiceNames']);
 
-
-
-
+Route::get('/api/services/rules/{service_name}', [ServiceController::class, 'getServiceByName']);
 
 
 Route::get('/backend/', function () {
