@@ -459,46 +459,105 @@
 
 
     {{--  Fetch the members data from the API --}}
-    <script>
-        $(document).ready(function() {
-            // Fetch the members data from the API
-            $.ajax({
-                url: 'http://127.0.0.1:8000/api/members',
-                method: 'GET',
-                dataType: 'json',
-                success: function(data) {
-                    var tableBody = '';
-                    $.each(data, function(i, member) {
-                        tableBody += '<tr>';
-                        tableBody += '<td>' + (i + 1) + '</td>';
-                        tableBody += '<td>' + member.name + '</td>';
-                        // Capitalize first letter of membership type
-                        var membershipType = member.membership_type.charAt(0).toUpperCase() +
-                            member.membership_type.slice(1);
-                        tableBody += '<td>' + membershipType + '</td>';
-                        tableBody += '<td class="actions">' +
-                            '<i class="material-symbols-rounded text-primary edit-icon" style="cursor: pointer;">edit</i>' +
-                            '<i class="material-symbols-rounded text-danger delete-icon" style="cursor: pointer;">delete</i>' +
-                            '</td>';
-                        tableBody += '</tr>';
-                    });
-                    $('#example tbody').html(tableBody);
+   <!-- Include Toastify CSS and JS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-                    // Initialize DataTable with Bootstrap styling
-                    $('#example').DataTable({
-                        "pageLength": 5,
-                        "lengthMenu": [
-                            [5, 10, 25, 50, -1],
-                            [5, 10, 25, 50, "All"]
-                        ]
-                    });
-                },
-                error: function(error) {
-                    console.error("Error fetching members:", error);
-                }
-            });
+<script>
+    $(document).ready(function() {
+        // Fetch and build the table on page load
+        fetchMembers();
+
+        // Delegate click event for delete icons, call deleteMember function
+        $('#example').on('click', '.delete-icon', function() {
+            var memberId = $(this).data('id'); // Get the member id from data attribute
+            // Pass the current element reference (this) so we can remove the corresponding row
+            deleteMember(memberId, $(this));
         });
-    </script>
+    });
+
+    // Function to fetch members and build the table
+    function fetchMembers() {
+        $.ajax({
+            url: 'http://127.0.0.1:8000/api/members',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                var tableBody = '';
+                $.each(data, function(i, member) {
+                    tableBody += '<tr>';
+                    tableBody += '<td>' + (i + 1) + '</td>'; // Updated serial number
+                    tableBody += '<td>' + member.name + '</td>';
+                    // Capitalize first letter of membership type
+                    var membershipType = member.membership_type.charAt(0).toUpperCase() +
+                        member.membership_type.slice(1);
+                    tableBody += '<td>' + membershipType + '</td>';
+                    // Include a data attribute with the member id
+                    tableBody += '<td class="actions">' +
+                        '<i class="material-symbols-rounded text-primary edit-icon" style="cursor: pointer;">edit</i>' +
+                        '<i class="material-symbols-rounded text-danger delete-icon" data-id="' + member.id + '" style="cursor: pointer;">delete</i>' +
+                        '</td>';
+                    tableBody += '</tr>';
+                });
+                // Clear previous table instance if exists
+                if ($.fn.DataTable.isDataTable('#example')) {
+                    $('#example').DataTable().clear().destroy();
+                }
+                $('#example tbody').html(tableBody);
+                // Initialize DataTable with Bootstrap styling
+                $('#example').DataTable({
+                    "pageLength": 5,
+                    "lengthMenu": [
+                        [5, 10, 25, 50, -1],
+                        [5, 10, 25, 50, "All"]
+                    ]
+                });
+            },
+            error: function(error) {
+                console.error("Error fetching members:", error);
+            }
+        });
+    }
+
+    // Delete function that calls the DELETE API endpoint
+    function deleteMember(id, element) {
+        // Ask for confirmation before deleting
+        if (!confirm("Are you sure you want to delete this member?")) {
+            return; // Cancel deletion if user clicks "Cancel"
+        }
+
+        var deleteUrl = 'http://127.0.0.1:8000/api/members/' + id;
+        $.ajax({
+            url: deleteUrl,
+            method: 'DELETE',
+            success: function(response) {
+                // Show success toast using Toastify
+                Toastify({
+                    text: "Member deleted successfully!",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4CAF50"
+                }).showToast();
+                // Refresh the table to update serial numbers
+                fetchMembers();
+            },
+            error: function(xhr, status, error) {
+                // Show error toast using Toastify
+                Toastify({
+                    text: "Error deleting member: " + error,
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#f44336"
+                }).showToast();
+            }
+        });
+    }
+</script>
+
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
