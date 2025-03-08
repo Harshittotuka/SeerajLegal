@@ -14,6 +14,25 @@ class ServiceController extends Controller
     {
         $this->servicesService = $servicesService;
     }
+
+//get api for rules(nova)
+public function getServiceByName($service_name)
+    {
+        $service = $this->servicesService->getServiceRuleByName($service_name);
+        
+        if (!$service) {
+            return response()->json([
+                'success' => false,
+                'message' => "Service '$service_name' not found"
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $service
+        ], 200);
+    }
+
 //toggle api code
 public function toggleFlag($serviceName)
 {

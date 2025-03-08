@@ -10,14 +10,8 @@ use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
 
-//apis for insert,update,delete in practice
-
-// Route::prefix('practices')->group(function () {
-//     Route::post('/create', [PracticeController::class, 'store']);
-//     Route::put('/update/{id}', [PracticeController::class, 'update']);
-//     Route::delete('/delete/{id}', [PracticeController::class, 'destroy']);
-// });
-
+//api to get rules according to service name
+Route::get('/api/services/rules/{service_name}', [ServiceController::class, 'getServiceByName']);
 
 Route::get('/api/services/list', [ServiceController::class, 'getServiceNames']);
 
