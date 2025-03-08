@@ -206,39 +206,17 @@
             </div>
         </div>
 
-        <!-- JavaScript to Add Member -->
-        <script>
-            function addMember() {
-                let name = document.getElementById("memberName").value.trim();
-                let type = document.getElementById("membershipType").value;
-                let list = document.getElementById("memberList");
 
-                if (name !== "") {
-                    let newItem = document.createElement("li");
-                    newItem.className = "list-group-item";
-                    newItem.textContent = `${name} - ${type}`;
-                    list.appendChild(newItem);
-
-                    // Clear input fields
-                    document.getElementById("memberName").value = "";
-                    document.getElementById("membershipType").value = "Basic";
-
-                    // Close modal
-                    var modal = new bootstrap.Modal(document.getElementById('memberModal'));
-                    modal.hide();
-                } else {
-                    alert("Please enter a valid member name.");
-                }
-            }
-        </script>
 
         <!-- Modal for Adding Membership Type -->
-        <div class="modal fade" id="membershipModal" tabindex="-1" aria-labelledby="membershipModalLabel" aria-hidden="true">
+        <div class="modal fade" id="membershipModal" tabindex="-1" aria-labelledby="membershipModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="membershipModalLabel">Add Membership Type</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="membershipForm">
@@ -248,12 +226,13 @@
                             </div>
                             <div class="mb-3">
                                 <label for="membershipPriority" class="form-label">Priority</label>
-                                <input type="number" class="form-control" id="membershipPriority" required min="1">
+                                <input type="number" class="form-control" id="membershipPriority" required
+                                    min="1">
                             </div>
-        
+
                             <!-- Success & Error Message Box -->
                             <div id="message-container" class="alert mt-2" style="display: none;"></div>
-        
+
                             <button type="button" class="btn btn-success" onclick="addMembership()">Save</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         </form>
@@ -261,20 +240,20 @@
                 </div>
             </div>
         </div>
-        
+
         <script>
             async function addMembership() {
                 const membershipName = document.getElementById("membershipName").value;
                 const membershipPriority = document.getElementById("membershipPriority").value;
                 const messageContainer = document.getElementById("message-container");
-        
+
                 const apiUrl = "http://127.0.0.1:8000/api/membership-types/create";
-        
+
                 const requestData = {
                     membership_type: membershipName,
                     priority: parseInt(membershipPriority, 10)
                 };
-        
+
                 try {
                     const response = await fetch(apiUrl, {
                         method: "POST",
@@ -283,20 +262,20 @@
                         },
                         body: JSON.stringify(requestData)
                     });
-        
+
                     const result = await response.json();
-        
+
                     if (result.success) {
                         // Show success message inside modal
                         messageContainer.innerText = "Membership Type Added Successfully!";
                         messageContainer.className = "alert alert-success mt-2";
                         messageContainer.style.display = "block";
-        
+
                         // Wait for 2 seconds before refreshing the page
                         setTimeout(() => {
                             document.getElementById("membershipForm").reset();
                             location.reload();
-                        }, 1000);
+                        }, 500);
                     } else {
                         // Show error message inside modal
                         messageContainer.innerText = result.error;
@@ -311,7 +290,7 @@
                 }
             }
         </script>
-        
+
 
         <div class="container-fluid overflow-hidden py-2">
             <div class="row g-4">
@@ -330,7 +309,6 @@
                             </div>
                         </div>
 
-
                         <hr class="dark horizontal my-0">
 
                         <div class="table-responsive mt-3">
@@ -344,36 +322,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>John Doe</td>
-                                        <td>Gold</td>
-                                        <td class="actions">
-                                            <i class="material-symbols-rounded text-primary edit-icon"
-                                                style="cursor: pointer;">edit</i>
-                                            <i class="material-symbols-rounded text-danger delete-icon"
-                                                style="cursor: pointer;">delete</i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Jane Smith</td>
-                                        <td>Silver</td>
-                                        <td class="actions">
-                                            <i class="material-symbols-rounded text-primary edit-icon"
-                                                style="cursor: pointer;">edit</i>
-                                            <i class="material-symbols-rounded text-danger delete-icon"
-                                                style="cursor: pointer;">delete</i>
-                                        </td>
-                                    </tr>
-
+                                    <!-- Data will be injected dynamically -->
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
-
+              
+                <!-- Membership Sidebar -->
                 <div class="col-lg-3 col-md-4">
                     <div class="p-3 border rounded shadow-sm bg-white">
                         <div class="d-flex justify-content-between align-items-center">
@@ -392,70 +349,116 @@
                         </ul>
                     </div>
                 </div>
-
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        const apiUrl = "http://127.0.0.1:8000/api/membership-types";
-
-                        async function fetchMembershipTypes() {
-                            try {
-                                const response = await fetch(apiUrl);
-                                const data = await response.json();
-
-                                if (data.success && Array.isArray(data.data)) {
-                                    updateMembershipList(data.data);
-                                    updateMembershipDropdown(data.data);
-                                }
-                            } catch (error) {
-                                console.error("Error fetching membership types:", error);
-                            }
-                        }
-
-                        function updateMembershipList(memberships) {
-                            const membershipList = document.getElementById("membershipList");
-                            membershipList.innerHTML = ""; // Clear existing items
-
-                            memberships.sort((a, b) => a.priority - b.priority).forEach(item => {
-                                const li = document.createElement("li");
-                                li.className = "list-group-item";
-                                li.textContent = capitalizeFirstLetter(item.membership_type);
-                                membershipList.appendChild(li);
-                            });
-                        }
-
-                        function updateMembershipDropdown(memberships) {
-                            const membershipSelect = document.getElementById("membershipType");
-                            if (!membershipSelect) return; // Avoid error if dropdown doesn't exist
-                            membershipSelect.innerHTML = ""; // Clear old options
-
-                            memberships.sort((a, b) => a.priority - b.priority).forEach(item => {
-                                const option = document.createElement("option");
-                                option.value = item.membership_type.toLowerCase();
-                                option.textContent = capitalizeFirstLetter(item.membership_type);
-                                membershipSelect.appendChild(option);
-                            });
-                        }
-
-                        function capitalizeFirstLetter(str) {
-                            return str.charAt(0).toUpperCase() + str.slice(1);
-                        }
-
-                        fetchMembershipTypes();
-                    });
-                </script>
-
-
-
-
-
-
-
             </div>
         </div>
 
+        <!-- DataTables Bootstrap 5 CSS -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
 
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- DataTables JS -->
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <!-- DataTables Bootstrap 5 JS -->
+        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+       
+
+       
     </main>
     <!-- JavaScript for Adding Membership Type -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const apiUrl = "http://127.0.0.1:8000/api/membership-types";
+
+            async function fetchMembershipTypes() {
+                try {
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+
+                    if (data.success && Array.isArray(data.data)) {
+                        updateMembershipList(data.data);
+                        updateMembershipDropdown(data.data);
+                    }
+                } catch (error) {
+                    console.error("Error fetching membership types:", error);
+                }
+            }
+
+            function updateMembershipList(memberships) {
+                const membershipList = document.getElementById("membershipList");
+                membershipList.innerHTML = ""; // Clear existing items
+
+                memberships.sort((a, b) => a.priority - b.priority).forEach(item => {
+                    const li = document.createElement("li");
+                    li.className = "list-group-item";
+                    li.textContent = capitalizeFirstLetter(item.membership_type);
+                    membershipList.appendChild(li);
+                });
+            }
+
+            function updateMembershipDropdown(memberships) {
+                const membershipSelect = document.getElementById("membershipType");
+                if (!membershipSelect) return; // Avoid error if dropdown doesn't exist
+                membershipSelect.innerHTML = ""; // Clear old options
+
+                memberships.sort((a, b) => a.priority - b.priority).forEach(item => {
+                    const option = document.createElement("option");
+                    option.value = item.membership_type.toLowerCase();
+                    option.textContent = capitalizeFirstLetter(item.membership_type);
+                    membershipSelect.appendChild(option);
+                });
+            }
+
+            function capitalizeFirstLetter(str) {
+                return str.charAt(0).toUpperCase() + str.slice(1);
+            }
+
+            fetchMembershipTypes();
+        });
+    </script>
+
+
+    {{--  Fetch the members data from the API --}}
+    <script>
+        $(document).ready(function() {
+            // Fetch the members data from the API
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/members',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var tableBody = '';
+                    $.each(data, function(i, member) {
+                        tableBody += '<tr>';
+                        tableBody += '<td>' + (i + 1) + '</td>';
+                        tableBody += '<td>' + member.name + '</td>';
+                        // Capitalize first letter of membership type
+                        var membershipType = member.membership_type.charAt(0).toUpperCase() +
+                            member.membership_type.slice(1);
+                        tableBody += '<td>' + membershipType + '</td>';
+                        tableBody += '<td class="actions">' +
+                            '<i class="material-symbols-rounded text-primary edit-icon" style="cursor: pointer;">edit</i>' +
+                            '<i class="material-symbols-rounded text-danger delete-icon" style="cursor: pointer;">delete</i>' +
+                            '</td>';
+                        tableBody += '</tr>';
+                    });
+                    $('#example tbody').html(tableBody);
+
+                    // Initialize DataTable with Bootstrap styling
+                    $('#example').DataTable({
+                        "pageLength": 5,
+                        "lengthMenu": [
+                            [5, 10, 25, 50, -1],
+                            [5, 10, 25, 50, "All"]
+                        ]
+                    });
+                },
+                error: function(error) {
+                    console.error("Error fetching members:", error);
+                }
+            });
+        });
+    </script>
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -468,17 +471,6 @@
     <!-- Use Bootstrap 4 DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('#example').DataTable({
-                "pagingType": "simple_numbers",
-                "lengthMenu": [5, 10, 25, 50], // Fix for "Show Entries" issue
-                "pageLength": 5, // Default number of records per page
-                "responsive": true
-            });
-        });
-    </script>
 
 
     @include('backend.partials.bottomsettings')
