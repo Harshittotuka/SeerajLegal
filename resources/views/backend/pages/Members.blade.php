@@ -206,39 +206,56 @@
             </div>
         </div>
 
-        <!-- JavaScript to Add Member -->
         <script>
             function addMember() {
-                let name = document.getElementById("memberName").value.trim();
-                let type = document.getElementById("membershipType").value;
-                let list = document.getElementById("memberList");
+                // Get the input values from the form
+                const memberName = document.getElementById("memberName").value;
+                const membershipType = document.getElementById("membershipType").value;
 
-                if (name !== "") {
-                    let newItem = document.createElement("li");
-                    newItem.className = "list-group-item";
-                    newItem.textContent = `${name} - ${type}`;
-                    list.appendChild(newItem);
+                // Create the payload using the collected values
+                const payload = {
+                    name: memberName,
+                    membership_type: membershipType
+                };
 
-                    // Clear input fields
-                    document.getElementById("memberName").value = "";
-                    document.getElementById("membershipType").value = "Basic";
-
-                    // Close modal
-                    var modal = new bootstrap.Modal(document.getElementById('memberModal'));
-                    modal.hide();
-                } else {
-                    alert("Please enter a valid member name.");
-                }
+                // Send a POST request to the API endpoint
+                fetch("http://127.0.0.1:8000/api/members/create", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(payload)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("Member added:", data);
+                        // Show success message
+                        alert("Member added successfully!");
+                        // Refresh the page
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.error("There was an error adding the member:", error);
+                    });
             }
         </script>
 
+
+
         <!-- Modal for Adding Membership Type -->
-        <div class="modal fade" id="membershipModal" tabindex="-1" aria-labelledby="membershipModalLabel" aria-hidden="true">
+        <div class="modal fade" id="membershipModal" tabindex="-1" aria-labelledby="membershipModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="membershipModalLabel">Add Membership Type</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="membershipForm">
@@ -248,12 +265,13 @@
                             </div>
                             <div class="mb-3">
                                 <label for="membershipPriority" class="form-label">Priority</label>
-                                <input type="number" class="form-control" id="membershipPriority" required min="1">
+                                <input type="number" class="form-control" id="membershipPriority" required
+                                    min="1">
                             </div>
-        
+
                             <!-- Success & Error Message Box -->
                             <div id="message-container" class="alert mt-2" style="display: none;"></div>
-        
+
                             <button type="button" class="btn btn-success" onclick="addMembership()">Save</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         </form>
@@ -261,20 +279,21 @@
                 </div>
             </div>
         </div>
-        
+
+        <!-- js for creating new member-->
         <script>
             async function addMembership() {
                 const membershipName = document.getElementById("membershipName").value;
                 const membershipPriority = document.getElementById("membershipPriority").value;
                 const messageContainer = document.getElementById("message-container");
-        
+
                 const apiUrl = "http://127.0.0.1:8000/api/membership-types/create";
-        
+
                 const requestData = {
                     membership_type: membershipName,
                     priority: parseInt(membershipPriority, 10)
                 };
-        
+
                 try {
                     const response = await fetch(apiUrl, {
                         method: "POST",
@@ -283,20 +302,20 @@
                         },
                         body: JSON.stringify(requestData)
                     });
-        
+
                     const result = await response.json();
-        
+
                     if (result.success) {
                         // Show success message inside modal
                         messageContainer.innerText = "Membership Type Added Successfully!";
                         messageContainer.className = "alert alert-success mt-2";
                         messageContainer.style.display = "block";
-        
+
                         // Wait for 2 seconds before refreshing the page
                         setTimeout(() => {
                             document.getElementById("membershipForm").reset();
                             location.reload();
-                        }, 1000);
+                        }, 500);
                     } else {
                         // Show error message inside modal
                         messageContainer.innerText = result.error;
@@ -311,8 +330,8 @@
                 }
             }
         </script>
-        
 
+        <!-- html  table-->
         <div class="container-fluid overflow-hidden py-2">
             <div class="row g-4">
                 <!-- Main Content (Table) -->
@@ -330,7 +349,6 @@
                             </div>
                         </div>
 
-
                         <hr class="dark horizontal my-0">
 
                         <div class="table-responsive mt-3">
@@ -344,29 +362,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>John Doe</td>
-                                        <td>Gold</td>
-                                        <td class="actions">
-                                            <i class="material-symbols-rounded text-primary edit-icon"
-                                                style="cursor: pointer;">edit</i>
-                                            <i class="material-symbols-rounded text-danger delete-icon"
-                                                style="cursor: pointer;">delete</i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Jane Smith</td>
-                                        <td>Silver</td>
-                                        <td class="actions">
-                                            <i class="material-symbols-rounded text-primary edit-icon"
-                                                style="cursor: pointer;">edit</i>
-                                            <i class="material-symbols-rounded text-danger delete-icon"
-                                                style="cursor: pointer;">delete</i>
-                                        </td>
-                                    </tr>
-
+                                    <!-- Data will be injected dynamically -->
                                 </tbody>
                             </table>
                         </div>
@@ -374,6 +370,7 @@
                 </div>
 
 
+                <!-- Membership Sidebar -->
                 <div class="col-lg-3 col-md-4">
                     <div class="p-3 border rounded shadow-sm bg-white">
                         <div class="d-flex justify-content-between align-items-center">
@@ -392,70 +389,322 @@
                         </ul>
                     </div>
                 </div>
-
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        const apiUrl = "http://127.0.0.1:8000/api/membership-types";
-
-                        async function fetchMembershipTypes() {
-                            try {
-                                const response = await fetch(apiUrl);
-                                const data = await response.json();
-
-                                if (data.success && Array.isArray(data.data)) {
-                                    updateMembershipList(data.data);
-                                    updateMembershipDropdown(data.data);
-                                }
-                            } catch (error) {
-                                console.error("Error fetching membership types:", error);
-                            }
-                        }
-
-                        function updateMembershipList(memberships) {
-                            const membershipList = document.getElementById("membershipList");
-                            membershipList.innerHTML = ""; // Clear existing items
-
-                            memberships.sort((a, b) => a.priority - b.priority).forEach(item => {
-                                const li = document.createElement("li");
-                                li.className = "list-group-item";
-                                li.textContent = capitalizeFirstLetter(item.membership_type);
-                                membershipList.appendChild(li);
-                            });
-                        }
-
-                        function updateMembershipDropdown(memberships) {
-                            const membershipSelect = document.getElementById("membershipType");
-                            if (!membershipSelect) return; // Avoid error if dropdown doesn't exist
-                            membershipSelect.innerHTML = ""; // Clear old options
-
-                            memberships.sort((a, b) => a.priority - b.priority).forEach(item => {
-                                const option = document.createElement("option");
-                                option.value = item.membership_type.toLowerCase();
-                                option.textContent = capitalizeFirstLetter(item.membership_type);
-                                membershipSelect.appendChild(option);
-                            });
-                        }
-
-                        function capitalizeFirstLetter(str) {
-                            return str.charAt(0).toUpperCase() + str.slice(1);
-                        }
-
-                        fetchMembershipTypes();
-                    });
-                </script>
-
-
-
-
-
-
-
             </div>
         </div>
 
+        <!-- DataTables Bootstrap 5 CSS -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- DataTables JS -->
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <!-- DataTables Bootstrap 5 JS -->
+        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+
 
     </main>
+
     <!-- JavaScript for Adding Membership Type -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const apiUrl = "http://127.0.0.1:8000/api/membership-types";
+
+            async function fetchMembershipTypes() {
+                try {
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+
+                    if (data.success && Array.isArray(data.data)) {
+                        updateMembershipList(data.data);
+                        updateMembershipDropdown(data.data);
+                    }
+                } catch (error) {
+                    console.error("Error fetching membership types:", error);
+                }
+            }
+
+            function updateMembershipList(memberships) {
+                const membershipList = document.getElementById("membershipList");
+                membershipList.innerHTML = ""; // Clear existing items
+
+                memberships.sort((a, b) => a.priority - b.priority).forEach(item => {
+                    const li = document.createElement("li");
+                    li.className = "list-group-item";
+                    li.textContent = capitalizeFirstLetter(item.membership_type);
+                    membershipList.appendChild(li);
+                });
+            }
+
+            function updateMembershipDropdown(memberships) {
+                const membershipSelect = document.getElementById("membershipType");
+                if (!membershipSelect) return; // Avoid error if dropdown doesn't exist
+                membershipSelect.innerHTML = ""; // Clear old options
+
+                memberships.sort((a, b) => a.priority - b.priority).forEach(item => {
+                    const option = document.createElement("option");
+                    option.value = item.membership_type.toLowerCase();
+                    option.textContent = capitalizeFirstLetter(item.membership_type);
+                    membershipSelect.appendChild(option);
+                });
+            }
+
+            function capitalizeFirstLetter(str) {
+                return str.charAt(0).toUpperCase() + str.slice(1);
+            }
+
+            fetchMembershipTypes();
+        });
+    </script>
+
+
+    {{--  Fetch the members data from the API --}}
+    <!-- Include Toastify CSS and JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Fetch and build the table on page load
+            fetchMembers();
+
+            // Delegate click event for delete icons, call deleteMember function
+            $('#example').on('click', '.delete-icon', function() {
+                var memberId = $(this).data('id'); // Get the member id from data attribute
+                deleteMember(memberId, $(this));
+            });
+
+            // Delegate click event for edit icons, call updateMember function
+
+        });
+
+        // Function to fetch members and build the table
+        function fetchMembers() {
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/members',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var tableBody = '';
+                    $.each(data, function(i, member) {
+                        tableBody += '<tr>';
+                        tableBody += '<td>' + (i + 1) + '</td>'; // Serial number
+                        tableBody += '<td>' + member.name + '</td>';
+                        // Capitalize first letter of membership type
+                        var membershipType = member.membership_type.charAt(0).toUpperCase() + member
+                            .membership_type.slice(1);
+                        tableBody += '<td>' + membershipType + '</td>';
+                        // Include data attributes with the member id for both edit and delete icons
+                        tableBody += '<td class="actions">' +
+                            '<i class="material-symbols-rounded text-primary edit-icon" data-id="' +
+                            member.id + '" style="cursor: pointer;">edit</i>' +
+                            '<i class="material-symbols-rounded text-danger delete-icon" data-id="' +
+                            member.id + '" style="cursor: pointer;">delete</i>' +
+                            '</td>';
+                        tableBody += '</tr>';
+                    });
+
+                    // Clear previous DataTable instance if exists
+                    if ($.fn.DataTable.isDataTable('#example')) {
+                        $('#example').DataTable().clear().destroy();
+                    }
+                    $('#example tbody').html(tableBody);
+
+                    // Initialize DataTable with Bootstrap styling
+                    $('#example').DataTable({
+                        "pageLength": 5,
+                        "lengthMenu": [
+                            [5, 10, 25, 50, -1],
+                            [5, 10, 25, 50, "All"]
+                        ]
+                    });
+
+                    // Enable row editing functionality after table rendering
+                    enableRowEditing();
+                },
+                error: function(error) {
+                    console.error("Error fetching members:", error);
+                }
+            });
+        }
+
+        function enableRowEditing() {
+            let membershipTypes = [];
+
+            // Fetch membership types once and store them
+            async function fetchMembershipTypes() {
+                try {
+                    const response = await fetch("http://127.0.0.1:8000/api/membership-types");
+                    const data = await response.json();
+
+                    if (data.success && Array.isArray(data.data)) {
+                        membershipTypes = data.data; // Store membership types
+                    }
+                } catch (error) {
+                    console.error("Error fetching membership types:", error);
+                }
+            }
+
+            fetchMembershipTypes(); // Fetch membership types on page load
+
+            $(document).on('click', '.edit-icon', function() {
+                var row = $(this).closest('tr');
+
+                if (row.hasClass('editing')) return; // Prevent multiple edits
+
+                row.addClass('editing');
+
+                // Store original values in data attributes
+                var originalName = row.find('td:eq(1)').text().trim();
+                var originalMembershipType = row.find('td:eq(2)').text().trim(); // Keep original case
+                row.attr("data-original-name", originalName);
+                row.attr("data-original-membership", originalMembershipType);
+
+                // Replace name cell with an input field
+                row.find('td:eq(1)').html('<input type="text" class="form-control" value="' + originalName + '">');
+
+                // Membership type dropdown (ensuring correct pre-selection)
+                var dropdownHtml = '<select class="form-control">';
+                membershipTypes.forEach(function(type) {
+                    var selected = type.membership_type.toLowerCase() === originalMembershipType
+                        .toLowerCase() ? 'selected' : '';
+                    dropdownHtml +=
+                        `<option value="${type.membership_type}" ${selected}>${type.membership_type}</option>`;
+                });
+                dropdownHtml += '</select>';
+                row.find('td:eq(2)').html(dropdownHtml);
+
+                // Replace edit icon with save and cancel buttons
+                row.find('.actions').html(
+                    '<i class="material-symbols-rounded text-success save-icon" data-id="' + $(this).data(
+                    'id') + '" style="cursor: pointer;">save</i>' +
+                    '<i class="material-symbols-rounded text-secondary cancel-icon" style="cursor: pointer;">close</i>'
+                );
+            });
+
+            // Save edited row data
+            $(document).on('click', '.save-icon', function() {
+                var row = $(this).closest('tr');
+                var memberId = $(this).data('id');
+                var updatedName = row.find('td:eq(1) input').val();
+                var updatedMembershipType = row.find('td:eq(2) select').val();
+
+                // Update table UI
+                row.find('td:eq(1)').text(updatedName);
+                row.find('td:eq(2)').text(updatedMembershipType);
+                row.removeClass('editing');
+
+                // Restore edit and delete icons
+                row.find('.actions').html(
+                    '<i class="material-symbols-rounded text-primary edit-icon" data-id="' + memberId +
+                    '" style="cursor: pointer;">edit</i>' +
+                    '<i class="material-symbols-rounded text-danger delete-icon" data-id="' + memberId +
+                    '" style="cursor: pointer;">delete</i>'
+                );
+
+                // Send update request to backend
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/api/members/' + memberId,
+                    method: 'PUT',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        name: updatedName,
+                        membership_type: updatedMembershipType
+                    }),
+                    success: function(response) {
+                        Toastify({
+                            text: "Member updated successfully!",
+                            duration: 3000,
+                            gravity: "top", // `top`, `bottom`, `center`
+                            position: "right", // `left`, `center`, `right`
+                            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)", // Green
+                            stopOnFocus: true
+                        }).showToast();
+                    },
+                    error: function(error) {
+                        Toastify({
+                            text: "Error updating member!",
+                            duration: 3000,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red
+                            stopOnFocus: true
+                        }).showToast();
+                        console.error("Error updating member:", error);
+                    }
+                });
+
+            });
+
+            // ❌ Cancel edit and revert fields to original values
+            $(document).on('click', '.cancel-icon', function() {
+                var row = $(this).closest('tr');
+
+                // Retrieve stored original values
+                var originalName = row.attr("data-original-name");
+                var originalMembershipType = row.attr("data-original-membership");
+
+                // Reset table cells
+                row.find('td:eq(1)').text(originalName);
+                row.find('td:eq(2)').text(originalMembershipType);
+                row.removeClass('editing');
+
+                // Restore edit and delete icons
+                row.find('.actions').html(
+                    '<i class="material-symbols-rounded text-primary edit-icon" data-id="' + $(this).data(
+                    'id') + '" style="cursor: pointer;">edit</i>' +
+                    '<i class="material-symbols-rounded text-danger delete-icon" data-id="' + $(this).data(
+                    'id') + '" style="cursor: pointer;">delete</i>'
+                );
+            });
+        }
+
+
+
+
+
+
+
+        // Delete function that calls the DELETE API endpoint
+        function deleteMember(id, element) {
+            // Ask for confirmation before deleting
+            if (!confirm("Are you sure you want to delete this member?")) {
+                return; // Cancel deletion if user clicks "Cancel"
+            }
+
+            var deleteUrl = 'http://127.0.0.1:8000/api/members/' + id;
+            $.ajax({
+                url: deleteUrl,
+                method: 'DELETE',
+                success: function(response) {
+                    // Show success toast using Toastify
+                    Toastify({
+                        text: "Member deleted successfully!",
+                        duration: 3000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)" // Green
+                    }).showToast();
+                    // Refresh the table to update serial numbers
+                    fetchMembers();
+                },
+                error: function(xhr, status, error) {
+                    // Show error toast using Toastify
+                    Toastify({
+                        text: "Error deleting member: " + error,
+                        duration: 3000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)" // Red
+                    }).showToast();
+                }
+            });
+        }
+    </script>
+
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -468,17 +717,6 @@
     <!-- Use Bootstrap 4 DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('#example').DataTable({
-                "pagingType": "simple_numbers",
-                "lengthMenu": [5, 10, 25, 50], // Fix for "Show Entries" issue
-                "pageLength": 5, // Default number of records per page
-                "responsive": true
-            });
-        });
-    </script>
 
 
     @include('backend.partials.bottomsettings')
