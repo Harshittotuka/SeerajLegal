@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\Team;
@@ -48,10 +49,11 @@ class TeamRepository
                 $query->whereJsonContains('adr_services', $adrServices);
             }
             if (!empty($areaOfPractice)) {
-                $query->orWhereJsonContains('area_of_practice', $areaOfPractice);
+                $query->whereJsonContains('area_of_practice', $areaOfPractice);
             }
         })->get();
-   
+    }
+
     public function update($id, array $data)
     {
         $team = $this->findById($id);
@@ -62,5 +64,4 @@ class TeamRepository
         $team->update($data);
         return $team;
     }
-    
 }
