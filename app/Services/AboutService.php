@@ -35,6 +35,10 @@ class AboutService
     {
         return $this->AboutRepository->deleteFaq($Sno);
     }
+    public function createFaq($data)
+    {
+        return $this->AboutRepository->createFaq($data);
+    }
     
 }
 

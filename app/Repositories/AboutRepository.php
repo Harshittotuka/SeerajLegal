@@ -46,4 +46,8 @@ public function deleteFaq($Sno)
     $faq->delete();
     return ['success' => true];
 }
+public function createFaq($data)
+{
+    return Faq::create($data);
+}
 }
