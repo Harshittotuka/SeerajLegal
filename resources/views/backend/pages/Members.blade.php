@@ -206,6 +206,45 @@
             </div>
         </div>
 
+        <script>
+            function addMember() {
+                // Get the input values from the form
+                const memberName = document.getElementById("memberName").value;
+                const membershipType = document.getElementById("membershipType").value;
+
+                // Create the payload using the collected values
+                const payload = {
+                    name: memberName,
+                    membership_type: membershipType
+                };
+
+                // Send a POST request to the API endpoint
+                fetch("http://127.0.0.1:8000/api/members/create", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(payload)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("Member added:", data);
+                        // Show success message
+                        alert("Member added successfully!");
+                        // Refresh the page
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.error("There was an error adding the member:", error);
+                    });
+            }
+        </script>
+
 
 
         <!-- Modal for Adding Membership Type -->
@@ -241,6 +280,7 @@
             </div>
         </div>
 
+        <!-- js for creating new member-->
         <script>
             async function addMembership() {
                 const membershipName = document.getElementById("membershipName").value;
@@ -291,7 +331,7 @@
             }
         </script>
 
-
+        <!-- html  table-->
         <div class="container-fluid overflow-hidden py-2">
             <div class="row g-4">
                 <!-- Main Content (Table) -->
@@ -329,7 +369,7 @@
                     </div>
                 </div>
 
-              
+
                 <!-- Membership Sidebar -->
                 <div class="col-lg-3 col-md-4">
                     <div class="p-3 border rounded shadow-sm bg-white">
@@ -354,17 +394,17 @@
 
         <!-- DataTables Bootstrap 5 CSS -->
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- DataTables JS -->
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
         <!-- DataTables Bootstrap 5 JS -->
         <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-       
 
-       
+
+
     </main>
+
     <!-- JavaScript for Adding Membership Type -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {

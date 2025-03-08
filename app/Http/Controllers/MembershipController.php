@@ -24,7 +24,7 @@ class MembershipController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'membership_type' => 'required|in:basic,premium,gold,platinum',
+            'membership_type' => 'required|string',
         ]);
 
         $member = $this->membershipService->createMember($request->all());
@@ -58,7 +58,7 @@ class MembershipController extends Controller
     {
         $request->validate([
             'name' => 'string|max:255',
-            'membership_type' => 'in:basic,premium,gold,platinum'
+            'membership_type' => 'required|string',
         ]);
 
         $updatedMember = $this->membershipService->updateMember($id, $request->all());

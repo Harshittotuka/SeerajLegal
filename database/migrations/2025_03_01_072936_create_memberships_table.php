@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::create('memberships', function (Blueprint $table) {
             $table->id(); // Auto-increment primary key
             $table->string('name'); // Name of the member
-            $table->enum('membership_type', ['basic', 'premium', 'gold', 'platinum'])->default('basic'); // Membership type
+            $table->string('membership_type'); // defaults to VARCHAR(255)
             $table->timestamps(); // Created at and Updated at timestamps
         });
     }
