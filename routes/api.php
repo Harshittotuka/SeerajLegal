@@ -50,3 +50,8 @@ Route::get('/teams/filter', [TeamController::class, 'filterTeams']);
 
 Route::put('/teams/{id}', [TeamController::class, 'update']);
 
+
+
+Route::post('/members', [MembershipController::class, 'createMember']);  // Create a member
+Route::delete('/members/{id}', [MembershipController::class, 'deleteMember']); // Delete a member
+Route::put('/members/{id}', [MembershipController::class, 'update']);
