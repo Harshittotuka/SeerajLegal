@@ -51,7 +51,9 @@ Route::get('/backend/members', function () {
     return view('backend/pages/members');
 })->name('backend.members');
 
-
+Route::get('/backend/teams', function () {
+    return view('backend/pages/teams');
+})->name('backend.teams');
 
 Route::get('/backend/service/form', function () {
     return view('backend/pages/serviceform');
