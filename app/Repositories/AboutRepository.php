@@ -13,10 +13,13 @@ class AboutRepository
         return Faq::all();
     }
 
-    // Function to fetch AboutUs from the AboutUs model
-    public function getWhoWeAre()
+    // Function to fetch who we are according to S_id from the AboutUs model
+    public function getWhoWeAre(array $S_ids)
     {
-        return AboutUs::all();
+        return AboutUs::whereIn('S_id', $S_ids)
+                     ->where('flag', 'enabled')
+                     ->orderBy('S_order', 'asc')
+                     ->get();
     }
 
     // Update FAQ by Sno

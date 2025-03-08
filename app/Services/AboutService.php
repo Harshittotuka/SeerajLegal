@@ -19,10 +19,10 @@ class AboutService
         return $this->AboutRepository->getFaqs();
     }
 
-    // Function to fetch AboutUs
-    public function getWhoWeAre()
+    // Function to fetch whoweare according to S_id
+    public function getWhoWeAre(array $S_ids)
     {
-        return $this->AboutRepository->getWhoWeAre();
+        return $this->AboutRepository->getWhoWeAre($S_ids);
     }
 
     // Update FAQ by Sno
