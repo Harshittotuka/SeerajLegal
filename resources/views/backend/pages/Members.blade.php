@@ -471,8 +471,13 @@
         // Delegate click event for delete icons, call deleteMember function
         $('#example').on('click', '.delete-icon', function() {
             var memberId = $(this).data('id'); // Get the member id from data attribute
-            // Pass the current element reference (this) so we can remove the corresponding row
             deleteMember(memberId, $(this));
+        });
+
+        // Delegate click event for edit icons, call updateMember function
+        $('#example').on('click', '.edit-icon', function() {
+            var memberId = $(this).data('id'); // Get the member id from data attribute
+            updateMember(memberId);
         });
     });
 
@@ -486,20 +491,20 @@
                 var tableBody = '';
                 $.each(data, function(i, member) {
                     tableBody += '<tr>';
-                    tableBody += '<td>' + (i + 1) + '</td>'; // Updated serial number
+                    tableBody += '<td>' + (i + 1) + '</td>'; // Serial number
                     tableBody += '<td>' + member.name + '</td>';
                     // Capitalize first letter of membership type
                     var membershipType = member.membership_type.charAt(0).toUpperCase() +
                         member.membership_type.slice(1);
                     tableBody += '<td>' + membershipType + '</td>';
-                    // Include a data attribute with the member id
+                    // Include data attributes with the member id for both edit and delete icons
                     tableBody += '<td class="actions">' +
-                        '<i class="material-symbols-rounded text-primary edit-icon" style="cursor: pointer;">edit</i>' +
+                        '<i class="material-symbols-rounded text-primary edit-icon" data-id="' + member.id + '" style="cursor: pointer;">edit</i>' +
                         '<i class="material-symbols-rounded text-danger delete-icon" data-id="' + member.id + '" style="cursor: pointer;">delete</i>' +
                         '</td>';
                     tableBody += '</tr>';
                 });
-                // Clear previous table instance if exists
+                // Clear previous DataTable instance if exists
                 if ($.fn.DataTable.isDataTable('#example')) {
                     $('#example').DataTable().clear().destroy();
                 }
@@ -555,6 +560,12 @@
                 }).showToast();
             }
         });
+    }
+
+    // Update function that logs the member id to the console
+    function updateMember(id) {
+        console.log("Update member with id: " + id);
+        // Additional update logic can be added here
     }
 </script>
 
