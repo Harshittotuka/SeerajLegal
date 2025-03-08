@@ -459,115 +459,251 @@
 
 
     {{--  Fetch the members data from the API --}}
-   <!-- Include Toastify CSS and JS -->
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- Include Toastify CSS and JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-<script>
-    $(document).ready(function() {
-        // Fetch and build the table on page load
-        fetchMembers();
+    <script>
+        $(document).ready(function() {
+            // Fetch and build the table on page load
+            fetchMembers();
 
-        // Delegate click event for delete icons, call deleteMember function
-        $('#example').on('click', '.delete-icon', function() {
-            var memberId = $(this).data('id'); // Get the member id from data attribute
-            deleteMember(memberId, $(this));
+            // Delegate click event for delete icons, call deleteMember function
+            $('#example').on('click', '.delete-icon', function() {
+                var memberId = $(this).data('id'); // Get the member id from data attribute
+                deleteMember(memberId, $(this));
+            });
+
+            // Delegate click event for edit icons, call updateMember function
+
         });
 
-        // Delegate click event for edit icons, call updateMember function
-        $('#example').on('click', '.edit-icon', function() {
-            var memberId = $(this).data('id'); // Get the member id from data attribute
-            updateMember(memberId);
-        });
-    });
+        // Function to fetch members and build the table
+        function fetchMembers() {
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/members',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var tableBody = '';
+                    $.each(data, function(i, member) {
+                        tableBody += '<tr>';
+                        tableBody += '<td>' + (i + 1) + '</td>'; // Serial number
+                        tableBody += '<td>' + member.name + '</td>';
+                        // Capitalize first letter of membership type
+                        var membershipType = member.membership_type.charAt(0).toUpperCase() + member
+                            .membership_type.slice(1);
+                        tableBody += '<td>' + membershipType + '</td>';
+                        // Include data attributes with the member id for both edit and delete icons
+                        tableBody += '<td class="actions">' +
+                            '<i class="material-symbols-rounded text-primary edit-icon" data-id="' +
+                            member.id + '" style="cursor: pointer;">edit</i>' +
+                            '<i class="material-symbols-rounded text-danger delete-icon" data-id="' +
+                            member.id + '" style="cursor: pointer;">delete</i>' +
+                            '</td>';
+                        tableBody += '</tr>';
+                    });
 
-    // Function to fetch members and build the table
-    function fetchMembers() {
-        $.ajax({
-            url: 'http://127.0.0.1:8000/api/members',
-            method: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                var tableBody = '';
-                $.each(data, function(i, member) {
-                    tableBody += '<tr>';
-                    tableBody += '<td>' + (i + 1) + '</td>'; // Serial number
-                    tableBody += '<td>' + member.name + '</td>';
-                    // Capitalize first letter of membership type
-                    var membershipType = member.membership_type.charAt(0).toUpperCase() +
-                        member.membership_type.slice(1);
-                    tableBody += '<td>' + membershipType + '</td>';
-                    // Include data attributes with the member id for both edit and delete icons
-                    tableBody += '<td class="actions">' +
-                        '<i class="material-symbols-rounded text-primary edit-icon" data-id="' + member.id + '" style="cursor: pointer;">edit</i>' +
-                        '<i class="material-symbols-rounded text-danger delete-icon" data-id="' + member.id + '" style="cursor: pointer;">delete</i>' +
-                        '</td>';
-                    tableBody += '</tr>';
-                });
-                // Clear previous DataTable instance if exists
-                if ($.fn.DataTable.isDataTable('#example')) {
-                    $('#example').DataTable().clear().destroy();
+                    // Clear previous DataTable instance if exists
+                    if ($.fn.DataTable.isDataTable('#example')) {
+                        $('#example').DataTable().clear().destroy();
+                    }
+                    $('#example tbody').html(tableBody);
+
+                    // Initialize DataTable with Bootstrap styling
+                    $('#example').DataTable({
+                        "pageLength": 5,
+                        "lengthMenu": [
+                            [5, 10, 25, 50, -1],
+                            [5, 10, 25, 50, "All"]
+                        ]
+                    });
+
+                    // Enable row editing functionality after table rendering
+                    enableRowEditing();
+                },
+                error: function(error) {
+                    console.error("Error fetching members:", error);
                 }
-                $('#example tbody').html(tableBody);
-                // Initialize DataTable with Bootstrap styling
-                $('#example').DataTable({
-                    "pageLength": 5,
-                    "lengthMenu": [
-                        [5, 10, 25, 50, -1],
-                        [5, 10, 25, 50, "All"]
-                    ]
-                });
-            },
-            error: function(error) {
-                console.error("Error fetching members:", error);
-            }
-        });
-    }
-
-    // Delete function that calls the DELETE API endpoint
-    function deleteMember(id, element) {
-        // Ask for confirmation before deleting
-        if (!confirm("Are you sure you want to delete this member?")) {
-            return; // Cancel deletion if user clicks "Cancel"
+            });
         }
 
-        var deleteUrl = 'http://127.0.0.1:8000/api/members/' + id;
-        $.ajax({
-            url: deleteUrl,
-            method: 'DELETE',
-            success: function(response) {
-                // Show success toast using Toastify
-                Toastify({
-                    text: "Member deleted successfully!",
-                    duration: 3000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: "#4CAF50"
-                }).showToast();
-                // Refresh the table to update serial numbers
-                fetchMembers();
-            },
-            error: function(xhr, status, error) {
-                // Show error toast using Toastify
-                Toastify({
-                    text: "Error deleting member: " + error,
-                    duration: 3000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: "#f44336"
-                }).showToast();
-            }
-        });
-    }
+        function enableRowEditing() {
+            let membershipTypes = [];
 
-    // Update function that logs the member id to the console
-    function updateMember(id) {
-        console.log("Update member with id: " + id);
-        // Additional update logic can be added here
-    }
-</script>
+            // Fetch membership types once and store them
+            async function fetchMembershipTypes() {
+                try {
+                    const response = await fetch("http://127.0.0.1:8000/api/membership-types");
+                    const data = await response.json();
+
+                    if (data.success && Array.isArray(data.data)) {
+                        membershipTypes = data.data; // Store membership types
+                    }
+                } catch (error) {
+                    console.error("Error fetching membership types:", error);
+                }
+            }
+
+            fetchMembershipTypes(); // Fetch membership types on page load
+
+            $(document).on('click', '.edit-icon', function() {
+                var row = $(this).closest('tr');
+
+                if (row.hasClass('editing')) return; // Prevent multiple edits
+
+                row.addClass('editing');
+
+                // Store original values in data attributes
+                var originalName = row.find('td:eq(1)').text().trim();
+                var originalMembershipType = row.find('td:eq(2)').text().trim(); // Keep original case
+                row.attr("data-original-name", originalName);
+                row.attr("data-original-membership", originalMembershipType);
+
+                // Replace name cell with an input field
+                row.find('td:eq(1)').html('<input type="text" class="form-control" value="' + originalName + '">');
+
+                // Membership type dropdown (ensuring correct pre-selection)
+                var dropdownHtml = '<select class="form-control">';
+                membershipTypes.forEach(function(type) {
+                    var selected = type.membership_type.toLowerCase() === originalMembershipType
+                        .toLowerCase() ? 'selected' : '';
+                    dropdownHtml +=
+                        `<option value="${type.membership_type}" ${selected}>${type.membership_type}</option>`;
+                });
+                dropdownHtml += '</select>';
+                row.find('td:eq(2)').html(dropdownHtml);
+
+                // Replace edit icon with save and cancel buttons
+                row.find('.actions').html(
+                    '<i class="material-symbols-rounded text-success save-icon" data-id="' + $(this).data(
+                    'id') + '" style="cursor: pointer;">save</i>' +
+                    '<i class="material-symbols-rounded text-secondary cancel-icon" style="cursor: pointer;">close</i>'
+                );
+            });
+
+            // Save edited row data
+            $(document).on('click', '.save-icon', function() {
+                var row = $(this).closest('tr');
+                var memberId = $(this).data('id');
+                var updatedName = row.find('td:eq(1) input').val();
+                var updatedMembershipType = row.find('td:eq(2) select').val();
+
+                // Update table UI
+                row.find('td:eq(1)').text(updatedName);
+                row.find('td:eq(2)').text(updatedMembershipType);
+                row.removeClass('editing');
+
+                // Restore edit and delete icons
+                row.find('.actions').html(
+                    '<i class="material-symbols-rounded text-primary edit-icon" data-id="' + memberId +
+                    '" style="cursor: pointer;">edit</i>' +
+                    '<i class="material-symbols-rounded text-danger delete-icon" data-id="' + memberId +
+                    '" style="cursor: pointer;">delete</i>'
+                );
+
+                // Send update request to backend
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/api/members/' + memberId,
+                    method: 'PUT',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        name: updatedName,
+                        membership_type: updatedMembershipType
+                    }),
+                    success: function(response) {
+                        Toastify({
+                            text: "Member updated successfully!",
+                            duration: 3000,
+                            gravity: "top", // `top`, `bottom`, `center`
+                            position: "right", // `left`, `center`, `right`
+                            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)", // Green
+                            stopOnFocus: true
+                        }).showToast();
+                    },
+                    error: function(error) {
+                        Toastify({
+                            text: "Error updating member!",
+                            duration: 3000,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red
+                            stopOnFocus: true
+                        }).showToast();
+                        console.error("Error updating member:", error);
+                    }
+                });
+
+            });
+
+            // ❌ Cancel edit and revert fields to original values
+            $(document).on('click', '.cancel-icon', function() {
+                var row = $(this).closest('tr');
+
+                // Retrieve stored original values
+                var originalName = row.attr("data-original-name");
+                var originalMembershipType = row.attr("data-original-membership");
+
+                // Reset table cells
+                row.find('td:eq(1)').text(originalName);
+                row.find('td:eq(2)').text(originalMembershipType);
+                row.removeClass('editing');
+
+                // Restore edit and delete icons
+                row.find('.actions').html(
+                    '<i class="material-symbols-rounded text-primary edit-icon" data-id="' + $(this).data(
+                    'id') + '" style="cursor: pointer;">edit</i>' +
+                    '<i class="material-symbols-rounded text-danger delete-icon" data-id="' + $(this).data(
+                    'id') + '" style="cursor: pointer;">delete</i>'
+                );
+            });
+        }
+
+
+
+
+
+
+
+        // Delete function that calls the DELETE API endpoint
+        function deleteMember(id, element) {
+            // Ask for confirmation before deleting
+            if (!confirm("Are you sure you want to delete this member?")) {
+                return; // Cancel deletion if user clicks "Cancel"
+            }
+
+            var deleteUrl = 'http://127.0.0.1:8000/api/members/' + id;
+            $.ajax({
+                url: deleteUrl,
+                method: 'DELETE',
+                success: function(response) {
+                    // Show success toast using Toastify
+                    Toastify({
+                        text: "Member deleted successfully!",
+                        duration: 3000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)" // Green
+                    }).showToast();
+                    // Refresh the table to update serial numbers
+                    fetchMembers();
+                },
+                error: function(xhr, status, error) {
+                    // Show error toast using Toastify
+                    Toastify({
+                        text: "Error deleting member: " + error,
+                        duration: 3000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)" // Red
+                    }).showToast();
+                }
+            });
+        }
+    </script>
 
 
 
