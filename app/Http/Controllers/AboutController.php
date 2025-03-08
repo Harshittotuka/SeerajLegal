@@ -22,10 +22,17 @@ class AboutController extends Controller
     }
 
     // Function to fetch AboutUs using AboutService
-    public function getWhoWeAre()
+    public function getWhoWeAre(Request $request)
     {
-        $AboutUs = $this->aboutService->getWhoWeAre();
-        return response()->json($AboutUs);
+        $S_ids = $request->input('S_id');
+
+        if (!is_array($S_ids) || empty($S_ids)) {
+            return response()->json(['error' => 'Invalid or missing S_id'], 400);
+        }
+
+        $data = $this->aboutService->getWhoWeAre($S_ids);
+        
+        return response()->json($data);
     }
 
     // Update FAQ by Sno

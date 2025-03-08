@@ -9,6 +9,10 @@ use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
 
+//fetching data of who we are according to S_id
+//api to get data of who we are by S_id
+Route::post('about/who_we_are', [AboutController::class, 'getWhoWeAre']);
+
 //update,delete for faqs (nova)
 Route::prefix('faqs')->group(function () {
 Route::post('update/{Sno}', [AboutController::class, 'updateFaq']);
