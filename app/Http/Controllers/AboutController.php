@@ -75,5 +75,20 @@ public function deleteFaq($Sno)
         'message' => 'FAQ deleted successfully'
     ], 200);
 }
+public function store(Request $request)
+{
+    $request->validate([
+        'Question' => 'required|string',
+        'Answer' => 'required|string'
+    ]);
+
+    $faq = $this->aboutService->createFaq($request->all());
+
+    return response()->json([
+        'success' => true,
+        'message' => 'FAQ created successfully',
+        'data' => $faq
+    ], 201);
+}
 
 }

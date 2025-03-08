@@ -17,6 +17,7 @@ Route::post('about/who_we_are', [AboutController::class, 'getWhoWeAre']);
 Route::prefix('faqs')->group(function () {
 Route::post('update/{Sno}', [AboutController::class, 'updateFaq']);
 Route::delete('delete/{Sno}', [AboutController::class, 'deleteFaq']);
+Route::post('create', [AboutController::class, 'store']);
 });
 
 
