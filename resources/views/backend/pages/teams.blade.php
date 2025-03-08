@@ -179,277 +179,413 @@
         </style>
 
 
-    <!-- Modal for Adding Member -->
-<div class="modal fade" id="memberModal" tabindex="-1" aria-labelledby="memberModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="memberModalLabel">Add New Member</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- Modal for Adding Member -->
+        <!-- Modal for Adding/Editing Member -->
+        <div class="modal fade" id="memberModal" tabindex="-1" aria-labelledby="memberModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="memberModalLabel">Add New Member</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="memberForm">
+                            <!-- Form fields as before -->
+                            <div class="mb-3">
+                                <label for="memberName" class="form-label">Member Name</label>
+                                <input type="text" class="form-control form-control-lg" id="memberName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="memberDesignation" class="form-label">Designation</label>
+                                <input type="text" class="form-control form-control-lg" id="memberDesignation"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="memberType" class="form-label">Type</label>
+                                <select class="form-control form-control-lg" id="memberType" required>
+                                    <option value="Advocate">Advocate</option>
+                                    <option value="Retired Judge">Retired Judge</option>
+                                    <option value="Senior">Senior</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="areaOfPractice" class="form-label">Area of Practice (comma
+                                    separated)</label>
+                                <input type="text" class="form-control form-control-lg" id="areaOfPractice"
+                                    placeholder="e.g., Corporate Law, Criminal Law" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="adrServices" class="form-label">ADR Services (comma separated)</label>
+                                <input type="text" class="form-control form-control-lg" id="adrServices"
+                                    placeholder="e.g., Mediation, Arbitration" required>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="allRounder">
+                                <label class="form-check-label" for="allRounder">All Rounder</label>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <!-- Added 'me-2' class for right margin -->
+                                <button type="button" class="btn btn-success btn-lg me-2" id="saveMemberBtn"
+                                    onclick="addMember()">Save</button>
+                                <button type="button" class="btn btn-secondary btn-lg"
+                                    data-bs-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <form id="memberForm">
-            <div class="mb-3">
-              <label for="memberName" class="form-label">Member Name</label>
-              <input type="text" class="form-control form-control-lg" id="memberName" required>
-            </div>
-            <div class="mb-3">
-              <label for="memberDesignation" class="form-label">Designation</label>
-              <input type="text" class="form-control form-control-lg" id="memberDesignation" required>
-            </div>
-            <div class="mb-3">
-              <label for="memberType" class="form-label">Type</label>
-              <select class="form-control form-control-lg" id="memberType" required>
-                <option value="Advocate">Advocate</option>
-                <option value="Retired Judge">Retired Judge</option>
-                <option value="Senior">Senior</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="areaOfPractice" class="form-label">Area of Practice (comma separated)</label>
-              <input type="text" class="form-control form-control-lg" id="areaOfPractice" placeholder="e.g., Corporate Law, Criminal Law" required>
-            </div>
-            <div class="mb-3">
-              <label for="adrServices" class="form-label">ADR Services (comma separated)</label>
-              <input type="text" class="form-control form-control-lg" id="adrServices" placeholder="e.g., Mediation, Arbitration" required>
-            </div>
-            <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="allRounder">
-              <label class="form-check-label" for="allRounder">All Rounder</label>
-            </div>
-            <div class="d-flex justify-content-end">
-              <button type="button" class="btn btn-success btn-lg me-2" onclick="addMember()">Save</button>
-              <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Cancel</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Toastify CSS -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-  
-  <!-- Include these scripts after your modal code -->
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- Bootstrap JS (optional) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Toastify JS -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  
-  <script>
-    // Helper function to show Toastify notifications
-    function showToast(message, background) {
-      Toastify({
-        text: message,
-        duration: 3000,
-        gravity: "top",    // top or bottom
-        position: "right", // left, center or right
-        backgroundColor: background,
-        stopOnFocus: true
-      }).showToast();
-    }
-  
-    // Function to add a new team member using the API
-    function addMember() {
-      // Collect form data
-      const name = document.getElementById('memberName').value.trim();
-      const designation = document.getElementById('memberDesignation').value.trim();
-      const type = document.getElementById('memberType').value;
-      const areaInput = document.getElementById('areaOfPractice').value.trim();
-      const adrInput = document.getElementById('adrServices').value.trim();
-      const allRounder = document.getElementById('allRounder').checked;
-      
-      // Convert comma-separated inputs into arrays, removing extra spaces
-      const area_of_practice = areaInput.split(',').map(item => item.trim()).filter(item => item);
-      const adr_services = adrInput.split(',').map(item => item.trim()).filter(item => item);
-      
-      // Construct the data object in the required format
-      const data = {
-        name,
-        designation,
-        area_of_practice,
-        adr_services,
-        all_rounder: allRounder,
-        type
-      };
-  
-      // Call the API endpoint to create the team member
-      fetch('http://127.0.0.1:8000/api/teams/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      .then(response => response.json())
-      .then(result => {
-        if(result.success) {
-          showToast(result.message, "green");
-          // Optionally, you can update your table here with the new member
-          // Clear the form fields
-          document.getElementById('memberForm').reset();
-          // Hide the modal
-          const memberModal = bootstrap.Modal.getInstance(document.getElementById('memberModal'));
-          memberModal.hide();
-        } else {
-          showToast("Failed to create team member", "red");
-        }
-      })
-      .catch(error => {
-        showToast("Error during member creation", "red");
-        console.error('Error:', error);
-      });
-    }
-  </script>
-  
 
-        
+        <script>
+            // Event delegation for edit functionality
+            document.addEventListener('click', function(event) {
+                if (event.target.classList.contains('edit-icon')) {
+                    const row = event.target.closest('tr');
+                    const memberId = row.getAttribute('data-id');
 
-<div class="container-fluid overflow-hidden py-2">
-    <div class="row g-4">
-      <!-- Main Content (Table) -->
-      <div class="col-12">
-        <div class="card card1 no-shadow p-3">
-          <div class="card-header p-2 ps-3 d-flex justify-content-between align-items-center">
-            <div>
-              <p class="text-sm mb-0 text-capitalize">Members List</p>
-              <h4 class="mb-0">Manage Members</h4>
+                    // Option 1: If you have a dedicated API to fetch details for a member:
+                    fetch(`http://127.0.0.1:8000/api/teams/${memberId}`)
+                        .then(response => response.json())
+                        .then(member => {
+                            prefillEditModal(member);
+                        })
+                        .catch(error => {
+                            showToast("Error fetching member details", "red");
+                            console.error('Error fetching member:', error);
+                        });
+
+                    // Option 2: If all needed data is already in the row,
+                    // you could extract it from the table cells (ensure the data is accessible)
+                }
+            });
+
+            // Function to prefill the modal for editing a member
+            function prefillEditModal(member) {
+                // Set form values
+                document.getElementById('memberName').value = member.name;
+                document.getElementById('memberDesignation').value = member.designation;
+                document.getElementById('memberType').value = member.type;
+                document.getElementById('areaOfPractice').value = member.area_of_practice.join(', ');
+                document.getElementById('adrServices').value = member.adr_services.join(', ');
+                document.getElementById('allRounder').checked = member.all_rounder;
+
+                // Update modal title for editing
+                document.getElementById('memberModalLabel').textContent = "Edit Member";
+
+                // Change the save button's onclick function to updateMember with the member's ID
+                document.getElementById('saveMemberBtn').onclick = function() {
+                    updateMember(member.id);
+                };
+
+                // Display the modal
+                const memberModal = new bootstrap.Modal(document.getElementById('memberModal'));
+                memberModal.show();
+            }
+
+            // Event listener to reset the modal when it is closed
+            document.getElementById('memberModal').addEventListener('hidden.bs.modal', function() {
+                // Reset the form fields
+                document.getElementById('memberForm').reset();
+
+                // Revert modal title to default (for adding a new member)
+                document.getElementById('memberModalLabel').textContent = "Add New Member";
+
+                // Reset the save button's onclick function to the addMember function
+                document.getElementById('saveMemberBtn').onclick = addMember;
+            });
+
+            function updateMember(memberId) {
+                // Collect form data
+                const name = document.getElementById('memberName').value.trim();
+                const designation = document.getElementById('memberDesignation').value.trim();
+                const type = document.getElementById('memberType').value;
+                const areaInput = document.getElementById('areaOfPractice').value.trim();
+                const adrInput = document.getElementById('adrServices').value.trim();
+                const allRounder = document.getElementById('allRounder').checked;
+
+                // Convert comma-separated inputs into arrays
+                const area_of_practice = areaInput.split(',').map(item => item.trim()).filter(item => item);
+                const adr_services = adrInput.split(',').map(item => item.trim()).filter(item => item);
+
+                // Construct the data object as per the API input format
+                const data = {
+                    name,
+                    designation,
+                    area_of_practice,
+                    adr_services,
+                    all_rounder: allRounder,
+                    type
+                };
+
+                // Make the PUT request to update the team member
+                fetch(`http://127.0.0.1:8000/api/teams/${memberId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            // Optionally, update the table row with the new data here.
+                            showToast(result.message, "green");
+
+                            // Reset the form
+                            document.getElementById('memberForm').reset();
+
+                            // Hide the modal
+                            const memberModal = bootstrap.Modal.getInstance(document.getElementById('memberModal'));
+                            memberModal.hide();
+                        } else {
+                            showToast("Failed to update team member", "red");
+                        }
+                    })
+                    .catch(error => {
+                        showToast("Error during member update", "red");
+                        console.error('Error:', error);
+                    });
+            }
+        </script>
+
+
+        <!-- Toastify CSS -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+        <!-- Include these scripts after your modal code -->
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- Bootstrap JS (optional) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Toastify JS -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+        <script>
+            // Helper function to show Toastify notifications
+            function showToast(message, background) {
+                Toastify({
+                    text: message,
+                    duration: 3000,
+                    gravity: "top", // top or bottom
+                    position: "right", // left, center or right
+                    backgroundColor: background,
+                    stopOnFocus: true
+                }).showToast();
+            }
+
+            // Function to add a new team member using the API
+            function addMember() {
+                // Collect form data
+                const name = document.getElementById('memberName').value.trim();
+                const designation = document.getElementById('memberDesignation').value.trim();
+                const type = document.getElementById('memberType').value;
+                const areaInput = document.getElementById('areaOfPractice').value.trim();
+                const adrInput = document.getElementById('adrServices').value.trim();
+                const allRounder = document.getElementById('allRounder').checked;
+
+                // Convert comma-separated inputs into arrays, removing extra spaces
+                const area_of_practice = areaInput.split(',').map(item => item.trim()).filter(item => item);
+                const adr_services = adrInput.split(',').map(item => item.trim()).filter(item => item);
+
+                // Construct the data object in the required format
+                const data = {
+                    name,
+                    designation,
+                    area_of_practice,
+                    adr_services,
+                    all_rounder: allRounder,
+                    type
+                };
+
+                // Call the API endpoint to create the team member
+                fetch('http://127.0.0.1:8000/api/teams/create', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            showToast(result.message, "green");
+                            // Optionally, you can update your table here with the new member
+
+                            // Clear the form fields
+
+                            // Reload the website after a short delay to allow the toast to show
+                            setTimeout(() => {
+                                location.reload();
+                                document.getElementById('memberForm').reset();
+
+                                // Hide the modal
+                                const memberModal = bootstrap.Modal.getInstance(document.getElementById(
+                                    'memberModal'));
+                                memberModal.hide();
+
+                            }, 1500);
+                        } else {
+                            showToast("Failed to create team member", "red");
+                        }
+                    })
+                    .catch(error => {
+                        showToast("Error during member creation", "red");
+                        console.error('Error:', error);
+                    });
+            }
+        </script>
+
+
+
+
+        <div class="container-fluid overflow-hidden py-2">
+            <div class="row g-4">
+                <!-- Main Content (Table) -->
+                <div class="col-12">
+                    <div class="card card1 no-shadow p-3">
+                        <div class="card-header p-2 ps-3 d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="text-sm mb-0 text-capitalize">Members List</p>
+                                <h4 class="mb-0">Manage Members</h4>
+                            </div>
+                            <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon"
+                                style="cursor: pointer; width: 40px; height: 40px;" data-bs-toggle="modal"
+                                data-bs-target="#memberModal">
+                                <i class="material-symbols-rounded opacity-10">add</i>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal my-0">
+                        <div class="table-responsive mt-3">
+                            <table id="example" class="table table-striped table-bordered w-100">
+                                <thead>
+                                    <tr>
+                                        <th>Sno</th>
+                                        <th>Name</th>
+                                        <th>Designation</th>
+                                        <th>Type</th>
+                                        <th>Area of Practice</th>
+                                        <th>ADR Service</th>
+                                        <th>All Rounder</th>
+                                        <th class="actions-column">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- API data will be inserted here dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon"
-                 style="cursor: pointer; width: 40px; height: 40px;" data-bs-toggle="modal" data-bs-target="#memberModal">
-              <i class="material-symbols-rounded opacity-10">add</i>
-            </div>
-          </div>
-          <hr class="dark horizontal my-0">
-          <div class="table-responsive mt-3">
-            <table id="example" class="table table-striped table-bordered w-100">
-              <thead>
-                <tr>
-                  <th>Sno</th>
-                  <th>Name</th>
-                  <th>Designation</th>
-                  <th>Type</th>
-                  <th>Area of Practice</th>
-                  <th>ADR Service</th>
-                  <th>All Rounder</th>
-                  <th class="actions-column">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- API data will be inserted here dynamically -->
-              </tbody>
-            </table>
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Toastify CSS -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-  
-  <!-- Include these scripts after your div code -->
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- DataTables JS -->
-  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-  <!-- Toastify JS -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <!-- Bootstrap JS (optional) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <script>
-    // Helper function to create a table row based on API member data
-    function createRow(member, index) {
-      const areaOfPractice = member.area_of_practice.map(item => `<li>${item}</li>`).join('');
-      const adrServices = member.adr_services.map(item => `<li>${item}</li>`).join('');
-      const allRounderChecked = member.all_rounder ? 'checked' : '';
-  
-      return `<tr data-id="${member.id}">
-                <td>${index + 1}</td>
-                <td>${member.name}</td>
-                <td>${member.designation}</td>
-                <td>${member.type}</td>
-                <td><ul>${areaOfPractice}</ul></td>
-                <td><ul>${adrServices}</ul></td>
-                <td class="text-center">
-                  <input type="checkbox" class="all-rounder-checkbox" ${allRounderChecked}>
-                </td>
-                <td class="actions">
-                  <i class="material-symbols-rounded text-primary edit-icon" style="cursor: pointer;">edit</i>
-                  <i class="material-symbols-rounded text-danger delete-icon" style="cursor: pointer;" data-id="${member.id}">delete</i>
-                </td>
-              </tr>`;
-    }
-  
-    // Function to show Toastify notifications
-    function showToast(message, background) {
-      Toastify({
-        text: message,
-        duration: 3000,
-        gravity: "top", // top or bottom
-        position: "right", // left, center or right
-        backgroundColor: background,
-        stopOnFocus: true
-      }).showToast();
-    }
-  
-    // Function to handle deletion of a member row
-    function deleteMember(memberId, rowElement) {
-      const url = `http://127.0.0.1:8000/api/teams/${memberId}`;
-      fetch(url, {
-        method: 'DELETE'
-      })
-      .then(response => {
-        if(response.ok) {
-          // Remove the row from DataTable
-          const table = $('#example').DataTable();
-          table.row(rowElement).remove().draw();
-          showToast("Member deleted successfully", "green");
-        } else {
-          showToast("Failed to delete member", "red");
-          console.error('Delete failed with status:', response.status);
-        }
-      })
-      .catch(error => {
-        showToast("Error during deletion", "red");
-        console.error('Error during deletion:', error);
-      });
-    }
-  
-    // Fetch data from the API and populate the table
-    fetch('http://127.0.0.1:8000/api/teams')
-      .then(response => response.json())
-      .then(data => {
-        const tbody = document.querySelector('#example tbody');
-        data.forEach((member, index) => {
-          tbody.innerHTML += createRow(member, index);
-        });
-  
-        // Initialize DataTables with pagination, search, and show (length menu) functionality
-        $('#example').DataTable({
-          pageLength: 5,
-          lengthMenu: [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "All"] ],
-          responsive: true
-        });
-      })
-      .catch(error => console.error('Error fetching data:', error));
-  
-    // Event delegation for delete functionality
-    document.addEventListener('click', function(event) {
-      if(event.target.classList.contains('delete-icon')) {
-        const memberId = event.target.getAttribute('data-id');
-        const rowElement = event.target.closest('tr');
-        if(confirm('Are you sure you want to delete this member?')) {
-          deleteMember(memberId, rowElement);
-        }
-      }
-    });
-  </script>
-  
+
+        <!-- Toastify CSS -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+        <!-- Include these scripts after your div code -->
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- DataTables JS -->
+        <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+        <!-- Toastify JS -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <!-- Bootstrap JS (optional) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            // Helper function to create a table row based on API member data
+            function createRow(member, index) {
+  const areaOfPractice = member.area_of_practice.map(item => `<li>${item}</li>`).join('');
+  const adrServices = member.adr_services.map(item => `<li>${item}</li>`).join('');
+  const allRounderChecked = member.all_rounder ? 'checked' : '';
+
+  return `<tr data-id="${member.id}">
+    <td>${index + 1}</td>
+    <td>${member.name}</td>
+    <td>${member.designation}</td>
+    <td>${member.type}</td>
+    <td><ul>${areaOfPractice}</ul></td>
+    <td><ul>${adrServices}</ul></td>
+    <td class="text-center">
+      <input type="checkbox" class="all-rounder-checkbox" ${allRounderChecked} onclick="return false;">
+    </td>
+    <td class="actions">
+      <i class="material-symbols-rounded text-primary edit-icon" style="cursor: pointer;">edit</i>
+      <i class="material-symbols-rounded text-danger delete-icon" style="cursor: pointer;" data-id="${member.id}">delete</i>
+    </td>
+  </tr>`;
+}
+
+
+            // Function to show Toastify notifications
+            function showToast(message, background) {
+                Toastify({
+                    text: message,
+                    duration: 3000,
+                    gravity: "top", // top or bottom
+                    position: "right", // left, center or right
+                    backgroundColor: background,
+                    stopOnFocus: true
+                }).showToast();
+            }
+
+            // Function to handle deletion of a member row
+            function deleteMember(memberId, rowElement) {
+                const url = `http://127.0.0.1:8000/api/teams/${memberId}`;
+                fetch(url, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // Remove the row from DataTable
+                            const table = $('#example').DataTable();
+                            table.row(rowElement).remove().draw();
+                            showToast("Member deleted successfully", "green");
+                        } else {
+                            showToast("Failed to delete member", "red");
+                            console.error('Delete failed with status:', response.status);
+                        }
+                    })
+                    .catch(error => {
+                        showToast("Error during deletion", "red");
+                        console.error('Error during deletion:', error);
+                    });
+            }
+
+            // Fetch data from the API and populate the table
+            fetch('http://127.0.0.1:8000/api/teams')
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.querySelector('#example tbody');
+                    data.forEach((member, index) => {
+                        tbody.innerHTML += createRow(member, index);
+                    });
+
+                    // Initialize DataTables with pagination, search, and show (length menu) functionality
+                    $('#example').DataTable({
+                        pageLength: 5,
+                        lengthMenu: [
+                            [5, 10, 25, 50, -1],
+                            [5, 10, 25, 50, "All"]
+                        ],
+                        responsive: true
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+
+            // Event delegation for delete functionality
+            document.addEventListener('click', function(event) {
+                if (event.target.classList.contains('delete-icon')) {
+                    const memberId = event.target.getAttribute('data-id');
+                    const rowElement = event.target.closest('tr');
+                    if (confirm('Are you sure you want to delete this member?')) {
+                        deleteMember(memberId, rowElement);
+                    }
+                }
+            });
+        </script>
+
 
 
     </main>
