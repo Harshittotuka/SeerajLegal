@@ -47,6 +47,10 @@ Route::get('/backend/', function () {
 })->name('backend.home');
 
 
+Route::get('/backend/faq', function () {
+    return view('backend/pages/faq');
+})->name('backend.faq');
+
 Route::get('/backend/members', function () {
     return view('backend/pages/members');
 })->name('backend.members');
