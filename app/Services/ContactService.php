@@ -17,4 +17,17 @@ class ContactService
     {
         return $this->contactRepository->getAllContacts();
     }
+    public function createContact(array $data)
+    {
+        return $this->contactRepository->createContact($data);
+    }
+
+    public function deleteContact($id)
+    {
+        return $this->contactRepository->deleteContact($id);
+    }
+    public function updateContact($id, array $data)
+{
+    return $this->contactRepository->updateContact($id, $data);
+}
 }
