@@ -60,3 +60,7 @@ Route::put('/teams/{id}', [TeamController::class, 'update']);
 Route::post('/members/create', [MembershipController::class, 'createMember']);  // Create a member
 Route::delete('/members/{id}', [MembershipController::class, 'deleteMember']); // Delete a member
 Route::put('/members/{id}', [MembershipController::class, 'update']);
+
+Route::post('/contactcreate', [ContactController::class, 'store']);
+Route::delete('/contactdelete/{id}', [ContactController::class, 'destroy']);
+Route::put('/contactupdate/{id}', [ContactController::class, 'update']);
