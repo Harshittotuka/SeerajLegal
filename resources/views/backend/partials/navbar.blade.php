@@ -7,7 +7,6 @@ id="sidenav-main">
     <a class="navbar-brand px-4 py-3 m-0"
         href="https://demos.creative-tim.com/material-dashboard/pages/dashboard" target="_blank">
         <img src="{{ asset('assets/backend/img/logo-ct-dark.png') }}" class="navbar-brand-img" width="26" height="26" alt="main_logo">
-
         <span class="ms-1 text-sm text-dark">Creative Tim</span>
     </a>
 </div>
@@ -15,7 +14,6 @@ id="sidenav-main">
 <hr class="horizontal dark mt-0 mb-2">
 <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
     <ul class="navbar-nav">
-
         <!-- Dashboard -->
         <li class="nav-item">
             <a class="nav-link active bg-gradient-dark text-white" href="#">
@@ -48,7 +46,7 @@ id="sidenav-main">
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">
+                        <a class="nav-link text-dark" href="{{ route('backend.faq') }}">
                             <i class="material-symbols-rounded opacity-5">help</i>
                             FAQ
                         </a>
@@ -67,13 +65,13 @@ id="sidenav-main">
             <div class="collapse" id="services-collapse" data-bs-parent="#sidenav-collapse-main">
                 <ul class="nav flex-column ps-4">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">
+                        <a class="nav-link text-dark" href="{{ route('backend.service.form') }}">
                             <i class="material-symbols-rounded opacity-5">gavel</i>
                             Arbitration
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">
+                        <a class="nav-link text-dark" href="{{ route('backend.service.list') }}">
                             <i class="material-symbols-rounded opacity-5">handshake</i>
                             Mediation
                         </a>
@@ -82,37 +80,6 @@ id="sidenav-main">
                         <a class="nav-link text-dark" href="#">
                             <i class="material-symbols-rounded opacity-5">support_agent</i>
                             Consultation
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
-        <!-- Rules Dropdown -->
-        <li class="nav-item">
-            <a class="nav-link text-dark" data-bs-toggle="collapse" href="#rules-collapse" role="button"
-                aria-expanded="false" aria-controls="rules-collapse">
-                <i class="material-symbols-rounded opacity-5">description</i>
-                <span class="nav-link-text ms-1">Rules</span>
-            </a>
-            <div class="collapse" id="rules-collapse" data-bs-parent="#sidenav-collapse-main">
-                <ul class="nav flex-column ps-4">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">
-                            <i class="material-symbols-rounded opacity-5">rule</i>
-                            Arbitration Rules
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">
-                            <i class="material-symbols-rounded opacity-5">rule_folder</i>
-                            Mediation Rules
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">
-                            <i class="material-symbols-rounded opacity-5">assignment</i>
-                            Consolation Rules
                         </a>
                     </li>
                 </ul>
@@ -129,13 +96,13 @@ id="sidenav-main">
             <div class="collapse" id="practices-collapse" data-bs-parent="#sidenav-collapse-main">
                 <ul class="nav flex-column ps-4">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">
+                        <a class="nav-link text-dark" href="{{ route('backend.practice.form') }}">
                             <i class="material-symbols-rounded opacity-5">account_balance</i>
                             Civil
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">
+                        <a class="nav-link text-dark" href="{{ route('backend.practice.list') }}">
                             <i class="material-symbols-rounded opacity-5">more_horiz</i>
                             Other Practices
                         </a>
@@ -154,7 +121,7 @@ id="sidenav-main">
             <div class="collapse" id="membership-collapse" data-bs-parent="#sidenav-collapse-main">
                 <ul class="nav flex-column ps-4">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">
+                        <a class="nav-link text-dark" href="{{ route('backend.members') }}">
                             <i class="material-symbols-rounded opacity-5">people</i>
                             Memberlist
                         </a>
@@ -171,7 +138,7 @@ id="sidenav-main">
 
         <!-- Team -->
         <li class="nav-item">
-            <a class="nav-link text-dark" href="#">
+            <a class="nav-link text-dark" href="{{ route('backend.teams') }}">
                 <i class="material-symbols-rounded opacity-5">groups</i>
                 <span class="nav-link-text ms-1">Team</span>
             </a>
@@ -188,8 +155,7 @@ id="sidenav-main">
 </div>
 <div class="sidenav-footer position-absolute w-100 bottom-0 ">
     <div class="mx-3">
-    
-      <a class="btn bg-gradient-dark w-100" href="#" type="button">Logout</a>
+        <a class="btn bg-gradient-dark w-100" href="#" type="button">Logout</a>
     </div>
-  </div>
+</div>
 </aside>

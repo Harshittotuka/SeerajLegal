@@ -371,7 +371,7 @@
                         console.log("Success:", data);
                         showToast("All valid data saved successfully!", "success");
 
-                        Redirect to the given URL after a short delay
+                        //Redirect to the given URL after a short delay
                         setTimeout(() => {
                             window.location.href = "http://127.0.0.1:8000/backend/practice/list";
                         }, 2000);
