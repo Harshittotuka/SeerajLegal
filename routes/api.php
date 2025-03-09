@@ -61,6 +61,6 @@ Route::post('/members/create', [MembershipController::class, 'createMember']);  
 Route::delete('/members/{id}', [MembershipController::class, 'deleteMember']); // Delete a member
 Route::put('/members/{id}', [MembershipController::class, 'update']);
 
-Route::post('/contactcreate', [ContactController::class, 'store']);
-Route::delete('/contactdelete/{id}', [ContactController::class, 'destroy']);
-Route::put('/contactupdate/{id}', [ContactController::class, 'update']);
+Route::post('/contact/create', [ContactController::class, 'store']);
+Route::delete('/contact/delete/{id}', [ContactController::class, 'destroy']);
+Route::put('/contact/update/{id}', [ContactController::class, 'update']);
