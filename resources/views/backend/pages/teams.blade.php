@@ -190,52 +190,123 @@
                     </div>
                     <div class="modal-body">
                         <form id="memberForm">
-                            <!-- Form fields as before -->
-                            <div class="mb-3">
-                                <label for="memberName" class="form-label">Member Name</label>
-                                <input type="text" class="form-control form-control-lg" id="memberName" required>
+                            <div class="row">
+                                <!-- Name -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="memberName" class="form-label">Member Name</label>
+                                    <input type="text" class="form-control form-control-lg" id="memberName" 
+                                        placeholder="Enter full name" required>
+                                </div>
+        
+                                <!-- Type -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="memberType" class="form-label">Type</label>
+                                    <select class="form-control form-control-lg" id="memberType" required>
+                                        <option value="" disabled selected>Select Member Type</option>
+                                        <option value="Advocate">Advocate</option>
+                                        <option value="Retired Judge">Retired Judge</option>
+                                        <option value="Senior">Senior</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="memberDesignation" class="form-label">Designation</label>
-                                <input type="text" class="form-control form-control-lg" id="memberDesignation"
-                                    required>
+        
+                            <div class="row">
+                                <!-- Email -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="memberEmail" class="form-label">Email</label>
+                                    <input type="email" class="form-control form-control-lg" id="memberEmail" 
+                                        placeholder="example@email.com" required>
+                                </div>
+        
+                                <!-- Phone -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="memberPhone" class="form-label">Phone</label>
+                                    <input type="tel" class="form-control form-control-lg" id="memberPhone" 
+                                        placeholder="Enter phone number" required>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="memberType" class="form-label">Type</label>
-                                <select class="form-control form-control-lg" id="memberType" required>
-                                    <option value="Advocate">Advocate</option>
-                                    <option value="Retired Judge">Retired Judge</option>
-                                    <option value="Senior">Senior</option>
-                                    <option value="Other">Other</option>
-                                </select>
+        
+                            <div class="row">
+                                <!-- Designation -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="memberDesignation" class="form-label">Designation</label>
+                                    <input type="text" class="form-control form-control-lg" id="memberDesignation" 
+                                        placeholder="e.g., Senior Advocate" required>
+                                </div>
+        
+                                <!-- Area of Practice -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="areaOfPractice" class="form-label">Area of Practice (comma separated)</label>
+                                    <input type="text" class="form-control form-control-lg" id="areaOfPractice"
+                                        placeholder="e.g., Corporate Law, Criminal Law" required>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="areaOfPractice" class="form-label">Area of Practice (comma
-                                    separated)</label>
-                                <input type="text" class="form-control form-control-lg" id="areaOfPractice"
-                                    placeholder="e.g., Corporate Law, Criminal Law" required>
+        
+                            <div class="row">
+                                <!-- ADR Services -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="adrServices" class="form-label">ADR Services (comma separated)</label>
+                                    <input type="text" class="form-control form-control-lg" id="adrServices"
+                                        placeholder="e.g., Mediation, Arbitration" required>
+                                </div>
+        
+                                <!-- Experience -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="memberExperience" class="form-label">Experience (comma separated)</label>
+                                    <input type="text" class="form-control form-control-lg" id="memberExperience"
+                                        placeholder="e.g., 10 years in High Court, 5 years in Supreme Court">
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="adrServices" class="form-label">ADR Services (comma separated)</label>
-                                <input type="text" class="form-control form-control-lg" id="adrServices"
-                                    placeholder="e.g., Mediation, Arbitration" required>
+        
+                            <div class="row">
+                                <!-- Education -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="memberEducation" class="form-label">Education (comma separated)</label>
+                                    <input type="text" class="form-control form-control-lg" id="memberEducation"
+                                        placeholder="e.g., LLB - Harvard University, LLM - Oxford University">
+                                </div>
+        
+                                <!-- Awards -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="memberAwards" class="form-label">Awards (comma separated)</label>
+                                    <input type="text" class="form-control form-control-lg" id="memberAwards"
+                                        placeholder="e.g., Best Lawyer 2020, Top Arbitrator 2022">
+                                </div>
                             </div>
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="allRounder">
-                                <label class="form-check-label" for="allRounder">All Rounder</label>
+        
+                            <div class="row">
+                                <!-- Social Media Links -->
+                                <div class="col-md-12 mb-3">
+                                    <label for="memberSocials" class="form-label">Social Media Links (JSON format)</label>
+                                    <textarea class="form-control form-control-lg" id="memberSocials" rows="3"
+                                        placeholder='{"linkedin": "https://linkedin.com/in/johndoe", "twitter": "https://twitter.com/johndoe"}'></textarea>
+                                </div>
                             </div>
-                            <div class="d-flex justify-content-end">
-                                <!-- Added 'me-2' class for right margin -->
+        
+                            <!-- All Rounder Checkbox at the Bottom -->
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="allRounder" style="border-color: blue;">
+                                        <label class="form-check-label fw-bold text-primary" for="allRounder">All Rounder</label>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <!-- Save and Cancel Buttons -->
+                            <div class="d-flex justify-content-end mt-3">
                                 <button type="button" class="btn btn-success btn-lg me-2" id="saveMemberBtn"
                                     onclick="addMember()">Save</button>
-                                <button type="button" class="btn btn-secondary btn-lg"
-                                    data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Cancel</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        
+
 
         <script>
             // Event delegation for edit functionality
@@ -262,26 +333,35 @@
 
             // Function to prefill the modal for editing a member
             function prefillEditModal(member) {
-                // Set form values
-                document.getElementById('memberName').value = member.name;
-                document.getElementById('memberDesignation').value = member.designation;
-                document.getElementById('memberType').value = member.type;
-                document.getElementById('areaOfPractice').value = member.area_of_practice.join(', ');
-                document.getElementById('adrServices').value = member.adr_services.join(', ');
-                document.getElementById('allRounder').checked = member.all_rounder;
+    // Set form values
+    document.getElementById('memberName').value = member.name;
+    document.getElementById('memberDesignation').value = member.designation;
+    document.getElementById('memberType').value = member.type;
+    document.getElementById('areaOfPractice').value = member.area_of_practice.join(', ');
+    document.getElementById('adrServices').value = member.adr_services.join(', ');
+    document.getElementById('allRounder').checked = member.all_rounder;
+    document.getElementById('memberEmail').value = member.email || '';
+    document.getElementById('memberPhone').value = member.phone || '';
+    document.getElementById('memberExperience').value = member.experience ? member.experience.join(', ') : '';
+    document.getElementById('memberEducation').value = member.education ? member.education.join(', ') : '';
+    document.getElementById('memberAwards').value = member.awards ? member.awards.join(', ') : '';
 
-                // Update modal title for editing
-                document.getElementById('memberModalLabel').textContent = "Edit Member";
+    // Handle socials as a JSON string
+    document.getElementById('memberSocials').value = JSON.stringify(member.socials, null, 2);
 
-                // Change the save button's onclick function to updateMember with the member's ID
-                document.getElementById('saveMemberBtn').onclick = function() {
-                    updateMember(member.id);
-                };
+    // Update modal title for editing
+    document.getElementById('memberModalLabel').textContent = "Edit Member";
 
-                // Display the modal
-                const memberModal = new bootstrap.Modal(document.getElementById('memberModal'));
-                memberModal.show();
-            }
+    // Change the save button's onclick function to updateMember with the member's ID
+    document.getElementById('saveMemberBtn').onclick = function () {
+        updateMember(member.id);
+    };
+
+    // Display the modal
+    const memberModal = new bootstrap.Modal(document.getElementById('memberModal'));
+    memberModal.show();
+}
+
 
             // Event listener to reset the modal when it is closed
             document.getElementById('memberModal').addEventListener('hidden.bs.modal', function() {
@@ -303,19 +383,44 @@
                 const areaInput = document.getElementById('areaOfPractice').value.trim();
                 const adrInput = document.getElementById('adrServices').value.trim();
                 const allRounder = document.getElementById('allRounder').checked;
+                const email = document.getElementById('memberEmail').value.trim();
+                const phone = document.getElementById('memberPhone').value.trim();
+                const experienceInput = document.getElementById('memberExperience').value.trim();
+                const educationInput = document.getElementById('memberEducation').value.trim();
+                const awardsInput = document.getElementById('memberAwards').value.trim();
+                const socialsInput = document.getElementById('memberSocials').value.trim();
 
                 // Convert comma-separated inputs into arrays
                 const area_of_practice = areaInput.split(',').map(item => item.trim()).filter(item => item);
                 const adr_services = adrInput.split(',').map(item => item.trim()).filter(item => item);
+                const experience = experienceInput.split(',').map(item => item.trim()).filter(item => item);
+                const education = educationInput.split(',').map(item => item.trim()).filter(item => item);
+                const awards = awardsInput.split(',').map(item => item.trim()).filter(item => item);
+
+                // Convert JSON input for social media links
+                let socials = {};
+                try {
+                    socials = JSON.parse(socialsInput);
+                } catch (error) {
+                    console.error('Invalid JSON format in socials input');
+                    showToast("Invalid social media links format", "red");
+                    return;
+                }
 
                 // Construct the data object as per the API input format
                 const data = {
                     name,
                     designation,
+                    type,
                     area_of_practice,
                     adr_services,
                     all_rounder: allRounder,
-                    type
+                    email,
+                    phone,
+                    experience,
+                    education,
+                    awards,
+                    socials
                 };
 
                 // Make the PUT request to update the team member
@@ -383,19 +488,44 @@
                 const areaInput = document.getElementById('areaOfPractice').value.trim();
                 const adrInput = document.getElementById('adrServices').value.trim();
                 const allRounder = document.getElementById('allRounder').checked;
+                const email = document.getElementById('memberEmail').value.trim();
+                const phone = document.getElementById('memberPhone').value.trim();
+                const experienceInput = document.getElementById('memberExperience').value.trim();
+                const educationInput = document.getElementById('memberEducation').value.trim();
+                const awardsInput = document.getElementById('memberAwards').value.trim();
+                const socialsInput = document.getElementById('memberSocials').value.trim();
 
-                // Convert comma-separated inputs into arrays, removing extra spaces
+                // Convert comma-separated inputs into arrays
                 const area_of_practice = areaInput.split(',').map(item => item.trim()).filter(item => item);
                 const adr_services = adrInput.split(',').map(item => item.trim()).filter(item => item);
+                const experience = experienceInput.split(',').map(item => item.trim()).filter(item => item);
+                const education = educationInput.split(',').map(item => item.trim()).filter(item => item);
+                const awards = awardsInput.split(',').map(item => item.trim()).filter(item => item);
+
+                // Convert JSON input for social media links
+                let socials = {};
+                try {
+                    socials = JSON.parse(socialsInput);
+                } catch (error) {
+                    console.error('Invalid JSON format in socials input');
+                    showToast("Invalid social media links format", "red");
+                    return;
+                }
 
                 // Construct the data object in the required format
                 const data = {
                     name,
                     designation,
+                    type,
                     area_of_practice,
                     adr_services,
                     all_rounder: allRounder,
-                    type
+                    email,
+                    phone,
+                    experience,
+                    education,
+                    awards,
+                    socials
                 };
 
                 // Call the API endpoint to create the team member
@@ -410,9 +540,6 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message, "green");
-                            // Optionally, you can update your table here with the new member
-
-                            // Clear the form fields
 
                             // Reload the website after a short delay to allow the toast to show
                             setTimeout(() => {
@@ -423,7 +550,6 @@
                                 const memberModal = bootstrap.Modal.getInstance(document.getElementById(
                                     'memberModal'));
                                 memberModal.hide();
-
                             }, 1500);
                         } else {
                             showToast("Failed to create team member", "red");
@@ -446,8 +572,8 @@
                     <div class="card card1 no-shadow p-3">
                         <div class="card-header p-2 ps-3 d-flex justify-content-between align-items-center">
                             <div>
-                                <p class="text-sm mb-0 text-capitalize">Members List</p>
-                                <h4 class="mb-0">Manage Members</h4>
+                                <p class="text-sm mb-0 text-capitalize">Teams List</p>
+                                <h4 class="mb-0">Manage Teams</h4>
                             </div>
                             <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon"
                                 style="cursor: pointer; width: 40px; height: 40px;" data-bs-toggle="modal"
@@ -496,11 +622,11 @@
         <script>
             // Helper function to create a table row based on API member data
             function createRow(member, index) {
-  const areaOfPractice = member.area_of_practice.map(item => `<li>${item}</li>`).join('');
-  const adrServices = member.adr_services.map(item => `<li>${item}</li>`).join('');
-  const allRounderChecked = member.all_rounder ? 'checked' : '';
+                const areaOfPractice = member.area_of_practice.map(item => `<li>${item}</li>`).join('');
+                const adrServices = member.adr_services.map(item => `<li>${item}</li>`).join('');
+                const allRounderChecked = member.all_rounder ? 'checked' : '';
 
-  return `<tr data-id="${member.id}">
+                return `<tr data-id="${member.id}">
     <td>${index + 1}</td>
     <td>${member.name}</td>
     <td>${member.designation}</td>
@@ -515,7 +641,7 @@
       <i class="material-symbols-rounded text-danger delete-icon" style="cursor: pointer;" data-id="${member.id}">delete</i>
     </td>
   </tr>`;
-}
+            }
 
 
             // Function to show Toastify notifications
