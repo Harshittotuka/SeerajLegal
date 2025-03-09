@@ -7,8 +7,8 @@
                     <div class="col-12">
                         <div class="d-flex flex-wrap justify-content-between align-items-center ms-3 me-3">
                             <div class="mb-2 mb-md-0"> 
-                                <h3 class="mb-0 h4 font-weight-bolder">Name</h3>
-                                <p class="mb-4">Data</p>
+                                <h3 class="mb-0 h4 font-weight-bolder"></h3>
+                                <p class="mb-4"></p>
                             </div>
                             <div class="d-flex flex-wrap">
                                 <button class="btn btn-primary me-2 mb-2" id="saveButton">
