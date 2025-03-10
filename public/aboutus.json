@@ -1,0 +1,81 @@
+[
+    {
+        "S_id": 1,
+        "S_order": 1,
+        "title": "We are here to Empower <span>Justice</span>",
+        "para": "Seeraj Legal Relief Foundation is a non-government organization committed to resolving disputes cost-effectively, offering expert legal advice, and spreading legal awareness through educational programs.",
+        "points": ["Recognized Entity", "Public Benefit Focus", "Trustworthy and Authentic"],
+        "flag": "enabled",
+        "image": ["assets/img/Experience.webp"]
+    },
+    {
+        "S_id": 2,
+        "S_order": 2,
+        "title": "Legal Registration",
+        "para": "A Non-Governmental Organization registered under the Companies Act with CIN No. U94120RJ2024NPL093001.",
+        "points": null,
+        "flag": "enabled",
+        "image": null
+    },
+    {
+        "S_id": 3,
+        "S_order": 3,
+        "title": "Non-Profit Objective",
+        "para": "Operates as a non-profit entity dedicated to resolving disputes amicably, fostering peaceful settlements, and spreading awareness.",
+        "points": null,
+        "flag": "enabled",
+        "image": null
+    },
+    {
+        "S_id": 4,
+        "S_order": 4,
+        "title": "Jurisdiction",
+        "para": "Based in Rajasthan, India, with services available both locally and beyond through online and offline platforms.",
+        "points": null,
+        "flag": "enabled",
+        "image": null
+    },
+    {
+        "S_id": 5,
+        "S_order": 5,
+        "title": "We are here to provide legal Services",
+        "para": "All people are equal before the law. A good attorney is what makes a difference. Lorem aliquam sit amet auctor the done vitae risus duise in the miss ranish fermen.",
+        "points": ["Rajan Sharma", "Seema Sharma"],
+        "flag": "enabled",
+        "image": ["assets/img/team (2).webp"]
+    },
+    {
+        "S_id": 6,
+        "S_order": 6,
+        "title": "Awards & Recognitions",
+        "para": null,
+        "points": null,
+        "flag": "enabled",
+        "image": ["assets/img/awards/01.png", "assets/img/awards/02.png", "assets/img/awards/03.png", "assets/img/awards/04.png"]
+    },
+    {
+        "S_id": 7,
+        "S_order": 7,
+        "title": "Meet Our Directors",
+        "para": ["RAJAN SHARMA", "SEEMA SHARMA"],
+        "points": ["Specialization 1", "Specialization 2"],
+        "flag": "enabled",
+        "image": [
+            {
+                "url": "assets/img/my/profile_icon2.png",
+                "facebook": "#",
+                "twitter": "#",
+                "instagram": "#",
+                "linkedin": "#"
+            },
+            {
+                "url": "assets/img/my/profile_icon2.png",
+                "facebook": "#",
+                "twitter": "#",
+                "instagram": "#",
+                "linkedin": "#"
+            }
+        ]
+    }
+    
+]
