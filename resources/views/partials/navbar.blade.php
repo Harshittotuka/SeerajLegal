@@ -56,44 +56,51 @@
                     </ul>
                 </li>
                 
-                <script>
-                  document.addEventListener("DOMContentLoaded", function () {
-    let apiUrl = "http://127.0.0.1:8000/api/services/list";
-
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                let services = data.data;
-                let dropdownMenu = document.getElementById('servicesDropdown');
-                
-                dropdownMenu.innerHTML = ''; // Clear existing content
-                
-                services.forEach(service => {
-                    if (service.flag === "enabled") {
-                        let li = document.createElement('li');
-                        li.innerHTML = `<a href="/service/${service.id}" class="dropdown-item">${service.service_name}</a>`;
-                        dropdownMenu.appendChild(li);
-                    }
-                });
-            }
-        })
-        .catch(error => console.error("Error fetching services list:", error));
-});
-                </script>
-                
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{ request()->routeIs('service_rules') ? 'active' : '' }}"
-                        href="{{ route('service_rules') }}" role="button" data-bs-toggle="dropdown">Rules <i
-                            class="ti-angle-down"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('service_rules') }}" class="dropdown-item">Arbitration Rules</a></li>
-                        <li><a href="{{ route('service_rules') }}" class="dropdown-item">Conciliation Rules</a></li>
-                        <li><a href="{{ route('service_rules') }}" class="dropdown-item">Mediation Rules</a></li>
-                        <li><a href="{{ route('service_rules') }}" class="dropdown-item">Judicial Statement Rules</a>
-                        </li>
+                    <a class="nav-link dropdown-toggle {{ request()->routeIs('service_rules') ? 'active' : '' }}" 
+                        href="#" role="button" data-bs-toggle="dropdown">Rules <i class="ti-angle-down"></i></a>
+                    <ul class="dropdown-menu" id="rulesDropdown">
+                        <!-- Dynamic rules links will be inserted here -->
                     </ul>
                 </li>
+                
+                <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    let apiUrl = "http://127.0.0.1:8000/api/services/list";
+                
+                    fetch(apiUrl)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                let services = data.data;
+                                let servicesDropdown = document.getElementById('servicesDropdown');
+                                let rulesDropdown = document.getElementById('rulesDropdown');
+                
+                                // Clear existing content
+                                servicesDropdown.innerHTML = '';
+                                rulesDropdown.innerHTML = '';
+                
+                                services.forEach(service => {
+                                    if (service.flag === "enabled") {
+                                        let encodedServiceName = encodeURIComponent(service.service_name);
+                
+                                        // Add service link (redirect using name)
+                                        let serviceItem = document.createElement('li');
+                                        serviceItem.innerHTML = `<a href="/service/${encodedServiceName}" class="dropdown-item">${service.service_name}</a>`;
+                                        servicesDropdown.appendChild(serviceItem);
+                
+                                        // Add service rules link (redirect using query param)
+                                        let rulesItem = document.createElement('li');
+                                        rulesItem.innerHTML = `<a href="/service_rules?service=${encodedServiceName}" class="dropdown-item">${service.service_name} Rules</a>`;
+                                        rulesDropdown.appendChild(rulesItem);
+                                    }
+                                });
+                            }
+                        })
+                        .catch(error => console.error("Error fetching services list:", error));
+                });
+                </script>
+                
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{ request()->routeIs('membership.*') || request()->routeIs('membership.become') || request()->routeIs('membership.list') || request()->routeIs('membership.panel') ? 'active' : '' }}"
