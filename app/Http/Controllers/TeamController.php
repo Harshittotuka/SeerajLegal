@@ -22,8 +22,21 @@ class TeamController extends Controller
 
     public function show($id)
     {
-        return response()->json($this->teamService->getTeamById($id));
+        $team = $this->teamService->getTeamById($id);
+    
+        if ($team) {
+            return response()->json([
+                'success' => true,
+                'data' => $team
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Team not found'
+            ], 404);
+        }
     }
+    
 
     public function filterByPractice($practice)
     {
