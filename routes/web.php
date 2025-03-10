@@ -143,6 +143,11 @@ Route::get('/team', function () {
     return view('pages.team');
 })->name('team');
 
+// Team Page
+Route::get('/team-details', function () {
+    return view('pages.team_detail');
+})->name('team');
+
 // Contact Page
 Route::get('/contact', function () {
     return view('pages.contact');

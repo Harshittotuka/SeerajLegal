@@ -20,110 +20,139 @@
     <!-- navbar -->
     @include('partials.navbar')
 
-    <!-- Header Banner -->
     <div class="banner-header valign bg-img bg-fixed" data-overlay-dark="5"
-        data-background="{{ asset('assets/img/Conciliation.webp') }}">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 text-center mt-60">
-                    <h6>
-                        <div class="icon"><i class="flaticon-courthouse"></i></div> Rules
-                    </h6>
-                    <h1>Rules of Conciliation</h1>
+    data-background="{{ asset('assets/img/Conciliation.webp') }}">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center mt-60">
+                <h6>
+                    <div class="icon"><i class="flaticon-courthouse"></i></div> Rules
+                </h6>
+                <h1 id="service-title">Loading...</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page -->
+<section class="page section-padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- Main Content -->
+            <div class="col-lg-9 col-md-12 mb-3">
+                <h4 id="rules-title">Loading...</h4>
+                <p id="rules-content">Fetching rules, please wait...</p>
+
+                <!-- PDF Viewer -->
+                <iframe id="rules-pdf" style="width: 90%; height: 600px; border: 2px solid black;" src=""></iframe>
+
+                <!-- Mobile Download Prompt & Button -->
+                <div id="mobile-download-prompt" style="display: none; text-align: center; margin-top: 10px;">
+                    <p style="font-weight: 500;">📄 To view the PDF on your device, <strong>download the
+                            PDF</strong> below:</p>
+
+                    <a id="download-pdf" href="#" download class="btn btn-outline-primary">Download PDF</a>
+                </div>
+            </div>
+
+            <!-- Related Service Rules Sidebar -->
+            <div class="col-lg-3 col-md-12">
+                <div class="sidebar custom-box">
+                    <h5>Related Service Rules</h5>
+                    <ul class="list-unstyled" id="related-services">
+                        <li>Loading...</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+</section>
 
-    <!-- Page -->
-    <section class="page section-padding">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-9 col-md-12 mb-3">
-                    <h4>Rules of Conciliation</h4>
-                    <p>Content describing the rules of Conciliation...</p>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get service name from URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const service = urlParams.get('service');
 
-                    <!-- PDF Viewer -->
-                    <iframe src="{{ asset('assets/pdf/mediation_Conciliation_Rules.pdf') }}"
-                        style="width: 90%; height: 600px; border: 2px solid black;"></iframe>
+        if (!service) {
+            document.getElementById("rules-content").innerText = "No service specified.";
+            return;
+        }
 
-                    <!-- Mobile Download Prompt & Button -->
-                    <div id="mobile-download-prompt" style="display: none; text-align: center; margin-top: 10px;">
-                        <p style="font-weight: 500;">📄 To view the PDF on your device, <strong>download the
-                                PDF</strong> below:</p>
+        // Fetch Rules Data
+        fetch(`http://127.0.0.1:8000/api/services/rules/${service}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.data.flag === "enabled") {
+                    document.getElementById("service-title").innerText = `Rules of ${data.data.service_name}`;
+                    document.getElementById("rules-title").innerText = `Rules of ${data.data.service_name}`;
+                    document.getElementById("rules-content").innerText = `Here are the rules for ${data.data.service_name}`;
+                    document.getElementById("rules-pdf").src = data.data.rules;
+                    document.getElementById("download-pdf").href = data.data.rules;
+                } else {
+                    document.getElementById("rules-content").innerText = "No rules available for this service.";
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
+                document.getElementById("rules-content").innerText = "Failed to load rules.";
+            });
 
-                        <a href="{{ asset('assets/pdf/mediation_Conciliation_Rules.pdf') }}" download
-                            class="btn btn-outline-primary">Download PDF</a>
-                    </div>
-                </div>
+        // Fetch All Services for Sidebar
+        fetch(`http://127.0.0.1:8000/api/services/list`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const relatedServicesContainer = document.getElementById("related-services");
+                    relatedServicesContainer.innerHTML = ''; // Clear existing content
 
-                <!-- Script to Show Prompt on Mobile -->
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        if (window.innerWidth <= 768) { // Adjusts for mobile viewports
-                            document.getElementById('mobile-download-prompt').style.display = 'block';
-                        }
-                    });
-                </script>
-
-
-                <div class="col-lg-3 col-md-12">
-                    <div class="sidebar custom-box">
-                        <h5>Related Service Rules</h5>
-                        <ul class="list-unstyled">
+                    data.data.forEach(service => {
+                        let listItem = `
                             <li>
-                                <a href="Service_arbitration.html" class="text-black fw-semibold">Arbitration</a>
+                                <a href="http://127.0.0.1:8000/service/${service.service_name}" 
+                                   class="text-black fw-semibold">${service.service_name}</a>
                                 <ul class="list-unstyled ms-3">
-                                    <li><a href="Rules_Arbitration.html" class="text-muted small">→ Arbitration
-                                            Rules</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="Service_Mediation.html" class="text-dark">Mediation</a>
-                                <ul class="list-unstyled ms-3">
-                                    <li><a href="Rules_Mediation.html" class="text-muted small">→ Mediation Process</a>
+                                    <li>
+                                        <a href="http://127.0.0.1:8000/service_rules?service=${service.service_name}" 
+                                           class="text-muted small">→ ${service.service_name} Rules</a>
                                     </li>
                                 </ul>
-                            </li>
-                            <li>
-                                <a href="Service_Conciliation.html" class="text-dark">Conciliation Law</a>
-                                <ul class="list-unstyled ms-3">
-                                    <li><a href="#" class="text-secondary small fst-italic text-black">→
-                                            Conciliations Regulations</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="Service_lokadalat.html" class="text-dark">Judicial Statement</a>
-                                <ul class="list-unstyled ms-3">
-                                    <li><a href="Rules_lok_adalat.html" class="text-muted small">→ Judicial Statement
-                                            Guidelines</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                            </li>`;
+                        relatedServicesContainer.innerHTML += listItem;
+                    });
+                } else {
+                    document.getElementById("related-services").innerHTML = "<li>No related services available.</li>";
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching related services:", error);
+                document.getElementById("related-services").innerHTML = "<li>Failed to load related services.</li>";
+            });
 
+        // Mobile check for PDF download prompt
+        if (window.innerWidth <= 768) {
+            document.getElementById("mobile-download-prompt").style.display = "block";
+        }
+    });
+</script>
 
-            </div>
-        </div>
+<style>
+    .custom-box {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2),
+            -5px -5px 15px rgba(255, 255, 255, 0.8);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        <style>
-            .custom-box {
-                background: #fff;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2),
-                    -5px -5px 15px rgba(255, 255, 255, 0.8);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
+    .custom-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3),
+            -8px -8px 20px rgba(255, 255, 255, 0.9);
+    }
+</style>
 
-            .custom-box:hover {
-                transform: translateY(-5px);
-                box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3),
-                    -8px -8px 20px rgba(255, 255, 255, 0.9);
-            }
-        </style>
-    </section>
 
     <!-- Footer -->
     @include('partials.footer')

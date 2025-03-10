@@ -76,29 +76,29 @@
             let apiUrl = "http://127.0.0.1:8000/api/services/list";
 
             fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        let services = data.data;
-                        let listContainer = document.getElementById('relatedServicesList');
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            let services = data.data;
+            let listContainer = document.getElementById('relatedServicesList');
 
-                        listContainer.innerHTML = ''; // Clear existing content
+            listContainer.innerHTML = ''; // Clear existing content
 
-                        services.forEach(service => {
-                            let li = document.createElement('li');
-                            let isActive = (service.toLowerCase() === currentService.toLowerCase()) ?
-                                'font-weight: bold;' : '';
-                            li.innerHTML =
-                                `<a href="{{ url('service/') }}/${service}" style="${isActive}">${service}</a>`;
-                            listContainer.appendChild(li);
-                        });
-                    }
-                })
-                .catch(error => console.error("Error fetching related services:", error));
+            services.forEach(serviceObj => {
+                let service = serviceObj.service_name; // Extract the service name
+                let isActive = (service.toLowerCase() === currentService.toLowerCase()) ? 'font-weight: bold;' : '';
+                let li = document.createElement('li');
+                li.innerHTML = `<a href="/service/${service}" style="${isActive}">${service}</a>`;
+                listContainer.appendChild(li);
+            });
+        }
+    })
+    .catch(error => console.error("Error fetching related services:", error));
+
         });
     </script>
-    <script>
- document.addEventListener("DOMContentLoaded", function() {
+   <script>
+    document.addEventListener("DOMContentLoaded", function() {
     let serviceName = "{{ $serviceName }}";
     let apiUrl = `http://127.0.0.1:8000/api/service/${serviceName}`;
 
@@ -109,73 +109,63 @@
                 let serviceData = data.data;
                 let firstService = serviceData[0];
 
-                if (firstService.title) {
-                    document.getElementById('serviceTitle').innerHTML = `${firstService.title}`;
-                } else {
-                    document.getElementById('serviceTitle').style.display = 'none';
-                }
+                document.getElementById('serviceTitle').innerHTML = firstService.title || '';
+                document.getElementById('serviceDescription').textContent = firstService.para || '';
+                document.getElementById('serviceTitleMain').innerHTML = firstService.service_name ? `<br>${firstService.service_name}` : '';
 
-                if (firstService.para) {
-                    document.getElementById('serviceDescription').textContent = firstService.para;
-                } else {
-                    document.getElementById('serviceDescription').style.display = 'none';
-                }
-
-                if (firstService.service_name) {
-                    document.getElementById('serviceTitleMain').innerHTML = `<br>${firstService.service_name}`;
-                } else {
-                    document.getElementById('serviceTitleMain').style.display = 'none';
-                }
-
+                // Clear previous points list
                 let pointsList = document.getElementById('servicePoints');
+                pointsList.innerHTML = '';
+
                 if (firstService.points) {
-                    let points = JSON.parse(firstService.points);
-                    if (points.length > 0) {
+                    try {
+                        let points = Array.isArray(firstService.points) ? firstService.points : JSON.parse(firstService.points);
                         points.forEach(point => {
                             let li = document.createElement('li');
                             li.innerHTML = `<div class="page-list-icon"><span class="ti-check"></span></div>
                                             <div class="page-list-text"><p>${point}</p></div><br>`;
                             pointsList.appendChild(li);
                         });
-                    } else {
-                        pointsList.style.display = 'none';
+                    } catch (error) {
+                        console.error("Error parsing points:", error);
                     }
-                } else {
-                    pointsList.style.display = 'none';
                 }
 
+                // Clear service details before adding new content
                 let serviceDetails = document.getElementById('serviceDetails');
+                serviceDetails.innerHTML = '';
+
                 serviceData.slice(1).forEach(section => {
-                    if (!section.title && !section.para && (!section.points || JSON.parse(section.points).length === 0)) {
-                        return; // Skip empty sections
+                    let hasContent = section.para || section.points;
+
+                    if (!hasContent) {
+                        return; // Skip completely empty sections
                     }
 
                     let sectionHtml = ``;
-
                     if (section.title) {
                         sectionHtml += `<br><h5>${section.title}</h5>`;
                     }
-
                     if (section.para) {
                         sectionHtml += `<p>${section.para}</p>`;
                     }
-
                     if (section.points) {
-                        let points = JSON.parse(section.points);
-                        if (points.length > 0) {
-                            sectionHtml += `<ul class="page-list list-unstyled">`;
-                            points.forEach(point => {
-                                sectionHtml += `
-                                    <li>
-                                        <div class="page-list-icon"><span class="ti-check"></span></div>
-                                        <div class="page-list-text"><p>${point}</p></div>
-                                    </li>
-                                `;
-                            });
-                            sectionHtml += `</ul>`;
+                        try {
+                            let points = Array.isArray(section.points) ? section.points : JSON.parse(section.points);
+                            if (points.length > 0) {
+                                sectionHtml += `<ul class="page-list list-unstyled">`;
+                                points.forEach(point => {
+                                    sectionHtml += `<li>
+                                                        <div class="page-list-icon"><span class="ti-check"></span></div>
+                                                        <div class="page-list-text"><p>${point}</p></div>
+                                                    </li>`;
+                                });
+                                sectionHtml += `</ul>`;
+                            }
+                        } catch (error) {
+                            console.error("Error parsing section points:", error);
                         }
                     }
-
                     serviceDetails.innerHTML += sectionHtml;
                 });
             }
@@ -183,7 +173,7 @@
         .catch(error => console.error("Error fetching service data:", error));
 });
 
-    </script>
+   </script>
 
 
     <style>

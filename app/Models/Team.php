@@ -17,12 +17,22 @@ class Team extends Model
         'area_of_practice',
         'adr_services',
         'all_rounder',
-        'type'
+        'type',
+        'email',
+        'phone',
+        'experience',
+        'education',
+        'awards',
+        'socials',
     ];
 
     protected $casts = [
         'area_of_practice' => 'array',
         'adr_services' => 'array',
-        'all_rounder' => 'boolean'
+        'all_rounder' => 'boolean',
+        'experience' => 'array',
+        'education' => 'array',
+        'awards' => 'array',
+        'socials' => 'array', // Stores multiple links as JSON
     ];
 }

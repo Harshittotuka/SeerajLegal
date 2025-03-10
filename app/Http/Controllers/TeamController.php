@@ -40,12 +40,18 @@ class TeamController extends Controller
     public function create(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string',
-            'designation' => 'nullable|string',
+            'name' => 'required|string|max:255',
+            'designation' => 'nullable|string|max:255',
             'area_of_practice' => 'nullable|array',
             'adr_services' => 'nullable|array',
             'all_rounder' => 'nullable|boolean',
-            'type' => 'nullable|string'
+            'type' => 'nullable|string|max:255',
+            'email' => 'nullable|email|max:255',
+            'phone' => 'nullable|string|max:20',
+            'experience' => 'nullable|array',
+            'education' => 'nullable|array',
+            'awards' => 'nullable|array',
+            'socials' => 'nullable|array'
         ]);
 
         $team = $this->teamService->createTeam($validatedData);
@@ -86,8 +92,14 @@ class TeamController extends Controller
                 'designation' => 'nullable|string|max:255',
                 'area_of_practice' => 'nullable|array',
                 'adr_services' => 'nullable|array',
-                'all_rounder' => 'boolean',
+                'all_rounder' => 'nullable|boolean',
                 'type' => 'nullable|string|max:255',
+                'email' => 'nullable|email|max:255',
+                'phone' => 'nullable|string|max:20',
+                'experience' => 'nullable|array',
+                'education' => 'nullable|array',
+                'awards' => 'nullable|array',
+                'socials' => 'nullable|array'
             ]);
 
             $response = $this->teamService->updateTeam($id, $validatedData);
