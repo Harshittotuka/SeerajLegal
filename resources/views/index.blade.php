@@ -12,6 +12,8 @@
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
+    <link rel="preload" href="{{ asset('assets/fonts/themify.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="{{ asset('assets/fonts/Flaticon.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
 
 
 
@@ -22,7 +24,7 @@
     <!-- Navbar -->
     @include('partials.navbar')
 
-    <!-- Kenburns SlideShow -->
+    <!-- Kenburns SlideShow  S_id:0 -->
     <aside class="kenburns-section" id="kenburnsSliderContainer" data-overlay-dark="5">
         <div class="kenburns-inner h-100">
             <div class="v-middle">
@@ -42,7 +44,6 @@
         </div>
     </aside>
 
-
     <!-- About -->
     @include('partials.about')
 
@@ -51,64 +52,49 @@
 
     <!-- ADR Services -->
     <section class="practice-areas section-padding animate-box">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-4 col-md-12 mb-30 ">
-                    <div class="section-subtitle">
-                        <div class="icon"><i class="flaticon-courthouse"></i></div> What we do?
-                    </div>
-                    <!-- <div class="section-title">General <span>&</span> Legal <span>Services</span></div> -->
-                    <div class="section-title"><span>ADR</span> Services</div>
-                    <p>Specializing in Alternative dispute resolution methods in contrast to conventional court
-                        proceedings.</p> <a href="#" class="button-2">Discover more<span></span></a>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4 col-md-12 mb-30">
+                <div class="section-subtitle">
+                    <div class="icon"><i class="flaticon-courthouse"></i></div> What we do?
                 </div>
-                <div class="col-lg-7 offset-lg-1 col-md-12">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item">
-                                <a href="{{ route('service.details', ['serviceName' => 'Arbitration']) }}"> <i class="flaticon-suitcase"></i>
-                                    <h5>Arbitration</h5>
-                                    <div class="shape"> <i class="flaticon-suitcase"></i> </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item">
-                                <a href="{{ route('service.details', ['serviceName' => 'Conciliation']) }}">  <i class="flaticon-balance"></i>
-                                    <h5>Conciliation</h5>
-                                    <div class="shape"> <i class="flaticon-balance"></i> </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item">
-                                <a href="{{ route('service.details', ['serviceName' => 'Mediation']) }}"> <i class="flaticon-mortarboard"></i>
-                                    <h5>Mediation</h5>
-                                    <div class="shape"> <i class="flaticon-mortarboard"></i> </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item">
-                                <a href="{{ route('service.details', ['serviceName' => 'Lok Adalat']) }}"> <i class="flaticon-courthouse"></i>
-                                    <h5>Lok Adalat</h5>
-                                    <div class="shape"> <i class="flaticon-courthouse"></i> </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item">
-                                <a href="{{ route('service.details', ['serviceName' => 'Negotiation']) }}">  <i class="flaticon-wounded"></i>
-                                    <h5>Negotiation</h5>
-                                    <div class="shape"> <i class="flaticon-wounded"></i> </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="section-title" id="adrTitle"></div>
+                <p id="adrPara"></p> 
+                <a href="#" class="button-2">Discover more<span></span></a>
+            </div>
+            <div class="col-lg-7 offset-lg-1 col-md-12">
+                <div class="row" id="adrServicesContainer">
+                    <!-- ADR services will be populated here -->
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<script>
+    fetch('home.json')
+        .then(response => response.json())
+        .then(data => {
+            const adrData = data.find(section => section.S_id === 5);
+            document.getElementById('adrTitle').innerHTML = `<span>${adrData.title.split(' ')[0]}</span> ${adrData.title.split(' ').slice(1).join(' ')}`;
+            document.getElementById('adrPara').textContent = adrData.para;
+            const icons = ['flaticon-suitcase', 'flaticon-balance', 'flaticon-mortarboard', 'flaticon-courthouse', 'flaticon-wounded'];
+            const container = document.getElementById('adrServicesContainer');
+            adrData.points.forEach((point, index) => {
+                container.innerHTML += `
+                    <div class="col-lg-4 col-md-6">
+                        <div class="item">
+                            <a href="#"> 
+                                <i class="${icons[index % icons.length]}"></i>
+                                <h5>${point}</h5>
+                                <div class="shape"> <i class="${icons[index % icons.length]}"></i> </div>
+                            </a>
+                        </div>
+                    </div>`;
+            });
+        });
+</script>
+
 
     <!-- Case Study -->
     @include('partials.casestudy')
@@ -116,51 +102,67 @@
     <!-- Directors -->
     @include('partials.directors')
 
-    <!-- Rajasthan -->
+    <!-- Rajasthan S_id: -->
     <section class="serve section-padding bg-lightbrown animate-box">
-        <div class="container">
-            <div class="row justify-content-center align-items-center">
-                <!-- Left Column - Map Visualization -->
-                <div class="col-lg-6 col-md-12 animate-box" data-animate-effect="fadeInUp">
-                    <div class="rajasthan-map">
-                        <img src="{{ asset('assets/img/Rajasthan.png') }}" alt="Rajasthan Map" class="img-fluid">
-                    </div>
-                </div>
-
-                <!-- Right Column - Content -->
-                <div class="col-lg-6 col-md-12 animate-box" data-animate-effect="fadeInUp">
-                    <div class="section-subtitle">
-                        <div class="icon"><i class="flaticon-courthouse"></i></div>
-                        Beyond Boundaries & Barriers
-                    </div>
-                    <h2 class="section-title heritage-text">
-                        Serving Every Corner of <span>Rajasthan</span>
-                    </h2>
-                    <p>We pride ourselves in providing legal solutions throughout the vast and diverse land of
-                        Rajasthan. From the capital city of Jaipur to the serene desert of Jaisalmer, we bring justice
-                        and consultancy to every corner of this beautiful state.</p>
-
-                    <!-- Service Highlights -->
-                    <div class="row stats-row mt-4">
-                        <div class="col-4 stat-item">
-                            <div class="stat-number">40+</div>
-                            <div class="stat-label">Districts</div>
-                        </div>
-                        <div class="col-4 stat-item">
-                            <div class="stat-number">200+</div>
-                            <div class="stat-label">Cities and Towns </div>
-                        </div>
-                        <div class="col-4 stat-item">
-                            <div class="stat-number">24×7</div>
-                            <div class="stat-label">Availability</div>
-                        </div>
-                    </div>
-
-                    <div class="heritage-pattern-border mt-4"></div>
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <!-- Left Column - Map Visualization -->
+            <div class="col-lg-6 col-md-12 animate-box" data-animate-effect="fadeInUp">
+                <div class="rajasthan-map">
+                    <img id="rajasthanMap" src="" alt="Rajasthan Map" class="img-fluid">
                 </div>
             </div>
+
+            <!-- Right Column - Content -->
+            <div class="col-lg-6 col-md-12 animate-box" data-animate-effect="fadeInUp">
+                <div class="section-subtitle">
+                    <div class="icon"><i class="flaticon-courthouse"></i></div>
+                    Beyond Boundaries & Barriers
+                </div>
+                <h2 id="sectionTitle" class="section-title heritage-text"></h2>
+                <p id="sectionPara"></p>
+
+                <!-- Service Highlights -->
+                <div class="row stats-row mt-4" id="servicePoints">
+                    <!-- Points will be inserted here dynamically -->
+                </div>
+
+                <div class="heritage-pattern-border mt-4"></div>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch('home.json')
+            .then(response => response.json())
+            .then(data => {
+                const sectionData = data.find(section => section.S_id === 8);
+
+                if (sectionData && sectionData.flag === "enabled") {
+                    document.getElementById('sectionTitle').innerHTML = sectionData.title;
+                    document.getElementById('sectionPara').innerHTML = sectionData.para;
+                    document.getElementById('rajasthanMap').src = sectionData.image[0];
+
+                    const pointsContainer = document.getElementById('servicePoints');
+                    pointsContainer.innerHTML = '';
+
+                    sectionData.points.forEach(point => {
+                        const pointHTML = `
+                            <div class="col-4 stat-item">
+                                <div class="stat-number">${point.split(' ')[0]}</div>
+                                <div class="stat-label">${point.split(' ').slice(1).join(' ')}</div>
+                            </div>
+                        `;
+                        pointsContainer.innerHTML += pointHTML;
+                    });
+                }
+            })
+            .catch(error => console.error('Error fetching home.json:', error));
+    });
+</script>
+
     <STYle>
         .bg-royalgold {
             background: #82653b radial-gradient(circle, #d4af37 0%, #82653b 100%);
@@ -245,6 +247,7 @@
 
 
     <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
     <script src="{{ asset('assets/js/jquery-migrate-3.0.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery-3.6.3.min.js') }}"></script>
     <script src="{{ asset('assets/js/modernizr-2.6.2.min.js') }}"></script>
@@ -261,6 +264,7 @@
     <script src="{{ asset('assets/js/smooth-scroll.min.js') }}"></script>
     <script src="{{ asset('assets/js/vegas.slider.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+
 
     <!-- Vegas Background Slideshow (vegas.slider kenburns) -->
     <script>
@@ -282,6 +286,8 @@
             });
         });
     </script>
+
+    
 
 </body>
 
