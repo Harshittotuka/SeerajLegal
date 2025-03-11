@@ -33,6 +33,12 @@
     <!-- Navbar -->
           @include('backend.partials.top-nav')
         <!-- End Navbar -->
+        <script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        updateBreadcrumbs(["Dashboard", "Teams"], ["/backend", "/backend/teams"]);
+    });
+</script>
 
 
         <style>

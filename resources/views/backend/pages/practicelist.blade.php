@@ -33,6 +33,12 @@
         <!-- Navbar -->
           @include('backend.partials.top-nav')
         <!-- End Navbar -->
+        <script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        updateBreadcrumbs(["Dashboard","Practice List"], ["/backend","/backend/practice/list"]);
+    });
+</script>
 
         <div class="container-fluid overflow-hidden py-2">
             <div class="row g-4" id="practices-container">
