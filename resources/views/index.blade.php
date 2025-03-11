@@ -59,7 +59,7 @@
                 </div>
                 <div class="section-title"><span>ADR</span> Services</div>
                 <p>Specializing in Alternative dispute resolution methods in contrast to conventional court proceedings.</p>
-                <a href="#" class="button-2">Discover more<span></span></a>
+                <a href="{{ route('service.all') }}" class="button-2">Discover more<span></span></a>
             </div>
             <div class="col-lg-7 offset-lg-1 col-md-12">
                 <div class="row" id="services-container">
