@@ -38,6 +38,12 @@
      <!-- Navbar -->
           @include('backend.partials.top-nav')
         <!-- End Navbar -->
+<script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        updateBreadcrumbs(["Dashboard", "Practices","Create"], ["/backend", "/backend/practice/list","#"]);
+    });
+</script>
 
         @include('backend.partials.form')
 

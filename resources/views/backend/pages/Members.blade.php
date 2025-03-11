@@ -22,7 +22,7 @@
 
 </head>
 
-<body class="g-sidenav-show  bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
 
     @include('backend.partials.navbar')
 
@@ -34,6 +34,12 @@
           @include('backend.partials.top-nav')
         <!-- End Navbar -->
 
+<script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        updateBreadcrumbs(["Dashboard", "Members"], ["/backend", "/backend/members"]);
+    });
+</script>
 
         <style>
             td {
