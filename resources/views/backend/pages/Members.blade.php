@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>
-        Material Dashboard 3 by Creative Tim
+       Seeraj Legal Relief Foundation
     </title>
     <!--     Fonts and icons     -->
     <link href="{{ asset('assets/backend/css/nucleo-icons.css') }}" rel="stylesheet" />
