@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>
-       Seeraj Legal Relief Foundation
+        Material Dashboard 3 by Creative Tim
     </title>
     <!--     Fonts and icons     -->
     <link href="{{ asset('assets/backend/css/nucleo-icons.css') }}" rel="stylesheet" />
@@ -243,6 +243,38 @@
                         console.error("There was an error adding the member:", error);
                     });
             }
+            document.addEventListener("DOMContentLoaded", function () {
+    const membershipSelect = document.getElementById("membershipType");
+
+    fetch("http://127.0.0.1:8000/api/membership-types")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success && Array.isArray(data.data)) {
+                data.data.sort((a, b) => a.priority - b.priority);
+
+                data.data.forEach(item => {
+                    const option = document.createElement("option");
+                     option.value = item.membership_type; // Set value as name instead of ID
+                    option.textContent = item.membership_type;
+                    membershipSelect.appendChild(option);
+                });
+            } else {
+                console.warn("Invalid API response format:", data);
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching membership types:", error);
+        })
+        .finally(() => {
+            console.log("Membership type fetch attempted.");
+        });
+});
+
         </script>
 
 
@@ -280,7 +312,7 @@
             </div>
         </div>
 
-        <!-- js for creating new member-->
+        <!-- js for creating new memberSHIP TYPE-->
         <script>
             async function addMembership() {
                 const membershipName = document.getElementById("membershipName").value;
@@ -384,31 +416,28 @@
                                 <i class="material-symbols-rounded opacity-10">add</i>
                             </div>
                         </div>
-                        <ul class="list-group bg-light mt-2" id="membershipList">
-                            <!-- Membership types will be injected here -->
-                        </ul>
+                        <table class="table mt-2">
+                            <tbody id="membershipTableBody">
+                                <!-- Membership types will be injected here -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+
+
             </div>
         </div>
 
-        <!-- DataTables Bootstrap 5 CSS -->
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-        <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <!-- DataTables JS -->
-        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-        <!-- DataTables Bootstrap 5 JS -->
-        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-
+    
 
 
     </main>
 
-    <!-- JavaScript for Adding Membership Type -->
+    <!-- JavaScript for Listing Membership Type on outer div -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const apiUrl = "http://127.0.0.1:8000/api/membership-types";
+            let selectedMembership = null;
 
             async function fetchMembershipTypes() {
                 try {
@@ -416,36 +445,46 @@
                     const data = await response.json();
 
                     if (data.success && Array.isArray(data.data)) {
-                        updateMembershipList(data.data);
-                        updateMembershipDropdown(data.data);
+                        updateMembershipTable(data.data);
                     }
                 } catch (error) {
                     console.error("Error fetching membership types:", error);
                 }
             }
-
-            function updateMembershipList(memberships) {
-                const membershipList = document.getElementById("membershipList");
-                membershipList.innerHTML = ""; // Clear existing items
-
-                memberships.sort((a, b) => a.priority - b.priority).forEach(item => {
-                    const li = document.createElement("li");
-                    li.className = "list-group-item";
-                    li.textContent = capitalizeFirstLetter(item.membership_type);
-                    membershipList.appendChild(li);
-                });
-            }
-
-            function updateMembershipDropdown(memberships) {
-                const membershipSelect = document.getElementById("membershipType");
-                if (!membershipSelect) return; // Avoid error if dropdown doesn't exist
-                membershipSelect.innerHTML = ""; // Clear old options
+//  <!-- JavaScript for updating Membership Type on outer div -->
+            function updateMembershipTable(memberships) {
+                const tableBody = document.getElementById("membershipTableBody");
+                tableBody.innerHTML = "";
 
                 memberships.sort((a, b) => a.priority - b.priority).forEach(item => {
-                    const option = document.createElement("option");
-                    option.value = item.membership_type.toLowerCase();
-                    option.textContent = capitalizeFirstLetter(item.membership_type);
-                    membershipSelect.appendChild(option);
+                    const row = document.createElement("tr");
+                    row.className = "d-flex justify-content-between align-items-center";
+
+                    const typeCell = document.createElement("td");
+                    typeCell.textContent = capitalizeFirstLetter(item.membership_type);
+
+                    const actionCell = document.createElement("td");
+                    actionCell.className = "d-flex";
+
+                    const updateIcon = document.createElement("i");
+                    updateIcon.className = "material-symbols-rounded text-warning";
+                    updateIcon.textContent = "edit";
+                    updateIcon.style.cursor = "pointer";
+                    updateIcon.onclick = () => openUpdateModal(item);
+
+                    const deleteIcon = document.createElement("i");
+                    deleteIcon.className = "material-symbols-rounded text-danger";
+                    deleteIcon.textContent = "delete";
+                    deleteIcon.style.cursor = "pointer";
+                    deleteIcon.onclick = () => deleteMembership(item.membership_type);
+
+                    actionCell.appendChild(updateIcon);
+                    actionCell.appendChild(deleteIcon);
+
+                    row.appendChild(typeCell);
+                    row.appendChild(actionCell);
+
+                    tableBody.appendChild(row);
                 });
             }
 
@@ -453,17 +492,107 @@
                 return str.charAt(0).toUpperCase() + str.slice(1);
             }
 
+            function openUpdateModal(item) {
+                selectedMembership = item;
+                document.getElementById("membershipModalLabel").textContent = "Update Membership Type";
+                document.getElementById("membershipName").value = item.membership_type;
+                document.getElementById("membershipPriority").value = item.priority;
+
+                const saveButton = document.querySelector("#membershipForm .btn-success");
+                saveButton.textContent = "Update";
+                saveButton.onclick = updateMembership;
+
+                const membershipModal = new bootstrap.Modal(document.getElementById("membershipModal"));
+                membershipModal.show();
+            }
+
+            async function updateMembership() {
+                const name = document.getElementById("membershipName").value.trim();
+                const priority = document.getElementById("membershipPriority").value.trim();
+                const messageContainer = document.getElementById("message-container");
+
+                if (!name || !priority) {
+                    showMessage("Please fill all fields", "alert-danger");
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`${apiUrl}/update/${selectedMembership.membership_type}`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            membership_type: name,
+                            priority: parseInt(priority)
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        showMessage("Membership updated successfully", "alert-success");
+                        setTimeout(() => {
+                            document.getElementById("membershipForm").reset();
+                            location.reload();
+                        }, 1000);
+                    } else {
+                        showMessage(data.error, "alert-danger");
+                    }
+                } catch (error) {
+                    console.error("Error updating membership:", error);
+                    showMessage("An error occurred while updating", "alert-danger");
+                }
+            }
+
+            function showMessage(message, type) {
+                const messageContainer = document.getElementById("message-container");
+                messageContainer.textContent = message;
+                messageContainer.className = `alert ${type}`;
+                messageContainer.style.display = "block";
+            }
+
+            function resetModal() {
+                document.getElementById("membershipModalLabel").textContent = "Add Membership Type";
+                document.getElementById("membershipName").value = "";
+                document.getElementById("membershipPriority").value = "";
+                document.getElementById("message-container").style.display = "none";
+
+                const saveButton = document.querySelector("#membershipForm .btn-success");
+                saveButton.textContent = "Save";
+                saveButton.onclick = addMembership;
+
+                selectedMembership = null;
+            }
+
+            document.getElementById("membershipModal").addEventListener("hidden.bs.modal", resetModal);
+
             fetchMembershipTypes();
         });
     </script>
 
 
-    {{--  Fetch the members data from the API --}}
+
+    <!-- DataTables Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <!-- DataTables Bootstrap 5 JS -->
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+
+
     <!-- Include Toastify CSS and JS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <script>
+
+<!-- JavaScript for Listing Members on table -->
         $(document).ready(function() {
             // Fetch and build the table on page load
             fetchMembers();
@@ -577,7 +706,7 @@
                 // Replace edit icon with save and cancel buttons
                 row.find('.actions').html(
                     '<i class="material-symbols-rounded text-success save-icon" data-id="' + $(this).data(
-                    'id') + '" style="cursor: pointer;">save</i>' +
+                        'id') + '" style="cursor: pointer;">save</i>' +
                     '<i class="material-symbols-rounded text-secondary cancel-icon" style="cursor: pointer;">close</i>'
                 );
             });
@@ -653,9 +782,9 @@
                 // Restore edit and delete icons
                 row.find('.actions').html(
                     '<i class="material-symbols-rounded text-primary edit-icon" data-id="' + $(this).data(
-                    'id') + '" style="cursor: pointer;">edit</i>' +
+                        'id') + '" style="cursor: pointer;">edit</i>' +
                     '<i class="material-symbols-rounded text-danger delete-icon" data-id="' + $(this).data(
-                    'id') + '" style="cursor: pointer;">delete</i>'
+                        'id') + '" style="cursor: pointer;">delete</i>'
                 );
             });
         }
