@@ -49,66 +49,68 @@
     <!-- Info box Box -->
     @include('partials.infobox')
 
-    <!-- ADR Services -->
-    <section class="practice-areas section-padding animate-box">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-4 col-md-12 mb-30 ">
-                    <div class="section-subtitle">
-                        <div class="icon"><i class="flaticon-courthouse"></i></div> What we do?
-                    </div>
-                    <!-- <div class="section-title">General <span>&</span> Legal <span>Services</span></div> -->
-                    <div class="section-title"><span>ADR</span> Services</div>
-                    <p>Specializing in Alternative dispute resolution methods in contrast to conventional court
-                        proceedings.</p> <a href="#" class="button-2">Discover more<span></span></a>
+<!-- ADR Services -->
+<section id="adr-services" class="practice-areas section-padding animate-box" style="display: none;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4 col-md-12 mb-30">
+                <div class="section-subtitle">
+                    <div class="icon"><i class="flaticon-courthouse"></i></div> What we do?
                 </div>
-                <div class="col-lg-7 offset-lg-1 col-md-12">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item">
-                                <a href="{{ route('service.details', ['serviceName' => 'Arbitration']) }}"> <i class="flaticon-suitcase"></i>
-                                    <h5>Arbitration</h5>
-                                    <div class="shape"> <i class="flaticon-suitcase"></i> </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item">
-                                <a href="{{ route('service.details', ['serviceName' => 'Conciliation']) }}">  <i class="flaticon-balance"></i>
-                                    <h5>Conciliation</h5>
-                                    <div class="shape"> <i class="flaticon-balance"></i> </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item">
-                                <a href="{{ route('service.details', ['serviceName' => 'Mediation']) }}"> <i class="flaticon-mortarboard"></i>
-                                    <h5>Mediation</h5>
-                                    <div class="shape"> <i class="flaticon-mortarboard"></i> </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item">
-                                <a href="{{ route('service.details', ['serviceName' => 'Lok Adalat']) }}"> <i class="flaticon-courthouse"></i>
-                                    <h5>Lok Adalat</h5>
-                                    <div class="shape"> <i class="flaticon-courthouse"></i> </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item">
-                                <a href="{{ route('service.details', ['serviceName' => 'Negotiation']) }}">  <i class="flaticon-wounded"></i>
-                                    <h5>Negotiation</h5>
-                                    <div class="shape"> <i class="flaticon-wounded"></i> </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="section-title"><span>ADR</span> Services</div>
+                <p>Specializing in Alternative dispute resolution methods in contrast to conventional court proceedings.</p>
+                <a href="#" class="button-2">Discover more<span></span></a>
+            </div>
+            <div class="col-lg-7 offset-lg-1 col-md-12">
+                <div class="row" id="services-container">
+                    <!-- Services will be dynamically added here -->
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    fetch("http://127.0.0.1:8000/api/services/list")
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.data.length > 0) {
+                const enabledServices = data.data.filter(service => service.flag === "enabled");
+
+                if (enabledServices.length === 0) {
+                    return; // If no services are enabled, exit without showing the section
+                }
+
+                const servicesContainer = document.getElementById("services-container");
+                const adrSection = document.getElementById("adr-services");
+                adrSection.style.display = "block"; // Show the section if at least one service is enabled
+
+                const defaultIcon = "flaticon-courthouse"; // Single default icon for all services
+
+                enabledServices.forEach(service => {
+                    const serviceName = service.service_name;
+
+                    const serviceHTML = `
+                        <div class="col-lg-4 col-md-6">
+                            <div class="item">
+                                <a href="/service/details/${serviceName}">
+                                    <i class="${defaultIcon}"></i>
+                                    <h5>${serviceName}</h5>
+                                    <div class="shape"><i class="${defaultIcon}"></i></div>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+
+                    servicesContainer.innerHTML += serviceHTML;
+                });
+            }
+        })
+        .catch(error => console.error("Error fetching services:", error));
+});
+</script>
+
 
     <!-- Case Study -->
     @include('partials.casestudy')
@@ -161,6 +163,7 @@
             </div>
         </div>
     </section>
+    
     <STYle>
         .bg-royalgold {
             background: #82653b radial-gradient(circle, #d4af37 0%, #82653b 100%);

@@ -119,6 +119,10 @@ Route::get('/service_rules', function () {
     return view('pages.service_rules');
 })->name('service_rules');
 
+// Services (All services should be handled in a single blade file)
+Route::get('/services', function () {
+    return view('pages.services-all');
+})->name('service.all');
 
 Route::get('/practice/{name}', function ($name) {
     return view('pages.practice', ['practiceName' => $name]);
@@ -146,7 +150,7 @@ Route::get('/team', function () {
 // Team Page
 Route::get('/team-details', function () {
     return view('pages.team_detail');
-})->name('team');
+})->name('team.details');
 
 // Contact Page
 Route::get('/contact', function () {
