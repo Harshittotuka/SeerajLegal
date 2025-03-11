@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>
-        Material Dashboard 3 by Creative Tim
+       Seeraj Legal Relief Foundation
     </title>
     <!--     Fonts and icons     -->
     <link href="{{ asset('assets/backend/css/nucleo-icons.css') }}" rel="stylesheet" />
@@ -30,83 +30,8 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
 
 
-        <!-- Navbar -->
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
-            data-scroll="true">
-            <div class="container-fluid py-1 px-3">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a>
-                        </li>
-                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Services</li>
-                    </ol>
-                </nav>
-                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                        <div class="input-group input-group-outline">
-                            <label class="form-label">Type here...</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <ul class="navbar-nav d-flex align-items-center  justify-content-end">
-
-                        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
-                                <div class="sidenav-toggler-inner">
-                                    <i class="sidenav-toggler-line"></i>
-                                    <i class="sidenav-toggler-line"></i>
-                                    <i class="sidenav-toggler-line"></i>
-                                </div>
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item dropdown pe-3 d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="material-symbols-rounded">notifications</i>
-                            </a>
-                            <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
-                                aria-labelledby="dropdownMenuButton">
-                                <li class="mb-2">
-                                    <a class="dropdown-item border-radius-md" href="javascript:;">
-                                        <div class="d-flex py-1">
-                                            <div class="my-auto">
-                                                <img src="../assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    <span class="font-weight-bold">New message</span> from Laur
-                                                </h6>
-                                                <p class="text-xs text-secondary mb-0">
-                                                    <i class="fa fa-clock me-1"></i>
-                                                    13 minutes ago
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-
-
-                            </ul>
-                        </li>
-
-                        <li class="nav-item px-3 d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body p-0">
-                                <i class="material-symbols-rounded fixed-plugin-button-nav">settings</i>
-                            </a>
-                        </li>
-
-                        <li class="nav-item d-flex align-items-center">
-                            <a href="../pages/sign-in.html" class="nav-link text-body font-weight-bold px-0">
-                                <i class="material-symbols-rounded">account_circle</i>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <!-- Navbar -->
+          @include('backend.partials.top-nav')
         <!-- End Navbar -->
 
 
@@ -122,11 +47,7 @@
                 padding: 5px 10px !important;
             }
 
-            /* Responsive Fix */
-            .container-fluid {
-                overflow-x: hidden;
-            }
-
+           
             /* Ensuring table doesn't cause overflow */
             .table-responsive {
                 overflow-x: auto;
@@ -179,29 +100,28 @@
         </style>
 
 
-        <!-- Modal for Adding Member -->
-        <!-- Modal for Adding/Editing Member -->
         <div class="modal fade" id="memberModal" tabindex="-1" aria-labelledby="memberModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
+                <div class="modal-content shadow-lg rounded-3">
+                    <div class="modal-header bg-primary text-white">
                         <h5 class="modal-title" id="memberModalLabel">Add New Member</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body p-4">
                         <form id="memberForm">
-                            <div class="row">
+                            <div class="row g-3">
                                 <!-- Name -->
-                                <div class="col-md-6 mb-3">
-                                    <label for="memberName" class="form-label">Member Name</label>
-                                    <input type="text" class="form-control form-control-lg" id="memberName" 
+                                <div class="col-md-6">
+                                    <label for="memberName" class="form-label fw-bold">Member Name</label>
+                                    <input type="text" class="form-control" id="memberName"
                                         placeholder="Enter full name" required>
                                 </div>
-        
+
                                 <!-- Type -->
-                                <div class="col-md-6 mb-3">
-                                    <label for="memberType" class="form-label">Type</label>
-                                    <select class="form-control form-control-lg" id="memberType" required>
+                                <div class="col-md-6">
+                                    <label for="memberType" class="form-label fw-bold">Type</label>
+                                    <select class="form-select" id="memberType" required>
                                         <option value="" disabled selected>Select Member Type</option>
                                         <option value="Advocate">Advocate</option>
                                         <option value="Retired Judge">Retired Judge</option>
@@ -209,103 +129,99 @@
                                         <option value="Other">Other</option>
                                     </select>
                                 </div>
-                            </div>
-        
-                            <div class="row">
+
                                 <!-- Email -->
-                                <div class="col-md-6 mb-3">
-                                    <label for="memberEmail" class="form-label">Email</label>
-                                    <input type="email" class="form-control form-control-lg" id="memberEmail" 
+                                <div class="col-md-6">
+                                    <label for="memberEmail" class="form-label fw-bold">Email</label>
+                                    <input type="email" class="form-control" id="memberEmail"
                                         placeholder="example@email.com" required>
                                 </div>
-        
+
                                 <!-- Phone -->
-                                <div class="col-md-6 mb-3">
-                                    <label for="memberPhone" class="form-label">Phone</label>
-                                    <input type="tel" class="form-control form-control-lg" id="memberPhone" 
+                                <div class="col-md-6">
+                                    <label for="memberPhone" class="form-label fw-bold">Phone</label>
+                                    <input type="tel" class="form-control" id="memberPhone"
                                         placeholder="Enter phone number" required>
                                 </div>
-                            </div>
-        
-                            <div class="row">
+
                                 <!-- Designation -->
-                                <div class="col-md-6 mb-3">
-                                    <label for="memberDesignation" class="form-label">Designation</label>
-                                    <input type="text" class="form-control form-control-lg" id="memberDesignation" 
+                                <div class="col-md-6">
+                                    <label for="memberDesignation" class="form-label fw-bold">Designation</label>
+                                    <input type="text" class="form-control" id="memberDesignation"
                                         placeholder="e.g., Senior Advocate" required>
                                 </div>
-        
+
                                 <!-- Area of Practice -->
-                                <div class="col-md-6 mb-3">
-                                    <label for="areaOfPractice" class="form-label">Area of Practice (comma separated)</label>
-                                    <input type="text" class="form-control form-control-lg" id="areaOfPractice"
+                                <div class="col-md-6">
+                                    <label for="areaOfPractice" class="form-label fw-bold">Area of Practice (comma
+                                        separated)</label>
+                                    <input type="text" class="form-control" id="areaOfPractice"
                                         placeholder="e.g., Corporate Law, Criminal Law" required>
                                 </div>
-                            </div>
-        
-                            <div class="row">
+
                                 <!-- ADR Services -->
-                                <div class="col-md-6 mb-3">
-                                    <label for="adrServices" class="form-label">ADR Services (comma separated)</label>
-                                    <input type="text" class="form-control form-control-lg" id="adrServices"
+                                <div class="col-md-6">
+                                    <label for="adrServices" class="form-label fw-bold">ADR Services (comma
+                                        separated)</label>
+                                    <input type="text" class="form-control" id="adrServices"
                                         placeholder="e.g., Mediation, Arbitration" required>
                                 </div>
-        
+
                                 <!-- Experience -->
-                                <div class="col-md-6 mb-3">
-                                    <label for="memberExperience" class="form-label">Experience (comma separated)</label>
-                                    <input type="text" class="form-control form-control-lg" id="memberExperience"
+                                <div class="col-md-6">
+                                    <label for="memberExperience" class="form-label fw-bold">Experience (comma
+                                        separated)</label>
+                                    <input type="text" class="form-control" id="memberExperience"
                                         placeholder="e.g., 10 years in High Court, 5 years in Supreme Court">
                                 </div>
-                            </div>
-        
-                            <div class="row">
+
                                 <!-- Education -->
-                                <div class="col-md-6 mb-3">
-                                    <label for="memberEducation" class="form-label">Education (comma separated)</label>
-                                    <input type="text" class="form-control form-control-lg" id="memberEducation"
+                                <div class="col-md-6">
+                                    <label for="memberEducation" class="form-label fw-bold">Education (comma
+                                        separated)</label>
+                                    <input type="text" class="form-control" id="memberEducation"
                                         placeholder="e.g., LLB - Harvard University, LLM - Oxford University">
                                 </div>
-        
+
                                 <!-- Awards -->
-                                <div class="col-md-6 mb-3">
-                                    <label for="memberAwards" class="form-label">Awards (comma separated)</label>
-                                    <input type="text" class="form-control form-control-lg" id="memberAwards"
+                                <div class="col-md-6">
+                                    <label for="memberAwards" class="form-label fw-bold">Awards (comma
+                                        separated)</label>
+                                    <input type="text" class="form-control" id="memberAwards"
                                         placeholder="e.g., Best Lawyer 2020, Top Arbitrator 2022">
                                 </div>
-                            </div>
-        
-                            <div class="row">
+
                                 <!-- Social Media Links -->
-                                <div class="col-md-12 mb-3">
-                                    <label for="memberSocials" class="form-label">Social Media Links (JSON format)</label>
-                                    <textarea class="form-control form-control-lg" id="memberSocials" rows="3"
+                                <div class="col-md-12">
+                                    <label for="memberSocials" class="form-label fw-bold">Social Media Links (JSON
+                                        format)</label>
+                                    <textarea class="form-control" id="memberSocials" rows="3"
                                         placeholder='{"linkedin": "https://linkedin.com/in/johndoe", "twitter": "https://twitter.com/johndoe"}'></textarea>
                                 </div>
-                            </div>
-        
-                            <!-- All Rounder Checkbox at the Bottom -->
-                            <div class="row">
-                                <div class="col-12 mb-3">
+
+                                <!-- All Rounder Checkbox -->
+                                <div class="col-12">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="allRounder" style="border-color: blue;">
-                                        <label class="form-check-label fw-bold text-primary" for="allRounder">All Rounder</label>
+                                        <input type="checkbox" class="form-check-input" id="allRounder">
+                                        <label class="form-check-label fw-bold text-primary" for="allRounder">All
+                                            Rounder</label>
                                     </div>
                                 </div>
-                            </div>
-        
-                            <!-- Save and Cancel Buttons -->
-                            <div class="d-flex justify-content-end mt-3">
-                                <button type="button" class="btn btn-success btn-lg me-2" id="saveMemberBtn"
-                                    onclick="addMember()">Save</button>
-                                <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Cancel</button>
+
+                                <!-- Save and Cancel Buttons -->
+                                <div class="d-flex justify-content-end mt-3">
+                                    <button type="button" class="btn btn-success btn-lg me-2" id="saveMemberBtn"
+                                        onclick="addMember()">Save</button>
+                                    <button type="button" class="btn btn-secondary btn-lg"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                </div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        
+
 
 
         <script>
@@ -333,34 +249,43 @@
 
             // Function to prefill the modal for editing a member
             function prefillEditModal(member) {
-    // Set form values
-    document.getElementById('memberName').value = member.name;
-    document.getElementById('memberDesignation').value = member.designation;
-    document.getElementById('memberType').value = member.type;
-    document.getElementById('areaOfPractice').value = member.area_of_practice.join(', ');
-    document.getElementById('adrServices').value = member.adr_services.join(', ');
-    document.getElementById('allRounder').checked = member.all_rounder;
-    document.getElementById('memberEmail').value = member.email || '';
-    document.getElementById('memberPhone').value = member.phone || '';
-    document.getElementById('memberExperience').value = member.experience ? member.experience.join(', ') : '';
-    document.getElementById('memberEducation').value = member.education ? member.education.join(', ') : '';
-    document.getElementById('memberAwards').value = member.awards ? member.awards.join(', ') : '';
+                // Extract the actual member data
+                const memberData = member.data;
 
-    // Handle socials as a JSON string
-    document.getElementById('memberSocials').value = JSON.stringify(member.socials, null, 2);
+                try {
+                    // Set form values
+                    document.getElementById('memberName').value = memberData.name;
+                    document.getElementById('memberDesignation').value = memberData.designation;
+                    document.getElementById('memberType').value = memberData.type;
+                    document.getElementById('areaOfPractice').value = memberData.area_of_practice.join(', ');
+                    document.getElementById('adrServices').value = memberData.adr_services.join(', ');
+                    document.getElementById('allRounder').checked = memberData.all_rounder;
+                    document.getElementById('memberEmail').value = memberData.email || '';
+                    document.getElementById('memberPhone').value = memberData.phone || '';
+                    document.getElementById('memberExperience').value = memberData.experience ? memberData.experience.join(
+                        ', ') : '';
+                    document.getElementById('memberEducation').value = memberData.education ? memberData.education.join(', ') :
+                        '';
+                    document.getElementById('memberAwards').value = memberData.awards ? memberData.awards.join(', ') : '';
 
-    // Update modal title for editing
-    document.getElementById('memberModalLabel').textContent = "Edit Member";
+                    // Handle socials as a JSON string
+                    document.getElementById('memberSocials').value = JSON.stringify(memberData.socials, null, 2);
 
-    // Change the save button's onclick function to updateMember with the member's ID
-    document.getElementById('saveMemberBtn').onclick = function () {
-        updateMember(member.id);
-    };
+                    // Update modal title for editing
+                    document.getElementById('memberModalLabel').textContent = "Edit Member";
 
-    // Display the modal
-    const memberModal = new bootstrap.Modal(document.getElementById('memberModal'));
-    memberModal.show();
-}
+                    // Change the save button's onclick function to updateMember with the member's ID
+                    document.getElementById('saveMemberBtn').onclick = function() {
+                        updateMember(memberData.id);
+                    };
+
+                    // Display the modal
+                    const memberModal = new bootstrap.Modal(document.getElementById('memberModal'));
+                    memberModal.show();
+                } catch (error) {
+                    console.error("Error in prefillEditModal:", error);
+                }
+            }
 
 
             // Event listener to reset the modal when it is closed
@@ -434,7 +359,7 @@
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            // Optionally, update the table row with the new data here.
+                            // Show success message
                             showToast(result.message, "green");
 
                             // Reset the form
@@ -443,10 +368,16 @@
                             // Hide the modal
                             const memberModal = bootstrap.Modal.getInstance(document.getElementById('memberModal'));
                             memberModal.hide();
+
+                            // Reload the page to reflect changes
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1000); // Add a slight delay to ensure the modal hides smoothly
                         } else {
                             showToast("Failed to update team member", "red");
                         }
                     })
+
                     .catch(error => {
                         showToast("Error during member update", "red");
                         console.error('Error:', error);
