@@ -1,3 +1,8 @@
+@php
+    $jsonPath = public_path('personal_details.json');
+    $details = json_decode(file_get_contents($jsonPath), true)['personal_details'];
+@endphp
+
 <footer class="footer">
     <!-- top -->
     <div class="top">
@@ -5,15 +10,16 @@
             <div class="row">
                 <div class="col-md-4 mb-30">
                     <div class="item">
-
-                        <div class="logo"> <img src="{{ asset('assets/img/logo4.png') }}" class="logo-img" alt=""
-                                style="width: 200px; height: auto;"></div>
-                        <p>Justice for all, solutions for every dispute.</p>
+                        <div class="logo">
+                            <img src="{{ asset('assets/img/logo4.png') }}" class="logo-img" alt=""
+                                style="width: 200px; height: auto;">
+                        </div>
+                        <p>{{ $details['Quote'] }}</p>
                         <div class="social-icons">
                             <ul class="list-inline">
-                                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                                <li><a href="#"><i class="fab fa-x-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                @if($details['insta_link']) <li><a href="{{ $details['insta_link'] }}"><i class="fa-brands fa-instagram"></i></a></li> @endif
+                                @if($details['twitter_link']) <li><a href="{{ $details['twitter_link'] }}"><i class="fab fa-x-twitter"></i></a></li> @endif
+                                @if($details['facebook_link']) <li><a href="{{ $details['facebook_link'] }}"><i class="fa-brands fa-facebook-f"></i></a></li> @endif
                             </ul>
                         </div>
                     </div>
@@ -21,18 +27,15 @@
                 <div class="col-md-3 offset-md-1 mb-30">
                     <div class="item">
                         <h3>Contact</h3>
-                        <p>E-273,2nd Floor,Lal Kothi Scheme,Barkat Nagar
-                            <br>,Jaipur,Rajasthan,India,302015
-                        </p>
-                        <div class="phone mb-0"><a href="tel:+11235678910">+91 8107000333</a></div>
-                        <div class="mail"><a href="mailto:seerajlegal@gmail.com">seerajlegal@gmail.com</a></div>
+                        <p>{{ $details['address'] }}</p>
+                        <div class="phone mb-0"><a href="tel:{{ $details['phone_no'] }}">{{ $details['phone_no'] }}</a></div>
+                        <div class="mail"><a href="mailto:{{ $details['email'] }}">{{ $details['email'] }}</a></div>
                     </div>
                 </div>
                 <div class="col-md-4 mb-30">
                     <div class="item">
                         <h3>Subscribe</h3>
-                        <p>Want to be notified about our services. Sign up and we'll send you a notification by
-                            email.</p>
+                        <p>Want to be notified about our services? Sign up and we'll send you a notification by email.</p>
                         <div class="newsletter">
                             <form action="#">
                                 <input type="email" placeholder="Email Address" required="">
@@ -57,7 +60,6 @@
                             <li><a href="{{ route('team') }}">Attorneys</a></li>
                             <li><a href="{{ route('contact') }}">Contact</a></li>
                         </ul>
-                        
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-12 text-end">
