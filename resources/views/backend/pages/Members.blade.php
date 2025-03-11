@@ -452,41 +452,49 @@
                 }
             }
 //  <!-- JavaScript for updating Membership Type on outer div -->
-            function updateMembershipTable(memberships) {
-                const tableBody = document.getElementById("membershipTableBody");
-                tableBody.innerHTML = "";
+          function updateMembershipTable(memberships) {
+    const tableBody = document.getElementById("membershipTableBody");
+    tableBody.innerHTML = "";
 
-                memberships.sort((a, b) => a.priority - b.priority).forEach(item => {
-                    const row = document.createElement("tr");
-                    row.className = "d-flex justify-content-between align-items-center";
+    memberships.sort((a, b) => a.priority - b.priority).forEach(item => {
+        const row = document.createElement("tr");
+        row.className = "d-flex justify-content-between align-items-center";
 
-                    const typeCell = document.createElement("td");
-                    typeCell.textContent = capitalizeFirstLetter(item.membership_type);
+        const typeCell = document.createElement("td");
+        // Create text node for membership type
+        const typeText = document.createTextNode(capitalizeFirstLetter(item.membership_type));
+        // Create subscript element for priority
+        const sub = document.createElement('sub');
+        sub.textContent = item.priority;
+        sub.style.marginLeft = "4px"; // Add small spacing
+        // Append both to the type cell
+        typeCell.appendChild(typeText);
+        typeCell.appendChild(sub);
 
-                    const actionCell = document.createElement("td");
-                    actionCell.className = "d-flex";
+        const actionCell = document.createElement("td");
+        actionCell.className = "d-flex";
 
-                    const updateIcon = document.createElement("i");
-                    updateIcon.className = "material-symbols-rounded text-warning";
-                    updateIcon.textContent = "edit";
-                    updateIcon.style.cursor = "pointer";
-                    updateIcon.onclick = () => openUpdateModal(item);
+        const updateIcon = document.createElement("i");
+        updateIcon.className = "material-symbols-rounded text-warning";
+        updateIcon.textContent = "edit";
+        updateIcon.style.cursor = "pointer";
+        updateIcon.onclick = () => openUpdateModal(item);
 
-                    const deleteIcon = document.createElement("i");
-                    deleteIcon.className = "material-symbols-rounded text-danger";
-                    deleteIcon.textContent = "delete";
-                    deleteIcon.style.cursor = "pointer";
-                    deleteIcon.onclick = () => deleteMembership(item.membership_type);
+        const deleteIcon = document.createElement("i");
+        deleteIcon.className = "material-symbols-rounded text-danger";
+        deleteIcon.textContent = "delete";
+        deleteIcon.style.cursor = "pointer";
+        deleteIcon.onclick = () => deleteMembership(item.membership_type);
 
-                    actionCell.appendChild(updateIcon);
-                    actionCell.appendChild(deleteIcon);
+        actionCell.appendChild(updateIcon);
+        actionCell.appendChild(deleteIcon);
 
-                    row.appendChild(typeCell);
-                    row.appendChild(actionCell);
+        row.appendChild(typeCell);
+        row.appendChild(actionCell);
 
-                    tableBody.appendChild(row);
-                });
-            }
+        tableBody.appendChild(row);
+    });
+}
 
             function capitalizeFirstLetter(str) {
                 return str.charAt(0).toUpperCase() + str.slice(1);
