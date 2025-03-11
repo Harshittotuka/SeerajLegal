@@ -51,12 +51,13 @@
                 <div class="col-lg-8 col-md-12">
                     <div class="links">
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="practice-areas.html">Services</a></li>
-                            <li><a href="team.html">Attorneys</a></li>
-                            <li><a href="blog2.html">Blog</a></li>
+                            <li><a href="{{ route('home') }}">Home</a></li>
+                            <li><a href="{{ route('about') }}">About</a></li>
+                            <li><a href="{{ route('service.all') }}">Services</a></li>
+                            <li><a href="{{ route('team') }}">Attorneys</a></li>
+                            <li><a href="{{ route('contact') }}">Contact</a></li>
                         </ul>
+                        
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-12 text-end">
