@@ -132,8 +132,11 @@
 <button type="button" onclick="openImageCropper(1920, 1080)" class="btn btn-primary">
     Open Cropper (1920x1080)
 </button>
-<button type="button" onclick="openImageCropper(20, 10)" class="btn btn-primary">
-    Open Cropper (20, 10)
+<button type="button" onclick="openImageCropper(1000, 80)" class="btn btn-primary">
+    Open Cropper (1000, 80)
+</button>
+<button type="button" onclick="openImageCropper(200, 100)" class="btn btn-primary">
+    Open Cropper (200, 100)
 </button>
       <button type="button" id="saveImageBtn" class="btn btn-primary w-100">Save</button>
     </form>
@@ -141,25 +144,26 @@
 </div>
 
 <script>
-function openImageCropper(width = 800, height = 450) {
-    var myModal = new bootstrap.Modal(document.getElementById('imageCropperModal'));
-
+function openImageCropper(width, height) {
+    const myModal = new bootstrap.Modal(document.getElementById('imageCropperModal'));
+    
     // Store resolution in data attributes
-    let imageElement = document.getElementById('blah');
+    const imageElement = document.getElementById('blah');
     imageElement.dataset.cropWidth = width;
     imageElement.dataset.cropHeight = height;
 
     // Update modal title with resolution
     document.getElementById('cropperResolution').innerText = `${width} x ${height}`;
 
+    // Reset cropper and input when opening modal
+    const fileInput = document.querySelector('#imageCropperModal input[type="file"]');
+    fileInput.value = ''; // Clear previous file selection
+    document.getElementById("cropped_result").innerHTML = ''; // Clear previous result
+
     // Show modal
     myModal.show();
-
-    // Wait for modal transition, then initialize Cropper
-    setTimeout(() => initCropper(width, height), 500);
 }
 </script>
-
 
 <!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">

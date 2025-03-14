@@ -31,17 +31,21 @@ let cropperInstance = null;
 
 function readURL(input) {
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
+        const reader = new FileReader();
         reader.onload = function (e) {
-            let img = document.getElementById('blah');
+            const img = document.getElementById('blah');
             img.src = e.target.result;
             img.style.display = 'block';
+            
+            // Initialize cropper only after image is loaded
+            img.onload = function() {
+                initCropper(
+                    parseInt(img.dataset.cropWidth),
+                    parseInt(img.dataset.cropHeight)
+                );
+            };
         };
         reader.readAsDataURL(input.files[0]);
-        setTimeout(() => {
-            let img = document.getElementById('blah');
-            initCropper(img.dataset.cropWidth, img.dataset.cropHeight);
-        }, 500);
     }
 }
 
