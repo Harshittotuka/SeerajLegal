@@ -92,7 +92,7 @@
           <!-- Carousel Inner -->
           <div class="carousel-inner">
             <!-- Slide 1: Form -->
-            <div class="carousel-item active">
+            <div class="carousel-item ">
               <div class="ms-3 me-3 p-4 bg-white shadow rounded">
                 <h4 class="h5 font-weight-bold mb-3">Section 1</h4>
                 <form>
@@ -114,18 +114,66 @@
             </div>
 
             <!-- Slide 2: Image Upload -->
-            <div class="carousel-item">
-              <div class="ms-3 me-3 p-4 bg-white shadow rounded">
-                <h4 class="h5 font-weight-bold mb-3">Image Upload</h4>
-                <form>
-                  <div class="mb-3">
-                    <label for="imageInput" class="form-label">Choose an image</label>
-                    <input class="form-control form-control-sm form-disable" type="file" id="imageInput" accept="image/*" />
-                  </div>
-                  <button type="button" id="saveImageBtn" class="btn btn-primary w-100">Save</button>
-                </form>
-              </div>
-            </div>
+            @include('components.image-cropper')
+
+           <div class="carousel-item active">
+  <div class="ms-3 me-3 p-4 bg-white shadow rounded">
+    <h4 class="h5 font-weight-bold mb-3">Image Upload</h4>
+    <form>
+      <div class="mb-3">
+        <label for="imageInput" class="form-label">Choose an image</label>
+        <input class="form-control form-control-sm form-disable" type="file" id="imageInput" accept="image/*" />
+      </div>
+<!-- Buttons to Open Image Cropper with Different Resolutions -->
+<button type="button" onclick="openImageCropper(1024, 768)" class="btn btn-success">
+    Open Cropper (1024x768)
+</button>
+
+<button type="button" onclick="openImageCropper(1920, 1080)" class="btn btn-primary">
+    Open Cropper (1920x1080)
+</button>
+<button type="button" onclick="openImageCropper(20, 10)" class="btn btn-primary">
+    Open Cropper (20, 10)
+</button>
+      <button type="button" id="saveImageBtn" class="btn btn-primary w-100">Save</button>
+    </form>
+  </div>
+</div>
+
+<script>
+function openImageCropper(width = 800, height = 450) {
+    var myModal = new bootstrap.Modal(document.getElementById('imageCropperModal'));
+
+    // Store resolution in data attributes
+    let imageElement = document.getElementById('blah');
+    imageElement.dataset.cropWidth = width;
+    imageElement.dataset.cropHeight = height;
+
+    // Update modal title with resolution
+    document.getElementById('cropperResolution').innerText = `${width} x ${height}`;
+
+    // Show modal
+    myModal.show();
+
+    // Wait for modal transition, then initialize Cropper
+    setTimeout(() => initCropper(width, height), 500);
+}
+</script>
+
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Cropper.js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.0.0/cropper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.0.0/cropper.min.js"></script>
+
+<!-- Push Scripts -->
+@stack('scripts')
 
             <!-- Slide 3: Icon Input -->
             <div class="carousel-item">
