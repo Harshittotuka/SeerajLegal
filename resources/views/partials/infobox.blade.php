@@ -1,33 +1,39 @@
-<section class="case-study-box ">
+<section class="case-study-box">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-12 animate-box" data-animate-effect="fadeInUp">
-                <div class="item"> <i class="icon flaticon-mace"></i>
-                    <div class="cont">
-                        <h5>Legal Registration</h5>
-                        <p>A Non-Governmental Organization registered under the Companies Act with CIN No.
-                            U94120RJ2024NPL093001.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-12 animate-box" data-animate-effect="fadeInUp">
-                <div class="item"> <i class="icon flaticon-balance"></i>
-                    <div class="cont">
-                        <h5>Non-Profit Objective</h5>
-                        <p>Operates as a non-profit entity dedicated to resolving disputes amicably, fostering
-                            peaceful settlements, and spreading awareness.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-12 animate-box" data-animate-effect="fadeInUp">
-                <div class="item"> <i class="icon flaticon-mortarboard"></i>
-                    <div class="cont">
-                        <h5>Jurisdiction</h5>
-                        <p>Based in Rajasthan, India, with services available both locally and beyond through online
-                            and offline platforms.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="row" id="about-us-sections">
+            <!-- Dynamic content will be inserted here -->
         </div>
     </div>
 </section>
+
+<script>
+    fetch('{{ asset('aboutus.json') }}')
+        .then(response => response.json())
+        .then(data => {
+            const sectionData = [
+                { S_id: 2, icon: 'flaticon-mace' },
+                { S_id: 3, icon: 'flaticon-balance' },
+                { S_id: 4, icon: 'flaticon-mortarboard' }
+            ];
+            const aboutUsSections = document.getElementById('about-us-sections');
+
+            sectionData.forEach(({ S_id, icon }) => {
+                const section = data.find(item => item.S_id === S_id);
+                if (section) {
+                    const col = document.createElement('div');
+                    col.className = 'col-lg-4 col-md-12 animate-box';
+                    col.setAttribute('data-animate-effect', 'fadeInUp');
+                    col.innerHTML = `
+                        <div class="item"> <i class="icon ${icon}"></i>
+                            <div class="cont">
+                                <h5>${section.title}</h5>
+                                <p>${section.para}</p>
+                            </div>
+                        </div>
+                    `;
+                    aboutUsSections.appendChild(col);
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
