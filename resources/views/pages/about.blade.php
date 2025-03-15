@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <!-- About -->
+    <!-- About  S_id=1 --> 
     @include('partials.about')
 
     <!-- Info Box -->
@@ -36,58 +36,103 @@
 
     <!-- About 2 -->
     <section class="about section-padding bg-darkbrown">
-        <div class="container">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-lg-5 col-md-12 animate-box" data-animate-effect="fadeInLeft"> <img class="img" src="{{ asset('assets/img/team (2).webp') }}" alt=""> </div>
-                <div class="col-lg-5 offset-lg-1 col-md-12 animate-box" data-animate-effect="fadeInRight">
-                    <div class="section-subtitle text-white">
-                        <div class="icon"><i class="flaticon-courthouse"></i></div> People make the difference
-                    </div>
-                    <div class="section-title white">We here for provide <span>legal Services</span></div>
-                    <p>All people are equal before the law. A good attorney is what makes a difference. Lorem aliquam sit amet auctor the done vitae risus duise in the miss ranish fermen.</p>
-                    <!-- <div class="about-bottom mt-30"> <img src="img/signature.svg" alt="" class="image about-signature"> -->
-                        <div class="about-name-wrapper">
-                            <div class="about-rol">Directors</div>
-                            <div class="about-name">Rajan Sharma</div>
-                            <div class="about-name">Seema Sharma</div>
-                        </div>
-                    </div>
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-5 col-md-12 animate-box" data-animate-effect="fadeInLeft">
+                <img id="section-5-image" class="img" alt="">
+            </div>
+            <div class="col-lg-5 offset-lg-1 col-md-12 animate-box" data-animate-effect="fadeInRight">
+                <div class="section-subtitle text-white">
+                    <div class="icon"><i class="flaticon-courthouse"></i></div> People make the difference
+                </div>
+                <div id="section-5-title" class="section-title white"></div>
+                <p id="section-5-para"></p>
+                <div class="about-name-wrapper">
+                    <div class="about-rol">Directors</div>
+                    <div id="section-5-points"></div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<script>
+    fetch('{{ asset('aboutus.json') }}')
+        .then(response => response.json())
+        .then(data => {
+            const section = data.find(item => item.S_id === 5);
+            if (section) {
+                document.getElementById('section-5-title').innerHTML = `We are here to provide <span>legal Services</span>`;
+                document.getElementById('section-5-para').textContent = section.para;
+
+                const pointsContainer = document.getElementById('section-5-points');
+                if (section.points) {
+                    section.points.forEach(point => {
+                        const div = document.createElement('div');
+                        div.className = 'about-name';
+                        div.textContent = point;
+                        pointsContainer.appendChild(div);
+                    });
+                }
+
+                const sectionImage = document.getElementById('section-5-image');
+                if (section.image && section.image.length > 0) {
+                    sectionImage.src = section.image[0];
+                } else {
+                    sectionImage.style.display = 'none';
+                }
+            }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
    
-    <!-- Clients -->
+    <!-- awards -->
     <section class="clients section-padding">
-        <div class="container">
-            <div class="row">
-               <div class="col-md-12 mb-30 text-center">
-                   <div class="section-subtitle">
-                        <div class="icon"><i class="flaticon-courthouse"></i></div> Our Successes
-                    </div>
-                    <div class="section-title">Awards <span>&</span> Recognitions</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-30 text-center">
+                <div class="section-subtitle">
+                    <div class="icon"><i class="flaticon-courthouse"></i></div> <span id="section-6-subtitle"></span>
                 </div>
+                <div class="section-title" id="section-6-title"></div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-7 col-md-12 text-center">
-                    <div class="owl-carousel owl-theme">
-                        <div class="clients-logo">
-                            <a href="#0"><img src=" {{ asset('assets/img/awards/01.png') }}" alt=""></a>
-                        </div>
-                        <div class="clients-logo">
-                            <a href="#0"><img src=" {{ asset('assets/img/awards/02.png') }}" alt=""></a>
-                        </div>
-                        <div class="clients-logo">
-                            <a href="#0"><img src=" {{ asset('assets/img/awards/03.png') }}" alt=""></a>
-                        </div>
-                        <div class="clients-logo">
-                            <a href="#0"><img src=" {{ asset('assets/img/awards/04.png') }}" alt=""></a>
-                        </div>
-                    </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-12 text-center">
+                <div id="awards-carousel" class="owl-carousel owl-theme">
+                    <!-- Dynamic content will be inserted here -->
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<script>
+    fetch('{{ asset('aboutus.json') }}')
+        .then(response => response.json())
+        .then(data => {
+            const section = data.find(item => item.S_id === 6);
+            const carousel = document.getElementById('awards-carousel');
+            const title = document.getElementById('section-6-title');
+            const subtitle = document.getElementById('section-6-subtitle');
+
+            if (section) {
+                title.innerHTML = section.title || 'Awards <span>&</span> Recognitions';
+                subtitle.textContent = 'Our Successes';
+            }
+
+            if (section && section.image && section.image.length > 0) {
+                section.image.forEach(imgSrc => {
+                    const div = document.createElement('div');
+                    div.className = 'clients-logo';
+                    div.innerHTML = `<a href="#0"><img src="${imgSrc}" alt="Award Image"></a>`;
+                    carousel.appendChild(div);
+                });
+            }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
+
    
   <!-- Directors -->
   @include('partials.directors')
