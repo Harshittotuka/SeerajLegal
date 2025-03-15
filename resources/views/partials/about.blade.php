@@ -5,9 +5,11 @@
                 <div class="section-subtitle">
                     <div class="icon"><i class="flaticon-courthouse"></i></div> About Seeraj Legal
                 </div>
+
                 <div id="section-title" class="section-title"></div>
                 <p id="section-para"></p>
                 <ul id="section-points" class="page-list list-unstyled mb-25"></ul>
+
                 <!-- <a href="{{ route('about') }}" class="button-2">Discover more<span></span></a> -->
             </div>
             <div class="col-lg-6 offset-lg-1 col-md-12 animate-box" data-animate-effect="fadeInUp">

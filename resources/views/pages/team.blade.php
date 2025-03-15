@@ -152,602 +152,144 @@
 
     <!-- --MAIN SECTION== -->
     <section class="team section-padding">
-        <div class="container">
-            <div class="section-header">
-                <h2>Our Legal Team</h2>
-                <div class="filter-buttons" id="filter-bar"></div>
-            </div>
+    <div class="container">
+        <div class="section-header">
+            <h2>Our Legal Team</h2>
+            <div class="filter-buttons" id="filter-bar"></div>
+        </div>
 
-            <div class="law-section All-Rounders" data-category="All-Rounders">
-                <h3 class="category-header">All-Rounders</h3>
-                <div class="row">
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Mrs. Manju Singh Chundawat</a></h5>
-                            <!--<p>Criminal Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">K.R. Sharma</a></h5>
-                            <!--<p>(Retd. CJM)</p>-->
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Ashok Sharma </a></h5>
-                            <p>(Retd. District & Session Judge)</p>
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Ramesh Chand Sharma </a></h5>
-                            <p>(Retd. District & Session Judge)</p>
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
+        <div id="team-sections"></div>
+    </div>
+</section>
 
-                </div>
-            </div>
+<script>
+document.addEventListener('DOMContentLoaded', async function () {
+    const filterBar = document.getElementById('filter-bar');
+    const teamSections = document.getElementById('team-sections');
 
+    try {
+        const response = await fetch('http://127.0.0.1:8000/api/teams');
+        const teamMembers = await response.json();
 
-            <!-- Criminal Law -->
-            <div class="law-section criminal-section" data-category="Criminal Law">
-                <h3 class="category-header">Criminal Law Experts</h3>
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Mrs. Manju Singh Chundawat</a></h5>
-                            <!--<p>Criminal Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Jai Prakash Sharma</a></h5>
-                            <!--<p>Criminal Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">K.R. Sharma </a></h5>
-                            <p>(Retd. CJM)</p>
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Ashok Sharma </a></h5>
-                            <p>(Retd. District & Session Judge)</p>
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Ramesh Chand Sharma </a></h5>
-                            <p>(Retd. District & Session Judge)</p>
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                </div>
-            </div>
+        // Extract unique categories from API response
+        const categories = new Set();
+        categories.add('All'); // Keep "All" for the filter buttons
 
-            <!-- Family Law -->
-            <div class="law-section family-section" data-category="Family Law">
-                <h3 class="category-header">Family Law Experts</h3>
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Mrs. Manju Singh Chundawat</a></h5>
-                            <!--<p>Family Lawyer</p>-->
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">K.R. Sharma </a></h5>
-                            <p>(Retd. CJM)</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Ashok Sharma </a></h5>
-                            <p>(Retd. District & Session Judge)</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Ramesh Chand Sharma </a></h5>
-                            <p>(Retd. District & Session Judge)</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Corporate Law -->
-            <div class="law-section corporate-section" data-category="Corporate Law">
-                <h3 class="category-header">Corporate Law & Commercial Law Experts</h3>
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Arun Singh Shekhawat</a></h5>
-                            <!--<p>Corporate Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Naveen Sharma</a></h5>
-                            <!--<p>Criminal Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Rajesh Jain</a></h5>
-                            <!--<p>Criminal Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Hemant Ruthala</a></h5>
-                            <!-- <p>Criminal Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Ashok Sharma </a></h5>
-                            <p>(Retd. District & Session Judge)</p>
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Ramesh Chand Sharma </a></h5>
-                            <p>(Retd. District & Session Judge)</p>
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                </div>
-            </div>
-            <!--civil law experts-->
-            <div class="law-section civil-law-section" data-category="Civil law">
-                <h3 class="category-header">Civil Law Experts</h3>
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Arun Singh Shekhawat</a></h5>
-                            <!--<p>Corporate Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Naveen Sharma</a></h5>
-                            <!--<p>Criminal Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Rajesh Jain</a></h5>
-                            <!--<p>Criminal Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Hemant Ruthala</a></h5>
-                            <!--<p>Criminal Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Mrs. Manju Singh Chundawat</a></h5>
-                            <!--<p>Criminal Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                </div>
-            </div>
-            <!-- ADR Experts -->
-            <div class="law-section ADR-experts" data-category="ADR Experts">
-                <h3 class="category-header">Arbitration & Alternative Dispute Resolution (ADR) Experts</h3>
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Arun Singh Shekhawat</a></h5>
-                            <!--<p>Corporate Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">K.R. Sharma </a></h5>
-                            <p>(Retd. CJM)</p>
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Hemant Ruthala</a></h5>
-                            <!--<p>Criminal Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Rajesh Jain</a></h5>
-                            <!--<p>Criminal Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Mrs. Manju Singh Chundawat</a></h5>
-                            <!--<p>Criminal Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Naveen Sharma</a></h5>
-                            <!--<p>Criminal Lawyer</p>-->
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Ashok Sharma </a></h5>
-                            <p>(Retd. District & Session Judge)</p>
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                    <!-- --item-- -->
-                    <div class="col-lg-3 col-md-6 item">
-                        <div class="img">
-                            <img src=" {{ asset('assets/img/my/profile_icon2.png') }}" alt="Attorney" class="img-cover">
-                            <div class="social-icons1">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h5><a href="#">Ramesh Chand Sharma </a></h5>
-                            <p>(Retd. District & Session Judge)</p>
-                        </div>
-                    </div>
-                    <!-- --item end-- -->
-                </div>
-            </div>
-
-
-    </section>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const filterBar = document.getElementById('filter-bar');
-            const lawSections = document.querySelectorAll('.law-section');
-
-            const createFilterButton = (name, className) => {
-                const button = document.createElement('button');
-                button.className = 'btn-filter';
-                button.dataset.filter = className;
-                button.textContent = name;
-                return button;
-            };
-
-            const allButton = createFilterButton('All', 'all');
-            allButton.classList.add('active');
-            filterBar.appendChild(allButton);
-
-            lawSections.forEach(section => {
-                if (section.querySelectorAll('.item').length === 0) {
-                    section.remove();
-                } else {
-                    const name = section.getAttribute('data-category');
-                    const className = section.classList[1];
-                    filterBar.appendChild(createFilterButton(name, className));
-                }
-            });
-
-            const filterButtons = document.querySelectorAll('.btn-filter');
-            const refreshFilters = () => {
-                filterButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const filter = button.dataset.filter;
-                        filterButtons.forEach(btn => btn.classList.remove('active'));
-                        button.classList.add('active');
-
-                        if (filter === 'all') {
-                            lawSections.forEach(section => section.style.display = 'block');
-                        } else {
-                            lawSections.forEach(section => {
-                                section.style.display = section.classList.contains(
-                                    filter) ? 'block' : 'none';
-                            });
-                        }
-                    });
-                });
-            };
-            refreshFilters();
+        teamMembers.forEach(member => {
+            if (member.all_rounder) categories.add('All-Rounders');
+            if (member.area_of_practice) {
+                member.area_of_practice.forEach(practice => categories.add(practice));
+            }
+            if (member.adr_services.length > 0) categories.add('ADR Experts');
         });
-    </script>
+
+        const teamsByCategory = {};
+        categories.forEach(category => teamsByCategory[category] = []);
+
+        // Assign members to categories
+        teamMembers.forEach(member => {
+            if (member.all_rounder) teamsByCategory['All-Rounders'].push(member);
+            if (member.area_of_practice) {
+                member.area_of_practice.forEach(practice => teamsByCategory[practice].push(member));
+            }
+            if (member.adr_services.length > 0) teamsByCategory['ADR Experts'].push(member);
+        });
+
+        // Create sections for each category (except "All")
+        categories.forEach(category => {
+            if (category === 'All') return; // Don't create a section for "All"
+
+            const section = document.createElement('div');
+            section.className = `law-section ${category.replace(/\s+/g, '-').toLowerCase()}`;
+            section.setAttribute('data-category', category);
+
+            section.innerHTML = `
+                <h3 class="category-header">${category}</h3>
+                <div class="row">
+                    ${teamsByCategory[category].map(member => {
+                        const profileImage = member.profile_image || 'assets/img/my/profile_icon2.png';
+                        const socials = member.socials || {};
+                        return `
+                            <div class="col-lg-3 col-md-6 item" data-id="${member.id}">
+                                <div class="img">
+                                    <img src="${profileImage}" alt="${member.name}" class="img-cover">
+                                    <div class="social-icons1">
+                                        ${socials.facebook ? `<a href="${socials.facebook}"><i class="fab fa-facebook-f"></i></a>` : ''}
+                                        ${socials.linkedin ? `<a href="${socials.linkedin}"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                                        ${socials.twitter ? `<a href="${socials.twitter}"><i class="fab fa-twitter"></i></a>` : ''}
+                                    </div>
+                                </div>
+                                <div class="info">
+                                    <h5><a href="/team-details?id=${member.id}">${member.name}</a></h5>
+                                    <p>${member.designation}</p>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+
+            teamSections.appendChild(section);
+        });
+
+        // Create filter buttons dynamically in alphabetical order
+        const createFilterButton = (name, className) => {
+            const button = document.createElement('button');
+            button.className = 'btn-filter';
+            button.dataset.filter = className;
+            button.textContent = name;
+            return button;
+        };
+
+        // Convert Set to Array, sort alphabetically, and ensure "All" stays first
+        const sortedCategories = Array.from(categories).sort((a, b) => {
+            if (a === 'All') return -1;
+            if (b === 'All') return 1;
+            return a.localeCompare(b);
+        });
+
+        sortedCategories.forEach(category => {
+            const className = category.replace(/\s+/g, '-').toLowerCase();
+            const button = createFilterButton(category, className);
+            if (category === 'All') button.classList.add('active');
+            filterBar.appendChild(button);
+        });
+
+        // Filtering logic
+        const filterButtons = document.querySelectorAll('.btn-filter');
+        const lawSections = document.querySelectorAll('.law-section');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.dataset.filter;
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                lawSections.forEach(section => {
+                    section.style.display = section.classList.contains(filter) || filter === 'all' ? 'block' : 'none';
+                });
+            });
+        });
+
+        // Redirection logic for team member clicks
+        teamSections.addEventListener('click', (event) => {
+            const memberItem = event.target.closest('.item');
+            if (memberItem) {
+                const memberId = memberItem.getAttribute('data-id');
+                if (memberId) {
+                    window.location.href = `/team-details?id=${memberId}`;
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching team members:', error);
+    }
+});
+
+
+</script>
+
+
 
     <!-- Get in touch -->
     @include('partials.getintouch')

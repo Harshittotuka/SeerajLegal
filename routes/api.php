@@ -9,9 +9,15 @@ use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UpdateController;
+use App\Http\Controllers\Contact2Controller;
+
+//api to update json file of personal details(nova)
+Route::put('/update-personal-details', [Contact2Controller::class, 'update']);
+
 
 //api to update homepage and who we are pages json file
 Route::post('/update', [UpdateController::class, 'update']);
+
 
 
 

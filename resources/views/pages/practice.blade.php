@@ -150,34 +150,33 @@
                 container.innerHTML += sectionHTML;
 
                 // Store "What We Provide" section separately if available
-                if (practice.what_we_provide && practice.what_we_provide.length > 0 && practice.what_we_provide
-                    .some(w => w && w !== "null")) {
-
-                    whatWeProvideContent = `
-                <br>
-                <div class="col-md-12 text-center mb-20">
-                    <div class="section-title"><span>What we </span> Provide?</div>
+                                // Store "What We Provide" section separately if available
+    if (practice.what_we_provide && practice.what_we_provide.length > 0 && practice.what_we_provide.some(w => w && w !== "null")) 
+        {whatWeProvideContent = `
+            <br>
+            <div class="col-md-12 text-center mb-20">
+                <div class="section-title"><span>What we </span> Provide?</div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="row">
-            `;
-                    practice.what_we_provide.forEach(service => {
-                        whatWeProvideContent += `
-                    <div class="col-lg-4 col-md-6">
-                        <div class="item">
-                            <a href="case-study-page.html"> 
-                                <i class="flaticon-courthouse"></i>
-                                <h5>${service}</h5>
-                                <div class="shape"><i class="flaticon-courthouse"></i></div>
-                            </a>
-                        </div>
-                    </div>
-                `;
-                    });
+            <div class="row">`;
+            practice.what_we_provide.forEach(service => {
+            whatWeProvideContent += `
+                <div class="col-lg-4 col-md-6">
+                <div class="item">
+                     <a href="{{ url('service/') }}/${service}"> 
+                     <i class="flaticon-courthouse"></i>
+                 <h5>${service}</h5>
+            <div class="shape"><i class="flaticon-courthouse"></i></div>
+        </a>
+    </div>
+</div>
+`;
+});
 
-                    whatWeProvideContent += `</div></div></div>`;
-                }
+whatWeProvideContent += `</div></div></div>`;
+}
+
             });
 
             // Append "What We Provide" at the END of the content
