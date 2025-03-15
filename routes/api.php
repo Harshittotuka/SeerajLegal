@@ -8,6 +8,12 @@ use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\UpdateController;
+
+//api to update homepage and who we are pages json file
+Route::post('/update', [UpdateController::class, 'update']);
+
+
 
 //fetching data of who we are according to S_id
 //api to get data of who we are by S_id
