@@ -19,6 +19,7 @@ Route::post('/update', [UpdateController::class, 'update']);
 //api to get data of who we are by S_id
 Route::post('about/who_we_are', [AboutController::class, 'getWhoWeAre']);
 
+
 //update,delete for faqs (nova)
 Route::prefix('faqs')->group(function () {
 Route::post('update/{Sno}', [AboutController::class, 'updateFaq']);

@@ -56,10 +56,10 @@
         <div class="row align-items-center">
             <div class="col-lg-4 col-md-12 mb-30">
                 <div class="section-subtitle">
-                    <div class="icon"><i class="flaticon-courthouse"></i></div> What we do?
+                    <div class="icon"><i id="adr-icon" class="flaticon-courthouse"></i></div> What we do?
                 </div>
-                <div class="section-title"><span>ADR</span> Services</div>
-                <p>Specializing in Alternative dispute resolution methods in contrast to conventional court proceedings.</p>
+                <div class="section-title"><span id="adr-title">ADR</span> Services</div>
+                <p id="adr-para"></p>
                 <a href="{{ route('service.all') }}" class="button-2">Discover more<span></span></a>
             </div>
             <div class="col-lg-7 offset-lg-1 col-md-12">
@@ -70,6 +70,7 @@
         </div>
     </div>
 </section>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     // Fetch the JSON file
