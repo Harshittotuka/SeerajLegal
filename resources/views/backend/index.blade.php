@@ -31,7 +31,7 @@
 
 
         <!-- Navbar -->
-      @include('backend.partials.top-navbar')
+      @include('backend.partials.top-nav')
         <!-- End Navbar -->
 
         <div class="container-fluid overflow-hidden py-2">

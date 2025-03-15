@@ -26,7 +26,7 @@
 
             <!-- Homepage -->
             <li class="nav-item">
-                <a class="nav-link text-dark" href="#">
+                <a class="nav-link text-dark" href="{{ route('backend.home') }}">
                     <i class="material-symbols-rounded opacity-5">home</i>
                     <span class="nav-link-text ms-1">Homepage</span>
                 </a>
@@ -42,7 +42,7 @@
                 <div class="collapse" id="about-collapse" data-bs-parent="#sidenav-collapse-main">
                     <ul class="nav flex-column ps-4">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">
+                            <a class="nav-link text-dark" href="{{ route('backend.aboutus') }}">
                                 <i class="material-symbols-rounded opacity-5">group</i>
                                 Who We Are
                             </a>

@@ -23,6 +23,8 @@
                 </ul>
                 <div class="tab-content mt-3">
                     <!-- Section Form -->
+                      <input type="hidden" id="sectionId" />
+                       <input type="hidden" id="filename" />
                     <div class="tab-pane fade show active" id="sectionForm">
                         <div class="p-3 bg-white shadow rounded">
                             <h4 class="h5 font-weight-bold mb-3">Section 1</h4>
@@ -56,7 +58,7 @@
                                     <button type="button" class="btn btn-success btn-sm" style="width: 150px; height: 150px;" onclick="openImageCropper(200, 100)">Add</button>
                                 </div>
                                 <div class="mt-3 text-center w-100 d-flex justify-content-center">
-                                    <button type="button" class="btn btn-primary w-100" style="max-width: 300px;">Save</button>
+                                    <button type="button" id="saveImageBtn" class="btn btn-primary w-100" style="max-width: 300px;">Save</button>
                                 </div>
                             </form>
                         </div>
@@ -100,6 +102,86 @@
         </div>
     </div>
 </div>
+
+<script>
+async function updateSection(data, actionType) {
+    try {
+        const response = await fetch("http://localhost:8000/api/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        console.log("Update Response:", result);
+
+        if (response.ok) {
+            showToast(`${actionType} updated successfully!`, "success");
+        } else {
+            throw new Error(result.message || "Update failed");
+        }
+    } catch (error) {
+        console.error("Error updating section:", error);
+        showToast(`Failed to update ${actionType}`, "error");
+    }
+}
+
+function showToast(message, type) {
+    Toastify({
+        text: message,
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: type === "success" ? "green" : "red",
+        stopOnFocus: true
+    }).showToast();
+}
+
+document.getElementById("saveSectionBtn").addEventListener("click", function() {
+    let data = {
+        file: document.getElementById("filename").value.replace(".json", ""),
+        S_id: parseInt(document.getElementById("sectionId").value) || null,
+        title: document.getElementById("sectionHeading").value || null,
+        para: document.getElementById("sectionPara").value || null,
+        points: document.getElementById("sectionPoints").value ? document.getElementById("sectionPoints").value.split("\n") : null
+    };
+
+    console.log("Updating Section:", data);
+    updateSection(data, "Section");
+});
+
+document.getElementById("saveImageBtn").addEventListener("click", function() {
+    let fileInput = document.getElementById("imageFile");
+    let selectedFile = fileInput.files.length > 0 ? fileInput.files[0].name : null;
+
+    let data = {
+        file: document.getElementById("filename").value.replace(".json", ""),
+        S_id: parseInt(document.getElementById("sectionId").value) || null,
+        image: selectedFile ? [`assets/img/uploads/${selectedFile}`] : null
+    };
+
+    console.log("Updating Image:", data);
+    updateSection(data, "Image");
+});
+
+document.getElementById("saveIconBtn").addEventListener("click", function() {
+    let selectedLibrary = document.querySelector("#iconTabs .nav-link.active").getAttribute("data-library");
+
+    let data = {
+        file: document.getElementById("filename").value.replace(".json", ""),
+        S_id: parseInt(document.getElementById("sectionId").value) || null,
+        icon: document.getElementById("iconClassInput").value || null,
+        icon_Type: selectedLibrary || null
+    };
+
+    console.log("Updating Icon:", data);
+    updateSection(data, "Icon");
+});
+
+</script>
+
 
  <div class="container-fluid overflow-hidden py-2">
             <div class="row g-4 mx-3 mt-1">
@@ -218,130 +300,3 @@
 }
 
     </style>
-<script>
-    async function loadSections() {
-    try {
-        const response = await fetch('/aboutus.json');
-        const sections = await response.json();
-        const container = document.querySelector(".row.g-4");
-        container.innerHTML = "";
-        
-        sections.forEach(section => {
-            const card = document.createElement("div");
-            card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
-          card.innerHTML = `
-    <div class="card text-center" style="height: 250px; width: 250px;" data-bs-toggle="modal" data-bs-target="#contentModal" onclick="populateModal(${section.S_id})">
-        <div class="card-header p-2 ps-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <i><h6 class="text-uppercase fw-bold mb-0">Section ${section.S_id}</h6>  <!-- Section Number --></i>
-                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                    <i class="${section.icon}"></i>  <!-- Icon -->
-                </div>
-            </div>
-            <hr class="my-2">  <!-- Horizontal Line -->
-            <h5 class="mb-0">${section.title}</h5>  <!-- Section Title Below -->
-        </div>
-    </div>
-`;
-
-            container.appendChild(card);
-        });
-    } catch (error) {
-        console.error("Error loading sections:", error);
-    }
-}
-
-async function populateModal(sectionId) {
-    try {
-        const response = await fetch('/aboutus.json');
-        const sections = await response.json();
-        const section = sections.find(sec => sec.S_id === sectionId);
-
-        if (!section) return;
-
-        // Populate form fields
-        document.getElementById("sectionHeading").value = section.title || "";
-        document.getElementById("sectionPara").value = section.para || "";
-        document.getElementById("sectionPoints").value = section.points ? section.points.join("\n") : "";
-        document.getElementById("iconClassInput").value = section.icon || "";
-        document.getElementById("iconPreview").innerHTML = section.icon ? `<i class="${section.icon}"></i>` : "";
-
-        // Handle images
-        const imageContainer = document.querySelector("#imageUpload .d-flex");
-        const addButton = document.querySelector("#imageUpload .btn-success");
-        imageContainer.innerHTML = "";
-
-        if (section.image && Array.isArray(section.image)) {
-            section.image.forEach(img => {
-                const imageUrl = `http://127.0.0.1:8000/${img}`;
-                
-                const imgAnchor = document.createElement("a");
-                imgAnchor.href = imageUrl;
-                imgAnchor.target = "_blank";
-                imgAnchor.className = "image-preview bg-light border rounded";
-                imgAnchor.style = "width: 150px; height: 150px; display: block; background-size: cover; background-position: center;";
-                imgAnchor.style.backgroundImage = `url('${imageUrl}')`;
-
-                imageContainer.appendChild(imgAnchor);
-            });
-        }
-        if (addButton) {
-            imageContainer.appendChild(addButton);
-        }
-
-        // **Tab Selection Based on icon_Type**
-        if (section.icon_Type === "fontawesome") {
-            document.querySelector('[data-library="fontawesome"]').classList.add("active");
-            document.querySelector('[data-library="bootstrap"]').classList.remove("active");
-            document.getElementById("iconLabel").innerText = "Enter Font Awesome Icon Class";
-            document.getElementById("iconLink").classList.add("d-none");
-            document.getElementById("faLink").classList.remove("d-none");
-        } else {
-            document.querySelector('[data-library="bootstrap"]').classList.add("active");
-            document.querySelector('[data-library="fontawesome"]').classList.remove("active");
-            document.getElementById("iconLabel").innerText = "Enter Bootstrap Icon Class";
-            document.getElementById("iconLink").classList.remove("d-none");
-            document.getElementById("faLink").classList.add("d-none");
-        }
-
-        // **Tab Visibility Logic**
-        const tabs = {
-            1: "sectionForm",
-            2: "imageUpload",
-            3: "iconInput"
-        };
-
-        let sortedTabs = section.s_include ? section.s_include.sort((a, b) => a - b) : [];
-        let firstTab = sortedTabs.length > 0 ? tabs[sortedTabs[0]] : "sectionForm";
-
-        Object.keys(tabs).forEach(tabKey => {
-            const tabElement = document.querySelector(`[href='#${tabs[tabKey]}']`);
-            const tabPane = document.getElementById(tabs[tabKey]);
-
-            tabElement.style.display = "none";
-            tabPane.classList.remove("show", "active");
-        });
-
-        sortedTabs.forEach(tabKey => {
-            const tabElement = document.querySelector(`[href='#${tabs[tabKey]}']`);
-            const tabPane = document.getElementById(tabs[tabKey]);
-
-            tabElement.style.display = "block";
-
-            if (tabs[tabKey] === firstTab) {
-                tabPane.classList.add("show", "active");
-                new bootstrap.Tab(tabElement).show();
-            }
-        });
-
-    } catch (error) {
-        console.error("Error populating modal:", error);
-    }
-}
-
-
-
-
-document.addEventListener("DOMContentLoaded", loadSections);
-
-</script>

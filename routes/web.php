@@ -50,6 +50,10 @@ Route::get('/backend/home', function () {
     return view('backend/pages/homepage');
 })->name('backend.home');
 
+Route::get('/backend/aboutus', function () {
+    return view('backend/pages/aboutus');
+})->name('backend.aboutus');
+
 
 Route::get('/backend/faq', function () {
     return view('backend/pages/faq');

@@ -28,13 +28,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
+
 <script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        updateBreadcrumbs(["Dashboard", "Homepage"], ["/backend", "/backend/home"]);
+        updateBreadcrumbs(["Dashboard", "Aboutus"], ["/backend", "/backend/aboutus"]);
     });
 </script>
-
 
 </head>
 
@@ -124,7 +124,7 @@
     <script>
     let allSections = []; // Store all sections globally
 
-    async function loadSections() {
+   async function loadSections() {
     try {
         // Fetch both JSON files
         const [homeResponse, aboutResponse] = await Promise.all([
@@ -144,7 +144,7 @@
 
         // Filter sections that include "home" in the "usage" array
         let filteredSections = allSections.filter(section =>
-            section.usage && section.usage.includes("home")
+            section.usage && section.usage.includes("about")
         );
 
         // Sort the filtered sections by s_order (assuming s_order exists)
@@ -178,7 +178,6 @@
         console.error("Error loading sections:", error);
     }
 }
-
 
     async function populateModal(index) {
         try {
