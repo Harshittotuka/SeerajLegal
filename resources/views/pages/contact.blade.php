@@ -90,20 +90,21 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    fetch("http://127.0.0.1:8000/api/contacts")
+    fetch("{{ asset('personal_details.json') }}")
     .then(response => response.json())
     .then(data => {
-        if (data.length > 0) {
-            let contact = data[0]; // Assuming the first object contains the required data
+        if (data.personal_details) {
+            let contact = data.personal_details;
             document.getElementById("contact-address").innerText = contact.address;
             document.getElementById("contact-phone").innerText = contact.phone_no;
             document.getElementById("contact-phone").href = "tel:" + contact.phone_no;
             document.getElementById("contact-email").innerText = contact.email;
         }
     })
-    .catch(error => console.error("Error fetching contact data:", error));
+    .catch(error => console.error("Error fetching contact data from JSON:", error));
 });
 </script>
+
 
 
    

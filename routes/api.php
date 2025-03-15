@@ -8,6 +8,10 @@ use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\Contact2Controller;
+
+//api to update json file of personal details(nova)
+Route::put('/update-personal-details', [Contact2Controller::class, 'update']);
 
 //fetching data of who we are according to S_id
 //api to get data of who we are by S_id
