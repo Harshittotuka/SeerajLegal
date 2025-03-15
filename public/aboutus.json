@@ -83,23 +83,30 @@
         "icon_Type": "fontawesome",
         "icon": "fa-r"
     },
-    {
-        "usage": [
-            "about"
-        ],
-        "S_id": 5,
-        "S_order": 5,
-        "title": "We are here to provide legal Services",
-        "para": "All people are equal before the law. A good attorney is what makes a difference. Lorem aliquam sit amet auctor the done vitae risus duise in the miss ranish fermen.",
-        "points": [
-            "Rajan Sharma",
-            "Seema Sharma"
-        ],
-        "flag": "enabled",
-        "image": [
-            "assets/img/team (2).webp"
-        ]
-    },
+   {
+    "usage": [
+        "about"
+    ],
+    "S_id": 5,
+    "S_order": 5,
+    "s_include": [
+        1,
+        2,
+        3
+    ],
+    "title": "We are here to provide legal Services",
+    "para": "All people are equal before the law. A good attorney is what makes a difference.",
+    "points": [
+        "Rajan Sharma",
+        "Seema Sharma"
+    ],
+    "flag": "enabled",
+    "image": [
+        "assets\/img\/team (2).webp"
+    ],
+    "icon_Type": "fontawesome",
+    "icon": "fa-h"
+},
     {
         "usage": [
             "about"

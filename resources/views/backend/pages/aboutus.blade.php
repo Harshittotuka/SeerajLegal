@@ -25,16 +25,16 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 
-<script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        updateBreadcrumbs(["Dashboard", "Aboutus"], ["/backend", "/backend/aboutus"]);
-    });
-</script>
+    <script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            updateBreadcrumbs(["Dashboard", "Aboutus"], ["/backend", "/backend/aboutus"]);
+        });
+    </script>
 
 </head>
 
@@ -53,7 +53,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
 
-  @include('components.image-cropper')
+        @include('components.image-cropper')
 
 
         @include('backend.partials.pageinput');
@@ -105,10 +105,12 @@
     <style>
         #imageCropperModal {
             z-index: 2000;
-        } 
-        #contentModal{
+        }
+
+        #contentModal {
             z-index: 1500;
         }
+
         .enabled .card {
             box-shadow: 0 4px 10px rgba(0, 255, 0, 0.5) !important;
             /* Green shadow */
@@ -121,10 +123,11 @@
     </style>
 
 
-    <script>
-    let allSections = []; // Store all sections globally
+ <script>
+    let allSections = [];           // Global: all sections merged from both JSON files
+let filteredSectionsGlobal = []; // Global: filtered and sorted sections that are displayed
 
-   async function loadSections() {
+async function loadSections() {
     try {
         // Fetch both JSON files
         const [homeResponse, aboutResponse] = await Promise.all([
@@ -147,8 +150,11 @@
             section.usage && section.usage.includes("about")
         );
 
-        // Sort the filtered sections by s_order (assuming s_order exists)
+        // Sort the filtered sections by S_order (assuming S_order exists)
         filteredSections.sort((a, b) => a.S_order - b.S_order);
+
+        // Store the filtered sections globally so we can reference them by index later
+        filteredSectionsGlobal = filteredSections;
 
         const container = document.querySelector(".row.g-4");
         container.innerHTML = "";
@@ -179,100 +185,122 @@
     }
 }
 
-    async function populateModal(index) {
-        try {
-            // Find the section based on the index from filtered sections
-            const section = allSections[index];
+async function populateModal(index) {
+    try {
+        // Now use filteredSectionsGlobal so that the index matches the displayed cards.
+        const section = filteredSectionsGlobal[index];
+        if (!section) return;
 
-            if (!section) return;
+        // For debugging: log which section is loaded
+        console.log(`Populating modal with section: "${section.title}" from ${section.source}`);
 
-            // Populate form fields
-            console.log(`Section "${section.title}" is coming from: ${section.source}`);
-            document.getElementById("filename").value = section.source || "";
-            document.getElementById("sectionId").value = section.S_id || "";
-            document.getElementById("sectionHeading").value = section.title || "";
-            document.getElementById("sectionPara").value = section.para || "";
-            document.getElementById("sectionPoints").value = section.points ? section.points.join("\n") : "";
-            document.getElementById("iconClassInput").value = section.icon || "";
-            document.getElementById("iconPreview").innerHTML = section.icon ? `<i class="${section.icon}"></i>` : "";
+        // Populate hidden fields (if you need them for API calls)
+        document.getElementById("filename").value = section.source || "";
+        document.getElementById("sectionId").value = section.S_id || "";
 
-            // Handle images
-            const imageContainer = document.querySelector("#imageUpload .d-flex");
-            const addButton = document.querySelector("#imageUpload .btn-success");
-            imageContainer.innerHTML = "";
+        // Populate form fields
+      // Populate form fields with conditional display
 
-            if (section.image && Array.isArray(section.image)) {
-                section.image.forEach(img => {
-                    const imageUrl = `http://127.0.0.1:8000/${img}`;
+// Section Heading
+if (section.title) {
+    document.getElementById("sectionHeading").value = section.title;
+    document.getElementById("sectionHeading").closest('.form-floating').style.display = "block";
+} else {
+    document.getElementById("sectionHeading").closest('.form-floating').style.display = "none";
+}
 
-                    const imgAnchor = document.createElement("a");
-                    imgAnchor.href = imageUrl;
-                    imgAnchor.target = "_blank";
-                    imgAnchor.className = "image-preview bg-light border rounded";
-                    imgAnchor.style = "width: 150px; height: 150px; display: block; background-size: cover; background-position: center;";
-                    imgAnchor.style.backgroundImage = `url('${imageUrl}')`;
+// Section Paragraph
+if (section.para) {
+    document.getElementById("sectionPara").value = section.para;
+    document.getElementById("sectionPara").closest('.form-floating').style.display = "block";
+} else {
+    document.getElementById("sectionPara").closest('.form-floating').style.display = "none";
+}
 
-                    imageContainer.appendChild(imgAnchor);
-                });
-            }
+// Section Points
+if (section.points && section.points.length > 0) {
+    document.getElementById("sectionPoints").value = section.points.join("\n");
+    document.getElementById("sectionPoints").closest('.form-floating').style.display = "block";
+} else {
+    document.getElementById("sectionPoints").closest('.form-floating').style.display = "none";
+}
 
-            if (addButton) {
-                addButton.onclick = () => openImageCropper(250, 250);
-                imageContainer.appendChild(addButton);
-            }
 
-            // **Tab Selection Based on icon_Type**
-            if (section.icon_Type === "fontawesome") {
-                document.querySelector('[data-library="fontawesome"]').classList.add("active");
-                document.querySelector('[data-library="bootstrap"]').classList.remove("active");
-                document.getElementById("iconLabel").innerText = "Enter Font Awesome Icon Class";
-                document.getElementById("iconLink").classList.add("d-none");
-                document.getElementById("faLink").classList.remove("d-none");
-            } else {
-                document.querySelector('[data-library="bootstrap"]').classList.add("active");
-                document.querySelector('[data-library="fontawesome"]').classList.remove("active");
-                document.getElementById("iconLabel").innerText = "Enter Bootstrap Icon Class";
-                document.getElementById("iconLink").classList.remove("d-none");
-                document.getElementById("faLink").classList.add("d-none");
-            }
+        document.getElementById("iconClassInput").value = section.icon || "";
+        document.getElementById("iconPreview").innerHTML = section.icon ? `<i class="${section.icon}"></i>` : "";
 
-            // **Tab Visibility Logic**
-            const tabs = {
-                1: "sectionForm",
-                2: "imageUpload",
-                3: "iconInput"
-            };
+        // Handle images
+        const imageContainer = document.querySelector("#imageUpload .d-flex");
+        const addButton = document.querySelector("#imageUpload .btn-success");
+        imageContainer.innerHTML = "";
 
-            let sortedTabs = section.s_include ? section.s_include.sort((a, b) => a - b) : [];
-            let firstTab = sortedTabs.length > 0 ? tabs[sortedTabs[0]] : "sectionForm";
-
-            Object.keys(tabs).forEach(tabKey => {
-                const tabElement = document.querySelector(`[href='#${tabs[tabKey]}']`);
-                const tabPane = document.getElementById(tabs[tabKey]);
-
-                tabElement.style.display = "none";
-                tabPane.classList.remove("show", "active");
+        if (section.image && Array.isArray(section.image)) {
+            section.image.forEach(img => {
+                const imageUrl = `http://127.0.0.1:8000/${img}`;
+                const imgAnchor = document.createElement("a");
+                imgAnchor.href = imageUrl;
+                imgAnchor.target = "_blank";
+                imgAnchor.className = "image-preview bg-light border rounded";
+                imgAnchor.style = "width: 150px; height: 150px; display: block; background-size: cover; background-position: center;";
+                imgAnchor.style.backgroundImage = `url('${imageUrl}')`;
+                imageContainer.appendChild(imgAnchor);
             });
-
-            sortedTabs.forEach(tabKey => {
-                const tabElement = document.querySelector(`[href='#${tabs[tabKey]}']`);
-                const tabPane = document.getElementById(tabs[tabKey]);
-
-                tabElement.style.display = "block";
-
-                if (tabs[tabKey] === firstTab) {
-                    tabPane.classList.add("show", "active");
-                    new bootstrap.Tab(tabElement).show();
-                }
-            });
-
-        } catch (error) {
-            console.error("Error populating modal:", error);
         }
-    }
 
-    document.addEventListener("DOMContentLoaded", loadSections);
-</script>
+        if (addButton) {
+            addButton.onclick = () => openImageCropper(250, 250);
+            imageContainer.appendChild(addButton);
+        }
+
+        // **Tab Selection Based on icon_Type**
+        if (section.icon_Type === "fontawesome") {
+            document.querySelector('[data-library="fontawesome"]').classList.add("active");
+            document.querySelector('[data-library="bootstrap"]').classList.remove("active");
+            document.getElementById("iconLabel").innerText = "Enter Font Awesome Icon Class";
+            document.getElementById("iconLink").classList.add("d-none");
+            document.getElementById("faLink").classList.remove("d-none");
+        } else {
+            document.querySelector('[data-library="bootstrap"]').classList.add("active");
+            document.querySelector('[data-library="fontawesome"]').classList.remove("active");
+            document.getElementById("iconLabel").innerText = "Enter Bootstrap Icon Class";
+            document.getElementById("iconLink").classList.remove("d-none");
+            document.getElementById("faLink").classList.add("d-none");
+        }
+
+        // **Tab Visibility Logic**
+        const tabs = {
+            1: "sectionForm",
+            2: "imageUpload",
+            3: "iconInput"
+        };
+
+        let sortedTabs = section.s_include ? section.s_include.sort((a, b) => a - b) : [];
+        let firstTab = sortedTabs.length > 0 ? tabs[sortedTabs[0]] : "sectionForm";
+
+        Object.keys(tabs).forEach(tabKey => {
+            const tabElement = document.querySelector(`[href='#${tabs[tabKey]}']`);
+            const tabPane = document.getElementById(tabs[tabKey]);
+            tabElement.style.display = "none";
+            tabPane.classList.remove("show", "active");
+        });
+
+        sortedTabs.forEach(tabKey => {
+            const tabElement = document.querySelector(`[href='#${tabs[tabKey]}']`);
+            const tabPane = document.getElementById(tabs[tabKey]);
+            tabElement.style.display = "block";
+            if (tabs[tabKey] === firstTab) {
+                tabPane.classList.add("show", "active");
+                new bootstrap.Tab(tabElement).show();
+            }
+        });
+    } catch (error) {
+        console.error("Error populating modal:", error);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadSections);
+
+ </script>
 
 
 
@@ -305,60 +333,61 @@
 
 
     <script>
-    function openImageCropper(width, height) {
-    const contentModal = document.getElementById('contentModal');
-    const cropperModalElement = document.getElementById('imageCropperModal');
-    const cropperModal = new bootstrap.Modal(cropperModalElement);
+        function openImageCropper(width, height) {
+            const contentModal = document.getElementById('contentModal');
+            const cropperModalElement = document.getElementById('imageCropperModal');
+            const cropperModal = new bootstrap.Modal(cropperModalElement);
 
-    // Move focus to body before hiding contentModal
-    document.body.focus();
+            // Move focus to body before hiding contentModal
+            document.body.focus();
 
-    // Hide contentModal properly
-    contentModal.classList.remove("show");  // Remove Bootstrap's show class
-    contentModal.style.display = "none";  // Hide it completely
-    contentModal.setAttribute("aria-hidden", "true");
-    contentModal.setAttribute("inert", ""); // Prevent interactions
+            // Hide contentModal properly
+            contentModal.classList.remove("show"); // Remove Bootstrap's show class
+            contentModal.style.display = "none"; // Hide it completely
+            contentModal.setAttribute("aria-hidden", "true");
+            contentModal.setAttribute("inert", ""); // Prevent interactions
 
 
-      const imagePreview = document.getElementById('blah'); // Your image preview element
-    const fileInput = document.getElementById('imageInput'); // Your file input field
+            const imagePreview = document.getElementById('blah'); // Your image preview element
+            const fileInput = document.getElementById('imageInput'); // Your file input field
 
-    // 🔹 RESET MODAL: Clear previous image & input field
-    imagePreview.src = "#"; // Remove the old preview image
-    imagePreview.dataset.cropWidth = width;
-    imagePreview.dataset.cropHeight = height;
-    fileInput.value = ""; // Clear selected file
+            // 🔹 RESET MODAL: Clear previous image & input field
+            imagePreview.src = "#"; // Remove the old preview image
+            imagePreview.dataset.cropWidth = width;
+            imagePreview.dataset.cropHeight = height;
+            fileInput.value = ""; // Clear selected file
 
-    
-    // Set cropping dimensions
-    document.getElementById('cropperResolution').textContent = `${width} x ${height}`;
-    document.getElementById('blah').dataset.cropWidth = width;
-    document.getElementById('blah').dataset.cropHeight = height;
 
-    // Show the image cropper modal
-    cropperModal.show();
-    cropperModalElement.setAttribute("aria-hidden", "false");
-    cropperModalElement.removeAttribute("inert");
+            // Set cropping dimensions
+            document.getElementById('cropperResolution').textContent = `${width} x ${height}`;
+            document.getElementById('blah').dataset.cropWidth = width;
+            document.getElementById('blah').dataset.cropHeight = height;
 
-    // Move focus to the cropper modal
-    setTimeout(() => {
-        cropperModalElement.querySelector("button, input, textarea, select")?.focus();
-    }, 200);
+            // Show the image cropper modal
+            cropperModal.show();
+            cropperModalElement.setAttribute("aria-hidden", "false");
+            cropperModalElement.removeAttribute("inert");
 
-    // When the Image Cropper Modal is closed, restore contentModal
-    cropperModalElement.addEventListener('hidden.bs.modal', function () {
-        contentModal.style.display = "block"; // Ensure it's visible again
-        contentModal.classList.add("show"); // Restore Bootstrap class
-        contentModal.setAttribute("aria-hidden", "false");
-        contentModal.removeAttribute("inert");
+            // Move focus to the cropper modal
+            setTimeout(() => {
+                cropperModalElement.querySelector("button, input, textarea, select")?.focus();
+            }, 200);
 
-        // Shift focus back to contentModal
-        setTimeout(() => {
-            contentModal.querySelector("button, input, textarea, select")?.focus();
-        }, 200);
-    }, { once: true }); // Ensure this event only runs once per modal close
-}
+            // When the Image Cropper Modal is closed, restore contentModal
+            cropperModalElement.addEventListener('hidden.bs.modal', function() {
+                contentModal.style.display = "block"; // Ensure it's visible again
+                contentModal.classList.add("show"); // Restore Bootstrap class
+                contentModal.setAttribute("aria-hidden", "false");
+                contentModal.removeAttribute("inert");
 
+                // Shift focus back to contentModal
+                setTimeout(() => {
+                    contentModal.querySelector("button, input, textarea, select")?.focus();
+                }, 200);
+            }, {
+                once: true
+            }); // Ensure this event only runs once per modal close
+        }
     </script>
 
     <!-- Bootstrap -->
@@ -427,7 +456,6 @@
         });
 
         // Save button functionality
-    
     </script>
 
 

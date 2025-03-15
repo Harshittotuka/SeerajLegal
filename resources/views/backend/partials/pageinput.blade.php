@@ -193,14 +193,8 @@ document.getElementById("saveIconBtn").addEventListener("click", function() {
                     <div class="card" style="height: 250px; width:250px; " data-bs-toggle="modal" data-bs-target="#contentModal">
                         <div class="card-header p-2 ps-3">
                             <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Service</p>
-                                    <h4 class="mb-0">Arbitration</h4>
-                                </div>
-                                <div
-                                    class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">weekend</i>
-                                </div>
+                             
+                               
                             </div>
                         </div>
                         
@@ -211,92 +205,5 @@ document.getElementById("saveIconBtn").addEventListener("click", function() {
         </div>
 
        
-        <!-- Custom Context Menu -->
+       
       <!-- Custom Context Menu -->
-<ul id="custom-menu" class="custom-menu">
-    <li onclick="handleOption('Disable')">Disable</li>
-    <li onclick="handleOption('Edit')">Edit</li>
-    <li onclick="handleOption('Delete')">Delete</li>
-</ul>
-
-<style>
-
-
-    .custom-menu {
-        display: none;
-        position: fixed; /* Fixed to viewport to avoid scrolling */
-        background: white;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        list-style: none;
-        padding: 8px 0;
-        border-radius: 5px;
-        z-index: 1000;
-        min-width: 120px;
-        border-radius: 5%;
-    }
-
-    .custom-menu li {
-        padding: 5px 15px;
-        cursor: pointer;
-        transition: background 0.2s;
-    }
-
-    .custom-menu li:hover {
-        background: #f0f0f0;
-    }
-</style>
-
-<script>
-    const cards = document.querySelectorAll(".card");
-    const menu = document.getElementById("custom-menu");
-
-    cards.forEach(card => {
-        card.addEventListener("contextmenu", (event) => {
-            event.preventDefault();
-
-            // Get viewport width & height
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-
-            // Get menu dimensions
-            const menuWidth = menu.offsetWidth;
-            const menuHeight = menu.offsetHeight;
-
-            // Adjust position to prevent overflow
-            let posX = event.clientX;
-            let posY = event.clientY;
-
-            if (posX + menuWidth > viewportWidth) {
-                posX -= menuWidth; // Move left if it overflows
-            }
-            if (posY + menuHeight > viewportHeight) {
-                posY -= menuHeight; // Move up if it overflows
-            }
-
-            menu.style.left = `${posX}px`;
-            menu.style.top = `${posY}px`;
-            menu.style.display = "block";
-        });
-    });
-
-    document.addEventListener("click", () => {
-        menu.style.display = "none";
-    });
-
-    function handleOption(action) {
-        alert(`You clicked ${action}`);
-    }
-</script>
-    </main>
-
-    
-    <style>
-        .enabled .card {
-    box-shadow: 0 4px 10px rgba(0, 255, 0, 0.5) !important; /* Green shadow */
-}
-
-.disabled .card {
-    box-shadow: 0 2px 10px rgba(255, 0, 0, 0.5) !important; /* Green shadow */
-}
-
-    </style>
