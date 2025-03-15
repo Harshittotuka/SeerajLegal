@@ -220,11 +220,12 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     try {
         // Capitalize the first letter for API call
+       
         const apiService = service.charAt(0).toUpperCase() + service.slice(1);
         const apiUrl = `http://127.0.0.1:8000/api/teams/service/${apiService}`;
         const response = await fetch(apiUrl);
         const teamMembers = await response.json();
-
+ console.log(teamMembers);
         const teamMembersContainer = document.getElementById('team-members');
         teamMembersContainer.innerHTML = ''; // Clear any existing content
 
