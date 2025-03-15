@@ -1,5 +1,9 @@
 [
     {
+        "usage": [
+            "about",
+            "home"
+        ],
         "S_id": 1,
         "S_order": 1,
         "s_include": [
@@ -19,10 +23,14 @@
             "assets/img/Experience.webp",
             "assets/img/Experience.webp"
         ],
-        "icon_Type":"fontawesome",
-        "icon":"fa-r"
+        "icon_Type": "fontawesome",
+        "icon": "fa-r"
     },
     {
+        "usage": [
+            "about",
+            "home"
+        ],
         "S_id": 2,
         "S_order": 2,
         "s_include": [
@@ -38,6 +46,10 @@
         "icon": "fa-r"
     },
     {
+        "usage": [
+            "about",
+            "home"
+        ],
         "S_id": 3,
         "S_order": 3,
         "s_include": [
@@ -53,6 +65,10 @@
         "icon": "fa-r"
     },
     {
+        "usage": [
+            "about",
+            "home"
+        ],
         "S_id": 4,
         "S_order": 4,
         "s_include": [
@@ -67,28 +83,34 @@
         "icon_Type": "fontawesome",
         "icon": "fa-r"
     },
+   {
+    "usage": [
+        "about"
+    ],
+    "S_id": 5,
+    "S_order": 5,
+    "s_include": [
+        1,
+        2,
+        3
+    ],
+    "title": "We are here to provide legal Services",
+    "para": "All people are equal before the law. A good attorney is what makes a difference.",
+    "points": [
+        "Rajan Sharma",
+        "Seema Sharma"
+    ],
+    "flag": "enabled",
+    "image": [
+        "assets\/img\/team (2).webp"
+    ],
+    "icon_Type": "fontawesome",
+    "icon": "fa-h"
+},
     {
-        "S_id": 5,
-        "S_order": 5,
-        "s_include": [
-            1,
-            2,
-            3
+        "usage": [
+            "about"
         ],
-        "title": "We are here to provide legal Services",
-        "para": "All people are equal before the law. A good attorney is what makes a difference. Lorem aliquam sit amet auctor the done vitae risus duise in the miss ranish fermen.",
-        "points": [
-            "Rajan Sharma",
-            "Seema Sharma"
-        ],
-        "flag": "enabled",
-        "image": [
-            "assets/img/team (2).webp"
-        ],
-        "icon_Type": "fontawesome",
-        "icon": "fa-r"
-    },
-    {
         "S_id": 6,
         "S_order": 6,
         "s_include": [
@@ -106,6 +128,25 @@
             "assets/img/awards/03.png",
             "assets/img/awards/04.png"
         ],
+        "icon_Type": "fontawesome",
+        "icon": "fa-r"
+    },
+    {
+        "usage": [
+            "about",
+            "home"
+        ],
+        "S_id": 7,
+        "S_order": 8,
+        "s_include": [
+            1,
+            3
+        ],
+        "title": "Meet Our Directors",
+        "para": null,
+        "points": null,
+        "flag": "enabled",
+        "image": null,
         "icon_Type": "fontawesome",
         "icon": "fa-r"
     }

@@ -28,13 +28,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
+
     <script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            updateBreadcrumbs(["Dashboard", "Homepage"], ["/backend", "/backend/home"]);
+            updateBreadcrumbs(["Dashboard", "Aboutus"], ["/backend", "/backend/aboutus"]);
         });
     </script>
-
 
 </head>
 
@@ -147,7 +147,7 @@ async function loadSections() {
 
         // Filter sections that include "home" in the "usage" array
         let filteredSections = allSections.filter(section =>
-            section.usage && section.usage.includes("home")
+            section.usage && section.usage.includes("about")
         );
 
         // Sort the filtered sections by S_order (assuming S_order exists)
@@ -199,7 +199,9 @@ async function populateModal(index) {
         document.getElementById("sectionId").value = section.S_id || "";
 
         // Populate form fields
-      // Section Heading
+      // Populate form fields with conditional display
+
+// Section Heading
 if (section.title) {
     document.getElementById("sectionHeading").value = section.title;
     document.getElementById("sectionHeading").closest('.form-floating').style.display = "block";
@@ -222,6 +224,8 @@ if (section.points && section.points.length > 0) {
 } else {
     document.getElementById("sectionPoints").closest('.form-floating').style.display = "none";
 }
+
+
         document.getElementById("iconClassInput").value = section.icon || "";
         document.getElementById("iconPreview").innerHTML = section.icon ? `<i class="${section.icon}"></i>` : "";
 
