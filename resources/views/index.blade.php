@@ -30,7 +30,7 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="col-lg-7 col-md-12 text-center">
                             <h5>
-                                <div class="icon"><i class="flaticon-courthouse"></i></div>Transforming Conflicts
+                                <div class="icon"><i class="fa-regular fa-building-columns"></i></div>Transforming Conflicts
                                 into Agreements
                             </h5>
                             <h3>Justice Made Accessible: <span> faster and fairer</span></h3>

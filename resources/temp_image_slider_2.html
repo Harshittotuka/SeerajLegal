@@ -1,0 +1,386 @@
+<div class="d-flex flex-column flex-md-row align-items-center">
+    <!-- Carousel Slider -->
+    <div id="carouselContainer" class="flex-grow-1 transition w-100">
+        <div id="customCarousel" class="carousel slide" data-bs-touch="true">
+
+            <!-- Carousel Inner -->
+            <div class="carousel-inner">
+                <!-- Slide 1: Form -->
+                <div class="carousel-item active">
+                    <div class="ms-3 me-3 p-4 bg-white shadow rounded">
+                        <h4 class="h5 font-weight-bold mb-3">Section 1</h4>
+                        <form>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control form-control-sm form-disable" id="sectionHeading"
+                                    placeholder="Enter section heading" />
+                                <label for="sectionHeading">Section Heading</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control form-control-sm form-disable" id="sectionPara" rows="2"
+                                    placeholder="Enter section paragraph"></textarea>
+                                <label for="sectionPara">Section Paragraph</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control form-control-sm form-disable" id="sectionPoints" rows="2"
+                                    placeholder="Enter section points"></textarea>
+                                <label for="sectionPoints">Section Points</label>
+                            </div>
+                            <button type="button" id="saveSectionBtn" class="btn btn-primary w-100">Save</button>
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+                @include('components.image-cropper')
+
+                <div class="carousel-item ">
+                    <div class="ms-3 me-3 p-4 bg-white shadow rounded">
+                        <h4 class="h5 font-weight-bold mb-3">Image Upload</h4>
+                        <form>
+
+
+                            <!-- Display 5 images with Add button -->
+                            <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                <div class="image-preview bg-light border rounded" style="width: 150px; height: 150px;">
+                                </div>
+                                <div class="image-preview bg-light border rounded" style="width: 150px; height: 150px;">
+                                </div>
+                                <div class="image-preview bg-light border rounded" style="width: 150px; height: 150px;">
+                                </div>
+                                <div class="image-preview bg-light border rounded" style="width: 150px; height: 150px;">
+                                </div>
+                                <div class="image-preview bg-light border rounded" style="width: 150px; height: 150px;">
+                                </div>
+                                <button type="button" class="btn btn-success btn-sm"
+                                    style="width: 150px; height: 150px;"
+                                    onclick="openImageCropper(200, 100)">Add</button>
+                            </div>
+
+                            <!-- Save Button -->
+                            <div class="mt-3 text-center w-100 d-flex justify-content-center">
+                                <button type="button" class="btn btn-primary w-100" style="max-width: 300px;">
+                                    Save
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <style>
+                    @media (max-width: 768px) {
+                        .d-flex.flex-wrap {
+                            justify-content: center;
+                        }
+
+                        .image-preview,
+                        .btn-success {
+                            width: 120px !important;
+                            height: 120px !important;
+                        }
+
+                        .btn-primary {
+                            width: 100% !important;
+                            max-width: 300px !important;
+                        }
+                    }
+
+                    @media (max-width: 480px) {
+
+                        .image-preview,
+                        .btn-success {
+                            width: 100px !important;
+                            height: 100px !important;
+                        }
+
+                        .btn-primary {
+                            width: 100% !important;
+                            max-width: 250px !important;
+                        }
+                    }
+                </style>
+
+
+
+
+
+
+
+
+                <!-- Slide 2 -->
+                {{-- @include('components.image-cropper')
+
+                <div class="carousel-item ">
+                    <div class="ms-3 me-3 p-4 bg-white shadow rounded">
+                        <h4 class="h5 font-weight-bold mb-3">Image Upload</h4>
+                        <form>
+                            <div class="mb-3">
+                                <label for="imageInput" class="form-label">Choose an image</label>
+                                <input class="form-control form-control-sm form-disable" type="file" id="imageInput"
+                                    accept="image/*" />
+                            </div>
+                            <!-- Buttons to Open Image Cropper with Different Resolutions -->
+
+                            <button type="button" onclick="openImageCropper(200, 100)" class="btn btn-primary">
+                                Open Cropper (200, 100)
+                            </button>
+                            <button type="button" id="saveImageBtn" class="btn btn-primary w-100">Save</button>
+                        </form>
+                    </div>
+                </div> --}}
+
+
+
+                <!-- Slide 3: Icon Input -->
+                <div class="carousel-item">
+                    <div class="ms-3 me-3 p-4 bg-white shadow rounded">
+                        <h4 class="h5 font-weight-bold mb-3">Icon Input</h4>
+
+                        <!-- Icon Selection Tabs -->
+                        <ul class="nav nav-tabs" id="iconTabs">
+                            <li class="nav-item">
+                                <button class="nav-link active" data-library="bootstrap">Bootstrap
+                                    Icons</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-library="fontawesome">Font
+                                    Awesome</button>
+                            </li>
+                        </ul>
+
+                        <form id="iconForm" class="mt-3">
+                            <div class="mb-3">
+                                <label for="iconClassInput" class="form-label" id="iconLabel">Enter
+                                    Bootstrap Icon Class</label>
+                                <input type="text" class="form-control form-control-sm form-disable" id="iconClassInput"
+                                    placeholder="e.g., bi-house">
+                            </div>
+                            <div class="mb-3">
+                                <p>Icon Preview:</p>
+                                <div id="iconPreview" style="font-size: 2rem;"></div>
+                            </div>
+                            <button type="button" id="saveIconBtn" class="btn btn-primary w-100">Save</button>
+                        </form>
+
+                        <p class="mt-3 text-center">
+                            Browse icons:
+                            <a href="https://icons.getbootstrap.com/" target="_blank" id="iconLink">Bootstrap
+                                Icons</a> |
+                            <a href="https://fontawesome.com/icons" target="_blank" id="faLink" class="d-none">Font
+                                Awesome</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Dots -->
+            <div class="text-center mt-3">
+                <button type="button" data-bs-target="#customCarousel" data-bs-slide-to="0" class="dot active"></button>
+                <button type="button" data-bs-target="#customCarousel" data-bs-slide-to="1" class="dot"></button>
+                <button type="button" data-bs-target="#customCarousel" data-bs-slide-to="2" class="dot"></button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Toggle Button (Icon + Text) -->
+    <button id="toggleCarouselBtn" class="btn btn-dark mt-3 mt-md-0 ms-md-3 d-flex align-items-center">
+        <i id="toggleIcon" class="bi bi-eye-slash me-2"></i>
+        <span id="toggleText">Hide</span>
+    </button>
+</div>
+<script>
+    fetch("/aboutus.json") // Since the public folder is the root for public assets
+        .then(response => response.json())
+        .then(data => {
+            if (!Array.isArray(data)) {
+                throw new Error('Invalid JSON structure: Expected an array');
+            }
+
+            const carouselInner = document.querySelector('.carousel-inner');
+            const indicatorsContainer = document.querySelector('.text-center');
+
+            carouselInner.innerHTML = ''; // Clear previous slides
+            indicatorsContainer.innerHTML = ''; // Clear previous indicators
+
+            let activeSet = false; // Ensure only one slide is active
+
+            data
+                .filter(section => section.flag === 'enabled') // Only enabled sections
+                .sort((a, b) => a.S_order - b.S_order) // Sort by order
+                .forEach((section, index) => {
+                    const isActive = !activeSet ? 'active' : '';
+                    activeSet = true; // Set first valid slide as active
+
+                    // Convert points array to a single string for textarea
+                    const pointsText = section.points ? section.points.join(',\n') : '';
+
+                    // Create slide element for text sections
+                    const carouselItem = document.createElement('div');
+                    carouselItem.classList.add('carousel-item', isActive);
+
+                    carouselItem.innerHTML = `
+                    <div class="ms-3 me-3 p-4 bg-white shadow rounded">
+                        <h4 class="h5 font-weight-bold mb-3">Section ${index + 1}</h4>
+                        <form>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control form-control-sm" 
+                                    value="${section.title}" id="sectionHeading${index}" />
+                                <label for="sectionHeading${index}">Section Heading</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control form-control-sm" id="sectionPara${index}">${section.para || ''}</textarea>
+                                <label for="sectionPara${index}">Section Paragraph</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control form-control-sm" id="sectionPoints${index}">${pointsText}</textarea>
+                                <label for="sectionPoints${index}">Section Points</label>
+                            </div>
+                            <button type="button" class="btn btn-primary w-100">Save</button>
+                        </form>
+                    </div>
+                `;
+                    carouselInner.appendChild(carouselItem);
+
+                    // Add navigation dot
+                    indicatorsContainer.innerHTML += `
+                    <button type="button" data-bs-target="#customCarousel" 
+                        data-bs-slide-to="${index}" class="dot ${isActive}"></button>
+                `;
+
+                    // Check if the section includes the image upload (s_include includes 2)
+                    if (section.s_include.includes(2)) {
+                        const imageUploadSlide = document.createElement('div');
+                        imageUploadSlide.classList.add('carousel-item');
+
+
+                        // Only display the image if the section has an image
+                        const imagePreviewLinks = section.image && section.image.length > 0 ?
+                            section.image.map(image => {
+                                const imageUrl = image.startsWith('assets/img/') ? image :
+                                    `assets/img/${image}`;
+                                return `
+            <a href="${window.location.origin}/${imageUrl}" target="_blank" 
+               class="image-preview-link bg-light border rounded" 
+               style="width: 150px; height: 150px; display: block; background-image: url('${window.location.origin}/${imageUrl}'); background-size: cover; background-position: center;">
+            </a>
+        `;
+                            }).join('') :
+                            '';
+
+
+                        // Use the image preview links in your slide
+                        imageUploadSlide.innerHTML = `
+    <div class="ms-3 me-3 p-4 bg-white shadow rounded">
+        <h4 class="h5 font-weight-bold mb-3">Image Upload</h4>
+        <form>
+            <div class="d-flex flex-wrap gap-2 justify-content-center">
+                ${imagePreviewLinks || '<a href="#" class="image-preview-link bg-light border rounded" style="width: 150px; height: 150px; display: block;"></a>'}
+                <button type="button" class="btn btn-success btn-sm"
+                        style="width: 150px; height: 150px;" onclick="openImageCropper(200, 100)">Add</button>
+            </div>
+            <div class="mt-3 text-center w-100 d-flex justify-content-center">
+                <button type="button" class="btn btn-primary w-100" style="max-width: 300px;">Save</button>
+            </div>
+        </form>
+    </div>
+`;
+
+                        carouselInner.appendChild(imageUploadSlide);
+
+                        // Add navigation dot for image upload slide
+                        indicatorsContainer.innerHTML += `
+                        <button type="button" data-bs-target="#customCarousel" 
+                            data-bs-slide-to="${index + 1}" class="dot"></button>
+                    `;
+                    }
+
+
+
+                    if (section.s_include.includes(3)) {
+                        const iconUploadSlide = document.createElement('div');
+                        iconUploadSlide.classList.add('carousel-item');
+
+                        // Determine the icon library (Font Awesome or Bootstrap)
+                        const iconLibrary = section.icon_Type === 'fontawesome' ? 'fontawesome' : 'bootstrap';
+
+                        // Set icon preview class based on the icon type
+                        const iconPreview = section.icon ?
+                            `<i class="${section.icon}"></i>` :
+                            `<i class="bi bi-house-door"></i>`; // Default to Bootstrap house icon
+
+                        // Use icon selection tabs and form input
+                        iconUploadSlide.innerHTML = `
+        <div class="ms-3 me-3 p-4 bg-white shadow rounded">
+            <h4 class="h5 font-weight-bold mb-3">Icon Input</h4>
+
+            <!-- Icon Selection Tabs -->
+            <ul class="nav nav-tabs" id="iconTabs">
+                <li class="nav-item">
+                    <button class="nav-link ${iconLibrary === 'bootstrap' ? 'active' : ''}" data-library="bootstrap">Bootstrap Icons</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link ${iconLibrary === 'fontawesome' ? 'active' : ''}" data-library="fontawesome">Font Awesome</button>
+                </li>
+            </ul>
+
+            <form id="iconForm" class="mt-3">
+                <div class="mb-3">
+                    <label for="iconClassInput" class="form-label" id="iconLabel">Enter Icon Class</label>
+                    <input type="text" class="form-control form-control-sm form-disable" id="iconClassInput" placeholder="e.g., fa-building-columns" value="${section.icon}">
+                </div>
+                <div class="mb-3">
+                    <p>Icon Preview:</p>
+                    <div id="iconPreview" style="font-size: 2rem;">
+                        ${iconPreview}
+                    </div>
+                </div>
+                <button type="button" id="saveIconBtn" class="btn btn-primary w-100">Save</button>
+            </form>
+
+            <p class="mt-3 text-center">
+                Browse icons:
+                <a href="https://icons.getbootstrap.com/" target="_blank" id="iconLink">Bootstrap Icons</a> |
+                <a href="https://fontawesome.com/icons" target="_blank" id="faLink" class="d-none">Font Awesome</a>
+            </p>
+        </div>
+    `;
+
+                        carouselInner.appendChild(iconUploadSlide);
+
+                        // Add navigation dot for icon upload slide
+                        indicatorsContainer.innerHTML += `
+        <button type="button" data-bs-target="#customCarousel" 
+            data-bs-slide-to="${index + 1}" class="dot"></button>
+    `;
+
+                        // Add event listener to update icon preview dynamically
+                        const iconInput = iconUploadSlide.querySelector('#iconClassInput');
+                        const iconPreviewDiv = iconUploadSlide.querySelector('#iconPreview');
+
+                        iconInput.addEventListener('input', () => {
+                            // Update the preview with the entered icon class
+                            const iconClass = iconInput.value.trim();
+                            if (iconClass) {
+                                iconPreviewDiv.innerHTML = `<i class="${iconClass}"></i>`;
+                            } else {
+                                // If no icon class is entered, show a default icon (Bootstrap icon in this case)
+                                iconPreviewDiv.innerHTML = `<i class="bi bi-house-door"></i>`;
+                            }
+                        });
+                    }
+
+
+
+
+
+                });
+        })
+        .catch(error => console.error('Error fetching JSON:', error));
+</script>
