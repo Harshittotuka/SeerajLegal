@@ -84,6 +84,11 @@ Route::get('/backend/practice/list', function () {
     return view('backend/pages/practicelist');
 })->name('backend.practice.list');
 
+//route for contactus
+Route::get('/backend/contact', function () {
+    return view('backend.pages.contactus');
+})->name('backend.contact');
+
 
 
 

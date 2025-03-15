@@ -28,21 +28,21 @@ class Contact2Controller extends Controller
                 'phone_no' => 'nullable|string',
                 'phone_2' => 'nullable|string|nullable',
                 'yrs_of_experience' => 'nullable|integer',
-                'insta_link' => 'nullable|url',
-                'facebook_link' => 'nullable|url',
-                'youtube_link' => 'nullable|url',
-                'twitter_link' => 'nullable|url',
-                'whatsapp' => 'nullable|string|nullable',
-                'linkedin' => 'nullable|url|nullable',
-                'website_link' => 'nullable|url|nullable',
+                'insta_link' => 'nullable',
+                'facebook_link' => 'nullable',
+                'youtube_link' => 'nullable',
+                'twitter_link' => 'nullable',
+                'whatsapp' => 'nullable|string',
+                'linkedin' => 'nullable',
+                'website_link' => 'nullable',
                 'Quote' => 'nullable|string',
             ]);
 
             // Update the personal details with new values
             foreach ($validatedData as $key => $value) {
-                if ($value !== null) {
+                // if ($value !== null) {
                     $jsonData['personal_details'][$key] = $value;
-                }
+                // }
             }
 
             // Save updated data back to JSON file
