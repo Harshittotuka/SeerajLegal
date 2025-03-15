@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zxx">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,28 +8,33 @@
     <title>Seeraj Legal Relief Foundation</title>
 
     <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
 </head>
+
 <body>
-     
+
     <!-- Navbar -->
     @include('partials.navbar')
 
     <!-- Header Banner -->
-    <div class="banner-header valign bg-img bg-fixed" data-overlay-dark="5" data-background="{{ asset('assets/img/About_Us.webp') }}">
+    <div class="banner-header valign bg-img bg-fixed" data-overlay-dark="5"
+        data-background="{{ asset('assets/img/About_Us.webp') }}">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 caption mt-60 text-center">
-                    <h6><div class="icon"><i class="flaticon-courthouse"></i></div> About us</h6>
+                    <h6>
+                        <div class="icon"><i class="flaticon-courthouse"></i></div> About us
+                    </h6>
                     <h1>Who <span>we Are ?</span></h1>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- About  S_id=1 --> 
+    <!-- About  S_id=1 -->
     @include('partials.about')
 
     <!-- Info Box -->
@@ -36,116 +42,118 @@
 
     <!-- About 2 -->
     <section class="about section-padding bg-darkbrown">
-    <div class="container">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-lg-5 col-md-12 animate-box" data-animate-effect="fadeInLeft">
-                <img id="section-5-image" class="img" alt="">
-            </div>
-            <div class="col-lg-5 offset-lg-1 col-md-12 animate-box" data-animate-effect="fadeInRight">
-                <div class="section-subtitle text-white">
-                    <div class="icon"><i class="flaticon-courthouse"></i></div> People make the difference
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-5 col-md-12 animate-box" data-animate-effect="fadeInLeft">
+                    <img id="section-5-image" class="img" alt="">
                 </div>
-                <div id="section-5-title" class="section-title white"></div>
-                <p id="section-5-para"></p>
-                <div class="about-name-wrapper">
-                    <div class="about-rol">Directors</div>
-                    <div id="section-5-points"></div>
+                <div class="col-lg-5 offset-lg-1 col-md-12 animate-box" data-animate-effect="fadeInRight">
+                    <div class="section-subtitle text-white">
+                        <div class="icon"><i class="flaticon-courthouse"></i></div> People make the difference
+                    </div>
+                    <div id="section-5-title" class="section-title white"></div>
+                    <p id="section-5-para"></p>
+                    <div class="about-name-wrapper">
+                        <div class="about-rol">Directors</div>
+                        <div id="section-5-points"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<script>
-    fetch('{{ asset('aboutus.json') }}')
-        .then(response => response.json())
-        .then(data => {
-            const section = data.find(item => item.S_id === 5);
-            if (section) {
-                document.getElementById('section-5-title').innerHTML = `We are here to provide <span>legal Services</span>`;
-                document.getElementById('section-5-para').textContent = section.para;
+    <script>
+        fetch('{{ asset('aboutus.json') }}')
+            .then(response => response.json())
+            .then(data => {
+                const section = data.find(item => item.S_id === 5);
+                if (section) {
+                    document.getElementById('section-5-title').innerHTML =
+                        `We are here to provide <span>legal Services</span>`;
+                    document.getElementById('section-5-para').textContent = section.para;
 
-                const pointsContainer = document.getElementById('section-5-points');
-                if (section.points) {
-                    section.points.forEach(point => {
-                        const div = document.createElement('div');
-                        div.className = 'about-name';
-                        div.textContent = point;
-                        pointsContainer.appendChild(div);
-                    });
+                    const pointsContainer = document.getElementById('section-5-points');
+                    if (section.points) {
+                        section.points.forEach(point => {
+                            const div = document.createElement('div');
+                            div.className = 'about-name';
+                            div.textContent = point;
+                            pointsContainer.appendChild(div);
+                        });
+                    }
+
+                    const sectionImage = document.getElementById('section-5-image');
+                    if (section.image && section.image.length > 0) {
+                        sectionImage.src = section.image[0];
+                    } else {
+                        sectionImage.style.display = 'none';
+                    }
                 }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
 
-                const sectionImage = document.getElementById('section-5-image');
-                if (section.image && section.image.length > 0) {
-                    sectionImage.src = section.image[0];
-                } else {
-                    sectionImage.style.display = 'none';
-                }
-            }
-        })
-        .catch(error => console.error('Error fetching data:', error));
-</script>
-   
     <!-- awards -->
     <section class="clients section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 mb-30 text-center">
-                <div class="section-subtitle">
-                    <div class="icon"><i class="flaticon-courthouse"></i></div> <span id="section-6-subtitle"></span>
-                </div>
-                <div class="section-title" id="section-6-title"></div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-7 col-md-12 text-center">
-                <div id="awards-carousel" class="owl-carousel owl-theme">
-                    <!-- Dynamic content will be inserted here -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-30 text-center">
+                    <div class="section-subtitle">
+                        <div class="icon"><i class="flaticon-courthouse"></i></div> <span
+                            id="section-6-subtitle"></span>
+                    </div>
+                    <div class="section-title" id="section-6-title"></div>
                 </div>
             </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-7 col-md-12 text-center">
+                    <div id="awards-carousel" class="owl-carousel owl-theme">
+                        <!-- Dynamic content will be inserted here -->
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<script>
-    fetch('{{ asset('aboutus.json') }}')
-        .then(response => response.json())
-        .then(data => {
-            const section = data.find(item => item.S_id === 6);
-            const carousel = document.getElementById('awards-carousel');
-            const title = document.getElementById('section-6-title');
-            const subtitle = document.getElementById('section-6-subtitle');
+    <script>
+        fetch('{{ asset('aboutus.json') }}')
+            .then(response => response.json())
+            .then(data => {
+                const section = data.find(item => item.S_id === 6);
+                const carousel = document.getElementById('awards-carousel');
+                const title = document.getElementById('section-6-title');
+                const subtitle = document.getElementById('section-6-subtitle');
 
-            if (section) {
-                title.innerHTML = section.title || 'Awards <span>&</span> Recognitions';
-                subtitle.textContent = 'Our Successes';
-            }
+                if (section) {
+                    title.innerHTML = section.title || 'Awards <span>&</span> Recognitions';
+                    subtitle.textContent = 'Our Successes';
+                }
 
-            if (section && section.image && section.image.length > 0) {
-                section.image.forEach(imgSrc => {
-                    const div = document.createElement('div');
-                    div.className = 'clients-logo';
-                    div.innerHTML = `<a href="#0"><img src="${imgSrc}" alt="Award Image"></a>`;
-                    carousel.appendChild(div);
-                });
-            }
-        })
-        .catch(error => console.error('Error fetching data:', error));
-</script>
-
-   
-  <!-- Directors -->
-  @include('partials.directors')
+                if (section && section.image && section.image.length > 0) {
+                    section.image.forEach(imgSrc => {
+                        const div = document.createElement('div');
+                        div.className = 'clients-logo';
+                        div.innerHTML = `<a href="#0"><img src="${imgSrc}" alt="Award Image"></a>`;
+                        carousel.appendChild(div);
+                    });
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
 
 
+    <!-- Directors -->
+    @include('partials.directors')
 
-     <!-- Get in touch -->
-     @include('partials.getintouch')
-    
+
+
+    <!-- Get in touch -->
+    @include('partials.getintouch')
+
     <!-- Footer -->
     @include('partials.footer')
     <!-- jQuery -->
-   
+
 
     <script src="{{ asset('assets/js/jquery-migrate-3.0.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery-3.6.3.min.js') }}"></script>
@@ -163,4 +171,5 @@
     <script src="{{ asset('assets/js/smooth-scroll.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
 </body>
+
 </html>
