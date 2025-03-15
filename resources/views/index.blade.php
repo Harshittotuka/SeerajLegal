@@ -32,7 +32,7 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="col-lg-7 col-md-12 text-center">
                             <h5>
-                                <div class="icon"><i class="flaticon-courthouse"></i></div>Transforming Conflicts
+                                <div class="icon"><i class="fa-regular fa-building-columns"></i></div>Transforming Conflicts
                                 into Agreements
                             </h5>
                             <h3>Justice Made Accessible: <span> faster and fairer</span></h3>
@@ -50,21 +50,21 @@
     <!-- Info box Box -->
     @include('partials.infobox')
 
-    <!-- ADR Services -->
-    <section class="practice-areas section-padding animate-box">
+<!-- ADR Services -->
+<section id="adr-services" class="practice-areas section-padding animate-box" style="display: none;">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-4 col-md-12 mb-30">
                 <div class="section-subtitle">
-                    <div class="icon"><i class="flaticon-courthouse"></i></div> What we do?
+                    <div class="icon"><i id="adr-icon" class="flaticon-courthouse"></i></div> What we do?
                 </div>
-                <div class="section-title" id="adrTitle"></div>
-                <p id="adrPara"></p> 
-                <a href="#" class="button-2">Discover more<span></span></a>
+                <div class="section-title"><span id="adr-title">ADR</span> Services</div>
+                <p id="adr-para"></p>
+                <a href="{{ route('service.all') }}" class="button-2">Discover more<span></span></a>
             </div>
             <div class="col-lg-7 offset-lg-1 col-md-12">
-                <div class="row" id="adrServicesContainer">
-                    <!-- ADR services will be populated here -->
+                <div class="row" id="services-container">
+                    <!-- Services will be dynamically added here -->
                 </div>
             </div>
         </div>
@@ -72,27 +72,74 @@
 </section>
 
 <script>
-    fetch('home.json')
+document.addEventListener("DOMContentLoaded", function () {
+    // Fetch the JSON file
+    fetch('/home.json')
         .then(response => response.json())
         .then(data => {
-            const adrData = data.find(section => section.S_id === 5);
-            document.getElementById('adrTitle').innerHTML = `<span>${adrData.title.split(' ')[0]}</span> ${adrData.title.split(' ').slice(1).join(' ')}`;
-            document.getElementById('adrPara').textContent = adrData.para;
-            const icons = ['flaticon-suitcase', 'flaticon-balance', 'flaticon-mortarboard', 'flaticon-courthouse', 'flaticon-wounded'];
-            const container = document.getElementById('adrServicesContainer');
-            adrData.points.forEach((point, index) => {
-                container.innerHTML += `
-                    <div class="col-lg-4 col-md-6">
-                        <div class="item">
-                            <a href="#"> 
-                                <i class="${icons[index % icons.length]}"></i>
-                                <h5>${point}</h5>
-                                <div class="shape"> <i class="${icons[index % icons.length]}"></i> </div>
-                            </a>
+            // Find the ADR Services section data
+            const serviceData = data.find(service => service.S_id === 5);
+
+            if (!serviceData || serviceData.flag !== "enabled") {
+                console.log("ADR Services not enabled or not found.");
+                return;
+            }
+
+            const section = document.getElementById("adr-services");
+
+            // ✅ Update the title and paragraph
+            section.querySelector(".section-title span").textContent = serviceData.title;
+            section.querySelector("p").textContent = serviceData.para;
+
+            // ✅ Update the main section icon (Font Awesome)
+            section.querySelector(".section-subtitle .icon").innerHTML = `<i class="${serviceData.icon}"></i>`;
+
+            // ✅ Show the section if it's hidden
+            section.style.display = "block";
+        })
+        .catch(error => console.error("Error fetching JSON:", error));
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    fetch("http://127.0.0.1:8000/api/services/list")
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.data.length > 0) {
+                const enabledServices = data.data.filter(service => service.flag === "enabled");
+
+                if (enabledServices.length === 0) {
+                    return; // If no services are enabled, exit without showing the section
+                }
+
+                const servicesContainer = document.getElementById("services-container");
+                const adrSection = document.getElementById("adr-services");
+                adrSection.style.display = "block"; // Show the section if at least one service is enabled
+
+                const defaultIcon = "flaticon-courthouse"; // Single default icon for all services
+
+                enabledServices.forEach(service => {
+                    const serviceName = service.service_name;
+
+                    const serviceHTML = `
+                        <div class="col-lg-4 col-md-6">
+                            <div class="item">
+                                <a href="/service/details/${serviceName}">
+                                    <i class="${defaultIcon}"></i>
+                                    <h5>${serviceName}</h5>
+                                    <div class="shape"><i class="${defaultIcon}"></i></div>
+                                </a>
+                            </div>
                         </div>
-                    </div>`;
-            });
-        });
+                    `;
+
+                    servicesContainer.innerHTML += serviceHTML;
+                });
+            }
+        })
+        .catch(error => console.error("Error fetching services:", error));
+});
 </script>
 
 
