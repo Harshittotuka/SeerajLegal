@@ -11,17 +11,21 @@
         </a>
         <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 d-xl-none" aria-hidden="true" id="iconSidenav"></i>
     </div>
-    
+    <style>
+
+
+</style>
 
     <hr class="horizontal dark mt-0 mb-2">
     <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <!-- Dashboard -->
             <li class="nav-item">
-                <a class="nav-link active bg-gradient-dark text-white" href="#">
-                    <i class="material-symbols-rounded opacity-5">dashboard</i>
-                    <span class="nav-link-text ms-1">Dashboard</span>
-                </a>
+                <a class="nav-link active bg-gradient-dark text-white custom-dashboard-link" href="http://127.0.0.1:8000/backend/dashboard" style="background-color: #343a40 ">
+    <i class="material-symbols-rounded opacity-5">dashboard</i>
+    <span class="nav-link-text ms-1">Dashboard</span>
+</a>
+
             </li>
 
             <!-- Homepage -->
@@ -139,3 +143,4 @@
         </div>
     </div>
 </aside>
+

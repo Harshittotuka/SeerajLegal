@@ -11,6 +11,10 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\Contact2Controller;
 
+
+
+
+
 //api to update json file of personal details(nova)
 Route::put('/update-personal-details', [Contact2Controller::class, 'update']);
 

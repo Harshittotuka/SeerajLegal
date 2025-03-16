@@ -505,7 +505,7 @@ document.addEventListener("DOMContentLoaded", loadSections);
 
 
 
-    @include('backend.partials.bottomsettings')
+    
 
 
 
