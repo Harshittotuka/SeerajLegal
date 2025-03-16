@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     const serviceHTML = `
                         <div class="col-lg-4 col-md-6">
                             <div class="item">
-                                <a href="/service/details/${serviceName}">
+                                <a href="/service/${serviceName}">
                                     <i class="${defaultIcon}"></i>
                                     <h5>${serviceName}</h5>
                                     <div class="shape"><i class="${defaultIcon}"></i></div>
@@ -150,7 +150,8 @@ document.addEventListener("DOMContentLoaded", function() {
     @include('partials.directors')
 
     <!-- Rajasthan S_id: -->
-    <section class="serve section-padding bg-lightbrown animate-box">
+    <!-- Rajasthan S_id: 8 -->
+<section class="serve section-padding bg-lightbrown animate-box">
     <div class="container">
         <div class="row justify-content-center align-items-center">
             <!-- Left Column - Map Visualization -->
@@ -163,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <!-- Right Column - Content -->
             <div class="col-lg-6 col-md-12 animate-box" data-animate-effect="fadeInUp">
                 <div class="section-subtitle">
-                    <div class="icon"><i class="flaticon-courthouse"></i></div>
+                    <div class="icon" id="rajasthan-icon-container"><i class="flaticon-courthouse"></i></div>
                     Beyond Boundaries & Barriers
                 </div>
                 <h2 id="sectionTitle" class="section-title heritage-text"></h2>
@@ -181,33 +182,38 @@ document.addEventListener("DOMContentLoaded", function() {
 </section>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        fetch('home.json')
-            .then(response => response.json())
-            .then(data => {
-                const sectionData = data.find(section => section.S_id === 8);
+document.addEventListener("DOMContentLoaded", function () {
+    fetch('home.json')
+        .then(response => response.json())
+        .then(data => {
+            const sectionData = data.find(section => section.S_id === 8);
 
-                if (sectionData && sectionData.flag === "enabled") {
-                    document.getElementById('sectionTitle').innerHTML = sectionData.title;
-                    document.getElementById('sectionPara').innerHTML = sectionData.para;
-                    document.getElementById('rajasthanMap').src = sectionData.image[0];
+            if (sectionData && sectionData.flag === "enabled") {
+                document.getElementById('sectionTitle').innerHTML = sectionData.title;
+                document.getElementById('sectionPara').innerHTML = sectionData.para;
+                document.getElementById('rajasthanMap').src = sectionData.image[0];
 
-                    const pointsContainer = document.getElementById('servicePoints');
-                    pointsContainer.innerHTML = '';
+                // ✅ Update the icon dynamically from JSON
+                const iconContainer = document.getElementById("rajasthan-icon-container");
+                iconContainer.innerHTML = `<i class="${sectionData.icon}"></i>`;
 
-                    sectionData.points.forEach(point => {
-                        const pointHTML = `
-                            <div class="col-4 stat-item">
-                                <div class="stat-number">${point.split(' ')[0]}</div>
-                                <div class="stat-label">${point.split(' ').slice(1).join(' ')}</div>
-                            </div>
-                        `;
-                        pointsContainer.innerHTML += pointHTML;
-                    });
-                }
-            })
-            .catch(error => console.error('Error fetching home.json:', error));
-    });
+                // ✅ Update the service points
+                const pointsContainer = document.getElementById('servicePoints');
+                pointsContainer.innerHTML = '';
+
+                sectionData.points.forEach(point => {
+                    const pointHTML = `
+                        <div class="col-4 stat-item">
+                            <div class="stat-number">${point.split(' ')[0]}</div>
+                            <div class="stat-label">${point.split(' ').slice(1).join(' ')}</div>
+                        </div>
+                    `;
+                    pointsContainer.innerHTML += pointHTML;
+                });
+            }
+        })
+        .catch(error => console.error('Error fetching home.json:', error));
+});
 </script>
 
     <STYle>

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-5 col-md-12 mb-30 animate-box" data-animate-effect="fadeInUp">
                 <div class="section-subtitle">
-                    <div class="icon"><i class="flaticon-courthouse"></i></div> About Seeraj Legal
+                    <div class="icon" id="about-icon-container"><i class="flaticon-courthouse"></i></div> About Seeraj Legal
                 </div>
 
                 <div id="section-title" class="section-title"></div>
@@ -27,13 +27,16 @@
 </section>
 
 <script>
-    fetch('{{ asset('aboutus.json') }}')
+    fetch('aboutus.json')
         .then(response => response.json())
         .then(data => {
             const section = data.find(item => item.S_id === 1);
             if (section) {
                 document.getElementById('section-title').innerHTML = section.title;
                 document.getElementById('section-para').textContent = section.para;
+
+                // ✅ Update the icon dynamically from JSON
+                document.getElementById("about-icon-container").innerHTML = `<i class="${section.icon}"></i>`;
 
                 const pointsList = document.getElementById('section-points');
                 if (section.points) {
@@ -47,11 +50,9 @@
                     });
                 }
 
-                const sectionImage = document.getElementById('section-image');
+                // ✅ Ensure the image is read from JSON
                 if (section.image && section.image.length > 0) {
-                    sectionImage.src = section.image[0];
-                } else {
-                    sectionImage.style.display = 'none';
+                    document.getElementById('section-image').src = section.image[0];
                 }
             }
         })
