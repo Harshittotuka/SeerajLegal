@@ -10,7 +10,7 @@ use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\AuthAdminController;
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
@@ -51,10 +51,31 @@ Route::get('/backend/', function () {
     return view('backend/index');
 })->name('backend.home');
 
-// Dashboard Route
-Route::get('/backend/dashboard', function () {
-    return view('backend/pages/dashboard');
-})->name('backend.dashboard');
+
+
+
+
+
+
+
+
+
+// Admin Auth Routes
+Route::prefix('backend')->group(function () {
+    Route::get('/admin/login', [AuthAdminController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthAdminController::class, 'login'])->name('admin.login.submit');
+    Route::post('/logout', [AuthAdminController::class, 'logout'])->name('admin.logout');
+});
+
+// Protected Admin Routes
+
+Route::middleware('auth:admin')->group(function () {
+    Route::get('backend/dashboard', function () {
+        return view('backend.pages.dashboard');
+    })->name('backend.dashboard');
+
+
+
 
 
 Route::get('/backend/home', function () {
@@ -99,6 +120,21 @@ Route::get('/backend/practice/list', function () {
 Route::get('/backend/contact', function () {
     return view('backend.pages.contactus');
 })->name('backend.contact');
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Route::get('/backend/login', function () {
