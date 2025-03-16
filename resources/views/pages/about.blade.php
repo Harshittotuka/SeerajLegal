@@ -42,94 +42,104 @@
 
     <!-- About 2 -->
     <section class="about section-padding bg-darkbrown">
-        <div class="container">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-lg-5 col-md-12 animate-box" data-animate-effect="fadeInLeft">
-                    <img id="section-5-image" class="img" alt="">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-5 col-md-12 animate-box" data-animate-effect="fadeInLeft">
+                <img id="section-5-image" class="img" alt="">
+            </div>
+            <div class="col-lg-5 offset-lg-1 col-md-12 animate-box" data-animate-effect="fadeInRight">
+                <div class="section-subtitle text-white">
+                    <div class="icon"><i id="section-5-icon" class=""></i></div> People make the difference
                 </div>
-                <div class="col-lg-5 offset-lg-1 col-md-12 animate-box" data-animate-effect="fadeInRight">
-                    <div class="section-subtitle text-white">
-                        <div class="icon"><i class="flaticon-courthouse"></i></div> People make the difference
-                    </div>
-                    <div id="section-5-title" class="section-title white"></div>
-                    <p id="section-5-para"></p>
-                    <div class="about-name-wrapper">
-                        <div class="about-rol">Directors</div>
-                        <div id="section-5-points"></div>
-                    </div>
+                <div id="section-5-title" class="section-title white"></div>
+                <p id="section-5-para"></p>
+                <div class="about-name-wrapper">
+                    <div class="about-rol">Directors</div>
+                    <div id="section-5-points"></div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <script>
-        fetch('{{ asset('aboutus.json') }}')
-            .then(response => response.json())
-            .then(data => {
-                const section = data.find(item => item.S_id === 5);
-                if (section) {
-                    document.getElementById('section-5-title').innerHTML =
-                        `We are here to provide <span>legal Services</span>`;
-                    document.getElementById('section-5-para').textContent = section.para;
+<script>
+    fetch('aboutus.json')
+        .then(response => response.json())
+        .then(data => {
+            const section = data.find(item => item.S_id === 5);
+            if (section) {
+                document.getElementById('section-5-title').innerHTML = section.title;
+                document.getElementById('section-5-para').textContent = section.para;
 
-                    const pointsContainer = document.getElementById('section-5-points');
-                    if (section.points) {
-                        section.points.forEach(point => {
-                            const div = document.createElement('div');
-                            div.className = 'about-name';
-                            div.textContent = point;
-                            pointsContainer.appendChild(div);
-                        });
-                    }
-
-                    const sectionImage = document.getElementById('section-5-image');
-                    if (section.image && section.image.length > 0) {
-                        sectionImage.src = section.image[0];
-                    } else {
-                        sectionImage.style.display = 'none';
-                    }
+                // ✅ Set the icon dynamically
+                const sectionIcon = document.getElementById('section-5-icon');
+                if (section.icon) {
+                    sectionIcon.className = section.icon;
                 }
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    </script>
+
+                // ✅ Set the image dynamically
+                const sectionImage = document.getElementById('section-5-image');
+                if (section.image && section.image.length > 0) {
+                    sectionImage.src = section.image[0];
+                } else {
+                    sectionImage.style.display = 'none';
+                }
+
+                // ✅ Set the points dynamically
+                const pointsContainer = document.getElementById('section-5-points');
+                if (section.points) {
+                    section.points.forEach(point => {
+                        const div = document.createElement('div');
+                        div.className = 'about-name';
+                        div.textContent = point;
+                        pointsContainer.appendChild(div);
+                    });
+                }
+            }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
+
 
     <!-- awards -->
     <section class="clients section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 mb-30 text-center">
-                    <div class="section-subtitle">
-                        <div class="icon"><i class="flaticon-courthouse"></i></div> <span
-                            id="section-6-subtitle"></span>
-                    </div>
-                    <div class="section-title" id="section-6-title"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-30 text-center">
+                <div class="section-subtitle">
+                    <div class="icon"><i id="section-6-icon" class=""></i></div> <span id="section-6-subtitle"></span>
                 </div>
+                <div class="section-title" id="section-6-title"></div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-7 col-md-12 text-center">
-                    <div id="awards-carousel" class="owl-carousel owl-theme">
-                        <!-- Dynamic content will be inserted here -->
-                    </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-12 text-center">
+                <div id="awards-carousel" class="owl-carousel owl-theme">
+                    <!-- Dynamic content will be inserted here -->
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <script>
-        fetch('{{ asset('aboutus.json') }}')
-            .then(response => response.json())
-            .then(data => {
-                const section = data.find(item => item.S_id === 6);
-                const carousel = document.getElementById('awards-carousel');
-                const title = document.getElementById('section-6-title');
-                const subtitle = document.getElementById('section-6-subtitle');
+<script>
+    fetch('aboutus.json')
+        .then(response => response.json())
+        .then(data => {
+            const section = data.find(item => item.S_id === 6);
+            if (section) {
+                document.getElementById('section-6-title').innerHTML = section.title || 'Awards <span>&</span> Recognitions';
+                document.getElementById('section-6-subtitle').textContent = 'Our Successes';
 
-                if (section) {
-                    title.innerHTML = section.title || 'Awards <span>&</span> Recognitions';
-                    subtitle.textContent = 'Our Successes';
+                // ✅ Set the icon dynamically
+                const sectionIcon = document.getElementById('section-6-icon');
+                if (section.icon) {
+                    sectionIcon.className = section.icon;
                 }
 
-                if (section && section.image && section.image.length > 0) {
+                // ✅ Populate the awards carousel dynamically
+                const carousel = document.getElementById('awards-carousel');
+                if (section.image && section.image.length > 0) {
                     section.image.forEach(imgSrc => {
                         const div = document.createElement('div');
                         div.className = 'clients-logo';
@@ -137,9 +147,11 @@
                         carousel.appendChild(div);
                     });
                 }
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    </script>
+            }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
+
 
 
     <!-- Directors -->
