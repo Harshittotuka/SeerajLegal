@@ -9,6 +9,11 @@ use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\DashboardController;
+
+
+Route::get('/dashboard', [DashboardController::class, 'index']);
+
 
 //api to get rules according to service name
 
@@ -45,6 +50,12 @@ Route::get('/api/services/rules/{service_name}', [ServiceController::class, 'get
 Route::get('/backend/', function () {
     return view('backend/index');
 })->name('backend.home');
+
+// Dashboard Route
+Route::get('/backend/dashboard', function () {
+    return view('backend/pages/dashboard');
+})->name('backend.dashboard');
+
 
 Route::get('/backend/home', function () {
     return view('backend/pages/homepage');
@@ -111,6 +122,7 @@ Route::get('/backend/contact', function () {
 Route::get('/', function () {
     return view('index');
 })->name('home');
+
 
 // About & FAQ
 Route::get('/about', function () {

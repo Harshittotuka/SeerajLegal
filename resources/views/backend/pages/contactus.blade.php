@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 
 
-@include('backend.partials.bottomsettings')
+
 
 
 

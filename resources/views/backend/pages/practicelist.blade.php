@@ -365,7 +365,7 @@
     </style>
 
 
-    @include('backend.partials.bottomsettings')
+    
 
 
 

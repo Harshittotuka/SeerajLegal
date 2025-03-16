@@ -54,7 +54,7 @@
 
 
 
-@include('backend.partials.bottomsettings')
+
 
 
 
