@@ -123,33 +123,48 @@
 </section>
 
 <script>
-    fetch('aboutus.json')
-        .then(response => response.json())
-        .then(data => {
-            const section = data.find(item => item.S_id === 6);
-            if (section) {
-                document.getElementById('section-6-title').innerHTML = section.title || 'Awards <span>&</span> Recognitions';
-                document.getElementById('section-6-subtitle').textContent = 'Our Successes';
+   fetch('aboutus.json')
+    .then(response => response.json())
+    .then(data => {
+        const section = data.find(item => item.S_id === 6);
+        if (section) {
+            document.getElementById('section-6-title').innerHTML = section.title || 'Awards <span>&</span> Recognitions';
+            document.getElementById('section-6-subtitle').textContent = 'Our Successes';
 
-                // ✅ Set the icon dynamically
-                const sectionIcon = document.getElementById('section-6-icon');
-                if (section.icon) {
-                    sectionIcon.className = section.icon;
-                }
+            const sectionIcon = document.getElementById('section-6-icon');
+            if (section.icon) sectionIcon.className = section.icon;
 
-                // ✅ Populate the awards carousel dynamically
-                const carousel = document.getElementById('awards-carousel');
-                if (section.image && section.image.length > 0) {
-                    section.image.forEach(imgSrc => {
-                        const div = document.createElement('div');
-                        div.className = 'clients-logo';
-                        div.innerHTML = `<a href="#0"><img src="${imgSrc}" alt="Award Image"></a>`;
-                        carousel.appendChild(div);
+            const carousel = document.getElementById('awards-carousel');
+            carousel.innerHTML = ''; // Clear existing content
+
+            if (section.image && section.image.length > 0) {
+                section.image.forEach(imgSrc => {
+                    const div = document.createElement('div');
+                    div.className = 'clients-logo';
+                    div.innerHTML = `<a href="#0"><img src="${imgSrc}" alt="Award Image"></a>`;
+                    carousel.appendChild(div);
+                });
+
+                // ✅ Wait until all images are loaded before initializing
+                setTimeout(() => {
+                    $("#awards-carousel").owlCarousel({
+                        loop: true,
+                        margin: 10,
+                        nav: false,
+                        dots: true,
+                        autoplay: true,
+                        responsive: {
+                            0: { items: 1 },
+                            600: { items: 2 },
+                            1000: { items: 3 }
+                        }
                     });
-                }
+                }, 500);
             }
-        })
-        .catch(error => console.error('Error fetching data:', error));
+        }
+    })
+    .catch(error => console.error('Error fetching data:', error));
+
 </script>
 
 
