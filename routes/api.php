@@ -8,10 +8,27 @@ use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\UpdateController;
+use App\Http\Controllers\Contact2Controller;
+
+
+
+
+
+//api to update json file of personal details(nova)
+Route::put('/update-personal-details', [Contact2Controller::class, 'update']);
+
+
+//api to update homepage and who we are pages json file
+Route::post('/update', [UpdateController::class, 'update']);
+
+
+
 
 //fetching data of who we are according to S_id
 //api to get data of who we are by S_id
 Route::post('about/who_we_are', [AboutController::class, 'getWhoWeAre']);
+
 
 //update,delete for faqs (nova)
 Route::prefix('faqs')->group(function () {

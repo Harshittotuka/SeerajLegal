@@ -4,15 +4,16 @@
         "email": "seerajlegal@gmail.com",
         "address": "E-273, 2nd Floor, Lal Kothi, C-Scheme, Barkat Nagar, Jaipur, Rajasthan, India, 302015",
         "phone_no": "+918107000333",
-        "phone_2": null,
-        "yrs_of_experience": 1,
-        "insta_link": "wwww.instagram.com",
-        "facebook_link":"www.facebook.com" ,
-        "youtube_link": "www.youtube.com" ,
-        "twitter_link": "www.twitter.com" ,
+        "phone_2": "43384973",
+        "yrs_of_experience": "3",
+        "insta_link": "https:\/\/www.instagram.com",
+        "facebook_link": null,
+        "youtube_link": "https:\/\/www.youtube.com",
+        "twitter_link": "https:\/\/www.twitter.com",
         "whatsapp": null,
+        "whatsapp_group_link": null,
         "linkedin": null,
         "website_link": null,
-        "Quote":"Justice for all, solutions for every dispute."
+        "Quote": "Justice for all, solutions for every dispute."
     }
 }

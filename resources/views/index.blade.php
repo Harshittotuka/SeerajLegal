@@ -12,6 +12,8 @@
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
+    <link rel="preload" href="{{ asset('assets/fonts/themify.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="{{ asset('assets/fonts/Flaticon.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
 
 
 
@@ -22,7 +24,7 @@
     <!-- Navbar -->
     @include('partials.navbar')
 
-    <!-- Kenburns SlideShow -->
+    <!-- Kenburns SlideShow  S_id:0 -->
     <aside class="kenburns-section" id="kenburnsSliderContainer" data-overlay-dark="5">
         <div class="kenburns-inner h-100">
             <div class="v-middle">
@@ -30,7 +32,7 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="col-lg-7 col-md-12 text-center">
                             <h5>
-                                <div class="icon"><i class="flaticon-courthouse"></i></div>Transforming Conflicts
+                                <div class="icon"><i class="fa-regular fa-building-columns"></i></div>Transforming Conflicts
                                 into Agreements
                             </h5>
                             <h3>Justice Made Accessible: <span> faster and fairer</span></h3>
@@ -41,7 +43,6 @@
             </div>
         </div>
     </aside>
-
 
     <!-- About -->
     @include('partials.about')
@@ -55,10 +56,10 @@
         <div class="row align-items-center">
             <div class="col-lg-4 col-md-12 mb-30">
                 <div class="section-subtitle">
-                    <div class="icon"><i class="flaticon-courthouse"></i></div> What we do?
+                    <div class="icon"><i id="adr-icon" class="flaticon-courthouse"></i></div> What we do?
                 </div>
-                <div class="section-title"><span>ADR</span> Services</div>
-                <p>Specializing in Alternative dispute resolution methods in contrast to conventional court proceedings.</p>
+                <div class="section-title"><span id="adr-title">ADR</span> Services</div>
+                <p id="adr-para"></p>
                 <a href="{{ route('service.all') }}" class="button-2">Discover more<span></span></a>
             </div>
             <div class="col-lg-7 offset-lg-1 col-md-12">
@@ -69,6 +70,36 @@
         </div>
     </div>
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Fetch the JSON file
+    fetch('/home.json')
+        .then(response => response.json())
+        .then(data => {
+            // Find the ADR Services section data
+            const serviceData = data.find(service => service.S_id === 5);
+
+            if (!serviceData || serviceData.flag !== "enabled") {
+                console.log("ADR Services not enabled or not found.");
+                return;
+            }
+
+            const section = document.getElementById("adr-services");
+
+            // ✅ Update the title and paragraph
+            section.querySelector(".section-title span").textContent = serviceData.title;
+            section.querySelector("p").textContent = serviceData.para;
+
+            // ✅ Update the main section icon (Font Awesome)
+            section.querySelector(".section-subtitle .icon").innerHTML = `<i class="${serviceData.icon}"></i>`;
+
+            // ✅ Show the section if it's hidden
+            section.style.display = "block";
+        })
+        .catch(error => console.error("Error fetching JSON:", error));
+});
+</script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -94,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     const serviceHTML = `
                         <div class="col-lg-4 col-md-6">
                             <div class="item">
-                                <a href="/service/details/${serviceName}">
+                                <a href="/service/${serviceName}">
                                     <i class="${defaultIcon}"></i>
                                     <h5>${serviceName}</h5>
                                     <div class="shape"><i class="${defaultIcon}"></i></div>
@@ -118,52 +149,73 @@ document.addEventListener("DOMContentLoaded", function() {
     <!-- Directors -->
     @include('partials.directors')
 
-    <!-- Rajasthan -->
-    <section class="serve section-padding bg-lightbrown animate-box">
-        <div class="container">
-            <div class="row justify-content-center align-items-center">
-                <!-- Left Column - Map Visualization -->
-                <div class="col-lg-6 col-md-12 animate-box" data-animate-effect="fadeInUp">
-                    <div class="rajasthan-map">
-                        <img src="{{ asset('assets/img/Rajasthan.png') }}" alt="Rajasthan Map" class="img-fluid">
-                    </div>
-                </div>
-
-                <!-- Right Column - Content -->
-                <div class="col-lg-6 col-md-12 animate-box" data-animate-effect="fadeInUp">
-                    <div class="section-subtitle">
-                        <div class="icon"><i class="flaticon-courthouse"></i></div>
-                        Beyond Boundaries & Barriers
-                    </div>
-                    <h2 class="section-title heritage-text">
-                        Serving Every Corner of <span>Rajasthan</span>
-                    </h2>
-                    <p>We pride ourselves in providing legal solutions throughout the vast and diverse land of
-                        Rajasthan. From the capital city of Jaipur to the serene desert of Jaisalmer, we bring justice
-                        and consultancy to every corner of this beautiful state.</p>
-
-                    <!-- Service Highlights -->
-                    <div class="row stats-row mt-4">
-                        <div class="col-4 stat-item">
-                            <div class="stat-number">40+</div>
-                            <div class="stat-label">Districts</div>
-                        </div>
-                        <div class="col-4 stat-item">
-                            <div class="stat-number">200+</div>
-                            <div class="stat-label">Cities and Towns </div>
-                        </div>
-                        <div class="col-4 stat-item">
-                            <div class="stat-number">24×7</div>
-                            <div class="stat-label">Availability</div>
-                        </div>
-                    </div>
-
-                    <div class="heritage-pattern-border mt-4"></div>
+    <!-- Rajasthan S_id: -->
+    <!-- Rajasthan S_id: 8 -->
+<section class="serve section-padding bg-lightbrown animate-box">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <!-- Left Column - Map Visualization -->
+            <div class="col-lg-6 col-md-12 animate-box" data-animate-effect="fadeInUp">
+                <div class="rajasthan-map">
+                    <img id="rajasthanMap" src="" alt="Rajasthan Map" class="img-fluid">
                 </div>
             </div>
+
+            <!-- Right Column - Content -->
+            <div class="col-lg-6 col-md-12 animate-box" data-animate-effect="fadeInUp">
+                <div class="section-subtitle">
+                    <div class="icon" id="rajasthan-icon-container"><i class="flaticon-courthouse"></i></div>
+                    Beyond Boundaries & Barriers
+                </div>
+                <h2 id="sectionTitle" class="section-title heritage-text"></h2>
+                <p id="sectionPara"></p>
+
+                <!-- Service Highlights -->
+                <div class="row stats-row mt-4" id="servicePoints">
+                    <!-- Points will be inserted here dynamically -->
+                </div>
+
+                <div class="heritage-pattern-border mt-4"></div>
+            </div>
         </div>
-    </section>
-    
+    </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    fetch('home.json')
+        .then(response => response.json())
+        .then(data => {
+            const sectionData = data.find(section => section.S_id === 8);
+
+            if (sectionData && sectionData.flag === "enabled") {
+                document.getElementById('sectionTitle').innerHTML = sectionData.title;
+                document.getElementById('sectionPara').innerHTML = sectionData.para;
+                document.getElementById('rajasthanMap').src = sectionData.image[0];
+
+                // ✅ Update the icon dynamically from JSON
+                const iconContainer = document.getElementById("rajasthan-icon-container");
+                iconContainer.innerHTML = `<i class="${sectionData.icon}"></i>`;
+
+                // ✅ Update the service points
+                const pointsContainer = document.getElementById('servicePoints');
+                pointsContainer.innerHTML = '';
+
+                sectionData.points.forEach(point => {
+                    const pointHTML = `
+                        <div class="col-4 stat-item">
+                            <div class="stat-number">${point.split(' ')[0]}</div>
+                            <div class="stat-label">${point.split(' ').slice(1).join(' ')}</div>
+                        </div>
+                    `;
+                    pointsContainer.innerHTML += pointHTML;
+                });
+            }
+        })
+        .catch(error => console.error('Error fetching home.json:', error));
+});
+</script>
+
     <STYle>
         .bg-royalgold {
             background: #82653b radial-gradient(circle, #d4af37 0%, #82653b 100%);
@@ -248,6 +300,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
     <script src="{{ asset('assets/js/jquery-migrate-3.0.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery-3.6.3.min.js') }}"></script>
     <script src="{{ asset('assets/js/modernizr-2.6.2.min.js') }}"></script>
@@ -264,6 +317,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <script src="{{ asset('assets/js/smooth-scroll.min.js') }}"></script>
     <script src="{{ asset('assets/js/vegas.slider.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+
 
     <!-- Vegas Background Slideshow (vegas.slider kenburns) -->
     <script>
@@ -285,6 +339,8 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     </script>
+
+    
 
 </body>
 

@@ -516,7 +516,7 @@
 
 
 
-    @include('backend.partials.bottomsettings')
+    
 
 
 

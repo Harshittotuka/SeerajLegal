@@ -1,0 +1,45 @@
+[
+    {
+        "usage": [
+            "home"
+        ],
+        "S_id": 5,
+        "S_order": 7,
+        "s_include": [
+            1,
+            3
+        ],
+        "title": "ADR Services",
+        "para": "Specializing in Alternative dispute resolution methods in contrast to conventional court proceedings",
+        "points": null,
+        "flag": "enabled",
+        "image": "Asds",
+        "icon_Type": "fontawesome",
+        "icon": "fas fa-r"
+    },
+    {
+        "usage": [
+            "home"
+        ],
+        "S_id": 8,
+        "S_order": 9,
+        "s_include": [
+            1,
+            2,
+            3
+        ],
+        "title": "Serving Every Corner of <span> Rajasthan <\/span>",
+        "para": "We pride ourselves in providing legal solutions throughout the vast and diverse land of Rajasthan. From the capital city of Jaipur to the serene desert of Jaisalmer, we bring justice and consultancy to every corner of this beautiful state.",
+        "points": [
+            "33+ Districts",
+            "500+ Cities Covered",
+            "24\u00d77 Availability"
+        ],
+        "flag": "enabled",
+        "image": [
+            "assets\/img\/Rajasthan.png"
+        ],
+        "icon_Type": "fontawesome",
+        "icon": "fas fa-r"
+    }
+]

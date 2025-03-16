@@ -194,73 +194,69 @@
     </style>
 
 
-    <!-- Conciliator -->
-    <section class="team section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center mb-20">
-                    <div class="section-subtitle">
-                        <div class="icon"><i class="flaticon-courthouse"></i></div> Qualified Experts
-                    </div>
-                    <div class="section-title">Meet Our <span>Conciliator</span></div>
+   <!-- Meet Our Experts Section -->
+<section class="team section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center mb-20">
+                <div class="section-subtitle">
+                    <div class="icon"><i class="flaticon-courthouse"></i></div> Qualified Experts
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="owl-carousel owl-theme">
-                        <div class="item">
-                            <div class="img">
-                                <img src="img/my/profile_icon2.png" alt="" class="img-cover">
-                                <div class="social-icons">
-                                    <a href="#"> <i class="fab fa-facebook-f"></i> </a>
-                                    <a href="#"> <i class="fab fa-x-twitter"></i> </a>
-                                    <a href="#"> <i class="fab fa-instagram"></i> </a>
-                                    <a href="#"> <i class="fab fa-linkedin-in"></i> </a>
-                                </div>
-                            </div>
-                            <div class="info">
-                                <h5><a href="team-details.html">K.R. Sharma (Retd. CJM)</a></h5>
-                                <p>As a former judge and arbitrator, likely played a role in conciliation proceedings.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="img">
-                                <img src="img/my/profile_icon2.png" alt="" class="img-cover">
-                                <div class="social-icons">
-                                    <a href="#"> <i class="fab fa-facebook-f"></i> </a>
-                                    <a href="#"> <i class="fab fa-x-twitter"></i> </a>
-                                    <a href="#"> <i class="fab fa-instagram"></i> </a>
-                                    <a href="#"> <i class="fab fa-linkedin-in"></i> </a>
-                                </div>
-                            </div>
-                            <div class="info">
-                                <h5><a href="team-details.html">Ashok Sharma (Retd. District & Session Judge)</a></h5>
-                                <p>Experience as an arbitrator suggests involvement in conciliation.</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="img">
-                                <img src="img/my/profile_icon2.png" alt="" class="img-cover">
-                                <div class="social-icons">
-                                    <a href="#"> <i class="fab fa-facebook-f"></i> </a>
-                                    <a href="#"> <i class="fab fa-x-twitter"></i> </a>
-                                    <a href="#"> <i class="fab fa-instagram"></i> </a>
-                                    <a href="#"> <i class="fab fa-linkedin-in"></i> </a>
-                                </div>
-                            </div>
-                            <div class="info">
-                                <h5><a href="team-details.html">Ramesh Chand Sharma (Retd. District & Session
-                                        Judge)</a></h5>
-                                <p> Experience as an arbitrator and judge suggests conciliation expertise.</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+                <div class="section-title">Meet Our <span id="nova-service-title">Experts</span></div>
             </div>
         </div>
-    </section>
+        <div class="row" id="team-members"></div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+    // Get the service name from the URL
+    const pathParts = window.location.pathname.split('/');
+    const service = decodeURIComponent(pathParts[pathParts.length - 1]); // Keep original case
+
+    // Directly set the title without modifying the service name
+    document.getElementById('nova-service-title').textContent = `${service} Experts`;
+
+    try {
+        // Capitalize the first letter for API call
+       
+        const apiService = service.charAt(0).toUpperCase() + service.slice(1);
+        const apiUrl = `http://127.0.0.1:8000/api/teams/service/${apiService}`;
+        const response = await fetch(apiUrl);
+        const teamMembers = await response.json();
+ console.log(teamMembers);
+        const teamMembersContainer = document.getElementById('team-members');
+        teamMembersContainer.innerHTML = ''; // Clear any existing content
+
+        teamMembers.forEach(member => {
+            const profileImage = member.profile_image || 'assets/img/my/profile_icon2.png';
+            const socials = member.socials || {};
+            teamMembersContainer.innerHTML += `
+                <div class="col-lg-3 col-md-6 item">
+                    <div class="img">
+                        <img src="${profileImage}" alt="${member.name}" class="img-cover">
+                        <div class="social-icons">
+                            ${socials.facebook ? `<a href="${socials.facebook}"><i class="fab fa-facebook-f"></i></a>` : ''}
+                            ${socials.linkedin ? `<a href="${socials.linkedin}"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                            ${socials.twitter ? `<a href="${socials.twitter}"><i class="fab fa-twitter"></i></a>` : ''}
+                        </div>
+                    </div>
+                    <div class="info">
+                        <h5><a href="/team-details?id=${member.id}">${member.name}</a></h5>
+                        <p>${member.designation}</p>
+                    </div>
+                </div>
+            `;
+        });
+    } catch (error) {
+        console.error('Error fetching team members:', error);
+    }
+});
+</script>
+
+
+
 
     <!-- Case Study -->
     @include('partials.casestudy')

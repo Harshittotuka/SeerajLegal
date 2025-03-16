@@ -669,7 +669,7 @@
 
 
 
-    @include('backend.partials.bottomsettings')
+    
 
 
 
