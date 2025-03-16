@@ -50,7 +50,7 @@
 
 <form id="profile-form" class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>My Profile</h2>
+        <h2>Contact Info</h2>
         <div>
             <button type="button" class="btn btn-primary me-2" id="edit-btn">Edit</button>
             <button type="submit" class="btn btn-success" id="save-btn" style="display: none;">Save</button>
@@ -59,10 +59,10 @@
     
     <!-- Profile Section -->
     <div class="d-flex align-items-center mb-4">
-        <img id="profile-pic" src="assets/img/my/profile_icon2.png" class="rounded-circle border border-3 me-3" width="100" height="100" alt="Profile Picture">
+        <!-- <img id="profile-pic" src="assets/img/my/profile_icon2.png" class="rounded-circle border border-3 me-3" width="100" height="100" alt="Profile Picture"> -->
         <div>
-            <h4 id="profile-name">Name</h4>
-            <p class="text-muted">Admin</p>
+            <!-- <h4 id="profile-name">Name</h4> -->
+            <!-- <p class="text-muted">Admin</p> -->
         </div>
     </div>
     

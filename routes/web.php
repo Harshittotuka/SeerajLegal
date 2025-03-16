@@ -10,6 +10,11 @@ use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
 
+//controller for backend admin panel
+use App\Http\Controllers\AdminProfileController;
+
+
+
 //api to get rules according to service name
 
 Route::get('/api/teams', [TeamController::class, 'index'])->name('teams.index');
@@ -40,6 +45,9 @@ Route::get('/api/service/{name}', [ServiceController::class, 'show']);
 Route::get('/api/services/list', [ServiceController::class, 'getServiceNames']);
 
 Route::get('/api/services/rules/{service_name}', [ServiceController::class, 'getServiceByName']);
+
+
+
 
 
 Route::get('/backend/', function () {
@@ -89,6 +97,11 @@ Route::get('/backend/contact', function () {
     return view('backend.pages.contactus');
 })->name('backend.contact');
 
+// route for admin profile
+//Route::get('/admin/profile', [AdminProfileController::class, 'index']);
+Route::get('/backend/profile', function () {
+    return view('backend.pages.adminprofile');
+})->name('backend.profile');
 
 
 
