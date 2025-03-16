@@ -101,6 +101,10 @@ Route::get('/backend/contact', function () {
 })->name('backend.contact');
 
 
+Route::get('/backend/login', function () {
+    return view('backend.login.login');
+})->name('backend.login');
+
 
 
 
