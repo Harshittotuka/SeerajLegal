@@ -1,3 +1,11 @@
+
+    <script>
+        // FOR ANSHUMAN REFERENCES ONLY
+        console.log("Type:", @json(Auth::guard('admin')->user()->type));
+ console.log("Admin ID:", @json(Auth::guard('admin')->user()->id));
+      
+    </script>
+
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 border-radius-xl position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky"
     id="navbarBlur" data-scroll="true" navbar-scroll="true">
     <div class="container-fluid py-1 px-3">
@@ -32,11 +40,11 @@
 
 
 
-                 <li class="nav-item d-flex align-items-center ms-3">
-            <a href="{{ route('backend.contact') }}" class="nav-link font-weight-bold px-3">
-                <i class="fas fa-user-circle fa-2x"></i>
-            </a>
-        </li>
+                        <li class="nav-item d-flex align-items-center">
+    <a href="{{ route('backend.profile') }}" class="nav-link font-weight-bold px-0">
+        <i class="material-symbols-rounded">account_circle</i>
+    </a>
+</li>
 
 
             </ul>

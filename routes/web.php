@@ -10,9 +10,16 @@ use App\Http\Controllers\MembershipTypeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\AuthAdminController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Request;
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
+
+
+
+
 
 
 //api to get rules according to service name
@@ -47,14 +54,43 @@ Route::get('/api/services/list', [ServiceController::class, 'getServiceNames']);
 Route::get('/api/services/rules/{service_name}', [ServiceController::class, 'getServiceByName']);
 
 
+
+
+
 Route::get('/backend/', function () {
     return view('backend/index');
 })->name('backend.home');
 
-// Dashboard Route
-Route::get('/backend/dashboard', function () {
-    return view('backend/pages/dashboard');
-})->name('backend.dashboard');
+
+
+
+
+
+View::composer('*', function ($view) {
+    // Check if the request path starts with 'backend' and the admin is authenticated
+    if (Request::is('backend*') && Auth::guard('admin')->check()) {
+        $view->with('adminUser', Auth::guard('admin')->user());
+    }
+});
+
+
+
+// Admin Auth Routes
+Route::prefix('backend')->group(function () {
+    Route::get('/admin/login', [AuthAdminController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthAdminController::class, 'login'])->name('admin.login.submit');
+    Route::post('/logout', [AuthAdminController::class, 'logout'])->name('admin.logout');
+});
+
+// Protected Admin Routes
+
+Route::middleware('auth:admin')->group(function () {
+    Route::get('backend/dashboard', function () {
+        return view('backend.pages.dashboard');
+    })->name('backend.dashboard');
+
+
+
 
 
 Route::get('/backend/home', function () {
@@ -99,6 +135,27 @@ Route::get('/backend/practice/list', function () {
 Route::get('/backend/contact', function () {
     return view('backend.pages.contactus');
 })->name('backend.contact');
+
+
+
+// route for admin profile
+  Route::get('backend/profile', function () {
+        return view('backend.pages.adminprofile', ['user' => auth()->user()]);
+    })->name('backend.profile');
+    
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Route::get('/backend/login', function () {

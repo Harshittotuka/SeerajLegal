@@ -10,6 +10,7 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\Contact2Controller;
+use App\Http\Controllers\AdminController;
 
 
 
@@ -81,3 +82,17 @@ Route::put('/members/{id}', [MembershipController::class, 'update']);
 Route::post('/contact/create', [ContactController::class, 'store']);
 Route::delete('/contact/delete/{id}', [ContactController::class, 'destroy']);
 Route::put('/contact/update/{id}', [ContactController::class, 'update']);
+
+
+Route::prefix('admin')->group(function () {
+    Route::post('/create', [AdminController::class, 'create']); // Create admin
+    Route::put('/{id}/edit', [AdminController::class, 'edit']); // Edit admin
+    Route::delete('/delete/{id}', [AdminController::class, 'delete']); // Delete admin
+    Route::get('/', [AdminController::class, 'index']); // Add this route for getting admins
+    Route::get('/{id}', [AdminController::class, 'getAccountById']);
+    Route::post('/update-password/{id}', [AdminController::class, 'updatePassword']);
+    Route::post('/{id}/update-password-d', [AdminController::class, 'updatePasswordDirect']);
+
+
+
+});

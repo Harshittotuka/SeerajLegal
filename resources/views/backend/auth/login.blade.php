@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,23 +39,43 @@
 
     <div class="wrapper">
         <!-- Login Form -->
-        <form id="loginForm">
+        <form method="POST" action="{{ route('admin.login.submit') }}">
+            @csrf
             <h2>Login</h2>
+
+            <!-- Email Input -->
             <div class="input-field">
-                <input type="text" required>
+                <input type="text" name="email" required value="{{ old('email') }}" 
+                       class="form-control @error('email') is-invalid @enderror">
                 <label>Enter your email</label>
+                @error('email')
+                    <div class="invalid-feedback">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                @enderror
             </div>
+
+            <!-- Password Input -->
             <div class="input-field">
-                <input type="password" required>
+                <input type="password" name="password" required 
+                       class="form-control @error('password') is-invalid @enderror">
                 <label>Enter your password</label>
+                @error('password')
+                    <div class="invalid-feedback">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                @enderror
             </div>
+
+            <!-- Remember Me Checkbox -->
             <div class="forget">
                 <label for="remember">
-                    <input type="checkbox" id="remember">
+                    <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                     <p>Remember me</p>
                 </label>
                 <a href="#" onclick="showForgotPassword()">Forgot password?</a>
             </div>
+
             <button type="submit">Log In</button>
         </form>
 
