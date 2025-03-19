@@ -16,10 +16,10 @@ public function up()
     $table->id();
     $table->string('name');
     $table->string('email')->unique();
-    $table->timestamp('email_verified_at')->nullable();
+
     $table->string('password');
     $table->rememberToken();
-    $table->enum('type', ['admin', 'superadmin'])->default('admin'); // Type: admin or superadmin
+    $table->enum('type', ['Admin', 'Superadmin'])->default('admin'); // Type: admin or superadmin
     $table->string('phone')->nullable(); // Add phone field
     $table->string('profile_image')->nullable(); // Profile image field
     $table->timestamps();

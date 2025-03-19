@@ -11,8 +11,15 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthAdminController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Request;
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
+
+
+
+
 
 
 //api to get rules according to service name
@@ -47,6 +54,9 @@ Route::get('/api/services/list', [ServiceController::class, 'getServiceNames']);
 Route::get('/api/services/rules/{service_name}', [ServiceController::class, 'getServiceByName']);
 
 
+
+
+
 Route::get('/backend/', function () {
     return view('backend/index');
 })->name('backend.home');
@@ -56,7 +66,12 @@ Route::get('/backend/', function () {
 
 
 
-
+View::composer('*', function ($view) {
+    // Check if the request path starts with 'backend' and the admin is authenticated
+    if (Request::is('backend*') && Auth::guard('admin')->check()) {
+        $view->with('adminUser', Auth::guard('admin')->user());
+    }
+});
 
 
 
@@ -122,6 +137,12 @@ Route::get('/backend/contact', function () {
 })->name('backend.contact');
 
 
+
+// route for admin profile
+  Route::get('backend/profile', function () {
+        return view('backend.pages.adminprofile', ['user' => auth()->user()]);
+    })->name('backend.profile');
+    
 });
 
 
