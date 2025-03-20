@@ -40,11 +40,40 @@
 
 
 
-                        <li class="nav-item d-flex align-items-center">
-    <a href="{{ route('backend.profile') }}" class="nav-link font-weight-bold px-0">
-        <i class="material-symbols-rounded">account_circle</i>
+                <li class="nav-item d-flex align-items-center">
+    <a href="{{ route('backend.profile') }}" class="nav-link font-weight-bold px-0 d-flex align-items-center">
+        <div class="profile-icon d-flex justify-content-center align-items-center">
+            <i class="material-symbols-rounded">account_circle</i>
+        </div>
+        <span class="admin-type ms-2">{{ Auth::guard('admin')->user()->type }}</span>
     </a>
 </li>
+
+<style>
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #f0f0f0; /* Light gray background */
+    border-radius: 50%; /* Makes it circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.profile-icon i {
+    font-size: 32px;
+    color:rgb(2, 14, 26); /* Light blue icon */
+}
+
+.profile-icon:hover {
+    background-color:rgb(2, 14, 26);;
+}
+
+.profile-icon:hover i {
+    color: #fff;
+}
+</style>
 
 
             </ul>
