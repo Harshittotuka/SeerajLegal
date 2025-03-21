@@ -117,30 +117,55 @@
                 container.innerHTML = "";
 
                 filteredSections.forEach((section, index) => {
-                    const card = document.createElement("div");
-                    card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
-                    card.innerHTML = `
-                <div class="card text-center" style="height: 250px; width: 250px;" 
-                     data-bs-toggle="modal" data-bs-target="#contentModal" onclick="populateModal(${index})">
-                    <div class="card-header p-2 ps-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i><h6 class="text-uppercase fw-bold mb-0">Section ${index}</h6></i>
-                            <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                <i class="${section.icon}"></i>
-                            </div>
-                        </div>
-                        <hr class="my-2">
-                        <h5 class="mb-0">${section.title}</h5>
+    const card = document.createElement("div");
+    card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
+    card.innerHTML = `
+        <div class="card text-center shadow-lg" style="height: 250px; width: 250px;">
+            
+            <!-- ✅ Manage Content Modal Opens ONLY When Clicking on Header/Text -->
+            <div class="card-header p-2 ps-3" 
+                 data-bs-toggle="modal" data-bs-target="#contentModal" 
+                 onclick="populateModal(${index})">
+                <div class="d-flex justify-content-between align-items-center">
+                    <i><h6 class="text-uppercase fw-bold mb-0">Section ${index}</h6></i>
+                    <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                        <i class="${section.icon}"></i>
                     </div>
                 </div>
-            `;
-                    container.appendChild(card);
-                });
+                <hr class="my-2">
+                <h5 class="mb-0">${section.title}</h5>
+            </div>
+
+            <!-- ✅ Image Now Opens Enlarged Preview Modal -->
+            <div class="card-body p-2">
+                <div class="image-container" 
+                     style="width: 100%; height: 100%; position: relative; overflow: hidden; border-radius: 10px; 
+                            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);" 
+                     onclick="showImagePreview('${section.ss ? section.ss : 'default-placeholder.png'}')">
+                    <img src="${section.ss ? section.ss : 'default-placeholder.png'}" 
+                         alt="Preview" 
+                         class="img-fluid rounded" 
+                         style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+                </div>
+            </div>
+        </div>
+    `;
+    container.appendChild(card);
+});
+
 
             } catch (error) {
                 console.error("Error loading sections:", error);
             }
         }
+
+        function showImagePreview(imageUrl) {
+    const modalImage = document.getElementById('modalPreviewImage');
+    modalImage.src = imageUrl; // Set the image URL dynamically
+    const modal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
+    modal.show();
+}
+
 
         async function populateModal(index) {
             try {
@@ -434,6 +459,22 @@
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- modal to show preview images -->
+        <!-- Image Preview Modal -->
+<div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Image Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalPreviewImage" src="" alt="Preview" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</div>
 
 
 </body>

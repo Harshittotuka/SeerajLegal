@@ -5,7 +5,7 @@
                 <div class="section-subtitle">
                     <div class="icon"><i id="section-7-icon" class=""></i></div> Qualified Experts
                 </div>
-                <div class="section-title" id="directors-title"></div>
+                <div class="section-title" id="directors-title">Our Directors</div>
             </div>
         </div>
         <div class="row">
@@ -17,46 +17,52 @@
 </section>
 
 <script>
-    fetch('/aboutus.json')
+    fetch('/api/team/designation/Director')
         .then(response => response.json())
         .then(data => {
-            const section = data.find(section => section.S_id === 7);
-            if (section) {
-                document.getElementById('directors-title').innerHTML = section.title;
+            if (!Array.isArray(data)) {
+                console.error("Unexpected API response:", data);
+                return;
+            }
 
-                // ✅ Set the icon dynamically
-                const sectionIcon = document.getElementById('section-7-icon');
-                if (section.icon) {
-                    sectionIcon.className = section.icon;
-                }
+            const carousel = document.getElementById('directors-carousel');
+            carousel.innerHTML = ""; // Clear existing content
 
-                // ✅ Populate the directors' carousel dynamically
-                const carousel = document.getElementById('directors-carousel');
-                if (section.image && section.image.length > 0) {
-                    section.image.forEach((director, index) => {
-                        const name = section.para ? section.para[index] : 'Director';
-                        const specialization = section.points ? section.points[index] : 'Specialization';
-
-                        carousel.innerHTML += `
-                            <div class="item">
-                                <div class="img">
-                                    <img src="${director.url}" alt="Director" class="img-cover">
-                                    <div class="social-icons">
-                                        <a href="${director.facebook}" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                                        <a href="${director.twitter}" target="_blank"><i class="fab fa-x-twitter"></i></a>
-                                        <a href="${director.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>
-                                        <a href="${director.linkedin}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="info">
-                                    <h5>${name}</h5>
-                                    <p>${specialization}</p>
-                                </div>
+            data.forEach(director => {
+                const imageUrl = director.image ? `/storage/${director.image}` : 'assets/img/my/profile_icon2.png'; // Default image if none exists
+                
+                carousel.innerHTML += `
+                    <div class="item">
+                        <div class="img">
+                            <img src="${imageUrl}" alt="${director.name}" class="img-cover">
+                            <div class="social-icons">
+                                ${director.socials ? `
+                                    ${director.socials.linkedin ? `<a href="${director.socials.linkedin}" target="_blank"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                                ` : ''}
                             </div>
-                        `;
-                    });
-                }
+                        </div>
+                        <div class="info">
+                            <h5>${director.name}</h5>
+                            <p>${director.type}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Reinitialize Owl Carousel (if necessary)
+            if ($.fn.owlCarousel) {
+                $('#directors-carousel').owlCarousel({
+                    loop: true,
+                    margin: 10,
+                    nav: true,
+                    dots: false,
+                    responsive: {
+                        0: { items: 1 },
+                        600: { items: 2 },
+                        1000: { items: 3 }
+                    }
+                });
             }
         })
-        .catch(error => console.error('Error fetching data:', error));
+        .catch(error => console.error('Error fetching directors:', error));
 </script>

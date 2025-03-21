@@ -32,8 +32,8 @@ class ServiceRepository
     public function fetchUniqueServiceNames()
     {
         return Service::where('para_sno', 1) // Filter records where para_sno = 1
-        ->select('id', 'service_name', 'flag') // Select required columns
-        ->groupBy('service_name', 'id', 'flag') // Group by practice_name to get unique ones
+        ->select('id', 'service_name','icon', 'flag') // Select required columns
+        ->groupBy('service_name','icon', 'id', 'flag') // Group by practice_name to get unique ones
         ->orderBy('id') // Order by ID to get the first inserted record
         ->get();
     }

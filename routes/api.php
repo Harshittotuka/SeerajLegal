@@ -14,6 +14,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ImageController;
 
 
+//api to get team based on designation
+Route::get('/team/designation/{designation}', [TeamController::class, 'getByDesignation']);
+
+
+
 
 Route::get('/topimages', [ImageController::class, 'index']);  // List all
 Route::get('/topimages/{image_id}', [ImageController::class, 'show']);  // Get by ID

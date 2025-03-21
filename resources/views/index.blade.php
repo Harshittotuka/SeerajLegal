@@ -117,18 +117,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 const adrSection = document.getElementById("adr-services");
                 adrSection.style.display = "block"; // Show the section if at least one service is enabled
 
-                const defaultIcon = "flaticon-courthouse"; // Single default icon for all services
+                const defaultIcon = "flaticon-courthouse"; // Default icon
 
                 enabledServices.forEach(service => {
                     const serviceName = service.service_name;
+                    const serviceIcon = service.icon ? service.icon : defaultIcon; // Use API icon or fallback
 
                     const serviceHTML = `
                         <div class="col-lg-4 col-md-6">
                             <div class="item">
                                 <a href="/service/${serviceName}">
-                                    <i class="${defaultIcon}"></i>
+                                    <i class="${serviceIcon}"></i>
                                     <h5>${serviceName}</h5>
-                                    <div class="shape"><i class="${defaultIcon}"></i></div>
+                                    <div class="shape"><i class="${serviceIcon}"></i></div>
                                 </a>
                             </div>
                         </div>
@@ -141,6 +142,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(error => console.error("Error fetching services:", error));
 });
 </script>
+
 
 
     <!-- Case Study -->
