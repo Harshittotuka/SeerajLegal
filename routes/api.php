@@ -20,6 +20,10 @@ Route::get('/team/designation/{designation}', [TeamController::class, 'getByDesi
 
 
 
+Route::get('/topimages', [ImageController::class, 'index']);  // List all
+Route::get('/topimages/{image_id}', [ImageController::class, 'show']);  // Get by ID
+Route::put('/topimages/{image_id}', [ImageController::class, 'update']);  // Update by ID
+
 
 //api to update json file of personal details(nova)
 Route::put('/update-personal-details', [Contact2Controller::class, 'update']);
