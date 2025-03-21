@@ -13,7 +13,6 @@
         "para": "Specializing in Alternative dispute resolution methods in contrast to conventional court proceedings",
         "points": null,
         "flag": "enabled",
-        "image": "Asds",
         "icon_Type": "fontawesome",
         "icon": "fas fa-r"
     },
@@ -36,6 +35,8 @@
             "24\u00d77 Availability"
         ],
         "flag": "enabled",
+        "image-count":"fixed",
+        "image-resolution":[300,200],
         "image": [
             "assets\/img\/Rajasthan.png"
         ],

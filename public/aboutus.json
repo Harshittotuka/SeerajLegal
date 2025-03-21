@@ -19,8 +19,12 @@
             "Trustworthy and Authentic"
         ],
         "flag": "disabled",
+        "image-count": "fixed",
+        "image-resolution": [
+            300,
+            200
+        ],
         "image": [
-            "assets/img/Experience.webp",
             "assets/img/Experience.webp"
         ],
         "icon_Type": "fontawesome",
@@ -101,6 +105,11 @@
         "Seema Sharma"
     ],
     "flag": "enabled",
+    "image-count": "fixed",
+    "image-resolution": [
+        300,
+        200
+    ],
     "image": [
         "assets\/img\/team (2).webp"
     ],
@@ -122,6 +131,11 @@
         "para": null,
         "points": null,
         "flag": "enabled",
+        "image-count": "variable",
+        "image-resolution": [
+            300,
+            200
+        ],
         "image": [
             "assets/img/awards/01.png",
             "assets/img/awards/02.png",

@@ -11,7 +11,7 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\Contact2Controller;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\ImageController;
 
 
 
@@ -83,7 +83,7 @@ Route::post('/contact/create', [ContactController::class, 'store']);
 Route::delete('/contact/delete/{id}', [ContactController::class, 'destroy']);
 Route::put('/contact/update/{id}', [ContactController::class, 'update']);
 
-
+Route::post('/upload-cropped-image', [ImageController::class, 'uploadCroppedImage']);
 Route::prefix('admin')->group(function () {
     Route::post('/create', [AdminController::class, 'create']); // Create admin
     Route::put('/{id}/edit', [AdminController::class, 'edit']); // Edit admin

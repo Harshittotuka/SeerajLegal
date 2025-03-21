@@ -24,6 +24,8 @@ class PracticesSeeder extends Seeder
                 'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
+                'image_path'=>'assets/dynamic/practices/Consumer_Firm.webp',
             ],
             [
                 'practice_name' => 'Banking and Finance',
@@ -35,6 +37,8 @@ class PracticesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                  'icon'=>'fa-s',
+                'image_path'=>'assets/dynamic/practices/Consumer_Firm.webp',
             ],
             [
                 'practice_name' => 'Criminal Law',
@@ -46,6 +50,8 @@ class PracticesSeeder extends Seeder
                 'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                  'icon'=>'fa-s',
+                'image_path'=>'assets/dynamic/practices/Consumer_Firm.webp',
             ],
             [
                 'practice_name' => 'Criminal Law',
@@ -57,6 +63,8 @@ class PracticesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                  'icon'=>'fa-s',
+                'image_path'=>'assets/dynamic/practices/Consumer_Firm.webp',
             ],
             [
                 'practice_name' => 'Private Firms',
@@ -68,6 +76,8 @@ class PracticesSeeder extends Seeder
                 'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
+                'image_path'=>'assets/dynamic/practices/Consumer_Firm.webp',
             ],
             [
                 'practice_name' => 'Private Firms',
@@ -79,6 +89,8 @@ class PracticesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                  'icon'=>'fa-s',
+                'image_path'=>'assets/dynamic/practices/Consumer_Firm.webp',
             ],
             [
                 'practice_name' => 'Civil Law',
@@ -90,6 +102,8 @@ class PracticesSeeder extends Seeder
                 'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                  'icon'=>'fa-s',
+                'image_path'=>'assets/dynamic/practices/Consumer_Firm.webp',
             ],
             [
                 'practice_name' => 'Civil Law',
@@ -101,6 +115,8 @@ class PracticesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                  'icon'=>'fa-s',
+                'image_path'=>'assets/dynamic/practices/Consumer_Firm.webp',
             ],
             [
                 'practice_name' => 'Real Estate & Construction',
@@ -112,6 +128,8 @@ class PracticesSeeder extends Seeder
                 'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                  'icon'=>'fa-s',
+                'image_path'=>'assets/dynamic/practices/Consumer_Firm.webp',
             ],
             [
                 'practice_name' => 'Real Estate & Construction',
@@ -123,6 +141,8 @@ class PracticesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                  'icon'=>'fa-s',
+                'image_path'=>'assets/dynamic/practices/Consumer_Firm.webp',
             ],
             [
                 'practice_name' => 'Consumer Forums',
@@ -134,6 +154,8 @@ class PracticesSeeder extends Seeder
                 'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                  'icon'=>'fa-s',
+                'image_path'=>'assets/dynamic/practices/Consumer_Firm.webp',
             ],
             [
                 'practice_name' => 'Consumer Forums',
@@ -146,6 +168,8 @@ class PracticesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                  'icon'=>'fa-s',
+                'image_path'=>'assets/dynamic/practices/Consumer_Firm.webp',
             ],
         ];
 

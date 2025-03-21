@@ -21,10 +21,13 @@
     <link id="pagestyle" href="{{ asset('assets/backend/css/material-dashboard.css?v=3.2.0') }}" rel="stylesheet" />
     <!-- Include Toastify CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Include Toastify JS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+
+
 
 </head>
 
@@ -75,7 +78,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             const urlParams = new URLSearchParams(window.location.search);
             const practiceName = urlParams.get("servicename");
-
+          
             if (!practiceName) {
                 console.error("service name not found in URL");
                 return;
@@ -118,7 +121,7 @@
                 document.getElementById("Image").value = practiceData[0].image || "";
                 document.getElementById("Icon").value = practiceData[0].icon || "";
             }
-
+             previewIcon();
             // Populate dynamic forms for each practice
             practiceData.forEach((practice, index) => {
                 let formHtml = `
@@ -145,25 +148,25 @@
                             </div>
                         </div>
                         ${practice.points?.slice(1).map(point => `
-                                            <div class="mb-3 d-flex align-items-center">
-                                                <label class="me-3" style="width: 100px;"></label>
-                                                <div class="flex-grow-1 d-flex">
-                                                    <input type="text" class="form-control border-1 border-bottom"
-                                                        value="${point}" placeholder="Enter point">
-                                                    <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
-                                                </div>
-                                            </div>
-                                        `).join('') || ''}
+                                                    <div class="mb-3 d-flex align-items-center">
+                                                        <label class="me-3" style="width: 100px;"></label>
+                                                        <div class="flex-grow-1 d-flex">
+                                                            <input type="text" class="form-control border-1 border-bottom"
+                                                                value="${point}" placeholder="Enter point">
+                                                            <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
+                                                        </div>
+                                                    </div>
+                                                `).join('') || ''}
                     </div>
                 </form>
                 
                 <button class="btn btn-primary addFormInside">+</button>
                 ${index !== 0 ? `
-                                    <button class="btn btn-danger delete-form">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
-                                            <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
-                                        </svg>
-                                    </button>` : ''}
+                                            <button class="btn btn-danger delete-form">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
+                                                    <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
+                                                </svg>
+                                            </button>` : ''}
             </div>
             <br>
         `;
@@ -224,110 +227,113 @@
     </script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("saveButton").addEventListener("click", function() {
-                const forms = document.querySelectorAll(".form-box");
+       document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("saveButton").addEventListener("click", function() {
+        const forms = document.querySelectorAll(".form-box");
 
-                let practiceName = document.getElementById("name").value.trim();
+        let practiceName = document.getElementById("name").value.trim();
+        let icon = document.getElementById("Icon").value.trim(); // Get the icon value
 
-                // Ensure practiceName is not empty
-                if (!practiceName) {
-                    showToast("Practice name is required.", "error");
-                    return;
-                }
+        // Ensure practiceName is not empty
+        if (!practiceName) {
+            showToast("Practice name is required.", "error");
+            return;
+        }
 
-                let paragraphs = [];
-                let validForms = 0; // Counter to check if any form is submitted
+        // Ensure icon is not empty
+        if (!icon) {
+            showToast("Icon is required.", "error");
+            return;
+        }
 
-                forms.forEach((form, index) => {
-                    let title = form.querySelector("input[placeholder='Enter title']").value.trim();
-                    let para = form.querySelector("textarea[placeholder='Enter paragraph']").value
-                        .trim();
+        let paragraphs = [];
+        let validForms = 0; // Counter to check if any form is submitted
 
-                    let points = [];
-                    form.querySelectorAll(".pointsContainer input[placeholder='Enter point']")
-                        .forEach(pointInput => {
-                            let pointValue = pointInput.value.trim();
-                            if (pointValue) points.push(
-                                pointValue); // Only add non-empty points
-                        });
+        forms.forEach((form, index) => {
+            let title = form.querySelector("input[placeholder='Enter title']").value.trim();
+            let para = form.querySelector("textarea[placeholder='Enter paragraph']").value.trim();
 
-                    // Skip form if all fields (title, para, points) are empty
-                    if (!title && !para && points.length === 0) {
-                        console.warn(`Skipping form ${index + 1} as all fields are empty.`);
-                        return;
-                    }
-
-                    validForms++; // Count valid forms
-
-                    paragraphs.push({
-                        para_sno: index + 1,
-                        title: title || null,
-                        para: para || null,
-                        points: points.length > 0 ? points : null // Store null if empty
-                    });
-                });
-
-                if (validForms === 0) {
-                    showToast("No valid forms to submit.", "error");
-                    return;
-                }
-
-                let requestData = {
-                    service_name: practiceName, // Required field
-                    paragraphs: paragraphs,
-                    what_we_provide: ["Arbitration", "Negotiation"], // Static as per requirement
-                    flag: "enabled"
-                };
-
-                console.log("Final Request Data:", requestData);
-                console.log("Save1");
-                const urlParams = new URLSearchParams(window.location.search);
-                const serviceNameFromUrl = urlParams.get("servicename");
-                console.log("Save0");
-                // Determine API endpoint dynamically
-                let apiUrl = "http://127.0.0.1:8000/api/services/create"; // Default for new practice
-                if (serviceNameFromUrl) {
-                    apiUrl =
-                        `http://127.0.0.1:8000/api/services/update-service/${encodeURIComponent(serviceNameFromUrl)}`;
-                }
-                console.log("Save");
-                fetch(apiUrl, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(requestData)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log("Success:", data);
-                        showToast("All valid data saved successfully!", "success");
-
-                        //Redirect to the given URL after a short delay
-                        setTimeout(() => {
-                            window.location.href =
-                                "http://127.0.0.1:8000/backend/service/list";
-                        }, 2000);
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                        showToast("Error saving data. Please try again.", "error");
-                    });
+            let points = [];
+            form.querySelectorAll(".pointsContainer input[placeholder='Enter point']").forEach(pointInput => {
+                let pointValue = pointInput.value.trim();
+                if (pointValue) points.push(pointValue); // Only add non-empty points
             });
 
-            // Function to show Toastify notifications
-            function showToast(message, type) {
-                Toastify({
-                    text: message,
-                    duration: 3000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: type === "success" ? "green" : "red",
-                }).showToast();
+            // Skip form if all fields (title, para, points) are empty
+            if (!title && !para && points.length === 0) {
+                console.warn(`Skipping form ${index + 1} as all fields are empty.`);
+                return;
             }
+
+            validForms++; // Count valid forms
+
+            paragraphs.push({
+                para_sno: index + 1,
+                title: title || null,
+                para: para || null,
+                points: points.length > 0 ? points : null // Store null if empty
+            });
         });
+
+        if (validForms === 0) {
+            showToast("No valid forms to submit.", "error");
+            return;
+        }
+
+        let requestData = {
+            service_name: practiceName, // Required field
+            paragraphs: paragraphs,
+            what_we_provide: ["Arbitration", "Negotiation"], // Static as per requirement
+            flag: "enabled",
+            icon: icon // Get the icon value
+        };
+
+        console.log("Final Request Data:", requestData);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const serviceNameFromUrl = urlParams.get("servicename");
+
+        // Determine API endpoint dynamically
+        let apiUrl = "http://127.0.0.1:8000/api/services/create"; // Default for new practice
+        if (serviceNameFromUrl) {
+            apiUrl = `http://127.0.0.1:8000/api/services/update-service/${encodeURIComponent(serviceNameFromUrl)}`;
+        }
+
+        fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Success:", data);
+                if (data.success) {
+                    showToast("All valid data saved successfully!", "success");
+                } else {
+                    showToast(data.message || "An error occurred.", "error");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                showToast("Error saving data. Please try again.", "error");
+            });
+    });
+
+    // Function to show Toastify notifications
+    function showToast(message, type) {
+        Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: type === "success" ? "green" : "red",
+        }).showToast();
+    }
+});
+
     </script>
 
     </script>
@@ -337,6 +343,19 @@
     <!-- Toastify JS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
+    <script>
+       window.onload = function () {
+    if (typeof toggleImageField === "function") {
+          console.error("toggleImageField function found!");
+          console.log(document.getElementById('toogle-hide'));
+
+        toggleImageField();
+    } else {
+        console.error("toggleImageField function not found!");
+    }
+};
+
+    </script>
 </body>
 
 </html>

@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>
-       Seeraj Legal Relief Foundation
+        Seeraj Legal Relief Foundation
     </title>
     <!--     Fonts and icons     -->
     <link href="{{ asset('assets/backend/css/nucleo-icons.css') }}" rel="stylesheet" />
@@ -25,7 +25,9 @@
 
     <!-- Include Toastify JS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
+    <script>
+        let globalImagePath = ""; // Global variable to store the image path
+    </script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -36,15 +38,15 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
 
 
-     <!-- Navbar -->
-          @include('backend.partials.top-nav')
+        <!-- Navbar -->
+        @include('backend.partials.top-nav')
         <!-- End Navbar -->
-<script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        updateBreadcrumbs(["Dashboard", "Practices","Create"], ["/backend", "/backend/practice/list","#"]);
-    });
-</script>
+        <script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                updateBreadcrumbs(["Dashboard", "Practices", "Create"], ["/backend", "/backend/practice/list", "#"]);
+            });
+        </script>
 
         @include('backend.partials.form')
 
@@ -53,7 +55,7 @@
 
 
 
-    
+
 
 
 
@@ -113,8 +115,20 @@
             // Populate Service Name, Image, and Icon (Assuming the first practice contains these)
             if (practiceData.length > 0) {
                 document.getElementById("name").value = practiceData[0].practice_name || "";
-                document.getElementById("Image").value = practiceData[0].image || "";
+                let imagePath = practiceData[0].image_path.replace(/\\/g, '/');
+
+                if (!imagePath.startsWith('http')) {
+                    imagePath = `http://127.0.0.1:8000/${imagePath.replace(/^\/+/, '')}`;
+                }
+
+                console.log('Final Image Path:', imagePath); // Debugging
+                document.getElementById("imagePreview").src = imagePath;
+                document.getElementById("imagePreview").style.display = 'block';
                 document.getElementById("Icon").value = practiceData[0].icon || "";
+                previewIcon();
+
+                // Store the image path in the global variable
+                globalImagePath = practiceData[0].image_path;
             }
 
             // Populate dynamic forms for each practice
@@ -143,25 +157,25 @@
                             </div>
                         </div>
                         ${practice.points?.slice(1).map(point => `
-                                    <div class="mb-3 d-flex align-items-center">
-                                        <label class="me-3" style="width: 100px;"></label>
-                                        <div class="flex-grow-1 d-flex">
-                                            <input type="text" class="form-control border-1 border-bottom"
-                                                value="${point}" placeholder="Enter point">
-                                            <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
-                                        </div>
-                                    </div>
-                                `).join('') || ''}
+                                                                    <div class="mb-3 d-flex align-items-center">
+                                                                        <label class="me-3" style="width: 100px;"></label>
+                                                                        <div class="flex-grow-1 d-flex">
+                                                                            <input type="text" class="form-control border-1 border-bottom"
+                                                                                value="${point}" placeholder="Enter point">
+                                                                            <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
+                                                                        </div>
+                                                                    </div>
+                                                                `).join('') || ''}
                     </div>
                 </form>
                 
                 <button class="btn btn-primary addFormInside">+</button>
               ${index !== 0 ? `
-        <button class="btn btn-danger delete-form">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
-                <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
-            </svg>
-        </button>` : ''}
+                                        <button class="btn btn-danger delete-form">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
+                                                <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
+                                            </svg>
+                                        </button>` : ''}
 
             </div>
             <br>
@@ -224,15 +238,22 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("saveButton").addEventListener("click", function() {
+
+
                 const forms = document.querySelectorAll(".form-box");
                 let practiceName = document.getElementById("name").value.trim();
+                let icon = document.getElementById("Icon").value.trim(); // Get the icon value
 
                 // Ensure practiceName is not empty
                 if (!practiceName) {
                     showToast("Practice name is required.", "error");
                     return;
                 }
+                if (!globalImagePath) {
+                     globalImagePath = `assets/dynamic/practices/${practiceName.replace(/\s+/g, "_")}.webp`;
 
+                }
+                console.log("global : ", globalImagePath);
                 let paragraphs = [];
                 let validForms = 0; // Counter to check if any form is submitted
 
@@ -246,7 +267,7 @@
                         .forEach(pointInput => {
                             let pointValue = pointInput.value.trim();
                             if (pointValue) points.push(
-                            pointValue); // Only add non-empty points
+                                pointValue); // Only add non-empty points
                         });
 
                     // Skip form if all fields (title, para, points) are empty
@@ -254,8 +275,7 @@
                         console.warn(`Skipping form ${index + 1} as all fields are empty.`);
                         return;
                     }
-                    
-                    
+
                     validForms++; // Count valid forms
 
                     paragraphs.push({
@@ -271,8 +291,52 @@
                     return;
                 }
 
+                const canvas = croppedCanvas;
+                if (canvas) {
+                    canvas.toBlob((blob) => {
+                        const formData = new FormData();
+                        console.log("here1");
+                        formData.append('image', blob); // Send the cropped image
+                        formData.append('path', globalImagePath.replace('http://127.0.0.1:8000/',
+                            '')); // Send relative path
+
+                        // Send the cropped image to the server
+                        fetch('/api/upload-cropped-image', {
+                                method: 'POST',
+                                headers: {},
+                                body: formData,
+                            })
+                            .then((response) => response.json())
+                            .then((data) => {
+                                if (data.success) {
+                                    console.log('Image replaced successfully in public folder:',
+                                        data.message);
+                                    showToast("Image replaced successfully!", "success");
+
+                                    // Proceed with saving the rest of the data
+                                    savePracticeData(practiceName, icon, paragraphs);
+                                } else {
+                                    console.error('Error replacing image in public folder:',
+                                        data.message);
+                                    showToast("Error replacing image.", "error");
+                                }
+                            })
+                            .catch((error) => {
+                                console.error('Error uploading image:', error);
+                                showToast("Error uploading image.", "error");
+                            });
+                    }, 'image/webp'); // Specify the image format
+                } else {
+                    // If no image is being cropped, proceed with saving the rest of the data
+                    savePracticeData(practiceName, icon, paragraphs);
+                }
+            });
+
+            function savePracticeData(practiceName, icon, paragraphs) {
                 let requestData = {
                     practice_name: practiceName, // Required field
+                    image_path: globalImagePath, // Use the global variable for image path
+                    icon: icon, // Include the icon
                     paragraphs: paragraphs,
                     what_we_provide: ["Arbitration", "Negotiation"], // Static as per requirement
                     flag: "enabled"
@@ -301,18 +365,24 @@
                     .then(data => {
                         console.log("Success:", data);
                         showToast("All valid data saved successfully!", "success");
-
-                        //Redirect to the given URL after a short delay
-                        setTimeout(() => {
-                            window.location.href = "http://127.0.0.1:8000/backend/practice/list";
-                        }, 2000);
                     })
                     .catch(error => {
                         console.error("Error:", error);
                         showToast("Error saving data. Please try again.", "error");
                     });
-            });
+            }
 
+            // Function to show Toastify notifications
+            function showToast(message, type) {
+                Toastify({
+                    text: message,
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: type === "success" ? "green" : "red",
+                }).showToast();
+            }
             // Function to show Toastify notifications
             function showToast(message, type) {
                 Toastify({
