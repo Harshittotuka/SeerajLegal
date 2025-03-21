@@ -12,6 +12,8 @@ use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\Contact2Controller;
 use App\Http\Controllers\AdminController;
 
+//api to get team based on designation
+Route::get('/team/designation/{designation}', [TeamController::class, 'getByDesignation']);
 
 
 

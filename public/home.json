@@ -15,7 +15,8 @@
         "flag": "enabled",
         "image": "Asds",
         "icon_Type": "fontawesome",
-        "icon": "fas fa-r"
+        "icon": "fas fa-r",
+        "ss" : "/assets/backend/img/previews/S_id5home.png"
     },
     {
         "usage": [
@@ -40,6 +41,7 @@
             "assets\/img\/Rajasthan.png"
         ],
         "icon_Type": "fontawesome",
-        "icon": "fas fa-r"
+        "icon": "fas fa-r",
+        "ss" : "/assets/backend/img/previews/S_id8.png"
     }
 ]
