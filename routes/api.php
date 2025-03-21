@@ -88,6 +88,7 @@ Route::delete('/contact/delete/{id}', [ContactController::class, 'destroy']);
 Route::put('/contact/update/{id}', [ContactController::class, 'update']);
 
 Route::post('/upload-cropped-image', [ImageController::class, 'uploadCroppedImage']);
+
 Route::prefix('admin')->group(function () {
     Route::post('/create', [AdminController::class, 'create']); // Create admin
     Route::put('/{id}/edit', [AdminController::class, 'edit']); // Edit admin

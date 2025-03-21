@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>
-       Seeraj Legal Relief Foundation
+        Seeraj Legal Relief Foundation
     </title>
     <!--     Fonts and icons     -->
     <link href="{{ asset('assets/backend/css/nucleo-icons.css') }}" rel="stylesheet" />
@@ -30,15 +30,15 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
 
 
-    <!-- Navbar -->
-          @include('backend.partials.top-nav')
+        <!-- Navbar -->
+        @include('backend.partials.top-nav')
         <!-- End Navbar -->
         <script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        updateBreadcrumbs(["Dashboard", "Teams"], ["/backend", "/backend/teams"]);
-    });
-</script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                updateBreadcrumbs(["Dashboard", "Teams"], ["/backend", "/backend/teams"]);
+            });
+        </script>
 
 
         <style>
@@ -53,7 +53,7 @@
                 padding: 5px 10px !important;
             }
 
-           
+
             /* Ensuring table doesn't cause overflow */
             .table-responsive {
                 overflow-x: auto;
@@ -500,6 +500,7 @@
         </script>
 
 
+        @include('backend.components.topimage-modal')
 
 
         <div class="container-fluid overflow-hidden py-2">
@@ -512,10 +513,19 @@
                                 <p class="text-sm mb-0 text-capitalize">Teams List</p>
                                 <h4 class="mb-0">Manage Teams</h4>
                             </div>
-                            <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon"
-                                style="cursor: pointer; width: 40px; height: 40px;" data-bs-toggle="modal"
-                                data-bs-target="#memberModal">
-                                <i class="material-symbols-rounded opacity-10">add</i>
+
+                            <div class="d-flex mt-2">
+                                <!-- FAQ HEADER Button -->
+                                <button class="btn btn-warning edit-btn me-4" data-imageid="TopImg_tea"
+                                    data-bs-toggle="modal" data-bs-target="#topImageModal">
+                                    Teams Header
+                                </button>
+
+                                <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon"
+                                    style="cursor: pointer; width: 40px; height: 40px;" data-bs-toggle="modal"
+                                    data-bs-target="#memberModal">
+                                    <i class="material-symbols-rounded opacity-10">add</i>
+                                </div>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -657,10 +667,10 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
- 
+
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script><!-- Keep Bootstrap 4 -->
-   
+
     <!-- Use Bootstrap 4 DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
@@ -668,7 +678,7 @@
 
 
 
-    
+
 
 
 
