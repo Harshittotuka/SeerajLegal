@@ -42,8 +42,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.0.0/cropper.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.0.0/cropper.min.js"></script>
 
-    
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
 </head>
 
@@ -59,10 +59,17 @@
         @include('backend.partials.top-nav')
         <!-- End Navbar -->
 
-      
+        @include('backend.components.topimage-modal')
+        <div class="d-flex justify-content-between align-items-center mt-3 ms-3">
+            <h5 class="mb-0">HomePage</h5> <!-- Optional Title -->
+            <button class="btn btn-warning edit-btn mt-3 me-4" data-imageid="TopImg_abt" data-bs-toggle="modal"
+                data-bs-target="#topImageModal">
+                HomePage Header
+            </button>
+        </div>
 
 
-        @include('components.image-cropper')
+        {{-- @include('components.image-cropper') --}}
 
 
         @include('backend.partials.pageinput');
@@ -199,7 +206,7 @@
                 }
                 document.getElementById("iconClassInput").value = section.icon || "";
                 document.getElementById("iconPreview").innerHTML = section.icon ? `<i class="${section.icon}"></i>` :
-                "";
+                    "";
 
                 // Handle images
                 const imageContainer = document.querySelector("#imageUpload .d-flex");
@@ -427,7 +434,7 @@
 
 
 
-    
+
 
 
 
