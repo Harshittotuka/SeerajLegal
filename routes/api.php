@@ -14,6 +14,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ImageController;
 
 
+//api to get team based on designation
+Route::get('/team/designation/{designation}', [TeamController::class, 'getByDesignation']);
+
+
+
 
 
 //api to update json file of personal details(nova)

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Team;
 
 use Illuminate\Http\Request;
 use App\Services\TeamService;
@@ -126,4 +127,19 @@ class TeamController extends Controller
             ], 422);
         }
     }
+
+    //based on designation
+    public function getByDesignation($designation)
+    {
+        // Fetch team members based on designation
+        $members = Team::where('designation', $designation)->get();
+
+        // Check if data exists
+        if ($members->isEmpty()) {
+            return response()->json(['message' => 'No team members found with this designation.'], 404);
+        }
+
+        return response()->json($members, 200);
+    }
+
 }

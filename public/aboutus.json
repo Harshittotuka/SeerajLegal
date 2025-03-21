@@ -28,7 +28,8 @@
             "assets/img/Experience.webp"
         ],
         "icon_Type": "fontawesome",
-        "icon": "fa-r"
+        "icon": "fa-r",
+        "ss" : "/assets/backend/img/previews/S_id1.png"
     },
     {
         "usage": [
@@ -47,7 +48,8 @@
         "flag": "enabled",
         "image": null,
         "icon_Type": "fontawesome",
-        "icon": "fa-r"
+        "icon": "fa-r",
+        "ss" : "/assets/backend/img/previews/S_id2.png"
     },
     {
         "usage": [
@@ -66,7 +68,8 @@
         "flag": "enabled",
         "image": null,
         "icon_Type": "fontawesome",
-        "icon": "fa-r"
+        "icon": "fa-r",
+        "ss" : "/assets/backend/img/previews/S_id3.png"
     },
     {
         "usage": [
@@ -85,7 +88,8 @@
         "flag": "enabled",
         "image": null,
         "icon_Type": "fontawesome",
-        "icon": "fa-r"
+        "icon": "fa-r",
+        "ss" : "/assets/backend/img/previews/S_id4.png"
     },
    {
     "usage": [
@@ -114,7 +118,8 @@
         "assets\/img\/team (2).webp"
     ],
     "icon_Type": "fontawesome",
-    "icon": "fa-h"
+    "icon": "fa-h",
+    "ss" : "/assets/backend/img/previews/S_id5who.png"
 },
     {
         "usage": [
@@ -143,7 +148,8 @@
             "assets/img/awards/04.png"
         ],
         "icon_Type": "fontawesome",
-        "icon": "fa-r"
+        "icon": "fa-r",
+        "ss" : "/assets/backend/img/previews/S_id6.png"
     },
     {
         "usage": [

@@ -159,25 +159,29 @@ async function loadSections() {
         container.innerHTML = "";
 
         filteredSections.forEach((section, index) => {
-            const card = document.createElement("div");
-            card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
-            card.innerHTML = `
-                <div class="card text-center" style="height: 250px; width: 250px;" 
-                     data-bs-toggle="modal" data-bs-target="#contentModal" onclick="populateModal(${index})">
-                    <div class="card-header p-2 ps-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <i><h6 class="text-uppercase fw-bold mb-0">Section ${index}</h6></i>
-                            <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                <i class="${section.icon}"></i>
-                            </div>
-                        </div>
-                        <hr class="my-2">
-                        <h5 class="mb-0">${section.title}</h5>
+    const card = document.createElement("div");
+    card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
+    card.innerHTML = `
+        <div class="card text-center" style="height: 250px; width: 250px;" 
+             data-bs-toggle="modal" data-bs-target="#contentModal" onclick="populateModal(${index})">
+            <div class="card-header p-2 ps-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <i><h6 class="text-uppercase fw-bold mb-0">Section ${index}</h6></i>
+                    <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                        <i class="${section.icon}"></i>
                     </div>
                 </div>
-            `;
-            container.appendChild(card);
-        });
+                <hr class="my-2">
+                <h5 class="mb-0">${section.title}</h5>
+            </div>
+            <div class="card-body p-2">
+                <img src="${section.ss ? section.ss : 'default-placeholder.png'}" 
+                     alt="Preview" class="img-fluid rounded" style="max-height: 120px;">
+            </div>
+        </div>
+    `;
+    container.appendChild(card);
+});
 
     } catch (error) {
         console.error("Error loading sections:", error);
