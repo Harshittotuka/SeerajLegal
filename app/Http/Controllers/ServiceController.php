@@ -84,10 +84,9 @@ public function getServiceNames(): JsonResponse
 
 public function store(Request $request): JsonResponse
 {
-
-
     $data = $request->validate([
         'service_name' => 'required|string',
+        'icon' => 'nullable|string', // Allow nullable but handle it explicitly
         'paragraphs' => 'nullable|array',
         'paragraphs.*.para_sno' => 'nullable|integer',
         'paragraphs.*.title' => 'nullable|string',
@@ -95,14 +94,22 @@ public function store(Request $request): JsonResponse
         'paragraphs.*.points' => 'nullable|array',
     ]);
 
+    if (empty($data['icon'])) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Icon is required'
+        ], 200); // Return success: false with HTTP 200
+    }
+
     $service = $this->servicesService->createService($data);
 
     return response()->json([
         'success' => true,
-        'message' => 'Services created successfully',
-        'data' => $service['data'], // ✅ Extracting only the `data` array to avoid nested responses
+        'message' => 'Service created successfully',
+        'data' => $service['data'],
     ], 201);
 }
+
 public function deleteByName($name): JsonResponse
 {
     $deleted = $this->servicesService->deleteServiceByName($name);
@@ -119,11 +126,11 @@ public function deleteByName($name): JsonResponse
         ], 404);
     }
 }
-
 public function update(Request $request, $ServiceName)
 {
     $validated = $request->validate([
         'service_name' => 'required|string',
+        'icon' => 'nullable|string', // Allow nullable but handle it explicitly
         'paragraphs' => 'nullable|array',
         'paragraphs.*.para_sno' => 'nullable|integer',
         'paragraphs.*.title' => 'nullable|string',
@@ -132,7 +139,13 @@ public function update(Request $request, $ServiceName)
         'flag' => 'nullable|string'
     ]);
 
-    // Call the service to update records
+    if (empty($validated['icon'])) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Icon is required'
+        ], 200); // Return success: false with HTTP 200
+    }
+
     $result = $this->servicesService->updateService($ServiceName, $validated);
 
     if (!$result['success']) {
@@ -142,9 +155,10 @@ public function update(Request $request, $ServiceName)
     return response()->json([
         'success' => true,
         'message' => 'Practice updated successfully',
-        'data' => $result['data'] // Ensure the updated data is returned
+        'data' => $result['data']
     ]);
 }
+
 
 
 }

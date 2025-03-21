@@ -20,7 +20,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
   [
                 'service_name' => 'Conciliation',
@@ -36,7 +37,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
                [ 'service_name' => 'Conciliation',
                 'para_sno' => 3,
@@ -46,7 +48,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Conciliation',
@@ -60,7 +63,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Conciliation',
@@ -74,7 +78,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Conciliation',
@@ -88,7 +93,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Conciliation',
@@ -102,7 +108,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],  [
                 'service_name' => 'Arbitration',
                 'para_sno' => 1,
@@ -112,7 +119,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
 [
                 'service_name' => 'Arbitration',
@@ -127,7 +135,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ]
 ,
 
@@ -141,7 +150,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -155,7 +165,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -169,7 +180,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -183,7 +195,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -197,7 +210,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -211,7 +225,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -225,7 +240,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -239,7 +255,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -250,7 +267,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -265,7 +283,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
 
 
@@ -278,7 +297,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -292,7 +312,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -306,7 +327,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -320,7 +342,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -334,7 +357,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -348,7 +372,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -362,7 +387,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],  [
                 'service_name' => 'Negotiation',
                 'para_sno' => 1,
@@ -376,7 +402,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Negotiation',
@@ -387,7 +414,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Negotiation',
@@ -401,7 +429,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Negotiation',
@@ -415,7 +444,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Negotiation',
@@ -429,7 +459,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Negotiation',
@@ -443,7 +474,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Negotiation',
@@ -457,7 +489,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Negotiation',
@@ -471,7 +504,8 @@ class ServicesSeeder extends Seeder
                 'rules' => null,
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+                'icon'=>'fa-s',
             ], [
                 'service_name' => 'Mediation',
                 'para_sno' => 1,
@@ -482,6 +516,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'enabled', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
+                'icon'=>'fa-s',
             ],
 [
                 'service_name' => 'Mediation',
@@ -497,6 +532,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
+                'icon'=>'fa-s',
            
             ],
             [
@@ -509,6 +545,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Mediation',
@@ -523,6 +560,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Mediation',
@@ -537,6 +575,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Mediation',
@@ -551,6 +590,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Mediation',
@@ -565,6 +605,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
+                'icon'=>'fa-s',
             ],
             [
                 'service_name' => 'Mediation',
@@ -579,6 +620,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
+                'icon'=>'fa-s',
             ]
             ]);
         }
