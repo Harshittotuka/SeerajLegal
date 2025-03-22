@@ -1,10 +1,6 @@
-<!-- Include Cropper.js CSS & JS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css"
-    integrity="sha512-VvK6R3kpLRc9QWq25I+57f5I/M6QKrFSf+W5rYICtL14O8Zs6jtQ3ebO5nuC8XfQ4zrQ49KJvJmEr+93xZGl6g=="
-    crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"
-    integrity="sha512-OJibNRkxoxU/0GQOcRvkmXWvZ2kGxvL3Av41T9gA5Xg8Uu3Q1YSjwjU/w7+KgQGdOP6EY1PuAZPRSTqaWF+5Mw=="
-    crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js" crossorigin="anonymous"></script>
+
 
 <!-- Hidden file input for selecting new image -->
 <input type="file" id="inputImage" accept="image/*" style="display: none;">
