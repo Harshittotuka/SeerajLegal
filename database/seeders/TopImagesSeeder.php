@@ -31,7 +31,7 @@ class TopImagesSeeder extends Seeder {
                 'page_name' => 'Become a member',
                 'title' => 'Membership',
                 'sub_title' => 'Become a member',
-                'image_url' => 'assets/dynamic/Top/TopImg_bec.webp',
+                'image_url' => 'assets/dynamic/Top/TopImg_mem.webp',
                 'image_resolution' => json_encode([1792, 1024]),
                 'icon' => 'fa-s',
             ],

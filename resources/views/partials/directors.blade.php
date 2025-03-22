@@ -5,7 +5,7 @@
                 <div class="section-subtitle">
                     <div class="icon"><i id="section-7-icon" class=""></i></div> Qualified Experts
                 </div>
-                <div class="section-title" id="directors-title">Our Directors</div>
+                <div class="section-title" id="directors-title"> Meet Our Directors</div>
             </div>
         </div>
         <div class="row">
