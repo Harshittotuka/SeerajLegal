@@ -73,29 +73,22 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    // Fetch the JSON file
     fetch('/home.json')
         .then(response => response.json())
         .then(data => {
-            // Find the ADR Services section data
             const serviceData = data.find(service => service.S_id === 5);
-
+            
             if (!serviceData || serviceData.flag !== "enabled") {
                 console.log("ADR Services not enabled or not found.");
                 return;
             }
-
+            
             const section = document.getElementById("adr-services");
+            section.style.display = "block";
 
-            // ✅ Update the title and paragraph
             section.querySelector(".section-title span").textContent = serviceData.title;
             section.querySelector("p").textContent = serviceData.para;
-
-            // ✅ Update the main section icon (Font Awesome)
             section.querySelector(".section-subtitle .icon").innerHTML = `<i class="${serviceData.icon}"></i>`;
-
-            // ✅ Show the section if it's hidden
-            section.style.display = "block";
         })
         .catch(error => console.error("Error fetching JSON:", error));
 });
@@ -106,42 +99,43 @@ document.addEventListener("DOMContentLoaded", function() {
     fetch("http://127.0.0.1:8000/api/services/list")
         .then(response => response.json())
         .then(data => {
-            if (data.success && data.data.length > 0) {
-                const enabledServices = data.data.filter(service => service.flag === "enabled");
-
-                if (enabledServices.length === 0) {
-                    return; // If no services are enabled, exit without showing the section
-                }
-
-                const servicesContainer = document.getElementById("services-container");
-                const adrSection = document.getElementById("adr-services");
-                adrSection.style.display = "block"; // Show the section if at least one service is enabled
-
-                const defaultIcon = "flaticon-courthouse"; // Default icon
-
-                enabledServices.forEach(service => {
-                    const serviceName = service.service_name;
-                    const serviceIcon = service.icon ? service.icon : defaultIcon; // Use API icon or fallback
-
-                    const serviceHTML = `
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item">
-                                <a href="/service/${serviceName}">
-                                    <i class="${serviceIcon}"></i>
-                                    <h5>${serviceName}</h5>
-                                    <div class="shape"><i class="${serviceIcon}"></i></div>
-                                </a>
-                            </div>
-                        </div>
-                    `;
-
-                    servicesContainer.innerHTML += serviceHTML;
-                });
+            if (!data.success || data.data.length === 0) {
+                console.log("No ADR services found.");
+                return;
             }
+            
+            const enabledServices = data.data.filter(service => service.flag === "enabled");
+            if (enabledServices.length === 0) {
+                return;
+            }
+
+            const servicesContainer = document.getElementById("services-container");
+            const adrSection = document.getElementById("adr-services");
+            adrSection.style.display = "block";
+
+            const defaultIcon = "flaticon-courthouse";
+            enabledServices.forEach(service => {
+                const serviceName = service.service_name;
+                const serviceIcon = service.icon ? service.icon : defaultIcon;
+
+                const serviceHTML = `
+                    <div class="col-lg-4 col-md-6">
+                        <div class="item">
+                            <a href="/service/${serviceName}">
+                                <i class="${serviceIcon}"></i>
+                                <h5>${serviceName}</h5>
+                                <div class="shape"><i class="${serviceIcon}"></i></div>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                servicesContainer.innerHTML += serviceHTML;
+            });
         })
         .catch(error => console.error("Error fetching services:", error));
 });
 </script>
+
 
 
 
@@ -153,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     <!-- Rajasthan S_id: -->
     <!-- Rajasthan S_id: 8 -->
-<section class="serve section-padding bg-lightbrown animate-box">
+<section id="rajasthan-section" class="serve section-padding bg-lightbrown animate-box">
     <div class="container">
         <div class="row justify-content-center align-items-center">
             <!-- Left Column - Map Visualization -->
@@ -189,34 +183,40 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             const sectionData = data.find(section => section.S_id === 8);
+            const sectionElement = document.getElementById("rajasthan-section");
 
-            if (sectionData && sectionData.flag === "enabled") {
-                document.getElementById('sectionTitle').innerHTML = sectionData.title;
-                document.getElementById('sectionPara').innerHTML = sectionData.para;
-                document.getElementById('rajasthanMap').src = sectionData.image[0];
-
-                // ✅ Update the icon dynamically from JSON
-                const iconContainer = document.getElementById("rajasthan-icon-container");
-                iconContainer.innerHTML = `<i class="${sectionData.icon}"></i>`;
-
-                // ✅ Update the service points
-                const pointsContainer = document.getElementById('servicePoints');
-                pointsContainer.innerHTML = '';
-
-                sectionData.points.forEach(point => {
-                    const pointHTML = `
-                        <div class="col-4 stat-item">
-                            <div class="stat-number">${point.split(' ')[0]}</div>
-                            <div class="stat-label">${point.split(' ').slice(1).join(' ')}</div>
-                        </div>
-                    `;
-                    pointsContainer.innerHTML += pointHTML;
-                });
+            // ✅ Remove section if flag is not "enabled"
+            if (!sectionData || sectionData.flag !== "enabled") {
+                sectionElement.remove();
+                return;
             }
+
+            // ✅ Populate data only if flag is enabled
+            document.getElementById('sectionTitle').innerHTML = sectionData.title;
+            document.getElementById('sectionPara').innerHTML = sectionData.para;
+            document.getElementById('rajasthanMap').src = sectionData.image[0];
+
+            // ✅ Update the icon dynamically
+            document.getElementById("rajasthan-icon-container").innerHTML = `<i class="${sectionData.icon}"></i>`;
+
+            // ✅ Update the service points dynamically
+            const pointsContainer = document.getElementById('servicePoints');
+            pointsContainer.innerHTML = '';
+
+            sectionData.points.forEach(point => {
+                const pointHTML = `
+                    <div class="col-4 stat-item">
+                        <div class="stat-number">${point.split(' ')[0]}</div>
+                        <div class="stat-label">${point.split(' ').slice(1).join(' ')}</div>
+                    </div>
+                `;
+                pointsContainer.innerHTML += pointHTML;
+            });
         })
         .catch(error => console.error('Error fetching home.json:', error));
 });
 </script>
+
 
     <STYle>
         .bg-royalgold {

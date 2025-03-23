@@ -6,7 +6,7 @@
                 <div class="section-subtitle">
                     <div class="icon"><i id="section-7-icon" class=""></i></div> Qualified Experts
                 </div>
-                <div class="section-title" id="directors-title">Meet Our Directors</div>
+                <div class="section-title" id="directors-title"></div>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -113,13 +113,34 @@
 </style>
 
 <script>
-    fetch('/api/team/designation/Director')
+document.addEventListener("DOMContentLoaded", function () {
+    fetch('/aboutus.json')
         .then(response => response.json())
         .then(data => {
-            if (!Array.isArray(data)) {
-                console.error("Unexpected API response:", data);
+            const sectionData = data.find(section => section.S_id === 7);
+
+            if (!sectionData || sectionData.flag !== "enabled") {
+                console.log("Directors section not enabled.");
                 return;
             }
+
+            const section = document.getElementById("directors-section");
+            section.style.display = "block"; // Show the section
+
+            // ✅ Update the title and icon dynamically
+            document.getElementById("directors-title").innerHTML = sectionData.title;
+            document.getElementById("section-7-icon").className = sectionData.icon;
+        })
+        .catch(error => console.error('Error fetching home.json:', error));
+});
+
+fetch('/api/team/designation/Director')
+    .then(response => response.json())
+    .then(data => {
+        if (!Array.isArray(data)) {
+            console.error("Unexpected API response:", data);
+            return;
+        }
 
             const directorsContainer = document.querySelector('.directors');
             directorsContainer.innerHTML = ""; // Clear existing content

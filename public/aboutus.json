@@ -166,8 +166,14 @@
         "para": null,
         "points": null,
         "flag": "enabled",
+        "image-count": "variable",
+        "image-resolution": [
+            300,
+            200
+        ],
         "image": null,
         "icon_Type": "fontawesome",
-        "icon": "fa-r"
+        "icon": "fa-r",
+        "ss" : "/assets/backend/img/previews/S_id7.png"
     }
 ]
