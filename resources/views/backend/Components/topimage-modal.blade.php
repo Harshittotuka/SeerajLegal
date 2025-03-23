@@ -66,7 +66,7 @@
 </div>
 
 <!-- Image Preview Modal (existing) -->
-<div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="imagePreviewModal2" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -120,7 +120,7 @@
         const iconPreview = document.getElementById("iconPreview");
         const previewImage = document.getElementById("previewImage");
         const topImageModal = document.getElementById("topImageModal");
-        const imagePreviewModal = document.getElementById("imagePreviewModal");
+        const imagePreviewModal2 = document.getElementById("imagePreviewModal2");
         const resolution = document.getElementById("resolution");
         const imagePathInput = document.getElementById("image_path");
 
@@ -181,13 +181,13 @@
         previewImage.addEventListener("click", function() {
             let fullImage = document.getElementById("fullImagePreview");
             fullImage.src = this.src;
-            let previewModal = new bootstrap.Modal(imagePreviewModal);
+            let previewModal = new bootstrap.Modal(imagePreviewModal2);
             previewModal.show();
         });
-        imagePreviewModal.addEventListener("show.bs.modal", function() {
+        imagePreviewModal2.addEventListener("show.bs.modal", function() {
             topImageModal.classList.add("dimmed");
         });
-        imagePreviewModal.addEventListener("hidden.bs.modal", function() {
+        imagePreviewModal2.addEventListener("hidden.bs.modal", function() {
             topImageModal.classList.remove("dimmed");
         });
 
