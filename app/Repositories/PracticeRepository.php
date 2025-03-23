@@ -19,8 +19,8 @@ class PracticeRepository
     public function getPracticeNames()
     {
         return Practice::where('para_sno', 1) // Filter records where para_sno = 1
-        ->select('id', 'practice_name', 'flag') // Select required columns
-        ->groupBy('practice_name', 'id', 'flag') // Group by practice_name to get unique ones
+        ->select('id', 'practice_name','image_path', 'flag') // Select required columns
+        ->groupBy('practice_name', 'id','image_path', 'flag') // Group by practice_name to get unique ones
         ->orderBy('id') // Order by ID to get the first inserted record
         ->get();
     }
