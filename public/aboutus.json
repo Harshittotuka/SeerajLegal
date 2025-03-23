@@ -18,7 +18,7 @@
             "Public Benefit Focus",
             "Trustworthy and Authentic"
         ],
-        "flag": "disabled",
+        "flag": "enabled",
         "image-count": "fixed",
         "image-resolution": [
             300,

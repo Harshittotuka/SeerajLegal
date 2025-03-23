@@ -1,5 +1,5 @@
 
-<section class="team section-padding animate-box">
+<section id="directors-section" class="team section-padding animate-box" style="display: none;">
     <div class="container">
         <div class="rcw">
             <div class="col-md-12 text-center mb-20">
@@ -114,55 +114,62 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+    // Fetch from aboutus.json
     fetch('/aboutus.json')
         .then(response => response.json())
         .then(data => {
             const sectionData = data.find(section => section.S_id === 7);
 
             if (!sectionData || sectionData.flag !== "enabled") {
-                console.log("Directors section not enabled.");
+                console.log("Directors section is disabled.");
                 return;
             }
 
             const section = document.getElementById("directors-section");
             section.style.display = "block"; // Show the section
 
-            // ✅ Update the title and icon dynamically
-            document.getElementById("directors-title").innerHTML = sectionData.title;
-            document.getElementById("section-7-icon").className = sectionData.icon;
-        })
-        .catch(error => console.error('Error fetching home.json:', error));
-});
+            // ✅ Update title and icon dynamically
+            document.getElementById("directors-title").textContent = sectionData.title;
+            if (sectionData.icon) {
+                document.getElementById("section-7-icon").className = sectionData.icon;
+            }
 
-fetch('/api/team/designation/Director')
-    .then(response => response.json())
-    .then(data => {
-        if (!Array.isArray(data)) {
-            console.error("Unexpected API response:", data);
-            return;
-        }
+            // ✅ Fetch directors only if the section is enabled
+            fetch('/api/team/designation/Director')
+                .then(response => response.json())
+                .then(directors => {
+                    if (!Array.isArray(directors) || directors.length === 0) {
+                        console.warn("No directors found.");
+                        return;
+                    }
 
-            const directorsContainer = document.querySelector('.directors');
-            directorsContainer.innerHTML = ""; // Clear existing content
+                    const directorsContainer = document.querySelector('.directors');
+                    directorsContainer.innerHTML = ""; // Clear previous content
 
-            data.forEach(director => {
-                const imageUrl = director.image ? `/storage/${director.image}` : 'assets/img/my/profile_icon2.png'; // Default image
-                
-                directorsContainer.innerHTML += `
-                    <div class="director-item">
-                        <div class="img1">
-                            <img src="${imageUrl}" alt="${director.name}" class="img-cover">
-                            <div class="social-icons">
-                                ${director.socials?.linkedin ? `<a href="${director.socials.linkedin}" target="_blank"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                    directors.forEach(director => {
+                        const imageUrl = director.image ? `/storage/${director.image}` : 'assets/img/my/profile_icon2.png'; // Default image
+
+                        const directorElement = document.createElement("div");
+                        directorElement.className = "director-item";
+                        directorElement.innerHTML = `
+                            <div class="img1">
+                                <img src="${imageUrl}" alt="${director.name}" class="img-cover">
+                                <div class="social-icons">
+                                    ${director.socials?.linkedin ? `<a href="${director.socials.linkedin}" target="_blank"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                                </div>
                             </div>
-                        </div>
-                        <div class="info">
-                            <h5>${director.name}</h5>
-                            <p>${director.type}</p>
-                        </div>
-                    </div>
-                `;
-            });
+                            <div class="info">
+                                <h5>${director.name}</h5>
+                                <p>${director.type}</p>
+                            </div>
+                        `;
+
+                        directorsContainer.appendChild(directorElement);
+                    });
+                })
+                .catch(error => console.error('Error fetching directors:', error));
         })
-        .catch(error => console.error('Error fetching directors:', error));
+        .catch(error => console.error('Error fetching aboutus.json:', error));
+});
 </script>
+

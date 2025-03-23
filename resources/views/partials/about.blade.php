@@ -1,16 +1,13 @@
-<section class="about section-padding">
+<section class="about section-padding" id="about-section">
     <div class="container">
         <div class="row">
             <div class="col-lg-5 col-md-12 mb-30 animate-box" data-animate-effect="fadeInUp">
                 <div class="section-subtitle">
                     <div class="icon" id="about-icon-container"><i class="flaticon-courthouse"></i></div> About Seeraj Legal
                 </div>
-
                 <div id="section-title" class="section-title"></div>
                 <p id="section-para"></p>
                 <ul id="section-points" class="page-list list-unstyled mb-25"></ul>
-
-                <!-- <a href="{{ route('about') }}" class="button-2">Discover more<span></span></a> -->
             </div>
             <div class="col-lg-6 offset-lg-1 col-md-12 animate-box" data-animate-effect="fadeInUp">
                 <div class="item">
@@ -31,11 +28,18 @@
         .then(response => response.json())
         .then(data => {
             const section = data.find(item => item.S_id === 1);
+
+            if (section && section.flag === "disabled") {
+                console.log("About section is disabled.");
+                document.getElementById("about-section").style.display = "none";
+                return;
+            }
+
             if (section) {
                 document.getElementById('section-title').innerHTML = section.title;
                 document.getElementById('section-para').textContent = section.para;
 
-                // ✅ Update the icon dynamically from JSON
+                // ✅ Update the icon dynamically
                 document.getElementById("about-icon-container").innerHTML = `<i class="${section.icon}"></i>`;
 
                 const pointsList = document.getElementById('section-points');
@@ -50,7 +54,7 @@
                     });
                 }
 
-                // ✅ Ensure the image is read from JSON
+                // ✅ Set the image from JSON
                 if (section.image && section.image.length > 0) {
                     document.getElementById('section-image').src = section.image[0];
                 }
