@@ -142,7 +142,7 @@ async function fetchTeamMember() {
 function updateTeamMemberDetails(data) {
     document.getElementById('attorney-name').textContent = data.name || 'Attorney Name';
     document.getElementById('type').innerHTML = `<div class="icon"><i class="flaticon-courthouse"></i></div> ${data.type || 'Lawyer'}`;
-    document.getElementById('profile-img').src = data.image || 'assets/img/my/profile_icon2.png';
+    document.getElementById('profile-img').src = data.profile_image || 'assets/img/my/profile_icon2.png';
     document.getElementById('attorney-name-wrap').textContent = data.name || 'Attorney Name';
     document.getElementById('designation').textContent = data.designation || 'Lawyer';
     document.getElementById('email').textContent = data.email || 'email@domain.com';

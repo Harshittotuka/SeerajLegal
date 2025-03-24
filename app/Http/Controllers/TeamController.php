@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\TeamService;
 use Illuminate\Validation\ValidationException;
 
+
 class TeamController extends Controller
 {
     protected $teamService;
@@ -24,20 +25,22 @@ class TeamController extends Controller
     public function show($id)
     {
         $team = $this->teamService->getTeamById($id);
-    
+
         if ($team) {
             return response()->json([
                 'success' => true,
-                'data' => $team
+                'data' => $team,
             ]);
         } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Team not found'
-            ], 404);
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Team not found',
+                ],
+                404,
+            );
         }
     }
-    
 
     public function filterByPractice($practice)
     {
@@ -65,23 +68,56 @@ class TeamController extends Controller
             'experience' => 'nullable|array',
             'education' => 'nullable|array',
             'awards' => 'nullable|array',
-            'socials' => 'nullable|array'
+            'socials' => 'nullable|array',
+            'profile_image' => 'required',
         ]);
 
         $team = $this->teamService->createTeam($validatedData);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Team member created successfully',
-            'data' => $team
-        ], 201);
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'Team member created successfully',
+                'data' => $team,
+            ],
+            201,
+        );
     }
-
     public function delete($id)
     {
-        $response = $this->teamService->deleteTeam($id);
+        // Fetch the team member by ID
+        $teamMember = Team::find($id);
 
-        return response()->json($response, $response['success'] ? 200 : 400);
+        if (!$teamMember) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Team member not found',
+                ],
+                404,
+            );
+        }
+
+        // Check if the member has a profile image
+        if ($teamMember->profile_image) {
+            $imagePath = public_path($teamMember->profile_image);
+
+            // Delete the image file if it exists
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        // Delete the team member record
+        $teamMember->delete();
+
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'Team member and associated image deleted successfully.',
+            ],
+            200,
+        );
     }
 
     public function filterTeams(Request $request)
@@ -113,18 +149,21 @@ class TeamController extends Controller
                 'experience' => 'nullable|array',
                 'education' => 'nullable|array',
                 'awards' => 'nullable|array',
-                'socials' => 'nullable|array'
+                'socials' => 'nullable|array',
             ]);
 
             $response = $this->teamService->updateTeam($id, $validatedData);
 
             return response()->json($response, $response['success'] ? 200 : 404);
         } catch (ValidationException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation error',
-                'errors' => $e->errors(),
-            ], 422);
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Validation error',
+                    'errors' => $e->errors(),
+                ],
+                422,
+            );
         }
     }
 
@@ -141,5 +180,4 @@ class TeamController extends Controller
 
         return response()->json($members, 200);
     }
-
 }

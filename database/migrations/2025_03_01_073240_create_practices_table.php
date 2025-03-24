@@ -17,7 +17,8 @@ return new class extends Migration {
             $table->json('what_we_provide')->nullable(); // JSON field for what we provide
             $table->enum('flag', ['enabled', 'disabled','null'])->default('enabled'); // Flag to enable or disable the practice
             $table->timestamps(); // Created at and Updated at timestamps
-            $table->string('image_path')->nullable(); // Field to store image path or URL
+            $table->string('image_path')->nullable();
+            $table->string('top_image')->nullable(); // Nullable top image path // Field to store image path or URL
             $table->string('icon')->nullable(); // Field to store image path or URL
         });
     }
