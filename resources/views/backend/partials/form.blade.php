@@ -18,9 +18,9 @@
                                 <button class="btn btn-primary me-2 mb-2" id="saveButton">
                                     <i class="material-symbols-rounded">save</i> Save
                                 </button>
-                                <button class="btn btn-secondary mb-2">
+                                {{-- <button class="btn btn-secondary mb-2">
                                     <i class="material-symbols-rounded">visibility</i> Preview
-                                </button>
+                                </button> --}}
                             </div>
                         </div>
                     </div>
@@ -63,6 +63,20 @@
                             style="display:none; width: 50px; height: 50px; margin-left: 10px; border-radius: 5px; object-fit: cover; border: 1px solid #ccc; cursor: pointer;">
                     </div>
 
+                    <!-- filepath: c:\Users\harsh\Desktop\SeerajLegal\resources\views\backend\partials\form.blade.php -->
+                    <div class="d-flex align-items-center" id="topImageContainer">
+                        <label class="me-3" style="width: 100px;">Top Image</label>
+                        <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center"
+                            onclick="document.getElementById('TopImage').click()"
+                            style="width: 50px; height: 50px; border-radius: 5px;">
+                            <i class="fa-solid fa-upload"></i>
+                        </button>
+                        <input type="file" id="TopImage" style="display: none;" accept="image/*"
+                            onchange="openTopImageCropper(event)">
+                        <img id="topImagePreview" src="#" alt="Top Image Preview" onclick="openTopImageModal()"
+                            style="display:none; width: 50px; height: 50px; margin-left: 10px; border-radius: 5px; object-fit: cover; border: 1px solid #ccc; cursor: pointer;">
+                    </div>
+
                 </form>
 
                 <!-- Add Image Cropper Modal -->
@@ -80,6 +94,21 @@
                         </div>
                     </div>
                 </div>
+                <!-- Top Image Cropper Modal -->
+                <div id="topImageCropperModal" class="modal"
+                    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 30000; background-color: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center;">
+                    <div
+                        style="background: white; padding: 20px; border-radius: 10px; max-width: 90%; max-height: 90%; position: relative;">
+                        <span onclick="closeTopImageCropperModal()"
+                            style="position: absolute; top: 10px; right: 10px; font-size: 30px; color: black; cursor: pointer;">&times;</span>
+                        <div>
+                            <img id="topImageCropperImage" style="max-width: 100%; max-height: 500px;">
+                        </div>
+                        <div class="mt-3 text-center">
+                            <button class="btn btn-primary" onclick="cropTopImage()">Crop & Save</button>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Preview Modal -->
                 <div id="imageModal" onclick="closeModalOnOutsideClick(event)"
@@ -94,18 +123,108 @@
 
 
             <script>
-         function toggleImageField() {
-    var imageField = document.getElementById("toogle-hide");
-    if (imageField.style.visibility === "hidden") {
-        imageField.style.visibility = "visible"; // Show the image field
-        imageField.style.height = "auto"; // Adjust height dynamically
-    } else {
-        imageField.style.visibility = "hidden"; // Hide the image field
-        imageField.style.height = "0px"; // Collapse the space
-    }
-}
+                let topImageCropper;
+                const topImageCropperModal = document.getElementById('topImageCropperModal'); // New modal for Top Image
+                const topImageCropperImage = document.getElementById('topImageCropperImage'); // New image element for Top Image
+                const topImagePreview = document.getElementById('topImagePreview');
+                let topImagePath = ''; // Variable to store the top image path
+
+                function openTopImageCropper(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            topImageCropperImage.src = e.target.result;
+                            topImageCropperModal.style.display = 'flex';
+
+                            // Initialize Cropper.js for the top image
+                            if (topImageCropper) {
+                                topImageCropper.destroy();
+                            }
+                            topImageCropper = new Cropper(topImageCropperImage, {
+                                aspectRatio: 16 / 9, // Adjust aspect ratio for the top image
+                                viewMode: 1,
+                                dragMode: 'move',
+                                cropBoxResizable: false,
+                                cropBoxMovable: true,
+                                autoCropArea: 1,
+                            });
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+
+                function cropTopImage() {
+                    if (topImageCropper) {
+                        const croppedCanvas = topImageCropper.getCroppedCanvas({
+                            width: 1792,
+                            height: 1024,
+                        });
+                        topImagePreview.src = croppedCanvas.toDataURL();
+                       
+                        topImagePreview.style.display = 'block';
+
+                        // Determine the type (practice or service) from the URL
+                        const urlPath = window.location.pathname; // Get the current URL path
+                        const type = urlPath.includes('/practice/') ? 'practices' : 'services'; // Determine type based on URL
+
+                        // Get the name from the input field
+                        const name = document.getElementById('name').value.trim();
+
+                        // Generate the path for the top image dynamically based on the type
+                        topImagePath = `assets/dynamic/${type}/top_${name.replace(/\s+/g, "_")}.webp`;
+
+                        // Upload the cropped image
+                        croppedCanvas.toBlob((blob) => {
+                            const formData = new FormData();
+                            formData.append('image', blob);
+                            formData.append('path', topImagePath);
+
+                            fetch('/api/upload-cropped-image', {
+                                    method: 'POST',
+                                    body: formData,
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        console.log('Top image uploaded successfully:', topImagePath);
+                                        showToast("Top image uploaded successfully!", "success");
+                                    } else {
+                                        console.error('Error uploading top image:', data.message);
+                                        showToast("Error uploading top image.", "error");
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error uploading top image:', error);
+                                    showToast("Error uploading top image.", "error");
+                                });
+                        }, 'image/webp');
+
+                        closeTopImageCropperModal();
+                    }
+                }
+
+                function closeTopImageCropperModal() {
+                    topImageCropperModal.style.display = 'none';
+                    if (topImageCropper) {
+                        topImageCropper.destroy();
+                        topImageCropper = null;
+                    }
+                }
+            </script>
 
 
+            <script>
+                function toggleImageField() {
+                    var imageField = document.getElementById("toogle-hide");
+                    if (imageField.style.visibility === "hidden") {
+                        imageField.style.visibility = "visible"; // Show the image field
+                        imageField.style.height = "auto"; // Adjust height dynamically
+                    } else {
+                        imageField.style.visibility = "hidden"; // Hide the image field
+                        imageField.style.height = "0px"; // Collapse the space
+                    }
+                }
             </script>
 
 
@@ -193,6 +312,18 @@
                     const modalImage = document.getElementById('modalImage');
                     const imagePreview = document.getElementById('imagePreview');
                     modalImage.src = imagePreview.src;
+                    modal.style.display = 'flex';
+                }
+
+                function openTopImageModal() {
+                    const modal = document.getElementById('imageModal'); // Reuse the existing modal
+                    const modalImage = document.getElementById('modalImage'); // Reuse the modal image element
+                    const topImagePreview = document.getElementById('topImagePreview'); // Get the top image preview element
+
+                    // Set the modal image source to the top image preview source
+                    modalImage.src = topImagePreview.src;
+
+                    // Display the modal
                     modal.style.display = 'flex';
                 }
 

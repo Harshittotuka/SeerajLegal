@@ -92,6 +92,7 @@ public function store(Request $request): JsonResponse
         'paragraphs.*.title' => 'nullable|string',
         'paragraphs.*.para' => 'nullable|string',
         'paragraphs.*.points' => 'nullable|array',
+        'top_image' => 'nullable|string'
     ]);
 
     if (empty($data['icon'])) {
@@ -136,7 +137,8 @@ public function update(Request $request, $ServiceName)
         'paragraphs.*.title' => 'nullable|string',
         'paragraphs.*.para' => 'nullable|string',
         'paragraphs.*.points' => 'nullable|array',
-        'flag' => 'nullable|string'
+        'flag' => 'nullable|string',
+        'top_image' => 'nullable|string'
     ]);
 
     if (empty($validated['icon'])) {

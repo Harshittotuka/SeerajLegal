@@ -57,6 +57,7 @@ class ServicesService
                 'para' => $paragraph['para'] ?? null,
                 'points' => $paragraph['points'] ?? [],
                 'icon' => $data['icon'] ,
+                'top_image' => $data['top_image']
             ]);
     
             // Store the created service in the array
@@ -105,6 +106,7 @@ public function deleteServiceByName($name): bool
                 'para' => $paragraph['para'],
                 'points' => $paragraph['points'] ?? [],
                 'icon' => $data['icon'] , // Ensure proper JSON encoding
+                'top_image' => $data['top_image'] // Ensure proper JSON encoding
             ]);
     
             $createdServices[] = $createdService;
