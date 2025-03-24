@@ -93,6 +93,7 @@ class PracticeController extends Controller
                 'what_we_provide' => 'nullable|array',
                 'flag' => 'string',
                 'image_path' => 'nullable|string',
+                'top_image' => 'nullable|string',
                 'icon' => 'nullable|string'
             ]);
     
@@ -136,7 +137,8 @@ public function update(Request $request, $practiceName)
             'what_we_provide' => 'nullable|array',
             'flag' => 'nullable|in:enabled,disabled',
             'icon' => 'nullable|string',
-            'image_path' => 'nullable|string'
+            'image_path' => 'nullable|string',
+            'top_image' => 'nullable|string'
         ]);
 
         $result = $this->practiceService->updatePractice($practiceName, $validated);

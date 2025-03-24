@@ -116,15 +116,27 @@
             if (practiceData.length > 0) {
                 document.getElementById("name").value = practiceData[0].practice_name || "";
                 let imagePath = practiceData[0].image_path.replace(/\\/g, '/');
+                let topImagePath = practiceData[0].top_image?.replace(/\\/g, '/'); // Handle top_image
 
                 if (!imagePath.startsWith('http')) {
                     imagePath = `http://127.0.0.1:8000/${imagePath.replace(/^\/+/, '')}`;
+                }
+
+                if (topImagePath && !topImagePath.startsWith('http')) {
+                    topImagePath = `http://127.0.0.1:8000/${topImagePath.replace(/^\/+/, '')}`;
                 }
 
                 console.log('Final Image Path:', imagePath); // Debugging
                 document.getElementById("imagePreview").src = imagePath;
                 document.getElementById("imagePreview").style.display = 'block';
                 document.getElementById("Icon").value = practiceData[0].icon || "";
+
+                console.log('Top Image Path:', topImagePath); // Debugging
+                if (topImagePath) {
+                    document.getElementById("topImagePreview").src = topImagePath;
+                    document.getElementById("topImagePreview").style.display = 'block';
+                }
+
                 previewIcon();
 
                 // Store the image path in the global variable
@@ -157,25 +169,25 @@
                             </div>
                         </div>
                         ${practice.points?.slice(1).map(point => `
-                                                                    <div class="mb-3 d-flex align-items-center">
-                                                                        <label class="me-3" style="width: 100px;"></label>
-                                                                        <div class="flex-grow-1 d-flex">
-                                                                            <input type="text" class="form-control border-1 border-bottom"
-                                                                                value="${point}" placeholder="Enter point">
-                                                                            <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
-                                                                        </div>
-                                                                    </div>
-                                                                `).join('') || ''}
+                                                                                        <div class="mb-3 d-flex align-items-center">
+                                                                                            <label class="me-3" style="width: 100px;"></label>
+                                                                                            <div class="flex-grow-1 d-flex">
+                                                                                                <input type="text" class="form-control border-1 border-bottom"
+                                                                                                    value="${point}" placeholder="Enter point">
+                                                                                                <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    `).join('') || ''}
                     </div>
                 </form>
                 
                 <button class="btn btn-primary addFormInside">+</button>
               ${index !== 0 ? `
-                                        <button class="btn btn-danger delete-form">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
-                                                <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
-                                            </svg>
-                                        </button>` : ''}
+                                                            <button class="btn btn-danger delete-form">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
+                                                                    <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
+                                                                </svg>
+                                                            </button>` : ''}
 
             </div>
             <br>
@@ -250,7 +262,7 @@
                     return;
                 }
                 if (!globalImagePath) {
-                     globalImagePath = `assets/dynamic/practices/${practiceName.replace(/\s+/g, "_")}.webp`;
+                    globalImagePath = `assets/dynamic/practices/${practiceName.replace(/\s+/g, "_")}.webp`;
 
                 }
                 console.log("global : ", globalImagePath);
@@ -333,13 +345,17 @@
             });
 
             function savePracticeData(practiceName, icon, paragraphs) {
+                // Generate the top image path dynamically
+                let topImagePath = `assets/dynamic/practices/top_${practiceName.replace(/\s+/g, "_")}.webp`;
+                console.log("Top Image Path:", topImagePath);
                 let requestData = {
                     practice_name: practiceName, // Required field
-                    image_path: globalImagePath, // Use the global variable for image path
+                    image_path: globalImagePath, // Use the global variable for the main image path
+                    top_image: topImagePath, // Include the top image path
                     icon: icon, // Include the icon
-                    paragraphs: paragraphs,
+                    paragraphs: paragraphs, // Dynamic paragraphs data
                     what_we_provide: ["Arbitration", "Negotiation"], // Static as per requirement
-                    flag: "enabled"
+                    flag: "enabled" // Static flag
                 };
 
                 console.log("Final Request Data:", requestData);
@@ -363,8 +379,13 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        console.log("Success:", data);
-                        showToast("All valid data saved successfully!", "success");
+                        if (data.success) {
+                            console.log("Success:", data);
+                            showToast("All valid data saved successfully!", "success");
+                        } else {
+                            console.error("Error:", data.message);
+                            showToast("Error saving data. Please try again.", "error");
+                        }
                     })
                     .catch(error => {
                         console.error("Error:", error);
