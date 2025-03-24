@@ -25,6 +25,7 @@ class TeamsSeeder extends Seeder
                 'socials' => json_encode(['linkedin' => 'https://linkedin.com/in/johndoe', 'twitter' => 'https://twitter.com/johndoe']),
                 'created_at' => now(),
                 'updated_at' => now(),
+                'profile_image' => 'assets/dynamic/teams/1.webp'
             ],
             [
                 'name' => 'Jane Smith',
@@ -41,6 +42,7 @@ class TeamsSeeder extends Seeder
                 'socials' => json_encode(['linkedin' => 'https://linkedin.com/in/janesmith']),
                 'created_at' => now(),
                 'updated_at' => now(),
+                'profile_image' => 'assets/dynamic/teams/1.webp'
             ],
             [
                 'name' => 'Robert Brown',
@@ -57,6 +59,7 @@ class TeamsSeeder extends Seeder
                 'socials' => json_encode(['linkedin' => 'https://linkedin.com/in/robertbrown']),
                 'created_at' => now(),
                 'updated_at' => now(),
+                'profile_image' => 'assets/dynamic/teams/1.webp'
             ],
             [
                     'name' => 'RAJAN SHARMA',
@@ -73,6 +76,7 @@ class TeamsSeeder extends Seeder
                     'socials' => null,
                     'created_at' => now(),
                     'updated_at' => now(),
+                'profile_image' => 'assets/dynamic/teams/1.webp'
                 ],
                 [
                     'name' => 'SEEMA SHARMA',
@@ -89,6 +93,7 @@ class TeamsSeeder extends Seeder
                     'socials' => null,
                     'created_at' => now(),
                     'updated_at' => now(),
+                'profile_image' => 'assets/dynamic/teams/1.webp'
                 ],
                  
         ]);
