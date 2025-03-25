@@ -20,19 +20,20 @@
     @include('partials.navbar')
 
     <!-- Header Banner -->
-    <div class="banner-header valign bg-img bg-fixed" data-overlay-dark="5"
-        data-background=" {{ asset('assets/img/case/7.jpg') }}">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 text-center mt-60">
-                    <h6>
-                        <div class="icon"><i class="flaticon-courthouse"></i></div> Area of practice
-                    </h6>
-                    <h1 id="practiceeTitleMain">Loading...</h1>
-                </div>
+    <!-- Header Banner -->
+<div id="practice-bg" class="banner-header valign bg-img bg-fixed" data-overlay-dark="5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center mt-60">
+                <h6>
+                    <div class="icon"><i id="practice-icon"></i></div> Area of practice
+                </h6>
+                <h1 id="practiceeTitleMain">Loading...</h1>
             </div>
         </div>
     </div>
+</div>
+
 
     <!-- Page -->
     <section class="page section-padding practice-areas animate-box">
@@ -92,99 +93,122 @@
     <!-- Pass API URL from Laravel Blade to JavaScript -->
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let apiUrl = "{{ url('/api/practices/search?name=') . urlencode($practiceName) }}";
+    document.addEventListener("DOMContentLoaded", function () {
+        let apiUrl = "{{ url('/api/practices/search?name=') . urlencode($practiceName) }}";
 
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success && data.data.length > 0) {
-                        updatePracticeAreas(data.data);
-                    } else {
-                        document.getElementById("practice-content").innerHTML =
-                            "<p>No data available for this practice area.</p>";
-                    }
-                })
-                .catch(error => console.error("Error fetching practice areas:", error));
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.data.length > 0) {
+                    updatePracticeAreas(data.data);
+                    updatePracticeHeader(data.data[0]); // ✅ Update the header dynamically
+                } else {
+                    document.getElementById("practice-content").innerHTML =
+                        "<p>No data available for this practice area.</p>";
+                }
+            })
+            .catch(error => console.error("Error fetching practice areas:", error));
+    });
+
+    function updatePracticeAreas(practiceData) {
+        let container = document.getElementById("practice-content");
+        let practiceTitleMain = document.getElementById("practiceeTitleMain");
+
+        container.innerHTML = ""; // Clear existing content
+        let whatWeProvideContent = ""; // Store "What We Provide" section separately
+
+        // Update the H1 title with the first practice name
+        if (practiceData.length > 0 && practiceData[0].title && practiceData[0].title !== "null") {
+            practiceTitleMain.textContent = practiceData[0].practice_name;
+        }
+
+        practiceData.forEach(practice => {
+            let sectionHTML = "";
+            if (practice.title && practice.title !== "null") {
+                sectionHTML += `<h4>${practice.title}</h4>`;
+            }
+            if (practice.para && practice.para !== "null") {
+                sectionHTML += `<p>${practice.para}</p>`;
+            }
+
+            // ✅ If points exist, add them as a list
+            if (practice.points && practice.points.length > 0 && practice.points.some(p => p && p !== "null")) {
+                sectionHTML += `<ul class="page-list list-unstyled mb-60">`;
+                practice.points.forEach(point => {
+                    sectionHTML += `
+                        <li>
+                            <div class="page-list-icon"><span class="ti-check"></span></div>
+                            <div class="page-list-text"><p>${point}</p></div>
+                        </li>
+                    `;
+                });
+                sectionHTML += `</ul>`;
+            }
+
+            container.innerHTML += sectionHTML;
+
+            // ✅ Store "What We Provide" section separately if available
+            if (practice.what_we_provide && practice.what_we_provide.length > 0 && practice.what_we_provide.some(w => w && w !== "null")) {
+                whatWeProvideContent = `
+                    <br>
+                    <div class="col-md-12 text-center mb-20">
+                        <div class="section-title"><span>What we </span> Provide?</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">`;
+
+                practice.what_we_provide.forEach(service => {
+                    whatWeProvideContent += `
+                        <div class="col-lg-4 col-md-6">
+                            <div class="item">
+                                <a href="{{ url('service/') }}/${service}"> 
+                                    <i class="flaticon-courthouse"></i>
+                                    <h5>${service}</h5>
+                                    <div class="shape"><i class="flaticon-courthouse"></i></div>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                whatWeProvideContent += `</div></div></div>`;
+            }
         });
 
-        function updatePracticeAreas(practiceData) {
-            let container = document.getElementById("practice-content");
-            let practiceTitleMain = document.getElementById("practiceeTitleMain");
-
-            container.innerHTML = ""; // Clear existing content
-
-            let whatWeProvideContent = ""; // Store "What We Provide" section separately
-
-            // Update the H1 title with the first practice name
-            if (practiceData.length > 0 && practiceData[0].title && practiceData[0].title !== "null") {
-
-                practiceTitleMain.textContent = practiceData[0].practice_name;
-            }
-
-            practiceData.forEach(practice => {
-                let sectionHTML = "";
-                if (practice.title && practice.title !== "null") {
-                    sectionHTML += `<h4>${practice.title}</h4>`;
-                }
-                if (practice.para && practice.para !== "null") {
-                    sectionHTML += `<p>${practice.para}</p>`;
-                }
-
-
-                // If points exist, add them as a list
-                if (practice.points && practice.points.length > 0 && practice.points.some(p => p && p !== "null")) {
-
-                    sectionHTML += `<ul class="page-list list-unstyled mb-60">`;
-                    practice.points.forEach(point => {
-                        sectionHTML += `
-                    <li>
-                        <div class="page-list-icon"><span class="ti-check"></span></div>
-                        <div class="page-list-text"><p>${point}</p></div>
-                    </li>
-                `;
-                    });
-                    sectionHTML += `</ul>`;
-                }
-
-                container.innerHTML += sectionHTML;
-
-                // Store "What We Provide" section separately if available
-                                // Store "What We Provide" section separately if available
-    if (practice.what_we_provide && practice.what_we_provide.length > 0 && practice.what_we_provide.some(w => w && w !== "null")) 
-        {whatWeProvideContent = `
-            <br>
-            <div class="col-md-12 text-center mb-20">
-                <div class="section-title"><span>What we </span> Provide?</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-            <div class="row">`;
-            practice.what_we_provide.forEach(service => {
-            whatWeProvideContent += `
-                <div class="col-lg-4 col-md-6">
-                <div class="item">
-                     <a href="{{ url('service/') }}/${service}"> 
-                     <i class="flaticon-courthouse"></i>
-                 <h5>${service}</h5>
-            <div class="shape"><i class="flaticon-courthouse"></i></div>
-        </a>
-    </div>
-</div>
-`;
-});
-
-whatWeProvideContent += `</div></div></div>`;
-}
-
-            });
-
-            // Append "What We Provide" at the END of the content
-            if (whatWeProvideContent !== "") {
-                container.innerHTML += whatWeProvideContent;
-            }
+        // Append "What We Provide" at the END of the content
+        if (whatWeProvideContent !== "") {
+            container.innerHTML += whatWeProvideContent;
         }
-    </script>
+    }
+
+    function updatePracticeHeader(practice) {
+        if (!practice) return;
+
+        // ✅ Update practice name in header
+        let practiceTitleMain = document.getElementById("practiceeTitleMain");
+        if (practiceTitleMain) practiceTitleMain.textContent = practice.practice_name || '';
+
+        // ✅ Update icon dynamically (leave blank if missing)
+        let iconElement = document.getElementById("practice-icon");
+        if (iconElement) iconElement.className = practice.icon ? practice.icon : '';
+
+        // ✅ Update background image dynamically
+        let bgElement = document.getElementById("practice-bg");
+        if (bgElement) {
+            let imageUrl = practice.top_image || "{{ asset('assets/img/case/7.jpg') }}";
+
+            // Ensure correct URL format
+            if (!imageUrl.startsWith('/')) {
+                imageUrl = '/' + imageUrl;
+            }
+
+            console.log("🔹 Final Background Image URL:", imageUrl);
+            bgElement.style.backgroundImage = `url('${imageUrl}')`;
+        }
+    }
+</script>
+
 
 
     <style>

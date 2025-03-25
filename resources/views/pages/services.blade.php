@@ -22,20 +22,19 @@
     @include('partials.navbar')
 
     <!-- Header Banner -->
-    <div class="banner-header valign bg-img bg-fixed" data-overlay-dark="5"
-        data-background="{{ asset('assets/img/Conciliation.webp') }}">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 text-center mt-60">
-                    <h6>
-                        <div class="icon"><i class="flaticon-courthouse"></i></div> Services
-                    </h6>
-                    <h1 id="serviceTitleMain">Loading...</h1>
-
-                </div>
+    <!-- Header Banner -->
+    <div id="page-bg" class="banner-header valign bg-img bg-fixed" data-overlay-dark="5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center mt-60">
+                <h6>
+                    <div class="icon"><i id="page-icon"></i></div> Services
+                </h6>
+                <h1 id="serviceTitleMain">Loading...</h1>
             </div>
         </div>
     </div>
+</div>
 
     @php
         $serviceName = request()->segment(2); // Assuming URL is /service/Conciliation
@@ -97,83 +96,106 @@
 
         });
     </script>
-   <script>
+  <script>
     document.addEventListener("DOMContentLoaded", function() {
-    let serviceName = "{{ $serviceName }}";
-    let apiUrl = `http://127.0.0.1:8000/api/service/${serviceName}`;
+        let serviceName = "{{ isset($serviceName) ? $serviceName : '' }}"; // ✅ Prevents undefined error
+        if (!serviceName) {
+            console.error("❌ Error: serviceName is not defined.");
+            return;
+        }
 
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                let serviceData = data.data;
-                let firstService = serviceData[0];
+        let apiUrl = `http://127.0.0.1:8000/api/service/${serviceName}`;
 
-                document.getElementById('serviceTitle').innerHTML = firstService.title || '';
-                document.getElementById('serviceDescription').textContent = firstService.para || '';
-                document.getElementById('serviceTitleMain').innerHTML = firstService.service_name ? `<br>${firstService.service_name}` : '';
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.data.length > 0) {
+                    let firstService = data.data[0];
 
-                // Clear previous points list
-                let pointsList = document.getElementById('servicePoints');
-                pointsList.innerHTML = '';
+                    // ✅ Check if elements exist before modifying them
+                    let titleElement = document.getElementById('serviceTitle');
+                    if (titleElement) titleElement.innerHTML = firstService.title || '';
 
-                if (firstService.points) {
-                    try {
-                        let points = Array.isArray(firstService.points) ? firstService.points : JSON.parse(firstService.points);
-                        points.forEach(point => {
-                            let li = document.createElement('li');
-                            li.innerHTML = `<div class="page-list-icon"><span class="ti-check"></span></div>
-                                            <div class="page-list-text"><p>${point}</p></div><br>`;
-                            pointsList.appendChild(li);
-                        });
-                    } catch (error) {
-                        console.error("Error parsing points:", error);
+                    let descriptionElement = document.getElementById('serviceDescription');
+                    if (descriptionElement) descriptionElement.textContent = firstService.para || '';
+
+                    let titleMainElement = document.getElementById('serviceTitleMain');
+                    if (titleMainElement) titleMainElement.innerHTML = firstService.service_name ? `<br>${firstService.service_name}` : '';
+                    
+                    let iconElement = document.getElementById('page-icon');
+                    if (iconElement) iconElement.className = firstService.icon ? firstService.icon : '';
+                    
+                     // ✅ Update background image dynamically
+                     let bgElement = document.getElementById("page-bg");
+                    if (bgElement) {
+                        let imageUrl = firstService.top_image || "{{ asset('assets/img/Conciliation.webp') }}";
+
+                        // Ensure correct URL format
+                        if (!imageUrl.startsWith('/')) {
+                            imageUrl = '/' + imageUrl;
+                        }
+
+                        console.log("🔹 Final Background Image URL:", imageUrl);
+                        bgElement.style.backgroundImage = `url('${imageUrl}')`;
                     }
-                }
-
-                // Clear service details before adding new content
-                let serviceDetails = document.getElementById('serviceDetails');
-                serviceDetails.innerHTML = '';
-
-                serviceData.slice(1).forEach(section => {
-                    let hasContent = section.para || section.points;
-
-                    if (!hasContent) {
-                        return; // Skip completely empty sections
-                    }
-
-                    let sectionHtml = ``;
-                    if (section.title) {
-                        sectionHtml += `<br><h5>${section.title}</h5>`;
-                    }
-                    if (section.para) {
-                        sectionHtml += `<p>${section.para}</p>`;
-                    }
-                    if (section.points) {
-                        try {
-                            let points = Array.isArray(section.points) ? section.points : JSON.parse(section.points);
-                            if (points.length > 0) {
-                                sectionHtml += `<ul class="page-list list-unstyled">`;
+                    
+                    // ✅ Clear and populate points list
+                    let pointsList = document.getElementById('servicePoints');
+                    if (pointsList) {
+                        pointsList.innerHTML = '';
+                        if (firstService.points) {
+                            try {
+                                let points = Array.isArray(firstService.points) ? firstService.points : JSON.parse(firstService.points);
                                 points.forEach(point => {
-                                    sectionHtml += `<li>
-                                                        <div class="page-list-icon"><span class="ti-check"></span></div>
-                                                        <div class="page-list-text"><p>${point}</p></div>
-                                                    </li>`;
+                                    let li = document.createElement('li');
+                                    li.innerHTML = `<div class="page-list-icon"><span class="ti-check"></span></div>
+                                                    <div class="page-list-text"><p>${point}</p></div><br>`;
+                                    pointsList.appendChild(li);
                                 });
-                                sectionHtml += `</ul>`;
+                            } catch (error) {
+                                console.error("Error parsing points:", error);
                             }
-                        } catch (error) {
-                            console.error("Error parsing section points:", error);
                         }
                     }
-                    serviceDetails.innerHTML += sectionHtml;
-                });
-            }
-        })
-        .catch(error => console.error("Error fetching service data:", error));
-});
 
-   </script>
+                    // ✅ Clear and populate additional service details
+                    let serviceDetails = document.getElementById('serviceDetails');
+                    if (serviceDetails) {
+                        serviceDetails.innerHTML = '';
+                        data.data.slice(1).forEach(section => {
+                            if (!section.para && !section.points) return;
+
+                            let sectionHtml = ``;
+                            if (section.title) sectionHtml += `<br><h5>${section.title}</h5>`;
+                            if (section.para) sectionHtml += `<p>${section.para}</p>`;
+                            if (section.points) {
+                                try {
+                                    let points = Array.isArray(section.points) ? section.points : JSON.parse(section.points);
+                                    if (points.length > 0) {
+                                        sectionHtml += `<ul class="page-list list-unstyled">`;
+                                        points.forEach(point => {
+                                            sectionHtml += `<li>
+                                                                <div class="page-list-icon"><span class="ti-check"></span></div>
+                                                                <div class="page-list-text"><p>${point}</p></div>
+                                                            </li>`;
+                                        });
+                                        sectionHtml += `</ul>`;
+                                    }
+                                } catch (error) {
+                                    console.error("Error parsing section points:", error);
+                                }
+                            }
+                            serviceDetails.innerHTML += sectionHtml;
+                        });
+                    }
+                } else {
+                    console.error("❌ No valid service data found in API response:", data);
+                }
+            })
+            .catch(error => console.error("Error fetching service data:", error));
+    });
+</script>
+
 
 
     <style>
