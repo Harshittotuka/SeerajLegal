@@ -126,6 +126,7 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
+   
     async function fetchPractices() {
         try {
             let response = await fetch("http://127.0.0.1:8000/api/practices/list");
@@ -145,14 +146,16 @@
                     slide.className = "swiper-slide";
                     slide.setAttribute("data-url", `http://127.0.0.1:8000/practice/${encodedName}`); // Store URL
 
-                    slide.innerHTML = `
-                        <div class="img"><img src="${item.image_path}" alt="${item.practice_name}"></div>
-                        <div class="overlay">
-                            <div class="title">${item.practice_name}</div>
-                            <div class="learn-more">Learn More <i class="fas fa-arrow-right"></i></div>
-                        </div>
-                    `;
-
+                   slide.innerHTML = `
+    <div class="img">
+        <img src="http://127.0.0.1:8000/${item.image_path.replace(/^\/+/, '')}" alt="${item.practice_name}">
+    </div>
+    <div class="overlay">
+        <div class="title">${item.practice_name}</div>
+        <div class="learn-more">Learn More <i class="fas fa-arrow-right"></i></div>
+    </div>
+`;
+                    //  console.log(`Case study section loaded: ${item.image_path}`);
                     // Click event to redirect
                     slide.addEventListener("click", function() {
                         window.location.href = this.getAttribute("data-url");

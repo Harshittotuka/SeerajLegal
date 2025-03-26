@@ -22,16 +22,15 @@
     @include('partials.navbar')
 
     <!-- Header Banner -->
-    <div class="banner-header valign bg-img bg-fixed" data-overlay-dark="5"
+    <div class="banner-header valign bg-img bg-fixed" id="headerBanner" data-overlay-dark="5"
         data-background="{{ asset('assets/img/Conciliation.webp') }}">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 text-center mt-60">
-                    <h6>
-                        <div class="icon"><i class="flaticon-courthouse"></i></div> Services
+                    <h6 style="margin-bottom: 0px ;">
+                        <div class="icon"><i id="headerIcon" class=""></i></div> Services
                     </h6>
-                    <h1 id="serviceTitleMain">Loading...</h1>
-
+                    <h1 id="serviceTitleMain" style="margin-top: -30px;">Service...</h1>
                 </div>
             </div>
         </div>
@@ -70,111 +69,138 @@
             </div>
         </div>
     </section>
+
+    {{-- MAIN CONTENT LOADING... --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let serviceName = "{{ $serviceName }}";
+            let apiUrl = `http://127.0.0.1:8000/api/service/${serviceName}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        let serviceData = data.data;
+                        let firstService = serviceData[0];
+
+
+
+                        const headerIcon = document.getElementById("headerIcon");
+                        if (firstService.icon) {
+                            headerIcon.innerHTML = `<i class="${firstService.icon}"></i>`;
+                        }
+                        console.log("Here icon", firstService.icon);
+
+                        // Update the header background image
+                        const headerBanner = document.getElementById("headerBanner");
+
+                        if (firstService.top_image) {
+                            const imageUrl =
+                                `http://127.0.0.1:8000/${firstService.top_image.replace(/^\/+/, "")}`;
+                            headerBanner.setAttribute("data-background", imageUrl);
+                            headerBanner.style.backgroundImage = `url('${imageUrl}')`;
+                        }
+                        console.log("Here", firstService.top_image);
+
+
+                        document.getElementById('serviceTitle').innerHTML = firstService.title || '';
+                        document.getElementById('serviceDescription').textContent = firstService.para || '';
+                        document.getElementById('serviceTitleMain').innerHTML = firstService.service_name ?
+                            `<br>${firstService.service_name}` : '';
+
+                        // Clear previous points list
+                        let pointsList = document.getElementById('servicePoints');
+                        pointsList.innerHTML = '';
+
+                        if (firstService.points) {
+                            try {
+                                let points = Array.isArray(firstService.points) ? firstService.points : JSON
+                                    .parse(firstService.points);
+                                points.forEach(point => {
+                                    let li = document.createElement('li');
+                                    li.innerHTML = `<div class="page-list-icon"><span class="ti-check"></span></div>
+                                            <div class="page-list-text"><p>${point}</p></div><br>`;
+                                    pointsList.appendChild(li);
+                                });
+                            } catch (error) {
+                                console.error("Error parsing points:", error);
+                            }
+                        }
+
+                        // Clear service details before adding new content
+                        let serviceDetails = document.getElementById('serviceDetails');
+                        serviceDetails.innerHTML = '';
+
+                        serviceData.slice(1).forEach(section => {
+                            let hasContent = section.para || section.points;
+
+                            if (!hasContent) {
+                                return; // Skip completely empty sections
+                            }
+
+                            let sectionHtml = ``;
+                            if (section.title) {
+                                sectionHtml += `<br><h5>${section.title}</h5>`;
+                            }
+                            if (section.para) {
+                                sectionHtml += `<p>${section.para}</p>`;
+                            }
+                            if (section.points) {
+                                try {
+                                    let points = Array.isArray(section.points) ? section.points : JSON
+                                        .parse(section.points);
+                                    if (points.length > 0) {
+                                        sectionHtml += `<ul class="page-list list-unstyled">`;
+                                        points.forEach(point => {
+                                            sectionHtml += `<li>
+                                                        <div class="page-list-icon"><span class="ti-check"></span></div>
+                                                        <div class="page-list-text"><p>${point}</p></div>
+                                                    </li>`;
+                                        });
+                                        sectionHtml += `</ul>`;
+                                    }
+                                } catch (error) {
+                                    console.error("Error parsing section points:", error);
+                                }
+                            }
+                            serviceDetails.innerHTML += sectionHtml;
+                        });
+                    }
+                })
+                .catch(error => console.error("Error fetching service data:", error));
+        });
+    </script>
+
+    {{-- SIDE BAR NAVIGATION --}}
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             let currentService = "{{ $serviceName }}"; // Assuming this is passed from Laravel controller
             let apiUrl = "http://127.0.0.1:8000/api/services/list";
 
             fetch(apiUrl)
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            let services = data.data;
-            let listContainer = document.getElementById('relatedServicesList');
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        let services = data.data;
+                        let listContainer = document.getElementById('relatedServicesList');
 
-            listContainer.innerHTML = ''; // Clear existing content
+                        listContainer.innerHTML = ''; // Clear existing content
 
-            services.forEach(serviceObj => {
-                let service = serviceObj.service_name; // Extract the service name
-                let isActive = (service.toLowerCase() === currentService.toLowerCase()) ? 'font-weight: bold;' : '';
-                let li = document.createElement('li');
-                li.innerHTML = `<a href="/service/${service}" style="${isActive}">${service}</a>`;
-                listContainer.appendChild(li);
-            });
-        }
-    })
-    .catch(error => console.error("Error fetching related services:", error));
+                        services.forEach(serviceObj => {
+                            let service = serviceObj.service_name; // Extract the service name
+                            let isActive = (service.toLowerCase() === currentService.toLowerCase()) ?
+                                'font-weight: bold;' : '';
+                            let li = document.createElement('li');
+                            li.innerHTML =
+                                `<a href="/service/${service}" style="${isActive}">${service}</a>`;
+                            listContainer.appendChild(li);
+                        });
+                    }
+                })
+                .catch(error => console.error("Error fetching related services:", error));
 
         });
     </script>
-   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-    let serviceName = "{{ $serviceName }}";
-    let apiUrl = `http://127.0.0.1:8000/api/service/${serviceName}`;
-
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                let serviceData = data.data;
-                let firstService = serviceData[0];
-
-                document.getElementById('serviceTitle').innerHTML = firstService.title || '';
-                document.getElementById('serviceDescription').textContent = firstService.para || '';
-                document.getElementById('serviceTitleMain').innerHTML = firstService.service_name ? `<br>${firstService.service_name}` : '';
-
-                // Clear previous points list
-                let pointsList = document.getElementById('servicePoints');
-                pointsList.innerHTML = '';
-
-                if (firstService.points) {
-                    try {
-                        let points = Array.isArray(firstService.points) ? firstService.points : JSON.parse(firstService.points);
-                        points.forEach(point => {
-                            let li = document.createElement('li');
-                            li.innerHTML = `<div class="page-list-icon"><span class="ti-check"></span></div>
-                                            <div class="page-list-text"><p>${point}</p></div><br>`;
-                            pointsList.appendChild(li);
-                        });
-                    } catch (error) {
-                        console.error("Error parsing points:", error);
-                    }
-                }
-
-                // Clear service details before adding new content
-                let serviceDetails = document.getElementById('serviceDetails');
-                serviceDetails.innerHTML = '';
-
-                serviceData.slice(1).forEach(section => {
-                    let hasContent = section.para || section.points;
-
-                    if (!hasContent) {
-                        return; // Skip completely empty sections
-                    }
-
-                    let sectionHtml = ``;
-                    if (section.title) {
-                        sectionHtml += `<br><h5>${section.title}</h5>`;
-                    }
-                    if (section.para) {
-                        sectionHtml += `<p>${section.para}</p>`;
-                    }
-                    if (section.points) {
-                        try {
-                            let points = Array.isArray(section.points) ? section.points : JSON.parse(section.points);
-                            if (points.length > 0) {
-                                sectionHtml += `<ul class="page-list list-unstyled">`;
-                                points.forEach(point => {
-                                    sectionHtml += `<li>
-                                                        <div class="page-list-icon"><span class="ti-check"></span></div>
-                                                        <div class="page-list-text"><p>${point}</p></div>
-                                                    </li>`;
-                                });
-                                sectionHtml += `</ul>`;
-                            }
-                        } catch (error) {
-                            console.error("Error parsing section points:", error);
-                        }
-                    }
-                    serviceDetails.innerHTML += sectionHtml;
-                });
-            }
-        })
-        .catch(error => console.error("Error fetching service data:", error));
-});
-
-   </script>
-
 
     <style>
         .custom-box {
@@ -194,45 +220,48 @@
     </style>
 
 
-   <!-- Meet Our Experts Section -->
-<section class="team section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center mb-20">
-                <div class="section-subtitle">
-                    <div class="icon"><i class="flaticon-courthouse"></i></div> Qualified Experts
+    <!-- Meet Our Experts Section -->
+    <section class="team section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center mb-20">
+                    <div class="section-subtitle">
+                        <div class="icon"><i class="flaticon-courthouse"></i></div> Qualified Experts
+                    </div>
+                    <div class="section-title">Meet Our <span id="nova-service-title">Experts</span></div>
                 </div>
-                <div class="section-title">Meet Our <span id="nova-service-title">Experts</span></div>
             </div>
+            <div class="row" id="team-members"></div>
         </div>
-        <div class="row" id="team-members"></div>
-    </div>
-</section>
+    </section>
 
-<script>
-document.addEventListener('DOMContentLoaded', async function() {
-    // Get the service name from the URL
-    const pathParts = window.location.pathname.split('/');
-    const service = decodeURIComponent(pathParts[pathParts.length - 1]); // Keep original case
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Get the service name from the URL
+            const pathParts = window.location.pathname.split('/');
+            const service = decodeURIComponent(pathParts[pathParts.length - 1]); // Keep original case
 
-    // Directly set the title without modifying the service name
-    document.getElementById('nova-service-title').textContent = `${service} Experts`;
+            // Directly set the title without modifying the service name
+            document.getElementById('nova-service-title').textContent = `${service} Experts`;
 
-    try {
-        // Capitalize the first letter for API call
-       
-        const apiService = service.charAt(0).toUpperCase() + service.slice(1);
-        const apiUrl = `http://127.0.0.1:8000/api/teams/service/${apiService}`;
-        const response = await fetch(apiUrl);
-        const teamMembers = await response.json();
- console.log(teamMembers);
-        const teamMembersContainer = document.getElementById('team-members');
-        teamMembersContainer.innerHTML = ''; // Clear any existing content
+            try {
+                // Capitalize the first letter for API call
+                const apiService = service.charAt(0).toUpperCase() + service.slice(1);
+                const apiUrl = `http://127.0.0.1:8000/api/teams/service/${apiService}`;
+                const response = await fetch(apiUrl);
+                const teamMembers = await response.json();
+                console.log(teamMembers);
+                const teamMembersContainer = document.getElementById('team-members');
+                teamMembersContainer.innerHTML = ''; // Clear any existing content
 
-        teamMembers.forEach(member => {
-            const profileImage = member.profile_image || 'assets/img/my/profile_icon2.png';
-            const socials = member.socials || {};
-            teamMembersContainer.innerHTML += `
+                teamMembers.forEach(member => {
+                    // Prepend the domain to the profile image URL
+                    const profileImage = member.profile_image ?
+                        `http://127.0.0.1:8000/${member.profile_image.replace(/^\/+/, '')}` :
+                        'http://127.0.0.1:8000/assets/img/my/profile_icon2.png';
+
+                    const socials = member.socials || {};
+                    teamMembersContainer.innerHTML += `
                 <div class="col-lg-3 col-md-6 item">
                     <div class="img">
                         <img src="${profileImage}" alt="${member.name}" class="img-cover">
@@ -248,12 +277,12 @@ document.addEventListener('DOMContentLoaded', async function() {
                     </div>
                 </div>
             `;
+                });
+            } catch (error) {
+                console.error('Error fetching team members:', error);
+            }
         });
-    } catch (error) {
-        console.error('Error fetching team members:', error);
-    }
-});
-</script>
+    </script>
 
 
 
