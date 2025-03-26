@@ -117,6 +117,29 @@
                     <span onclick="closeModal()"
                         style="position: absolute; top: 20px; right: 20px; font-size: 30px; color: white; cursor: pointer;">&times;</span>
                 </div>
+
+
+
+
+                <div id="services-add-container"
+                    style="margin-top: 20px; padding: 15px; background: white; border-radius: 10px; 
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);">
+                    <h4 style="margin-bottom: 10px;">What Services We Provide?</h4>
+
+                    <!-- Features List (Draggable Items) -->
+                    <div id="servicesList" style="display: flex; gap: 8px; flex-wrap: wrap; padding: 10px;"></div>
+
+                    <!-- Selected Features Section -->
+                    <h6 style="margin-top: 15px; margin-bottom: 10px;">Selected Services</h6>
+                    <div class="drop-container"
+                        style="width: 100%; min-height: 50px; border: 1px dashed #007bff; background: white;
+                display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 10px; 
+                border-radius: 5px; font-weight: 500; color: #555; position: relative;">
+                        <span id="placeholderText"
+                            style="color: #aaa; font-size: 14px; position: absolute; left: 10px;">Drag items
+                            here</span>
+                    </div>
+                </div>
             </div>
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
@@ -161,7 +184,7 @@
                             height: 1024,
                         });
                         topImagePreview.src = croppedCanvas.toDataURL();
-                       
+
                         topImagePreview.style.display = 'block';
 
                         // Determine the type (practice or service) from the URL
@@ -217,15 +240,23 @@
             <script>
                 function toggleImageField() {
                     var imageField = document.getElementById("toogle-hide");
+                    var servicesContainer = document.getElementById("services-add-container"); // Get the services div
+
                     if (imageField.style.visibility === "hidden") {
-                        imageField.style.visibility = "visible"; // Show the image field
-                        imageField.style.height = "auto"; // Adjust height dynamically
+                        imageField.style.visibility = "visible";
+                        imageField.style.height = "auto";
+
+                        servicesContainer.style.visibility = "visible";// Show services section
                     } else {
-                        imageField.style.visibility = "hidden"; // Hide the image field
-                        imageField.style.height = "0px"; // Collapse the space
+                        imageField.style.visibility = "hidden";
+                        imageField.style.height = "0px";
+
+                        servicesContainer.style.visibility = "hidden"; // Hide services section
+                          servicesContainer.style.height = "0px"; // Hide services section
                     }
                 }
             </script>
+
 
 
             <script>

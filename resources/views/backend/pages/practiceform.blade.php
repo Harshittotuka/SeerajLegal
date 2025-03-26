@@ -54,23 +54,152 @@
     </main>
 
 
+    {{-- JAVA SCRIPT FOR functioning of drag and drop --}}
+    <script>
+        async function fetchServices() {
+            try {
+                const response = await fetch("http://127.0.0.1:8000/api/services/list");
+                const data = await response.json();
+
+                if (data.success) {
+                    const servicesList = document.getElementById("servicesList");
+
+                    data.data.forEach(service => {
+                        const serviceDiv = document.createElement("div");
+                        serviceDiv.className = "item";
+                        serviceDiv.draggable = true;
+                        serviceDiv.id = `service-${service.id}`;
+                        serviceDiv.style = `
+                        padding: 8px 12px; border: 1px solid #007bff; color: #007bff; font-weight: 500; 
+                        border-radius: 5px; cursor: grab; display: flex; align-items: center; gap: 8px; 
+                        font-size: 14px;`;
+
+                        serviceDiv.innerHTML =
+                            `<i class="${service.icon}" style="margin-right: 3px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);"></i> ${service.service_name}`;
+                        servicesList.appendChild(serviceDiv);
+
+                        // Drag events
+                        serviceDiv.addEventListener('dragstart', (e) => {
+                            if (serviceDiv.classList.contains("disabled")) {
+                                e.preventDefault();
+                                return;
+                            }
+                            e.dataTransfer.setData('text/plain', serviceDiv.id);
+                        });
+
+                        serviceDiv.addEventListener('dragend', () => {
+                            serviceDiv.style.opacity = "1";
+                        });
+                    });
+
+                    setupDragAndDrop();
+                }
+            } catch (error) {
+                console.error("Error fetching services:", error);
+            }
+        }
+
+        
+
+     function setupDragAndDrop() {
+    const dropContainer = document.querySelector('.drop-container');
+    const placeholderText = document.getElementById('placeholderText');
+
+    // Handle dragover for desktop
+    dropContainer.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    });
+
+    // Handle drop for desktop
+    dropContainer.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const itemId = e.dataTransfer.getData('text/plain');
+        const draggedItem = document.getElementById(itemId);
+
+        if (!draggedItem.classList.contains("disabled")) {
+            handleItemDrop(draggedItem, dropContainer);
+        }
+    });
+
+    // Add touch support for mobile devices
+    const draggableItems = document.querySelectorAll('.item');
+    draggableItems.forEach((item) => {
+        item.addEventListener('touchstart', (e) => {
+            e.target.style.opacity = "0.5"; // Visual feedback for touch start
+            e.target.dataset.touchId = e.target.id; // Store the ID of the touched item
+        });
+
+        item.addEventListener('touchend', (e) => {
+            e.target.style.opacity = "1"; // Reset opacity
+            const touchId = e.target.dataset.touchId;
+            const draggedItem = document.getElementById(touchId);
+
+            if (draggedItem && !draggedItem.classList.contains("disabled")) {
+                handleItemDrop(draggedItem, dropContainer);
+            }
+        });
+    });
+}
+
+// Function to handle item drop (used for both desktop and mobile)
+function handleItemDrop(draggedItem, dropContainer) {
+    draggedItem.classList.add("disabled");
+    draggedItem.style.filter = "blur(1px)";
+    draggedItem.style.cursor = "not-allowed";
+    draggedItem.style.border = "1px solid grey";
+    draggedItem.style.color = "grey";
+
+    const serviceName = draggedItem.textContent.trim(); // Extract only the service name
+    const clonedItem = document.createElement('div');
+    clonedItem.className = "item selected";
+    clonedItem.style = `
+        padding: 8px 12px; border: 1px solid #28a745; color: #28a745; font-weight: 500; 
+        border-radius: 5px; display: flex; align-items: center; gap: 8px; font-size: 14px;`;
+    clonedItem.innerHTML = `
+        ${serviceName} 
+        <span class="remove" style="cursor: pointer; font-size: 12px; color: red;">❌</span>`;
+    dropContainer.appendChild(clonedItem);
+
+    updatePlaceholder();
+
+    clonedItem.querySelector(".remove").addEventListener("click", function () {
+        clonedItem.remove();
+        draggedItem.classList.remove("disabled");
+        draggedItem.style.filter = "none";
+        draggedItem.style.cursor = "grab";
+        draggedItem.style.border = "1px solid #007bff";
+        draggedItem.style.color = "#007bff";
+
+        updatePlaceholder();
+    });
+}
+
+// Function to update placeholder visibility
+function updatePlaceholder() {
+    const dropContainer = document.querySelector('.drop-container');
+    const placeholderText = document.getElementById('placeholderText');
+
+    if (!placeholderText) {
+        console.error("Placeholder text element not found in the DOM.");
+        return;
+    }
+
+    // Check if the drop container has any child elements other than the placeholder
+    const hasItems = Array.from(dropContainer.children).some(
+        (child) => child !== placeholderText
+    );
+
+    if (hasItems) {
+        placeholderText.style.display = "none"; // Hide placeholder if items are present
+    } else {
+        placeholderText.style.display = "block"; // Show placeholder if no items are present
+    }
+}
+
+        fetchServices();
+    </script>
 
 
-
-
-
-    <!--   Core JS Files   -->
-    <script src="{{ asset('assets/backend/js/core/popper.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/js/core/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/js/plugins/perfect-scrollbar.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/js/plugins/smooth-scrollbar.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/js/plugins/chartjs.min.js') }}"></script>
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="{{ asset('assets/backend/js/material-dashboard.min.js?v=3.2.0') }}"></script>
-
-
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 
     <script>
@@ -101,105 +230,150 @@
         });
 
         function populateForm(practiceData) {
-            const formContainer = document.getElementById("formContainer");
-            const formsContainer = document.getElementById("formsContainer");
+    const formContainer = document.getElementById("formContainer");
+    const formsContainer = document.getElementById("formsContainer");
+    const dropContainer = document.querySelector(".drop-container");
+    const servicesList = document.getElementById("servicesList");
 
-            if (!formContainer || !formsContainer) {
-                console.error("Form containers not found in the DOM.");
-                return;
-            }
+    if (!formContainer || !formsContainer || !dropContainer || !servicesList) {
+        console.error("Form containers or services list not found in the DOM.");
+        return;
+    }
 
-            // Clear previous form data
-            formsContainer.innerHTML = "";
+    // Clear previous form data
+    formsContainer.innerHTML = "";
+    dropContainer.innerHTML = ""; // Clear the drop container
 
-            // Populate Service Name, Image, and Icon (Assuming the first practice contains these)
-            if (practiceData.length > 0) {
-                document.getElementById("name").value = practiceData[0].practice_name || "";
-                let imagePath = practiceData[0].image_path.replace(/\\/g, '/');
-                let topImagePath = practiceData[0].top_image?.replace(/\\/g, '/'); // Handle top_image
+    // Populate Service Name, Image, and Icon (Assuming the first practice contains these)
+    if (practiceData.length > 0) {
+        document.getElementById("name").value = practiceData[0].practice_name || "";
+        let imagePath = practiceData[0].image_path.replace(/\\/g, '/');
+        let topImagePath = practiceData[0].top_image?.replace(/\\/g, '/'); // Handle top_image
 
-                if (!imagePath.startsWith('http')) {
-                    imagePath = `http://127.0.0.1:8000/${imagePath.replace(/^\/+/, '')}`;
-                }
-
-                if (topImagePath && !topImagePath.startsWith('http')) {
-                    topImagePath = `http://127.0.0.1:8000/${topImagePath.replace(/^\/+/, '')}`;
-                }
-
-                console.log('Final Image Path:', imagePath); // Debugging
-                document.getElementById("imagePreview").src = imagePath;
-                document.getElementById("imagePreview").style.display = 'block';
-                document.getElementById("Icon").value = practiceData[0].icon || "";
-
-                console.log('Top Image Path:', topImagePath); // Debugging
-                if (topImagePath) {
-                    document.getElementById("topImagePreview").src = topImagePath;
-                    document.getElementById("topImagePreview").style.display = 'block';
-                }
-
-                previewIcon();
-
-                // Store the image path in the global variable
-                globalImagePath = practiceData[0].image_path;
-            }
-
-            // Populate dynamic forms for each practice
-            practiceData.forEach((practice, index) => {
-                let formHtml = `
-            <div class="p-4 bg-white shadow rounded form-box position-relative" style="max-width: 80%;">
-                <h5 class="mb-3">Section ${index + 1}</h5>
-                <form>
-                    <div class="mb-3 d-flex align-items-center">
-                        <label class="me-3" style="width: 100px;">Title:</label>
-                        <input type="text" class="form-control flex-grow-1 border-1 border-bottom"
-                            value="${practice.title || ''}" placeholder="Enter title">
-                    </div>
-                    <div class="mb-3 d-flex align-items-center">
-                        <label class="me-3" style="width: 100px;">Paragraph:</label>
-                        <textarea class="form-control flex-grow-1 border-1 border-bottom" rows="2"
-                            placeholder="Enter paragraph">${practice.para || ''}</textarea>
-                    </div>
-                    <div class="pointsContainer">
-                        <div class="mb-3 d-flex align-items-center">
-                            <label class="me-3" style="width: 100px;">Points:</label>
-                            <div class="flex-grow-1 d-flex">
-                                <input type="text" class="form-control border-1 border-bottom"
-                                    value="${practice.points?.[0] || ''}" placeholder="Enter point">
-                                <button type="button" class="btn btn-success ms-2 addPoint">+</button>
-                            </div>
-                        </div>
-                        ${practice.points?.slice(1).map(point => `
-                                                                                        <div class="mb-3 d-flex align-items-center">
-                                                                                            <label class="me-3" style="width: 100px;"></label>
-                                                                                            <div class="flex-grow-1 d-flex">
-                                                                                                <input type="text" class="form-control border-1 border-bottom"
-                                                                                                    value="${point}" placeholder="Enter point">
-                                                                                                <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    `).join('') || ''}
-                    </div>
-                </form>
-                
-                <button class="btn btn-primary addFormInside">+</button>
-              ${index !== 0 ? `
-                                                            <button class="btn btn-danger delete-form">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
-                                                                    <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
-                                                                </svg>
-                                                            </button>` : ''}
-
-            </div>
-            <br>
-            <br>
-        `;
-
-                formsContainer.innerHTML += formHtml;
-            });
-
-            attachEventListeners();
+        if (!imagePath.startsWith('http')) {
+            imagePath = `http://127.0.0.1:8000/${imagePath.replace(/^\/+/, '')}`;
         }
 
+        if (topImagePath && !topImagePath.startsWith('http')) {
+            topImagePath = `http://127.0.0.1:8000/${topImagePath.replace(/^\/+/, '')}`;
+        }
+
+        console.log('Final Image Path:', imagePath); // Debugging
+        document.getElementById("imagePreview").src = imagePath;
+        document.getElementById("imagePreview").style.display = 'block';
+        document.getElementById("Icon").value = practiceData[0].icon || "";
+
+        console.log('Top Image Path:', topImagePath); // Debugging
+        if (topImagePath) {
+            document.getElementById("topImagePreview").src = topImagePath;
+            document.getElementById("topImagePreview").style.display = 'block';
+        }
+
+        previewIcon();
+
+        // Store the image path in the global variable
+        globalImagePath = practiceData[0].image_path;
+
+        // Populate the dragged list based on `what_we_provide`
+        const whatWeProvide = practiceData[0].what_we_provide || [];
+        console.log("What We Provide:", whatWeProvide);
+
+        // Mark items in the draggable list and add them to the drop container
+        whatWeProvide.forEach((serviceName) => {
+            const matchingItem = Array.from(servicesList.children).find(
+                (item) => item.textContent.trim().includes(serviceName)
+            );
+
+            if (matchingItem) {
+                matchingItem.classList.add("disabled");
+                matchingItem.style.filter = "blur(1px)";
+                matchingItem.style.cursor = "not-allowed";
+                matchingItem.style.border = "1px solid grey";
+                matchingItem.style.color = "grey";
+
+                // Add the item to the drop container
+                const clonedItem = document.createElement("div");
+                clonedItem.className = "item selected";
+                clonedItem.style = `
+                    padding: 8px 12px; border: 1px solid #28a745; color: #28a745; font-weight: 500; 
+                    border-radius: 5px; display: flex; align-items: center; gap: 8px; font-size: 14px;`;
+                clonedItem.innerHTML = `
+                    ${serviceName} 
+                    <span class="remove" style="cursor: pointer; font-size: 12px; color: red;">❌</span>`;
+                dropContainer.appendChild(clonedItem);
+
+                // Add remove functionality
+                clonedItem.querySelector(".remove").addEventListener("click", function () {
+                    clonedItem.remove();
+                    matchingItem.classList.remove("disabled");
+                    matchingItem.style.filter = "none";
+                    matchingItem.style.cursor = "grab";
+                    matchingItem.style.border = "1px solid #007bff";
+                    matchingItem.style.color = "#007bff";
+
+                    updatePlaceholder();
+                });
+            }
+        });
+
+        updatePlaceholder();
+    }
+
+    // Populate dynamic forms for each practice
+    practiceData.forEach((practice, index) => {
+        let formHtml = `
+        <div class="p-4 bg-white shadow rounded form-box position-relative" style="max-width: 80%;">
+            <h5 class="mb-3">Section ${index + 1}</h5>
+            <form>
+                <div class="mb-3 d-flex align-items-center">
+                    <label class="me-3" style="width: 100px;">Title:</label>
+                    <input type="text" class="form-control flex-grow-1 border-1 border-bottom"
+                        value="${practice.title || ''}" placeholder="Enter title">
+                </div>
+                <div class="mb-3 d-flex align-items-center">
+                    <label class="me-3" style="width: 100px;">Paragraph:</label>
+                    <textarea class="form-control flex-grow-1 border-1 border-bottom" rows="2"
+                        placeholder="Enter paragraph">${practice.para || ''}</textarea>
+                </div>
+                <div class="pointsContainer">
+                    <div class="mb-3 d-flex align-items-center">
+                        <label class="me-3" style="width: 100px;">Points:</label>
+                        <div class="flex-grow-1 d-flex">
+                            <input type="text" class="form-control border-1 border-bottom"
+                                value="${practice.points?.[0] || ''}" placeholder="Enter point">
+                            <button type="button" class="btn btn-success ms-2 addPoint">+</button>
+                        </div>
+                    </div>
+                    ${practice.points?.slice(1).map(point => `
+                        <div class="mb-3 d-flex align-items-center">
+                            <label class="me-3" style="width: 100px;"></label>
+                            <div class="flex-grow-1 d-flex">
+                                <input type="text" class="form-control border-1 border-bottom"
+                                    value="${point}" placeholder="Enter point">
+                                <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
+                            </div>
+                        </div>
+                    `).join('') || ''}
+                </div>
+            </form>
+            
+            <button class="btn btn-primary addFormInside">+</button>
+            ${index !== 0 ? `
+                <button class="btn btn-danger delete-form">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
+                        <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
+                    </svg>
+                </button>` : ''}
+        </div>
+        <br>
+        <br>
+    `;
+
+        formsContainer.innerHTML += formHtml;
+    });
+
+    attachEventListeners();
+}
         // Function to attach event listeners for adding/removing forms and points
         function attachEventListeners() {
             document.addEventListener("click", function(event) {
@@ -302,6 +476,12 @@
                     showToast("No valid forms to submit.", "error");
                     return;
                 }
+                const selectedServices = Array.from(document.querySelectorAll(
+                        ".drop-container .item.selected"))
+                    .map(item => item.textContent.replace(/❌/g, "")
+                        .trim()); // Remove the ❌ icon and trim whitespace
+
+                console.log("Selected Services:", selectedServices);
 
                 const canvas = croppedCanvas;
                 if (canvas) {
@@ -326,7 +506,8 @@
                                     showToast("Image replaced successfully!", "success");
 
                                     // Proceed with saving the rest of the data
-                                    savePracticeData(practiceName, icon, paragraphs);
+                                    savePracticeData(practiceName, icon, paragraphs,
+                                        selectedServices);
                                 } else {
                                     console.error('Error replacing image in public folder:',
                                         data.message);
@@ -340,11 +521,11 @@
                     }, 'image/webp'); // Specify the image format
                 } else {
                     // If no image is being cropped, proceed with saving the rest of the data
-                    savePracticeData(practiceName, icon, paragraphs);
+                    savePracticeData(practiceName, icon, paragraphs, selectedServices);
                 }
             });
 
-            function savePracticeData(practiceName, icon, paragraphs) {
+            function savePracticeData(practiceName, icon, paragraphs, selectedServices) {
                 // Generate the top image path dynamically
                 let topImagePath = `assets/dynamic/practices/top_${practiceName.replace(/\s+/g, "_")}.webp`;
                 console.log("Top Image Path:", topImagePath);
@@ -354,7 +535,7 @@
                     top_image: topImagePath, // Include the top image path
                     icon: icon, // Include the icon
                     paragraphs: paragraphs, // Dynamic paragraphs data
-                    what_we_provide: ["Arbitration", "Negotiation"], // Static as per requirement
+                    what_we_provide: selectedServices, // Static as per requirement
                     flag: "enabled" // Static flag
                 };
 
@@ -419,11 +600,22 @@
     </script>
 
     </script>
-    <!-- Toastify CSS -->
+    <!-- Toastify -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-
-    <!-- Toastify JS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <!--   Core JS Files   -->
+    <script src="{{ asset('assets/backend/js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/core/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/plugins/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/plugins/smooth-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/plugins/chartjs.min.js') }}"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="{{ asset('assets/backend/js/material-dashboard.min.js?v=3.2.0') }}"></script>
+
+
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 </body>
 
