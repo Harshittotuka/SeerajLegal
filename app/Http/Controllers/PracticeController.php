@@ -91,7 +91,10 @@ class PracticeController extends Controller
                 'paragraphs.*.para' => 'nullable|string',
                 'paragraphs.*.points' => 'nullable|array',
                 'what_we_provide' => 'nullable|array',
-                'flag' => 'string'
+                'flag' => 'string',
+                'image_path' => 'nullable|string',
+                'top_image' => 'nullable|string',
+                'icon' => 'nullable|string'
             ]);
     
             // Create practices using the service
@@ -133,6 +136,9 @@ public function update(Request $request, $practiceName)
             'paragraphs.*.points' => 'nullable|array',
             'what_we_provide' => 'nullable|array',
             'flag' => 'nullable|in:enabled,disabled',
+            'icon' => 'nullable|string',
+            'image_path' => 'nullable|string',
+            'top_image' => 'nullable|string'
         ]);
 
         $result = $this->practiceService->updatePractice($practiceName, $validated);

@@ -290,6 +290,7 @@
                 }
             }
         </script>
+        @include('backend.components.topimage-modal')
 
         <!-- html  table-->
         <div class="container-fluid overflow-hidden py-2">
@@ -302,10 +303,19 @@
                                 <p class="text-sm mb-0 text-capitalize">Members List</p>
                                 <h4 class="mb-0">Manage Members</h4>
                             </div>
-                            <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon"
-                                style="cursor: pointer; width: 40px; height: 40px;" data-bs-toggle="modal"
-                                data-bs-target="#memberModal">
-                                <i class="material-symbols-rounded opacity-10">add</i>
+                              <div class="d-flex ">
+                                <!-- FAQ Header Button -->
+                                <button class="btn btn-warning edit-btn me-3" data-imageid="TopImg_mem"
+                                    data-bs-toggle="modal" data-bs-target="#topImageModal">
+                                    Members Header
+                                </button>
+
+                                <!-- Add Button -->
+                                <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon"
+                                    style="cursor: pointer; width: 40px; height: 40px;" data-bs-toggle="modal"
+                                    data-bs-target="#memberModal">
+                                    <i class="material-symbols-rounded opacity-10">add</i>
+                                </div>
                             </div>
                         </div>
 

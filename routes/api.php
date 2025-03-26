@@ -11,9 +11,18 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\Contact2Controller;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ImageController;
+
+
+//api to get team based on designation
+Route::get('/team/designation/{designation}', [TeamController::class, 'getByDesignation']);
 
 
 
+
+Route::get('/topimages', [ImageController::class, 'index']);  // List all
+Route::get('/topimages/{image_id}', [ImageController::class, 'show']);  // Get by ID
+Route::put('/topimages/{image_id}', [ImageController::class, 'update']);  // Update by ID
 
 
 //api to update json file of personal details(nova)
@@ -83,6 +92,7 @@ Route::post('/contact/create', [ContactController::class, 'store']);
 Route::delete('/contact/delete/{id}', [ContactController::class, 'destroy']);
 Route::put('/contact/update/{id}', [ContactController::class, 'update']);
 
+Route::post('/upload-cropped-image', [ImageController::class, 'uploadCroppedImage']);
 
 Route::prefix('admin')->group(function () {
     Route::post('/create', [AdminController::class, 'create']); // Create admin

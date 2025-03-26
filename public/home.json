@@ -13,9 +13,9 @@
         "para": "Specializing in Alternative dispute resolution methods in contrast to conventional court proceedings",
         "points": null,
         "flag": "enabled",
-        "image": "Asds",
         "icon_Type": "fontawesome",
-        "icon": "fas fa-r"
+        "icon": "fas fa-r",
+        "ss" : "/assets/backend/img/previews/S_id5home.png"
     },
     {
         "usage": [
@@ -28,7 +28,7 @@
             2,
             3
         ],
-        "title": "Serving Every Corner of <span> Rajasthan <\/span>",
+        "title": "Serving Every Corner of Rajasthan",
         "para": "We pride ourselves in providing legal solutions throughout the vast and diverse land of Rajasthan. From the capital city of Jaipur to the serene desert of Jaisalmer, we bring justice and consultancy to every corner of this beautiful state.",
         "points": [
             "33+ Districts",
@@ -36,10 +36,13 @@
             "24\u00d77 Availability"
         ],
         "flag": "enabled",
+        "image-count":"fixed",
+        "image-resolution":[300,200],
         "image": [
             "assets\/img\/Rajasthan.png"
         ],
         "icon_Type": "fontawesome",
-        "icon": "fas fa-r"
+        "icon": "fas fa-r",
+        "ss" : "/assets/backend/img/previews/S_id8.png"
     }
 ]

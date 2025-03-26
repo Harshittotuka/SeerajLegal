@@ -13,6 +13,15 @@
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
+ <!-- code for topimage.js -->
+ <script src="{{ asset('assets/js/topimage.js') }}"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetchPageContent("TopImg_mem");
+    });
+</script>
+
 </head>
 
 <body>
@@ -21,19 +30,20 @@
 
 
     <!-- Header Banner -->
-    <div class="banner-header valign bg-img bg-fixed" data-overlay-dark="5"
-        data-background="{{ asset('assets/img/Member.webp') }}">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 caption mt-60 text-center">
-                    <h6>
-                        <div class="icon"><i class="flaticon-courthouse"></i></div>Membership
-                    </h6>
-                    <h1> Become a <span>member</span></h1>
-                </div>
+    <div id="page-bg" class="banner-header valign bg-img bg-fixed" data-overlay-dark="5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 caption mt-60 text-center">
+                <h6>
+                    <div class="icon"><i id="page-icon"></i></div> 
+                    <span id="page-title"></span>
+                </h6>
+                <h1><span id="page-subtitle"></span></h1>
             </div>
         </div>
     </div>
+</div>
+
 
 
     <!-- Form -->

@@ -43,6 +43,9 @@ class PracticeService
             'points' => $paragraph['points'] ?? [], // Ensure points are stored properly
             'what_we_provide' => $data['what_we_provide'] ?? [], // Store as JSON
             'flag' => $data['flag'] ?? 'enabled',
+            'icon' => $data['icon'] ,
+            "image_path" => $data['image_path'],
+            'top_image'=> $data['top_image']
         ]);
 
         $createdPractices[] = $createdPractice;
@@ -75,6 +78,9 @@ class PracticeService
                 'points' => $paragraph['points'] ?? null,
                 'what_we_provide' => $data['what_we_provide'] ?? null,
                 'flag' => $data['flag'] ?? 'enabled',
+                'icon' => $data['icon'] ,
+                "image_path" => $data['image_path'],
+                'top_image'=> $data['top_image']
             ]);
         }
 

@@ -242,3 +242,4 @@ Route::get('/team-details', function () {
 Route::get('/contact', function () {
     return view('pages.contact');
 })->name('contact');
+
