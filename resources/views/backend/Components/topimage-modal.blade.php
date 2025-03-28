@@ -5,60 +5,56 @@
 <!-- Hidden file input for selecting new image -->
 <input type="file" id="inputImage" accept="image/*" style="display: none;">
 
-<!-- Your Existing Top Image Modal -->
+<!-- Your Updated Top Image Modal -->
 <div class="modal fade" id="topImageModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalLabel">Edit Image Details</h5>
-                <button type="button" class="btn-close close-modal" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+                <button type="button" class="btn-close close-modal" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="topImageForm">
                     <input type="hidden" id="image_id" name="image_id">
-                    <!-- Store the relative image path for replacement -->
                     <input type="hidden" id="image_path" name="image_path">
 
                     <div class="mb-3">
-                        <label for="page_name" class="form-label">Page Name</label>
-                        <input type="text" class="form-control" id="page_name" name="page_name" disabled>
+                        <label for="page_name" class="form-label">Page Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="page_name" name="page_name" disabled required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="title" class="form-label">Title</label>
-                        <input type="text" class="form-control" id="title" name="title">
+                        <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="title" name="title" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="sub_title" class="form-label">Sub-title</label>
-                        <input type="text" class="form-control" id="sub_title" name="sub_title">
+                        <label for="sub_title" class="form-label">Sub-title <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="sub_title" name="sub_title" required>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Image</label>
+                        <label class="form-label">Image <span class="text-danger">*</span></label>
                         <div class="d-flex justify-content-center flex-column align-items-center">
-                            <!-- Existing preview image -->
                             <img id="previewImage" src="" alt="Image Preview"
                                 class="img-fluid rounded shadow-lg mt-2"
                                 style="max-height: 200px; display: none; cursor: pointer; transition: all 0.3s ease;">
-                            <!-- Replace button now triggers file selection -->
                             <button id="replaceButton" class="btn btn-primary mt-3" type="button"
                                 onclick="replaceImage()">Replace</button>
                         </div>
                     </div>
-                    <!-- Hidden resolution coming from backend, e.g.: "[1792,1024]" -->
-                    <input type="text" id="resolution" >
+
+                    <input type="text" id="resolution" required hidden>
 
                     <div class="mb-3 d-flex align-items-center">
-                        <label for="icon" class="form-label me-2">Icon</label>
+                        <label for="icon" class="form-label me-2">Icon <span class="text-danger">*</span></label>
                         <input type="text" class="form-control me-2" id="icon" name="icon"
-                            style="width: 80%;" placeholder="Enter FontAwesome class (e.g., fas fa-user)">
+                            style="width: 80%;" placeholder="Enter FontAwesome class (e.g., fas fa-user)" required>
                         <i id="iconPreview" class="fa-solid fa-icons text-primary"
                             style="font-size: 24px; display: none;"></i>
                     </div>
 
-                    <button type="button" class="btn btn-primary" id="saveChanges">Save Changes</button>
+                    <button type="submit" class="btn btn-primary" id="saveChanges">Save Changes</button>
                 </form>
             </div>
         </div>
@@ -192,40 +188,61 @@
         });
 
         // Save changes functionality for image details (existing)
-        document.getElementById("saveChanges").addEventListener("click", function() {
-            let imageId = document.getElementById("image_id").value;
+      document.getElementById("saveChanges").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent default form submission
 
-            let formData = {
-                title: document.getElementById("title").value,
-                sub_title: document.getElementById("sub_title").value,
-                page_name: document.getElementById("page_name").value,
-                icon: document.getElementById("icon").value,
-            };
+    let imageId = document.getElementById("image_id").value;
+    let title = document.getElementById("title").value.trim();
+    let subTitle = document.getElementById("sub_title").value.trim();
+    let pageName = document.getElementById("page_name").value.trim();
+    let icon = document.getElementById("icon").value.trim();
 
-            fetch(`/api/topimages/${imageId}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    },
-                    body: JSON.stringify(formData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    Toastify({
-                        text: "Image updated successfully!",
-                        duration: 1000,
-                        close: true,
-                        gravity: "top",
-                        position: "right",
-                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-                        stopOnFocus: true,
-                    }).showToast();
+    // Validate fields before submitting
+    if (!title || !subTitle || !pageName || !icon) {
+        Toastify({
+            text: "Please fill in all required fields!",
+            duration: 1500,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+            stopOnFocus: true,
+        }).showToast();
+        return; // Stop execution if validation fails
+    }
 
-                    setTimeout(() => location.reload(), 2000);
-                })
-                .catch(error => console.error("Error updating image:", error));
-        });
+    let formData = {
+        title: title,
+        sub_title: subTitle,
+        page_name: pageName,
+        icon: icon,
+    };
+
+    fetch(`/api/topimages/${imageId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        Toastify({
+            text: "Image updated successfully!",
+            duration: 1000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            stopOnFocus: true,
+        }).showToast();
+
+        setTimeout(() => location.reload(), 2000);
+    })
+    .catch(error => console.error("Error updating image:", error));
+});
+
     });
 
     // Cropper-related variable

@@ -117,9 +117,9 @@
                 container.innerHTML = "";
 
                 filteredSections.forEach((section, index) => {
-    const card = document.createElement("div");
-    card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
-    card.innerHTML = `
+                    const card = document.createElement("div");
+                    card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
+                    card.innerHTML = `
         <div class="card text-center shadow-lg" style="height: 250px; width: 250px;">
             
             <!-- ✅ Manage Content Modal Opens ONLY When Clicking on Header/Text -->
@@ -150,8 +150,8 @@
             </div>
         </div>
     `;
-    container.appendChild(card);
-});
+                    container.appendChild(card);
+                });
 
 
             } catch (error) {
@@ -160,11 +160,11 @@
         }
 
         function showImagePreview(imageUrl) {
-    const modalImage = document.getElementById('modalPreviewImage');
-    modalImage.src = imageUrl; // Set the image URL dynamically
-    const modal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
-    modal.show();
-}
+            const modalImage = document.getElementById('modalPreviewImage');
+            modalImage.src = imageUrl; // Set the image URL dynamically
+            const modal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
+            modal.show();
+        }
 
 
         async function populateModal(index) {
@@ -182,28 +182,44 @@
 
                 // Populate form fields
                 // Section Heading
+                // Section Heading
                 if (section.title) {
-                    document.getElementById("sectionHeading").value = section.title;
-                    document.getElementById("sectionHeading").closest('.form-floating').style.display = "block";
+                    const headingEl = document.getElementById("sectionHeading");
+                    headingEl.value = section.title;
+                    headingEl.closest('.form-floating').style.display = "block";
+                    headingEl.dataset.required = "true"; // Mark as required
                 } else {
                     document.getElementById("sectionHeading").closest('.form-floating').style.display = "none";
+                    // Optionally clear required flag if needed
+                    document.getElementById("sectionHeading").dataset.required = "false";
                 }
 
                 // Section Paragraph
                 if (section.para) {
-                    document.getElementById("sectionPara").value = section.para;
-                    document.getElementById("sectionPara").closest('.form-floating').style.display = "block";
+                    const paraEl = document.getElementById("sectionPara");
+                    paraEl.value = section.para;
+                    paraEl.closest('.form-floating').style.display = "block";
+                    paraEl.dataset.required = "true"; // Mark as required
                 } else {
                     document.getElementById("sectionPara").closest('.form-floating').style.display = "none";
+                    document.getElementById("sectionPara").dataset.required = "false";
                 }
 
                 // Section Points
                 if (section.points && section.points.length > 0) {
-                    document.getElementById("sectionPoints").value = section.points.join("\n");
-                    document.getElementById("sectionPoints").closest('.form-floating').style.display = "block";
+                    const pointsEl = document.getElementById("sectionPoints");
+                    pointsEl.value = section.points.join("\n");
+                    pointsEl.closest('.form-floating').style.display = "block";
+                    pointsEl.dataset.required = "true"; // Mark as required
                 } else {
                     document.getElementById("sectionPoints").closest('.form-floating').style.display = "none";
+                    document.getElementById("sectionPoints").dataset.required = "false";
                 }
+
+
+
+
+
                 document.getElementById("iconClassInput").value = section.icon || "";
                 document.getElementById("iconPreview").innerHTML = section.icon ? `<i class="${section.icon}"></i>` :
                     "";
@@ -461,20 +477,20 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <!-- modal to show preview images -->
-        <!-- Image Preview Modal -->
-<div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Image Preview</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-                <img id="modalPreviewImage" src="" alt="Preview" class="img-fluid rounded shadow">
+    <!-- Image Preview Modal -->
+    <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Image Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalPreviewImage" src="" alt="Preview" class="img-fluid rounded shadow">
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 </body>
