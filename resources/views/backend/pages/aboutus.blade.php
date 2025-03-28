@@ -235,28 +235,38 @@
                 // Populate form fields with conditional display
 
                 // Section Heading
-                if (section.title) {
-                    document.getElementById("sectionHeading").value = section.title;
-                    document.getElementById("sectionHeading").closest('.form-floating').style.display = "block";
-                } else {
-                    document.getElementById("sectionHeading").closest('.form-floating').style.display = "none";
-                }
+              // Populate Section Fields
+if (section.title) {
+    const headingEl = document.getElementById("sectionHeading");
+    headingEl.value = section.title;
+    headingEl.closest('.form-floating').style.display = "block";
+    headingEl.dataset.required = "true"; // Mark as required
+    headingEl.dataset.initial = section.title; // Store initial value
+} else {
+    document.getElementById("sectionHeading").closest('.form-floating').style.display = "none";
+}
 
-                // Section Paragraph
-                if (section.para) {
-                    document.getElementById("sectionPara").value = section.para;
-                    document.getElementById("sectionPara").closest('.form-floating').style.display = "block";
-                } else {
-                    document.getElementById("sectionPara").closest('.form-floating').style.display = "none";
-                }
+// Section Paragraph
+if (section.para) {
+    const paraEl = document.getElementById("sectionPara");
+    paraEl.value = section.para;
+    paraEl.closest('.form-floating').style.display = "block";
+    paraEl.dataset.required = "true";
+    paraEl.dataset.initial = section.para;
+} else {
+    document.getElementById("sectionPara").closest('.form-floating').style.display = "none";
+}
 
-                // Section Points
-                if (section.points && section.points.length > 0) {
-                    document.getElementById("sectionPoints").value = section.points.join("\n");
-                    document.getElementById("sectionPoints").closest('.form-floating').style.display = "block";
-                } else {
-                    document.getElementById("sectionPoints").closest('.form-floating').style.display = "none";
-                }
+// Section Points
+if (section.points && section.points.length > 0) {
+    const pointsEl = document.getElementById("sectionPoints");
+    pointsEl.value = section.points.join("\n");
+    pointsEl.closest('.form-floating').style.display = "block";
+    pointsEl.dataset.required = "true";
+    pointsEl.dataset.initial = section.points.join("\n");
+} else {
+    document.getElementById("sectionPoints").closest('.form-floating').style.display = "none";
+}
 
 
                 document.getElementById("iconClassInput").value = section.icon || "";

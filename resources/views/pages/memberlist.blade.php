@@ -16,11 +16,11 @@
     <!-- code for topimage.js -->
     <script src="{{ asset('assets/js/topimage.js') }}"></script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        fetchPageContent("TopImg_mem");
-    });
-</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetchPageContent("TopImg_mem");
+        });
+    </script>
 </head>
 
 <body>
@@ -29,18 +29,18 @@
 
     <!-- Header Banner -->
     <div id="page-bg" class="banner-header valign bg-img bg-fixed" data-overlay-dark="5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 caption mt-60 text-center">
-                <h6>
-                    <div class="icon"><i id="page-icon"></i></div> 
-                    <span id="page-title"></span>
-                </h6>
-                <h1 id="page-subtitle"></h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 caption mt-60 text-center">
+                    <h6>
+                        <div class="icon"><i id="page-icon"></i></div>
+                        <span id="page-title"></span>
+                    </h6>
+                    <h1 id="page-subtitle"></h1>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
     <!-- Member List -->
@@ -61,55 +61,54 @@
 
                     <!-- Members Table -->
                     <div class="table-responsive">
-    <table class="table table-striped table-hover">
-        <thead class="table-dark">
-            <tr>
-                <th scope="col">S.No</th>
-                <th scope="col">Name</th>
-                <th scope="col">Membership Type</th>
-            </tr>
-        </thead>
-        <tbody id="membersTable">
-            <!-- Data will be dynamically inserted here -->
-        </tbody>
-    </table>
-</div>
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Membership Type</th>
+                                </tr>
+                            </thead>
+                            <tbody id="membersTable">
+                                <!-- Data will be dynamically inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        fetch("http://127.0.0.1:8000/api/members")
-            .then(response => response.json())
-            .then(data => {
-                const membersTable = document.getElementById("membersTable");
-                membersTable.innerHTML = ""; // Clear existing rows
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            fetch("http://127.0.0.1:8000/api/members")
+                                .then(response => response.json())
+                                .then(data => {
+                                    const membersTable = document.getElementById("membersTable");
+                                    membersTable.innerHTML = ""; // Clear existing rows
 
-                data.forEach((member, index) => {
-                    const row = `
+                                    data.forEach((member, index) => {
+                                        const row = `
                         <tr>
                             <td>${index + 1}</td>
                             <td>${member.name}</td>
                             <td>${member.membership_type.charAt(0).toUpperCase() + member.membership_type.slice(1)}</td>
                         </tr>
                     `;
-                    membersTable.innerHTML += row;
-                });
-            })
-            .catch(error => console.error("Error fetching data:", error));
-    });
-</script>
+                                        membersTable.innerHTML += row;
+                                    });
+                                })
+                                .catch(error => console.error("Error fetching data:", error));
+                        });
+                    </script>
                 </div>
                 <div class="col-lg-3 col-md-12">
                     <div class="sidebar custom-box">
                         <h4>Memberships</h4>
                         <ul class="list-unstyled">
-                            <li><a href="Become_a_member.html">Become a Member
-                                </a></li>
-                            <li class="text-black"><a href="#">Member List
-                                </a></li>
-                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="{{ route('membership.become') }}">Become a Member</a></li>
+                            <li class="text-black"><a href="#">Member List</a></li>
+                            <li><a href="{{ route('membership.panel') }}">Panel</a></li>
                         </ul>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
