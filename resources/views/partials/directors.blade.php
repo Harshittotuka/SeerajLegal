@@ -148,20 +148,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     directors.forEach(director => {
                         const imageUrl = director.image ? `/storage/${director.image}` : 'assets/img/my/profile_icon2.png'; // Default image
-
                         const directorElement = document.createElement("div");
                         directorElement.className = "director-item";
                         directorElement.innerHTML = `
-                            <div class="img1">
-                                <img src="${imageUrl}" alt="${director.name}" class="img-cover">
-                                <div class="social-icons">
-                                    ${director.socials?.linkedin ? `<a href="${director.socials.linkedin}" target="_blank"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                            <a href="/team-details?id=${director.id}">
+                                <div class="img1">
+                                    <img src="${imageUrl}" alt="${director.name}" class="img-cover">
+                                    <div class="social-icons">
+                                        ${director.socials?.linkedin ? `<a href="${director.socials.linkedin}" target="_blank"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="info">
-                                <h5>${director.name}</h5>
-                                <p>${director.type}</p>
-                            </div>
+                                <div class="info">
+                                    <h5>${director.name}</h5>
+                                    <p>${director.type}</p>
+                                </div>
+                            </a>
                         `;
 
                         directorsContainer.appendChild(directorElement);
@@ -172,4 +173,5 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error('Error fetching aboutus.json:', error));
 });
 </script>
+
 
