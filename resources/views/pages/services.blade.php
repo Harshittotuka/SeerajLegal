@@ -22,8 +22,7 @@
     @include('partials.navbar')
 
     <!-- Header Banner -->
-    <div class="banner-header valign bg-img bg-fixed" id="headerBanner" data-overlay-dark="5"
-        data-background="{{ asset('assets/img/Conciliation.webp') }}">
+    <div class="banner-header valign bg-img bg-fixed" id="headerBanner" data-overlay-dark="5">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 text-center mt-60">
