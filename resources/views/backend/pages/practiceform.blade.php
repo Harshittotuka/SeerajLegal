@@ -421,183 +421,155 @@ function updatePlaceholder() {
         }
     </script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("saveButton").addEventListener("click", function() {
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("saveButton").addEventListener("click", function() {
+        const forms = document.querySelectorAll(".form-box");
+        let practiceName = document.getElementById("name").value.trim();
+        let icon = document.getElementById("Icon").value.trim(); // Get the icon value
 
+        // Ensure practiceName is not empty
+        if (!practiceName) {
+            showToast("Practice name is required.", "error");
+            return;
+        }
+        if (!globalImagePath) {
+            globalImagePath = `assets/dynamic/practices/${practiceName.replace(/\s+/g, "_")}.webp`;
+        }
 
-                const forms = document.querySelectorAll(".form-box");
-                let practiceName = document.getElementById("name").value.trim();
-                let icon = document.getElementById("Icon").value.trim(); // Get the icon value
+        console.log("global : ", globalImagePath);
+        let paragraphs = [];
+        let validForms = 0; // Counter to check if any form is submitted
 
-                // Ensure practiceName is not empty
-                if (!practiceName) {
-                    showToast("Practice name is required.", "error");
-                    return;
-                }
-                if (!globalImagePath) {
-                    globalImagePath = `assets/dynamic/practices/${practiceName.replace(/\s+/g, "_")}.webp`;
+        forms.forEach((form, index) => {
+            let title = form.querySelector("input[placeholder='Enter title']").value.trim();
+            let para = form.querySelector("textarea[placeholder='Enter paragraph']").value.trim();
+            let points = [];
 
-                }
-                console.log("global : ", globalImagePath);
-                let paragraphs = [];
-                let validForms = 0; // Counter to check if any form is submitted
-
-                forms.forEach((form, index) => {
-                    let title = form.querySelector("input[placeholder='Enter title']").value.trim();
-                    let para = form.querySelector("textarea[placeholder='Enter paragraph']").value
-                        .trim();
-
-                    let points = [];
-                    form.querySelectorAll(".pointsContainer input[placeholder='Enter point']")
-                        .forEach(pointInput => {
-                            let pointValue = pointInput.value.trim();
-                            if (pointValue) points.push(
-                                pointValue); // Only add non-empty points
-                        });
-
-                    // Skip form if all fields (title, para, points) are empty
-                    if (!title && !para && points.length === 0) {
-                        console.warn(`Skipping form ${index + 1} as all fields are empty.`);
-                        return;
-                    }
-
-                    validForms++; // Count valid forms
-
-                    paragraphs.push({
-                        para_sno: index + 1,
-                        title: title || null,
-                        para: para || null,
-                        points: points.length > 0 ? points : null // Store null if empty
-                    });
-                });
-
-                if (validForms === 0) {
-                    showToast("No valid forms to submit.", "error");
-                    return;
-                }
-                const selectedServices = Array.from(document.querySelectorAll(
-                        ".drop-container .item.selected"))
-                    .map(item => item.textContent.replace(/❌/g, "")
-                        .trim()); // Remove the ❌ icon and trim whitespace
-
-                console.log("Selected Services:", selectedServices);
-
-                const canvas = croppedCanvas;
-                if (canvas) {
-                    canvas.toBlob((blob) => {
-                        const formData = new FormData();
-                        console.log("here1");
-                        formData.append('image', blob); // Send the cropped image
-                        formData.append('path', globalImagePath.replace('http://127.0.0.1:8000/',
-                            '')); // Send relative path
-
-                        // Send the cropped image to the server
-                        fetch('/api/upload-cropped-image', {
-                                method: 'POST',
-                                headers: {},
-                                body: formData,
-                            })
-                            .then((response) => response.json())
-                            .then((data) => {
-                                if (data.success) {
-                                    console.log('Image replaced successfully in public folder:',
-                                        data.message);
-                                    showToast("Image replaced successfully!", "success");
-
-                                    // Proceed with saving the rest of the data
-                                    savePracticeData(practiceName, icon, paragraphs,
-                                        selectedServices);
-                                } else {
-                                    console.error('Error replacing image in public folder:',
-                                        data.message);
-                                    showToast("Error replacing image.", "error");
-                                }
-                            })
-                            .catch((error) => {
-                                console.error('Error uploading image:', error);
-                                showToast("Error uploading image.", "error");
-                            });
-                    }, 'image/webp'); // Specify the image format
-                } else {
-                    // If no image is being cropped, proceed with saving the rest of the data
-                    savePracticeData(practiceName, icon, paragraphs, selectedServices);
-                }
+            form.querySelectorAll(".pointsContainer input[placeholder='Enter point']").forEach(pointInput => {
+                let pointValue = pointInput.value.trim();
+                if (pointValue) points.push(pointValue); // Only add non-empty points
             });
 
-            function savePracticeData(practiceName, icon, paragraphs, selectedServices) {
-                // Generate the top image path dynamically
-                let topImagePath = `assets/dynamic/practices/top_${practiceName.replace(/\s+/g, "_")}.webp`;
-                console.log("Top Image Path:", topImagePath);
-                let requestData = {
-                    practice_name: practiceName, // Required field
-                    image_path: globalImagePath, // Use the global variable for the main image path
-                    top_image: topImagePath, // Include the top image path
-                    icon: icon, // Include the icon
-                    paragraphs: paragraphs, // Dynamic paragraphs data
-                    what_we_provide: selectedServices, // Static as per requirement
-                    flag: "enabled" // Static flag
-                };
-
-                console.log("Final Request Data:", requestData);
-
-                const urlParams = new URLSearchParams(window.location.search);
-                const practiceNameFromUrl = urlParams.get("practicename");
-
-                // Determine API endpoint dynamically
-                let apiUrl = "http://127.0.0.1:8000/api/practices/create"; // Default for new practice
-                if (practiceNameFromUrl) {
-                    apiUrl =
-                        `http://127.0.0.1:8000/api/practices/update-practice/${encodeURIComponent(practiceNameFromUrl)}`;
-                }
-
-                fetch(apiUrl, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(requestData)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            console.log("Success:", data);
-                            showToast("All valid data saved successfully!", "success");
-                        } else {
-                            console.error("Error:", data.message);
-                            showToast("Error saving data. Please try again.", "error");
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                        showToast("Error saving data. Please try again.", "error");
-                    });
+            // Skip form if all fields (title, para, points) are empty
+            if (!title && !para && points.length === 0) {
+                console.warn(`Skipping form ${index + 1} as all fields are empty.`);
+                return;
             }
 
-            // Function to show Toastify notifications
-            function showToast(message, type) {
-                Toastify({
-                    text: message,
-                    duration: 3000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: type === "success" ? "green" : "red",
-                }).showToast();
-            }
-            // Function to show Toastify notifications
-            function showToast(message, type) {
-                Toastify({
-                    text: message,
-                    duration: 3000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: type === "success" ? "green" : "red",
-                }).showToast();
-            }
+            validForms++; // Count valid forms
+
+            paragraphs.push({
+                para_sno: index + 1,
+                title: title || null,
+                para: para || null,
+                points: points.length > 0 ? points : null // Store null if empty
+            });
         });
-    </script>
+
+        if (validForms === 0) {
+            showToast("No valid forms to submit.", "error");
+            return;
+        }
+
+        const selectedServices = Array.from(document.querySelectorAll(".drop-container .item.selected"))
+            .map(item => item.textContent.replace(/❌/g, "").trim()); // Remove the ❌ icon and trim whitespace
+
+        console.log("Selected Services:", selectedServices);
+
+        // Generate the top image path dynamically
+        let topImagePath = `assets/dynamic/practices/top_${practiceName.replace(/\s+/g, "_")}.webp`;
+        console.log("Top Image Path:", topImagePath);
+
+        let requestData = {
+            practice_name: practiceName,
+            image_path: globalImagePath,
+            top_image: topImagePath,
+            icon: icon,
+            paragraphs: paragraphs,
+            what_we_provide: selectedServices,
+            flag: "enabled"
+        };
+
+        console.log("Final Request Data:", requestData);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const practiceNameFromUrl = urlParams.get("practicename");
+
+        // Determine API endpoint dynamically
+        let apiUrl = "http://127.0.0.1:8000/api/practices/create";
+        if (practiceNameFromUrl) {
+            apiUrl = `http://127.0.0.1:8000/api/practices/update-practice/${encodeURIComponent(practiceNameFromUrl)}`;
+        }
+
+        // Step 1: Save Practice Data First
+        fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToast("All valid data saved successfully!", "success");
+
+                    // Step 2: Only Upload Image if Data is Saved Successfully
+                    const canvas = croppedCanvas;
+                    if (canvas) {
+                        canvas.toBlob((blob) => {
+                            const formData = new FormData();
+                            console.log("Uploading image...");
+                            formData.append('image', blob);
+                            formData.append('path', globalImagePath.replace('http://127.0.0.1:8000/', ''));
+
+                            fetch('/api/upload-cropped-image', {
+                                    method: 'POST',
+                                    body: formData
+                                })
+                                .then(response => response.json())
+                                .then(imageData => {
+                                    if (imageData.success) {
+                                        console.log('Image replaced successfully:', imageData.message);
+                                        showToast("Image replaced successfully!", "success");
+                                    } else {
+                                        console.error('Error replacing image:', imageData.message);
+                                        showToast("Error replacing image.", "error");
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error uploading image:', error);
+                                    showToast("Error uploading image.", "error");
+                                });
+                        }, 'image/webp');
+                    }
+                } else {
+                    // 🔴 Prevent image upload if name already exists
+                    console.error("Error:", data.message);
+                    showToast(data.message || "An error occurred.", "error");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                showToast("Error saving data. Please try again.", "error");
+            });
+    });
+
+    // Function to show Toastify notifications
+    function showToast(message, type) {
+        Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: type === "success" ? "green" : "red",
+        }).showToast();
+    }
+});
+
+</script>
 
     </script>
     <!-- Toastify -->
