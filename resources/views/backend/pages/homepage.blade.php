@@ -74,90 +74,172 @@
 
         @include('backend.partials.pageinput');
 
+        
+
 
 
     </main>
+    <style>
+        #imageCropperModal {
+            z-index: 2000;
+        }
 
+        #contentModal {
+            z-index: 1500;
+        }
+
+        .enabled .card {
+            box-shadow: 0 4px 10px rgba(0, 255, 0, 0.5) !important;
+            /* Green shadow */
+        }
+
+        .disabled .card {
+            box-shadow: 0 2px 10px rgba(255, 0, 0, 0.5) !important;
+            /* Green shadow */
+        }
+    </style>
 
 
     <script>
-        let allSections = []; // Global: all sections merged from both JSON files
-        let filteredSectionsGlobal = []; // Global: filtered and sorted sections that are displayed
+         let allSections = []; // Global: all sections merged from both JSON files
+    let filteredSectionsGlobal = []; // Global: filtered and sorted sections that are displayed
 
-        async function loadSections() {
-            try {
-                // Fetch both JSON files
-                const [homeResponse, aboutResponse] = await Promise.all([
-                    fetch('/home.json'),
-                    fetch('/aboutus.json')
-                ]);
+    document.addEventListener("DOMContentLoaded", function () {
+        loadSections();
+        document.addEventListener("click", () => {
+            document.getElementById("contextMenu").style.display = "none";
+        });
+    });
 
-                const homeSections = await homeResponse.json();
-                const aboutSections = await aboutResponse.json();
+    async function loadSections() {
+        try {
+            const [homeResponse, aboutResponse] = await Promise.all([
+                fetch('/home.json'),
+                fetch('/aboutus.json')
+            ]);
 
-                // Add the source (file name) to each section
-                homeSections.forEach(section => section.source = 'home.json');
-                aboutSections.forEach(section => section.source = 'aboutus.json');
+            const homeSections = await homeResponse.json();
+            const aboutSections = await aboutResponse.json();
 
-                // Merge both JSON data into a global array
-                allSections = [...homeSections, ...aboutSections];
+            homeSections.forEach(section => section.source = 'home.json');
+            aboutSections.forEach(section => section.source = 'aboutus.json');
 
-                // Filter sections that include "home" in the "usage" array
-                let filteredSections = allSections.filter(section =>
-                    section.usage && section.usage.includes("home")
-                );
+            allSections = [...homeSections, ...aboutSections];
+            let filteredSections = allSections.filter(section => section.usage?.includes("home"));
+            filteredSections.sort((a, b) => a.S_order - b.S_order);
+            filteredSectionsGlobal = filteredSections;
 
-                // Sort the filtered sections by S_order (assuming S_order exists)
-                filteredSections.sort((a, b) => a.S_order - b.S_order);
+            const container = document.querySelector(".row.g-4");
+            container.innerHTML = "";
 
-                // Store the filtered sections globally so we can reference them by index later
-                filteredSectionsGlobal = filteredSections;
-
-                const container = document.querySelector(".row.g-4");
-                container.innerHTML = "";
-
-                filteredSections.forEach((section, index) => {
-                    const card = document.createElement("div");
-                    card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
-                    card.innerHTML = `
-        <div class="card text-center shadow-lg" style="height: 250px; width: 250px;">
-            
-            <!-- ✅ Manage Content Modal Opens ONLY When Clicking on Header/Text -->
-            <div class="card-header p-2 ps-3" 
-                 data-bs-toggle="modal" data-bs-target="#contentModal" 
-                 onclick="populateModal(${index})">
-                <div class="d-flex justify-content-between align-items-center">
-                    <i><h6 class="text-uppercase fw-bold mb-0">Section ${index}</h6></i>
-                    <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                        <i class="${section.icon}"></i>
+            filteredSections.forEach((section, index) => {
+                const card = document.createElement("div");
+                card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
+                card.innerHTML = `
+                    <div class="card text-center shadow-lg" style="height: 250px; width: 250px;" data-index="${index}">
+                        <div class="card-header p-2 ps-3" onclick="populateModal(${index})" data-bs-toggle="modal" data-bs-target="#contentModal" style="border-radius: 10px;">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <i><h6 class="text-uppercase fw-bold mb-0">Section ${index}</h6></i>
+                                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                    <i class="${section.icon}"></i>
+                                </div>
+                            </div>
+                            <hr class="my-2">
+                            <h5 class="mb-0">${section.title}</h5>
+                        </div>
+                        <div class="card-body p-2" onclick="showImagePreview('${section.ss || 'default-placeholder.png'}')">
+                            <div class="image-container" style="width: 100%; height: 100%; overflow: hidden; border-radius: 10px;">
+                                <img src="${section.ss || 'default-placeholder.png'}" alt="Preview" class="img-fluid rounded" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <hr class="my-2">
-                <h5 class="mb-0">${section.title}</h5>
-            </div>
+                `;
 
-            <!-- ✅ Image Now Opens Enlarged Preview Modal -->
-            <div class="card-body p-2">
-                <div class="image-container" 
-                     style="width: 100%; height: 100%; position: relative; overflow: hidden; border-radius: 10px; 
-                            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);" 
-                     onclick="showImagePreview('${section.ss ? section.ss : 'default-placeholder.png'}')">
-                    <img src="${section.ss ? section.ss : 'default-placeholder.png'}" 
-                         alt="Preview" 
-                         class="img-fluid rounded" 
-                         style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
-                </div>
-            </div>
-        </div>
-    `;
-                    container.appendChild(card);
+                card.addEventListener("contextmenu", (event) => {
+                    event.preventDefault();
+                    showContextMenu(event, index);
                 });
 
-
-            } catch (error) {
-                console.error("Error loading sections:", error);
-            }
+                container.appendChild(card);
+            });
+        } catch (error) {
+            console.error("Error loading sections:", error);
         }
+    }
+
+    function showContextMenu(event, index) {
+        const menu = document.getElementById("contextMenu");
+        menu.style.display = "block";
+        menu.style.top = `${event.pageY}px`;
+        menu.style.left = `${event.pageX}px`;
+        menu.setAttribute("data-index", index);
+    }
+
+    async function toggleSectionStatus() {
+    const index = document.getElementById("contextMenu").getAttribute("data-index");
+    if (index === null) return;
+    
+    const section = filteredSectionsGlobal[index]; // Get the section object
+    
+    if (!section || !section.source) {
+        console.error("Error: Section source is missing!");
+        alert("Error: Section source is undefined.");
+        return;
+    }
+
+    const newStatus = section.flag === "enabled" ? "disabled" : "enabled";
+
+    // ✅ Pass the `source` property to `updateSection()`
+    await updateSection(section.S_id, { flag: newStatus, source: section.source });
+}
+
+
+async function updateSection(S_id, updateData) {
+    try {
+        console.log("updateData received:", updateData); // Debugging log
+        
+        if (!updateData || !updateData.source) {
+            console.error("Error: updateData.source is undefined or missing!");
+            alert("Error: Unable to determine source file.");
+            return;
+        }
+
+        const response = await fetch("http://localhost:8000/api/update", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                file: updateData.source.replace(".json", ""), // Extract file name
+                S_id: S_id,
+                ...updateData
+            })
+        });
+
+        if (response.ok) {
+            alert("Section updated successfully!");
+            loadSections(); // Reload sections after update
+        } else {
+            const errorText = await response.text();
+            console.error("Failed to update:", errorText);
+            alert(`Failed to update section: ${errorText}`);
+        }
+    } catch (error) {
+        console.error("Error updating section:", error);
+    }
+}
+
+
+
+
+    // Context Menu HTML
+    const contextMenu = document.createElement("div");
+    contextMenu.id = "contextMenu";
+    contextMenu.style = "position: absolute; display: none; background: white; border: 1px solid #ccc; padding: 5px; border-radius: 8px; z-index: 1000;";
+    contextMenu.innerHTML = `
+        <ul style="list-style: none; margin: 0; padding: 5px; border-radius: 8px;">
+            <li onclick="toggleSectionStatus()" style="cursor: pointer; padding: 5px;">Change Status</li>
+        </ul>
+    `;
+    document.body.appendChild(contextMenu);
 
         function showImagePreview(imageUrl) {
             const modalImage = document.getElementById('modalPreviewImage');
