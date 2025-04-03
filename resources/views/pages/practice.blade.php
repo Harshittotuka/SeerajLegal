@@ -20,13 +20,13 @@
     @include('partials.navbar')
 
     <!-- Header Banner -->
-    <div class="banner-header valign bg-img bg-fixed" data-overlay-dark="5"
+    <div class="banner-header valign bg-img bg-fixed" id="headerBanner" data-overlay-dark="5"
         data-background=" {{ asset('assets/img/case/7.jpg') }}">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 text-center mt-60">
                     <h6>
-                        <div class="icon"><i class="flaticon-courthouse"></i></div> Area of practice
+                        <div class="icon"><i id="headerIcon" class="flaticon-courthouse"></i></div> Area of practice
                     </h6>
                     <h1 id="practiceeTitleMain">Loading...</h1>
                 </div>
@@ -55,42 +55,7 @@
         </div>
     </section>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let currentService = "{{ $practiceName }}"; // Assuming this is passed from Laravel controller
-            let apiUrl = "http://127.0.0.1:8000/api/practices/list";
-
-            fetch(apiUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok ' + response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        let services = data.data;
-                        let listContainer = document.getElementById('relatedPracticesList');
-
-                        listContainer.innerHTML = ''; // Clear existing content
-
-                        services.forEach(service => {
-                            let li = document.createElement('li');
-                            let isActive = (service.practice_name.toLowerCase() === currentService
-                                .toLowerCase()) ? 'font-weight: bold;' : '';
-                            li.innerHTML =
-                                `<a href="{{ url('practice/') }}/${service.practice_name}" style="${isActive}">${service.practice_name}</a>`;
-                            listContainer.appendChild(li);
-                        });
-                    } else {
-                        console.error("Error: Data fetch was unsuccessful.");
-                    }
-                })
-                .catch(error => console.error("Error fetching related services:", error));
-        });
-    </script>
-    <!-- Pass API URL from Laravel Blade to JavaScript -->
-
+    {{-- MAIN CONTENT LOADING... --}}
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             let apiUrl = "{{ url('/api/practices/search?name=') . urlencode($practiceName) }}";
@@ -115,6 +80,25 @@
             container.innerHTML = ""; // Clear existing content
 
             let whatWeProvideContent = ""; // Store "What We Provide" section separately
+            const firstPractice = practiceData[0];
+
+            // Update the header icon dynamically
+            const headerIcon = document.getElementById("headerIcon");
+            if (firstPractice.icon) {
+                headerIcon.className = firstPractice.icon; // Dynamically set the icon class
+                console.log("Icon Class Set:", firstPractice.icon); // Debugging
+            }
+
+            // Update the header background image dynamically
+            const headerBanner = document.getElementById("headerBanner");
+            if (firstPractice.top_image) {
+                const imageUrl = `http://127.0.0.1:8000/${firstPractice.top_image.replace(/^\/+/, "")}`;
+                headerBanner.setAttribute("data-background", imageUrl);
+                headerBanner.style.backgroundImage = `url('${imageUrl}')`;
+                console.log("Background Image Set:", imageUrl); // Debugging
+            }
+
+
 
             // Update the H1 title with the first practice name
             if (practiceData.length > 0 && practiceData[0].title && practiceData[0].title !== "null") {
@@ -150,9 +134,10 @@
                 container.innerHTML += sectionHTML;
 
                 // Store "What We Provide" section separately if available
-                                // Store "What We Provide" section separately if available
-    if (practice.what_we_provide && practice.what_we_provide.length > 0 && practice.what_we_provide.some(w => w && w !== "null")) 
-        {whatWeProvideContent = `
+                // Store "What We Provide" section separately if available
+                if (practice.what_we_provide && practice.what_we_provide.length > 0 && practice.what_we_provide
+                    .some(w => w && w !== "null")) {
+                    whatWeProvideContent = `
             <br>
             <div class="col-md-12 text-center mb-20">
                 <div class="section-title"><span>What we </span> Provide?</div>
@@ -160,22 +145,22 @@
                 <div class="row">
                     <div class="col-md-12">
             <div class="row">`;
-            practice.what_we_provide.forEach(service => {
-            whatWeProvideContent += `
+                    practice.what_we_provide.forEach(service => {
+                        whatWeProvideContent += `
                 <div class="col-lg-4 col-md-6">
                 <div class="item">
                      <a href="{{ url('service/') }}/${service}"> 
                      <i class="flaticon-courthouse"></i>
                  <h5>${service}</h5>
-            <div class="shape"><i class="flaticon-courthouse"></i></div>
-        </a>
-    </div>
-</div>
-`;
-});
+                    <div class="shape"><i class="flaticon-courthouse"></i></div>
+                </a>
+            </div>
+        </div>
+        `;
+                    });
 
-whatWeProvideContent += `</div></div></div>`;
-}
+                    whatWeProvideContent += `</div></div></div>`;
+                }
 
             });
 
@@ -186,7 +171,42 @@ whatWeProvideContent += `</div></div></div>`;
         }
     </script>
 
+    {{-- SIDE BAR NAV LOADING... --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let currentService = "{{ $practiceName }}"; // Assuming this is passed from Laravel controller
+            let apiUrl = "http://127.0.0.1:8000/api/practices/list";
 
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        let services = data.data;
+                        let listContainer = document.getElementById('relatedPracticesList');
+
+                        listContainer.innerHTML = ''; // Clear existing content
+
+                        services.forEach(service => {
+                            let li = document.createElement('li');
+                            let isActive = (service.practice_name.toLowerCase() === currentService
+                                .toLowerCase()) ? 'font-weight: bold;' : '';
+                            li.innerHTML =
+                                `<a href="{{ url('practice/') }}/${service.practice_name}" style="${isActive}">${service.practice_name}</a>`;
+                            listContainer.appendChild(li);
+                        });
+                    } else {
+                        console.error("Error: Data fetch was unsuccessful.");
+                    }
+                })
+                .catch(error => console.error("Error fetching related services:", error));
+        });
+    </script>
+    
     <style>
         .custom-box {
             background: #fff;
@@ -204,8 +224,8 @@ whatWeProvideContent += `</div></div></div>`;
         }
     </style>
 
-    <!-- Case Study -->
-    @include('partials.casestudy')
+    {{-- <!-- Case Study -->
+    @include('partials.casestudy') --}}
 
     <!-- Footer -->
     @include('partials.footer')

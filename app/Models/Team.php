@@ -24,6 +24,7 @@ class Team extends Model
         'education',
         'awards',
         'socials',
+        'profile_image',
     ];
 
     protected $casts = [

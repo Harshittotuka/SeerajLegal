@@ -15,7 +15,8 @@ return new class extends Migration {
             $table->json('points')->nullable(); // Points related to the service
             $table->text('rules')->nullable(); // JSON field for rules
             $table->string('icon'); // Name of the service
-            $table->enum('flag', ['enabled', 'disabled','null'])->default('enabled'); // Flag to enable or disable the service
+            $table->enum('flag', ['enabled', 'disabled', 'null'])->default('enabled'); // Flag to enable or disable the service
+            $table->string('top_image')->nullable(); // Nullable top image path
             $table->timestamps(); // Created at and Updated at timestamps
         });
     }

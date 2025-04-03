@@ -138,23 +138,44 @@ function showToast(message, type) {
         stopOnFocus: true
     }).showToast();
 }
+function reloadPage() {
+    setTimeout(() => {
+        location.reload();
+    }, 1000); // Delay to ensure the user sees the success message
+}
 
 document.getElementById("saveSectionBtn").addEventListener("click", function() {
+    const fields = [
+        { id: "sectionHeading", name: "Section Heading" },
+        { id: "sectionPara", name: "Section Paragraph" },
+        { id: "sectionPoints", name: "Section Points" }
+    ];
+    
+    for (const field of fields) {
+        const el = document.getElementById(field.id);
+        if (el.dataset.required === "true" && !el.value.trim()) {
+            showToast(`${field.name} Needs to have a Value.`, "error");
+            return;
+        }
+    }
+    
     let data = {
         file: document.getElementById("filename").value.replace(".json", ""),
         S_id: parseInt(document.getElementById("sectionId").value) || null,
         title: document.getElementById("sectionHeading").value || null,
         para: document.getElementById("sectionPara").value || null,
-        points: document.getElementById("sectionPoints").value ? document.getElementById("sectionPoints").value.split("\n") : null
+        points: document.getElementById("sectionPoints").value 
+                  ? document.getElementById("sectionPoints").value.split("\n")
+                  : null
     };
 
     console.log("Updating Section:", data);
-    updateSection(data, "Section");
+    updateSection(data, "Section").then(reloadPage);
 });
 
 document.getElementById("saveImageBtn").addEventListener("click", function() {
     let fileInput = document.getElementById("imageFile");
-    let selectedFile = fileInput.files.length > 0 ? fileInput.files[0].name : null;
+    let selectedFile = fileInput && fileInput.files.length > 0 ? fileInput.files[0].name : null;
 
     let data = {
         file: document.getElementById("filename").value.replace(".json", ""),
@@ -163,7 +184,7 @@ document.getElementById("saveImageBtn").addEventListener("click", function() {
     };
 
     console.log("Updating Image:", data);
-    updateSection(data, "Image");
+    updateSection(data, "Image").then(reloadPage);
 });
 
 document.getElementById("saveIconBtn").addEventListener("click", function() {
@@ -177,7 +198,7 @@ document.getElementById("saveIconBtn").addEventListener("click", function() {
     };
 
     console.log("Updating Icon:", data);
-    updateSection(data, "Icon");
+    updateSection(data, "Icon").then(reloadPage);
 });
 
 </script>

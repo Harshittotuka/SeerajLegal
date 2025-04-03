@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>
-       Seeraj Legal Relief Foundation
+        Seeraj Legal Relief Foundation
     </title>
     <!--     Fonts and icons     -->
     <link href="{{ asset('assets/backend/css/nucleo-icons.css') }}" rel="stylesheet" />
@@ -30,15 +30,15 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
 
 
-    <!-- Navbar -->
-          @include('backend.partials.top-nav')
+        <!-- Navbar -->
+        @include('backend.partials.top-nav')
         <!-- End Navbar -->
         <script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        updateBreadcrumbs(["Dashboard", "Teams"], ["/backend", "/backend/teams"]);
-    });
-</script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                updateBreadcrumbs(["Dashboard", "Teams"], ["/backend", "/backend/teams"]);
+            });
+        </script>
 
 
         <style>
@@ -53,7 +53,7 @@
                 padding: 5px 10px !important;
             }
 
-           
+
             /* Ensuring table doesn't cause overflow */
             .table-responsive {
                 overflow-x: auto;
@@ -110,7 +110,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content shadow-lg rounded-3">
                     <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title" id="memberModalLabel">Add New Member</h5>
+                        <h5 class="modal-title" id="memberModalLabel">Add New Team Member</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
@@ -122,6 +122,15 @@
                                     <label for="memberName" class="form-label fw-bold">Member Name</label>
                                     <input type="text" class="form-control" id="memberName"
                                         placeholder="Enter full name" required>
+                                </div>
+                                <!-- Add Image Input -->
+                                <div class="col-md-12">
+                                    <label for="memberImage" class="form-label fw-bold">Profile Image</label>
+                                    <input type="file" class="form-control" id="memberImage" accept="image/*"
+                                        required>
+                                    <div id="imageContainer" class="mb-3">
+                                        <!-- Image and Replace button will be dynamically added here -->
+                                    </div>
                                 </div>
 
                                 <!-- Type -->
@@ -263,8 +272,10 @@
                     document.getElementById('memberName').value = memberData.name;
                     document.getElementById('memberDesignation').value = memberData.designation;
                     document.getElementById('memberType').value = memberData.type;
-                    document.getElementById('areaOfPractice').value = memberData.area_of_practice.join(', ');
-                    document.getElementById('adrServices').value = memberData.adr_services.join(', ');
+                    document.getElementById('areaOfPractice').value = memberData.area_of_practice ? memberData.area_of_practice
+                        .join(', ') : '';
+                    document.getElementById('adrServices').value = memberData.adr_services ? memberData.adr_services.join(
+                        ', ') : '';
                     document.getElementById('allRounder').checked = memberData.all_rounder;
                     document.getElementById('memberEmail').value = memberData.email || '';
                     document.getElementById('memberPhone').value = memberData.phone || '';
@@ -280,6 +291,20 @@
                     // Update modal title for editing
                     document.getElementById('memberModalLabel').textContent = "Edit Member";
 
+                    // Add the profile image and replace button
+                    const imageContainer = document.getElementById('imageContainer');
+                    const baseUrl = 'http://127.0.0.1:8000/'; // Base URL for the image
+                    const fullImagePath = `${baseUrl}${memberData.profile_image}`;
+                    imageContainer.innerHTML = `
+            <img src="${fullImagePath}" alt="Profile Image" style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px; border: 1px solid #ccc;">
+            <button class="btn btn-sm btn-primary mt-2" id="replaceImageBtn">Replace</button>
+        `;
+
+                    // Add event listener for the "Replace" button
+                    document.getElementById('replaceImageBtn').addEventListener('click', function() {
+                        replaceteamImage(memberData.profile_image);
+                    });
+
                     // Change the save button's onclick function to updateMember with the member's ID
                     document.getElementById('saveMemberBtn').onclick = function() {
                         updateMember(memberData.id);
@@ -293,7 +318,60 @@
                 }
             }
 
+            function replaceteamImage(currentImagePath) {
+                // Create a file input dynamically
+                const fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.accept = 'image/*';
 
+                // Trigger the file input dialog
+                fileInput.click();
+
+                // Handle the file selection
+                fileInput.addEventListener('change', function() {
+                    const newImageFile = fileInput.files[0];
+                    if (newImageFile) {
+                        // Use FormData to send the new image to the backend
+                        const formData = new FormData();
+                        formData.append('image', newImageFile);
+                        formData.append('path', currentImagePath);
+
+                        // Call the API to replace the image
+                        fetch('http://127.0.0.1:8000/api/upload-cropped-image', {
+                                method: 'POST',
+                                body: formData,
+                            })
+                            .then(response => response.json())
+                            .then(result => {
+                                if (result.success) {
+                                    showToast("Image replaced successfully!", "green");
+
+                                    // Update the image in the modal
+                                    const imageElement = document.querySelector('#imageContainer img');
+                                    if (imageElement) {
+                                        imageElement.src =
+                                            `http://127.0.0.1:8000/${currentImagePath}?t=${Date.now()}`; // Prepend localhost URL
+                                    } else {
+                                        // If the image element doesn't exist, create it
+                                        const newImageElement = document.createElement('img');
+                                        newImageElement.src =
+                                            `http://127.0.0.1:8000/${currentImagePath}?t=${Date.now()}`;
+                                        newImageElement.alt = "Profile Image";
+                                        newImageElement.style =
+                                            "width: 100px; height: 100px; object-fit: cover; border-radius: 5px; border: 1px solid #ccc;";
+                                        document.getElementById('imageContainer').appendChild(newImageElement);
+                                    }
+                                } else {
+                                    showToast("Failed to replace image", "red");
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error replacing image:', error);
+                                showToast("Error replacing image", "red");
+                            });
+                    }
+                });
+            }
             // Event listener to reset the modal when it is closed
             document.getElementById('memberModal').addEventListener('hidden.bs.modal', function() {
                 // Reset the form fields
@@ -301,6 +379,7 @@
 
                 // Revert modal title to default (for adding a new member)
                 document.getElementById('memberModalLabel').textContent = "Add New Member";
+                document.getElementById('imageContainer').innerHTML = '';
 
                 // Reset the save button's onclick function to the addMember function
                 document.getElementById('saveMemberBtn').onclick = addMember;
@@ -329,6 +408,7 @@
                 const awards = awardsInput.split(',').map(item => item.trim()).filter(item => item);
 
                 // Convert JSON input for social media links
+
                 let socials = {};
                 try {
                     socials = JSON.parse(socialsInput);
@@ -399,7 +479,7 @@
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- Bootstrap JS (optional) -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> --}}
         <!-- Toastify JS -->
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
@@ -431,6 +511,7 @@
                 const educationInput = document.getElementById('memberEducation').value.trim();
                 const awardsInput = document.getElementById('memberAwards').value.trim();
                 const socialsInput = document.getElementById('memberSocials').value.trim();
+                const imageFile = document.getElementById('memberImage').files[0];
 
                 // Convert comma-separated inputs into arrays
                 const area_of_practice = areaInput.split(',').map(item => item.trim()).filter(item => item);
@@ -441,65 +522,110 @@
 
                 // Convert JSON input for social media links
                 let socials = {};
-                try {
-                    socials = JSON.parse(socialsInput);
-                } catch (error) {
-                    console.error('Invalid JSON format in socials input');
-                    showToast("Invalid social media links format", "red");
-                    return;
+
+                if (socialsInput) { // Only validate if the input is not empty
+                    try {
+                        socials = JSON.parse(socialsInput);
+                    } catch (error) {
+                        console.error('Invalid JSON format in socials input');
+                        showToast("Invalid social media links format", "red");
+                        return;
+                    }
+                } else {
+                    socials = {}; // Set to an empty object if the input is empty
                 }
 
-                // Construct the data object in the required format
-                const data = {
-                    name,
-                    designation,
-                    type,
-                    area_of_practice,
-                    adr_services,
-                    all_rounder: allRounder,
-                    email,
-                    phone,
-                    experience,
-                    education,
-                    awards,
-                    socials
-                };
+                // Generate a unique name for the image
+                const uniqueId = Date.now(); // Use timestamp as a unique ID
+                const uniqueImagePath = `assets/dynamic/teams/${uniqueId}.webp`;
 
-                // Call the API endpoint to create the team member
+                // Check if an image is selected
+                if (imageFile) {
+                    // Use FormData to send the image to the backend
+                    const formData = new FormData();
+                    formData.append('image', imageFile);
+                    formData.append('path', uniqueImagePath);
+
+                    // Call the API to upload the image
+                    fetch('http://127.0.0.1:8000/api/upload-cropped-image', {
+                            method: 'POST',
+                            body: formData,
+                        })
+                        .then(response => response.json())
+                        .then(result => {
+                            if (result.success) {
+                                showToast("Image uploaded successfully!", "green");
+
+                                // Save other form data after the image is uploaded
+                                saveMemberData({
+                                    name,
+                                    designation,
+                                    type,
+                                    area_of_practice,
+                                    adr_services,
+                                    all_rounder: allRounder,
+                                    email,
+                                    phone,
+                                    experience,
+                                    education,
+                                    awards,
+                                    socials,
+                                    profile_image: uniqueImagePath, // Save the unique image path
+                                });
+                            } else {
+                                showToast("Failed to upload image", "red");
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error uploading image:', error);
+                            showToast("Error uploading image", "red");
+                        });
+                } else {
+                    showToast("Please select an image", "red");
+                }
+            }
+
+            // Helper function to save member data
+            function saveMemberData(memberData) {
+                console.log("Saving member data:", memberData);
+
+                // Call your API to save the member data
                 fetch('http://127.0.0.1:8000/api/teams/create', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify(data)
+                        body: JSON.stringify(memberData),
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            showToast(result.message, "green");
+                            showToast("Member added successfully!", "green");
 
-                            // Reload the website after a short delay to allow the toast to show
+                            // Reset the form
+                            document.getElementById('memberForm').reset();
+
+                            // Hide the modal
+                            const memberModal = bootstrap.Modal.getInstance(document.getElementById('memberModal'));
+                            memberModal.hide();
+
+                            // Reload the page to reflect changes
                             setTimeout(() => {
                                 location.reload();
-                                document.getElementById('memberForm').reset();
-
-                                // Hide the modal
-                                const memberModal = bootstrap.Modal.getInstance(document.getElementById(
-                                    'memberModal'));
-                                memberModal.hide();
-                            }, 1500);
+                            }, 1000);
                         } else {
-                            showToast("Failed to create team member", "red");
+                            showToast("Failed to add member", "red");
                         }
                     })
                     .catch(error => {
-                        showToast("Error during member creation", "red");
-                        console.error('Error:', error);
+                        console.error('Error saving member data:', error);
+                        showToast("Error saving member data", "red");
                     });
             }
         </script>
 
 
+        @include('backend.components.topimage-modal')
 
 
         <div class="container-fluid overflow-hidden py-2">
@@ -512,10 +638,19 @@
                                 <p class="text-sm mb-0 text-capitalize">Teams List</p>
                                 <h4 class="mb-0">Manage Teams</h4>
                             </div>
-                            <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon"
-                                style="cursor: pointer; width: 40px; height: 40px;" data-bs-toggle="modal"
-                                data-bs-target="#memberModal">
-                                <i class="material-symbols-rounded opacity-10">add</i>
+
+                            <div class="d-flex mt-2">
+                                <!-- Teams HEADER Button -->
+                                <button class="btn btn-warning edit-btn me-4" data-imageid="TopImg_tea"
+                                    data-bs-toggle="modal" data-bs-target="#topImageModal">
+                                    Teams Header
+                                </button>
+
+                                <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon"
+                                    id="addMemberBtn" style="cursor: pointer; width: 40px; height: 40px;"
+                                    data-bs-toggle="modal" data-bs-target="#memberModal">
+                                    <i class="material-symbols-rounded opacity-10">add</i>
+                                </div>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -554,31 +689,36 @@
         <!-- Toastify JS -->
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
         <!-- Bootstrap JS (optional) -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
         <script>
             // Helper function to create a table row based on API member data
             function createRow(member, index) {
-                const areaOfPractice = member.area_of_practice.map(item => `<li>${item}</li>`).join('');
-                const adrServices = member.adr_services.map(item => `<li>${item}</li>`).join('');
+                // Provide default values for null fields
+                const areaOfPractice = member.area_of_practice ?
+                    member.area_of_practice.map(item => `<li>${item}</li>`).join('') :
+                    '<em>No data</em>';
+                const adrServices = member.adr_services ?
+                    member.adr_services.map(item => `<li>${item}</li>`).join('') :
+                    '<em>No data</em>';
                 const allRounderChecked = member.all_rounder ? 'checked' : '';
 
                 return `<tr data-id="${member.id}">
-    <td>${index + 1}</td>
-    <td>${member.name}</td>
-    <td>${member.designation}</td>
-    <td>${member.type}</td>
-    <td><ul>${areaOfPractice}</ul></td>
-    <td><ul>${adrServices}</ul></td>
-    <td class="text-center">
-      <input type="checkbox" class="all-rounder-checkbox" ${allRounderChecked} onclick="return false;">
-    </td>
-    <td class="actions">
-      <i class="material-symbols-rounded text-primary edit-icon" style="cursor: pointer;">edit</i>
-      <i class="material-symbols-rounded text-danger delete-icon" style="cursor: pointer;" data-id="${member.id}">delete</i>
-    </td>
-  </tr>`;
+        <td>${index + 1}</td>
+        <td>${member.name || '<em>No name</em>'}</td>
+        <td>${member.designation || '<em>No designation</em>'}</td>
+        <td>${member.type || '<em>No type</em>'}</td>
+        <td><ul>${areaOfPractice}</ul></td>
+        <td><ul>${adrServices}</ul></td>
+        <td class="text-center">
+            <input type="checkbox" class="all-rounder-checkbox" ${allRounderChecked} onclick="return false;">
+        </td>
+        <td class="actions">
+            <i class="material-symbols-rounded text-primary edit-icon" style="cursor: pointer;">edit</i>
+            <i class="material-symbols-rounded text-danger delete-icon" style="cursor: pointer;" data-id="${member.id}">delete</i>
+        </td>
+    </tr>`;
             }
 
 
@@ -618,22 +758,30 @@
             }
 
             // Fetch data from the API and populate the table
+            // Fetch data from the API and populate the table
             fetch('http://127.0.0.1:8000/api/teams')
                 .then(response => response.json())
                 .then(data => {
                     const tbody = document.querySelector('#example tbody');
+                    let rowsHtml = '';
+
+                    // Generate rows for all members
                     data.forEach((member, index) => {
-                        tbody.innerHTML += createRow(member, index);
+                        rowsHtml += createRow(member, index);
                     });
 
-                    // Initialize DataTables with pagination, search, and show (length menu) functionality
+                    // Add all rows to the table body at once
+                    tbody.innerHTML = rowsHtml;
+
+                    // Initialize DataTables after all rows are added
                     $('#example').DataTable({
                         pageLength: 5,
                         lengthMenu: [
                             [5, 10, 25, 50, -1],
                             [5, 10, 25, 50, "All"]
                         ],
-                        responsive: true
+                        responsive: true,
+                        destroy: true // Ensure reinitialization works if called multiple times
                     });
                 })
                 .catch(error => console.error('Error fetching data:', error));
@@ -657,10 +805,10 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
- 
+
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script><!-- Keep Bootstrap 4 -->
-   
+
     <!-- Use Bootstrap 4 DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
@@ -668,7 +816,7 @@
 
 
 
-    
+
 
 
 

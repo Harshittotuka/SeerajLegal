@@ -44,7 +44,8 @@ class PracticeService
             'what_we_provide' => $data['what_we_provide'] ?? [], // Store as JSON
             'flag' => $data['flag'] ?? 'enabled',
             'icon' => $data['icon'] ,
-            "image_path" => $data['image_path']
+            "image_path" => $data['image_path'],
+            'top_image'=> $data['top_image']
         ]);
 
         $createdPractices[] = $createdPractice;
@@ -78,7 +79,8 @@ class PracticeService
                 'what_we_provide' => $data['what_we_provide'] ?? null,
                 'flag' => $data['flag'] ?? 'enabled',
                 'icon' => $data['icon'] ,
-                "image_path" => $data['image_path']
+                "image_path" => $data['image_path'],
+                'top_image'=> $data['top_image']
             ]);
         }
 

@@ -12,6 +12,18 @@
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
+
+    <!-- code for topimage.js -->
+    <script src="{{ asset('assets/js/topimage.js') }}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetchPageContent("TopImg_abt");
+        });
+    </script>
+
+
+
 </head>
 
 <body>
@@ -20,19 +32,22 @@
     @include('partials.navbar')
 
     <!-- Header Banner -->
-    <div class="banner-header valign bg-img bg-fixed" data-overlay-dark="5"
-        data-background="{{ asset('assets/img/About_Us.webp') }}">
+    <div id="page-bg" class="banner-header valign bg-img bg-fixed" data-overlay-dark="5">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 caption mt-60 text-center">
                     <h6>
-                        <div class="icon"><i class="flaticon-courthouse"></i></div> About us
+                        <div class="icon"><i id="page-icon"></i></div>
+                        <span id="page-title"></span>
                     </h6>
-                    <h1>Who <span>we Are ?</span></h1>
+                    <h1><span id="page-subtitle"></span></h1>
                 </div>
             </div>
         </div>
     </div>
+
+
+
 
     <!-- About  S_id=1 -->
     @include('partials.about')
@@ -41,7 +56,7 @@
     @include('partials.infobox')
 
     <!-- About 2 -->
-    <section class="about section-padding bg-darkbrown">
+    <section id="section-5-container" class="about section-padding bg-darkbrown">
     <div class="container">
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-5 col-md-12 animate-box" data-animate-effect="fadeInLeft">
@@ -67,68 +82,93 @@
         .then(response => response.json())
         .then(data => {
             const section = data.find(item => item.S_id === 5);
-            if (section) {
-                document.getElementById('section-5-title').innerHTML = section.title;
-                document.getElementById('section-5-para').textContent = section.para;
 
-                // ✅ Set the icon dynamically
-                const sectionIcon = document.getElementById('section-5-icon');
-                if (section.icon) {
-                    sectionIcon.className = section.icon;
-                }
+            // ✅ Hide the section if its flag is "disabled"
+            if (!section || section.flag === "disabled") {
+                console.log("Section S_id:5 is disabled.");
+                document.getElementById('section-5-container').style.display = "none";
+                return;
+            }
 
-                // ✅ Set the image dynamically
-                const sectionImage = document.getElementById('section-5-image');
-                if (section.image && section.image.length > 0) {
-                    sectionImage.src = section.image[0];
-                } else {
-                    sectionImage.style.display = 'none';
-                }
+            document.getElementById('section-5-title').innerHTML = section.title;
+            document.getElementById('section-5-para').textContent = section.para;
 
-                // ✅ Set the points dynamically
-                const pointsContainer = document.getElementById('section-5-points');
-                if (section.points) {
-                    section.points.forEach(point => {
-                        const div = document.createElement('div');
-                        div.className = 'about-name';
-                        div.textContent = point;
-                        pointsContainer.appendChild(div);
-                    });
-                }
+            // ✅ Set the icon dynamically
+            const sectionIcon = document.getElementById('section-5-icon');
+            if (section.icon) {
+                sectionIcon.className = section.icon;
+            }
+
+            // ✅ Set the image dynamically
+            const sectionImage = document.getElementById('section-5-image');
+            if (section.image && section.image.length > 0) {
+                sectionImage.src = section.image[0];
+            } else {
+                sectionImage.style.display = 'none';
+            }
+
+            // ✅ Set the points dynamically
+            const pointsContainer = document.getElementById('section-5-points');
+            if (section.points) {
+                section.points.forEach(point => {
+                    const div = document.createElement('div');
+                    div.className = 'about-name';
+                    div.textContent = point;
+                    pointsContainer.appendChild(div);
+                });
             }
         })
-        .catch(error => console.error('Error fetching data:', error));
+        .catch(error => console.error('Error fetching aboutus.json:', error));
 </script>
 
 
-    <!-- awards -->
-    <section class="clients section-padding">
+
+   <!-- awards -->
+<!-- Include Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<section id="section-6-container" class="clients section-padding">
     <div class="container">
         <div class="row">
             <div class="col-md-12 mb-30 text-center">
                 <div class="section-subtitle">
-                    <div class="icon"><i id="section-6-icon" class=""></i></div> <span id="section-6-subtitle"></span>
+                    <div class="icon"><i id="section-6-icon" class=""></i></div>
+                    <span id="section-6-subtitle"></span>
                 </div>
                 <div class="section-title" id="section-6-title"></div>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-7 col-md-12 text-center">
-                <div id="awards-carousel" class="owl-carousel owl-theme">
-                    <!-- Dynamic content will be inserted here -->
+                <!-- Swiper Carousel Container -->
+                <div class="swiper awards-swiper">
+                    <div class="swiper-wrapper" id="awards-carousel">
+                        <!-- Dynamic content will be inserted here -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- Include Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 <script>
-   fetch('aboutus.json')
-    .then(response => response.json())
-    .then(data => {
-        const section = data.find(item => item.S_id === 6);
-        if (section) {
-            document.getElementById('section-6-title').innerHTML = section.title || 'Awards <span>&</span> Recognitions';
+    fetch('aboutus.json')
+        .then(response => response.json())
+        .then(data => {
+            const section = data.find(item => item.S_id === 6);
+
+            // ✅ Hide the section if its flag is "disabled"
+            if (!section || section.flag === "disabled") {
+                console.log("Section S_id:6 (Awards) is disabled.");
+                document.getElementById('section-6-container').style.display = "none";
+                return;
+            }
+
+            document.getElementById('section-6-title').innerHTML = section.title ||
+                'Awards <span>&</span> Recognitions';
             document.getElementById('section-6-subtitle').textContent = 'Our Successes';
 
             const sectionIcon = document.getElementById('section-6-icon');
@@ -140,32 +180,42 @@
             if (section.image && section.image.length > 0) {
                 section.image.forEach(imgSrc => {
                     const div = document.createElement('div');
-                    div.className = 'clients-logo';
+                    div.className = 'swiper-slide clients-logo';
                     div.innerHTML = `<a href="#0"><img src="${imgSrc}" alt="Award Image"></a>`;
                     carousel.appendChild(div);
                 });
 
-                // ✅ Wait until all images are loaded before initializing
-                setTimeout(() => {
-                    $("#awards-carousel").owlCarousel({
-                        loop: true,
-                        margin: 10,
-                        nav: false,
-                        dots: true,
-                        autoplay: true,
-                        responsive: {
-                            0: { items: 1 },
-                            600: { items: 2 },
-                            1000: { items: 3 }
+                // Initialize Swiper Carousel
+                new Swiper(".awards-swiper", {
+                    loop: true, // Infinite loop
+                    autoplay: {
+                        delay: 2000, // Adjust as needed
+                        disableOnInteraction: false
+                    },
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true
+                    },
+                    breakpoints: {
+                        0: {
+                            slidesPerView: 1,
+                            spaceBetween: 10
+                        },
+                        600: {
+                            slidesPerView: 2,
+                            spaceBetween: 15
+                        },
+                        1000: {
+                            slidesPerView: 3,
+                            spaceBetween: 20
                         }
-                    });
-                }, 500);
+                    }
+                });
             }
-        }
-    })
-    .catch(error => console.error('Error fetching data:', error));
-
+        })
+        .catch(error => console.error('Error fetching data:', error));
 </script>
+
 
 
 
