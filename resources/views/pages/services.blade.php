@@ -235,53 +235,63 @@
     </section>
 
     <script>
-        document.addEventListener('DOMContentLoaded', async function() {
-            // Get the service name from the URL
-            const pathParts = window.location.pathname.split('/');
-            const service = decodeURIComponent(pathParts[pathParts.length - 1]); // Keep original case
+    document.addEventListener('DOMContentLoaded', async function() {
+        // Get the service name from the URL
+        const pathParts = window.location.pathname.split('/');
+        const service = decodeURIComponent(pathParts[pathParts.length - 1]); // Keep original case
 
-            // Directly set the title without modifying the service name
-            document.getElementById('nova-service-title').textContent = `${service} Experts`;
+        // Set the section title
+        document.getElementById('nova-service-title').textContent = `${service} Experts`;
 
-            try {
-                // Capitalize the first letter for API call
-                const apiService = service.charAt(0).toUpperCase() + service.slice(1);
-                const apiUrl = `http://127.0.0.1:8000/api/teams/service/${apiService}`;
-                const response = await fetch(apiUrl);
-                const teamMembers = await response.json();
-                console.log(teamMembers);
-                const teamMembersContainer = document.getElementById('team-members');
-                teamMembersContainer.innerHTML = ''; // Clear any existing content
+        try {
+            // Capitalize first letter for API call
+            const apiService = service.charAt(0).toUpperCase() + service.slice(1);
+            const apiUrl = `http://127.0.0.1:8000/api/teams/service/${apiService}`;
+            const response = await fetch(apiUrl);
+            const teamMembers = await response.json();
+            console.log(teamMembers);
 
-                teamMembers.forEach(member => {
-                    // Prepend the domain to the profile image URL
-                    const profileImage = member.profile_image ?
-                        `http://127.0.0.1:8000/${member.profile_image.replace(/^\/+/, '')}` :
-                        'http://127.0.0.1:8000/assets/img/my/profile_icon2.png';
+            const teamMembersContainer = document.getElementById('team-members');
+            const teamSection = document.querySelector('.team.section-padding');
 
-                    const socials = member.socials || {};
-                    teamMembersContainer.innerHTML += `
-                <div class="col-lg-3 col-md-6 item">
-                    <div class="img">
-                        <img src="${profileImage}" alt="${member.name}" class="img-cover">
-                        <div class="social-icons">
-                            ${socials.facebook ? `<a href="${socials.facebook}"><i class="fab fa-facebook-f"></i></a>` : ''}
-                            ${socials.linkedin ? `<a href="${socials.linkedin}"><i class="fab fa-linkedin-in"></i></a>` : ''}
-                            ${socials.twitter ? `<a href="${socials.twitter}"><i class="fab fa-twitter"></i></a>` : ''}
+            if (!teamMembers.length) {
+                // Hide the section if there are no team members
+                teamSection.style.display = 'none';
+                return;
+            }
+
+            // Clear any existing content
+            teamMembersContainer.innerHTML = '';
+
+            teamMembers.forEach(member => {
+                const profileImage = member.profile_image ?
+                    `http://127.0.0.1:8000/${member.profile_image.replace(/^\/+/, '')}` :
+                    'http://127.0.0.1:8000/assets/img/my/profile_icon2.png';
+
+                const socials = member.socials || {};
+                teamMembersContainer.innerHTML += `
+                    <div class="col-lg-3 col-md-6 item">
+                        <div class="img">
+                            <img src="${profileImage}" alt="${member.name}" class="img-cover">
+                            <div class="social-icons">
+                                ${socials.facebook ? `<a href="${socials.facebook}"><i class="fab fa-facebook-f"></i></a>` : ''}
+                                ${socials.linkedin ? `<a href="${socials.linkedin}"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                                ${socials.twitter ? `<a href="${socials.twitter}"><i class="fab fa-twitter"></i></a>` : ''}
+                            </div>
+                        </div>
+                        <div class="info">
+                            <h5><a href="/team-details?id=${member.id}">${member.name}</a></h5>
+                            <p>${member.designation}</p>
                         </div>
                     </div>
-                    <div class="info">
-                        <h5><a href="/team-details?id=${member.id}">${member.name}</a></h5>
-                        <p>${member.designation}</p>
-                    </div>
-                </div>
-            `;
-                });
-            } catch (error) {
-                console.error('Error fetching team members:', error);
-            }
-        });
-    </script>
+                `;
+            });
+        } catch (error) {
+            console.error('Error fetching team members:', error);
+        }
+    });
+</script>
+
 
 
 

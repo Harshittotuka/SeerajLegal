@@ -514,8 +514,22 @@
                 const imageFile = document.getElementById('memberImage').files[0];
 
                 // Convert comma-separated inputs into arrays
-                const area_of_practice = areaInput.split(',').map(item => item.trim()).filter(item => item);
-                const adr_services = adrInput.split(',').map(item => item.trim()).filter(item => item);
+                function capitalizeEachWord(str) {
+    return str.replace(/\w\S*/g, (txt) => {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+}
+
+const area_of_practice = areaInput
+    .split(',')
+    .map(item => capitalizeEachWord(item.trim()))
+    .filter(item => item);
+
+const adr_services = adrInput
+    .split(',')
+    .map(item => capitalizeEachWord(item.trim()))
+    .filter(item => item);
+
                 const experience = experienceInput.split(',').map(item => item.trim()).filter(item => item);
                 const education = educationInput.split(',').map(item => item.trim()).filter(item => item);
                 const awards = awardsInput.split(',').map(item => item.trim()).filter(item => item);

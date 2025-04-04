@@ -56,7 +56,7 @@
                             <li><a href="{{ route('home') }}">Home</a></li>
                             <li><a href="{{ route('about') }}">About</a></li>
                             <li><a href="{{ route('service.all') }}">Services</a></li>
-                            <li><a href="{{ route('team') }}">Attorneys</a></li>
+                            <li><a href="{{ route('team') }}">Team</a></li>
                             <li><a href="{{ route('contact') }}">Contact</a></li>
                         </ul>
                     </div>

@@ -425,7 +425,8 @@ function updatePlaceholder() {
     document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("saveButton").addEventListener("click", function() {
         const forms = document.querySelectorAll(".form-box");
-        let practiceName = document.getElementById("name").value.trim();
+        let practiceNameInput = document.getElementById("name").value.trim();
+                let practiceName = practiceNameInput.charAt(0).toUpperCase() + practiceNameInput.slice(1);
         let icon = document.getElementById("Icon").value.trim(); // Get the icon value
 
         // Ensure practiceName is not empty
