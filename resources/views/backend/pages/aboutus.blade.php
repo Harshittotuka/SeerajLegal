@@ -133,83 +133,128 @@
 
 
     <script>
-        let allSections = []; // Global: all sections merged from both JSON files
-        let filteredSectionsGlobal = []; // Global: filtered and sorted sections that are displayed
+       let allSections = []; // Global: all sections merged from both JSON files
+let filteredSectionsGlobal = []; // Global: filtered and sorted sections that are displayed
 
-        async function loadSections() {
-            try {
-                // Fetch both JSON files
-                const [homeResponse, aboutResponse] = await Promise.all([
-                    fetch('/home.json'),
-                    fetch('/aboutus.json')
-                ]);
-
-                const homeSections = await homeResponse.json();
-                const aboutSections = await aboutResponse.json();
-
-                // Add the source (file name) to each section
-                homeSections.forEach(section => section.source = 'home.json');
-                aboutSections.forEach(section => section.source = 'aboutus.json');
-
-                // Merge both JSON data into a global array
-                allSections = [...homeSections, ...aboutSections];
-
-                // Filter sections that include "home" in the "usage" array
-                let filteredSections = allSections.filter(section =>
-                    section.usage && section.usage.includes("about")
-                );
-
-                // Sort the filtered sections by S_order (assuming S_order exists)
-                filteredSections.sort((a, b) => a.S_order - b.S_order);
-
-                // Store the filtered sections globally so we can reference them by index later
-                filteredSectionsGlobal = filteredSections;
-
-                const container = document.querySelector(".row.g-4");
-                container.innerHTML = "";
-
-                filteredSections.forEach((section, index) => {
-    const card = document.createElement("div");
-    card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
-    card.innerHTML = `
-        <div class="card text-center shadow-lg" style="height: 250px; width: 250px;">
-            
-            <!-- ✅ Manage Content Modal Opens ONLY When Clicking on Header/Text -->
-            <div class="card-header p-2 ps-3" 
-                 data-bs-toggle="modal" data-bs-target="#contentModal" 
-                 onclick="populateModal(${index})">
-                <div class="d-flex justify-content-between align-items-center">
-                    <i><h6 class="text-uppercase fw-bold mb-0">Section ${index}</h6></i>
-                    <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                        <i class="${section.icon}"></i>
-                    </div>
-                </div>
-                <hr class="my-2">
-                <h5 class="mb-0">${section.title}</h5>
-            </div>
-
-            <!-- ✅ Image Now Opens Enlarged Preview Modal -->
-            <div class="card-body p-2">
-                <div class="image-container" 
-                     style="width: 100%; height: 100%; position: relative; overflow: hidden; border-radius: 10px; 
-                            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);" 
-                     onclick="showImagePreview('${section.ss ? section.ss : 'default-placeholder.png'}')">
-                    <img src="${section.ss ? section.ss : 'default-placeholder.png'}" 
-                         alt="Preview" 
-                         class="img-fluid rounded" 
-                         style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
-                </div>
-            </div>
-        </div>
-    `;
-    container.appendChild(card);
+document.addEventListener("DOMContentLoaded", function () {
+    loadSections();
+    document.addEventListener("click", () => {
+        document.getElementById("contextMenu").style.display = "none";
+    });
 });
 
+async function loadSections() {
+    try {
+        const [homeResponse, aboutResponse] = await Promise.all([
+            fetch('/home.json'),
+            fetch('/aboutus.json')
+        ]);
 
-            } catch (error) {
-                console.error("Error loading sections:", error);
-            }
+        const homeSections = await homeResponse.json();
+        const aboutSections = await aboutResponse.json();
+
+        homeSections.forEach(section => section.source = 'home.json');
+        aboutSections.forEach(section => section.source = 'aboutus.json');
+
+        allSections = [...homeSections, ...aboutSections];
+        let filteredSections = allSections.filter(section => section.usage?.includes("about"));
+        filteredSections.sort((a, b) => a.S_order - b.S_order);
+        filteredSectionsGlobal = filteredSections;
+
+        const container = document.querySelector(".row.g-4");
+        container.innerHTML = "";
+
+        filteredSections.forEach((section, index) => {
+            const card = document.createElement("div");
+            card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
+            card.innerHTML = `
+                <div class="card text-center shadow-lg" style="height: 250px; width: 250px;" data-index="${index}">
+                    <div class="card-header p-2 ps-3" onclick="populateModal(${index})" data-bs-toggle="modal" data-bs-target="#contentModal">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <i><h6 class="text-uppercase fw-bold mb-0">Section ${index}</h6></i>
+                            <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                <i class="${section.icon}"></i>
+                            </div>
+                        </div>
+                        <hr class="my-2">
+                        <h5 class="mb-0">${section.title}</h5>
+                    </div>
+                    <div class="card-body p-2" onclick="showImagePreview('${section.ss || 'default-placeholder.png'}')">
+                        <div class="image-container" style="width: 100%; height: 100%; overflow: hidden; border-radius: 10px;">
+                            <img src="${section.ss || 'default-placeholder.png'}" alt="Preview" class="img-fluid rounded" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            card.addEventListener("contextmenu", (event) => {
+                event.preventDefault();
+                showContextMenu(event, index);
+            });
+
+            container.appendChild(card);
+        });
+    } catch (error) {
+        console.error("Error loading sections:", error);
+    }
+}
+
+function showContextMenu(event, index) {
+    const menu = document.getElementById("contextMenu");
+    menu.style.display = "block";
+    menu.style.top = `${event.pageY}px`;
+    menu.style.left = `${event.pageX}px`;
+    menu.setAttribute("data-index", index);
+}
+
+async function toggleSectionStatus() {
+    const index = document.getElementById("contextMenu").getAttribute("data-index");
+    if (index === null) return;
+    const section = filteredSectionsGlobal[index];
+    const newStatus = section.flag === "enabled" ? "disabled" : "enabled";
+
+    await updateSection(section.S_id, { flag: newStatus });
+}
+
+// async function deleteSection() {
+//     const index = document.getElementById("contextMenu").getAttribute("data-index");
+//     if (index === null) return;
+//     const section = filteredSectionsGlobal[index];
+
+//     await updateSection(section.S_id, { delete: true });
+// }
+
+async function updateSection(S_id, updateData) {
+    try {
+        const response = await fetch("http://localhost:8000/api/update", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ file: "aboutus", S_id, ...updateData })
+        });
+
+        if (response.ok) {
+            alert("Section updated successfully!");
+            loadSections();
+        } else {
+            alert("Failed to update section.");
         }
+    } catch (error) {
+        console.error("Error updating section:", error);
+    }
+}
+
+// Context Menu HTML
+const contextMenu = document.createElement("div");
+contextMenu.id = "contextMenu";
+contextMenu.style = "position: absolute; display: none; background: white; border: 1px solid #ccc; padding: 5px; z-index: 1000;";
+contextMenu.innerHTML = `
+    <ul style="list-style: none; margin: 0; padding: 5px;">
+        <li onclick="toggleSectionStatus()" style="cursor: pointer; padding: 5px;">Change Status</li>
+        
+    </ul>
+`;
+document.body.appendChild(contextMenu);
+
 
         function showImagePreview(imageUrl) {
     const modalImage = document.getElementById('modalPreviewImage');
@@ -235,28 +280,38 @@
                 // Populate form fields with conditional display
 
                 // Section Heading
-                if (section.title) {
-                    document.getElementById("sectionHeading").value = section.title;
-                    document.getElementById("sectionHeading").closest('.form-floating').style.display = "block";
-                } else {
-                    document.getElementById("sectionHeading").closest('.form-floating').style.display = "none";
-                }
+              // Populate Section Fields
+if (section.title) {
+    const headingEl = document.getElementById("sectionHeading");
+    headingEl.value = section.title;
+    headingEl.closest('.form-floating').style.display = "block";
+    headingEl.dataset.required = "true"; // Mark as required
+    headingEl.dataset.initial = section.title; // Store initial value
+} else {
+    document.getElementById("sectionHeading").closest('.form-floating').style.display = "none";
+}
 
-                // Section Paragraph
-                if (section.para) {
-                    document.getElementById("sectionPara").value = section.para;
-                    document.getElementById("sectionPara").closest('.form-floating').style.display = "block";
-                } else {
-                    document.getElementById("sectionPara").closest('.form-floating').style.display = "none";
-                }
+// Section Paragraph
+if (section.para) {
+    const paraEl = document.getElementById("sectionPara");
+    paraEl.value = section.para;
+    paraEl.closest('.form-floating').style.display = "block";
+    paraEl.dataset.required = "true";
+    paraEl.dataset.initial = section.para;
+} else {
+    document.getElementById("sectionPara").closest('.form-floating').style.display = "none";
+}
 
-                // Section Points
-                if (section.points && section.points.length > 0) {
-                    document.getElementById("sectionPoints").value = section.points.join("\n");
-                    document.getElementById("sectionPoints").closest('.form-floating').style.display = "block";
-                } else {
-                    document.getElementById("sectionPoints").closest('.form-floating').style.display = "none";
-                }
+// Section Points
+if (section.points && section.points.length > 0) {
+    const pointsEl = document.getElementById("sectionPoints");
+    pointsEl.value = section.points.join("\n");
+    pointsEl.closest('.form-floating').style.display = "block";
+    pointsEl.dataset.required = "true";
+    pointsEl.dataset.initial = section.points.join("\n");
+} else {
+    document.getElementById("sectionPoints").closest('.form-floating').style.display = "none";
+}
 
 
                 document.getElementById("iconClassInput").value = section.icon || "";

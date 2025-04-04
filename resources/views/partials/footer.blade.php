@@ -11,8 +11,7 @@
                 <div class="col-md-4 mb-30">
                     <div class="item">
                         <div class="logo">
-                            <img src="{{ asset('assets/img/logo4.png') }}" class="logo-img" alt=""
-                                style="width: 200px; height: auto;">
+                            <img src="{{ asset('assets\dynamic\logo\logo-f1.png') }}" class="logo-img" alt="" style="width: 200px; height: auto;">
                         </div>
                         <p>{{ $details['Quote'] }}</p>
                         <div class="social-icons">

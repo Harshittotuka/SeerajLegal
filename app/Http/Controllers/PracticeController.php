@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Services\PracticeService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Models\Practice; 
+use App\Models\Practice;
 
 class PracticeController extends Controller
 {
@@ -22,10 +22,10 @@ class PracticeController extends Controller
         if (!$practiceName) {
             return response()->json(['success' => false, 'message' => 'Practice name is required'], 400);
         }
-    
+
         // Attempt to toggle the practice flag
         $success = $this->practiceService->togglePracticeFlag($practiceName);
-    
+
         // Return JSON response with success status
         if ($success) {
             return response()->json(['success' => true, 'message' => 'Practice flag updated successfully']);
@@ -33,16 +33,15 @@ class PracticeController extends Controller
             return response()->json(['success' => false, 'message' => 'Failed to update practice flag'], 500);
         }
     }
-    
 
     // Fetch all practices
     public function index()
     {
         $practices = $this->practiceService->getAllPractices();
-        
+
         return response()->json([
             'success' => true,
-            'data' => $practices
+            'data' => $practices,
         ]);
     }
 
@@ -52,24 +51,30 @@ class PracticeController extends Controller
         $name = $request->query('name'); // Get the practice name from the query parameter
 
         if (!$name) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Practice name is required'
-            ], 400);
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Practice name is required',
+                ],
+                400,
+            );
         }
 
         $practice = $this->practiceService->getPracticeByName($name);
 
         if (!$practice) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Practice not found'
-            ], 404);
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Practice not found',
+                ],
+                404,
+            );
         }
 
         return response()->json([
             'success' => true,
-            'data' => $practice
+            'data' => $practice,
         ]);
     }
 
@@ -81,51 +86,43 @@ class PracticeController extends Controller
     //insert,update,delete
     public function store(Request $request)
     {
-        try {
-            // Validate the request
-            $data = $request->validate([
-                'practice_name' => 'required|string',
-                'paragraphs' => 'nullable|array',
-                'paragraphs.*.para_sno' => 'nullable|integer',
-                'paragraphs.*.title' => 'nullable|string',
-                'paragraphs.*.para' => 'nullable|string',
-                'paragraphs.*.points' => 'nullable|array',
-                'what_we_provide' => 'nullable|array',
-                'flag' => 'string',
-                'image_path' => 'nullable|string',
-                'top_image' => 'nullable|string',
-                'icon' => 'nullable|string'
-            ]);
-    
-            // Create practices using the service
-            $practice = $this->practiceService->createPractices($data);
-    
-            // Return success response
-            return response()->json([
-                'success' => true,
-                'message' => 'Practices created successfully',
-                'data' => $practice
-            ], 201);
-    
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation failed',
-                'errors' => $e->errors()
-            ], 422);
-    
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Something went wrong',
-                'error' => $e->getMessage()
-            ], 500);
+        $data = $request->validate([
+            'practice_name' => 'required|string',
+            'paragraphs' => 'nullable|array',
+            'paragraphs.*.para_sno' => 'nullable|integer',
+            'paragraphs.*.title' => 'nullable|string',
+            'paragraphs.*.para' => 'nullable|string',
+            'paragraphs.*.points' => 'nullable|array',
+            'what_we_provide' => 'nullable|array',
+            'flag' => 'string',
+            'image_path' => 'nullable|string',
+            'top_image' => 'nullable|string',
+            'icon' => 'nullable|string',
+        ]);
+
+        $result = $this->practiceService->createPractices($data);
+
+        if (!$result['success']) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => $result['message'],
+                ],
+                400,
+            ); // Return a 400 Bad Request status for errors
         }
+
+        return response()->json(
+            [
+                'success' => true,
+                'message' => $result['message'],
+                'data' => $result['data'],
+            ],
+            201,
+        );
     }
-    
 
-
-public function update(Request $request, $practiceName)
+    public function update(Request $request, $practiceName)
     {
         $validated = $request->validate([
             'practice_name' => 'required|string',
@@ -138,34 +135,49 @@ public function update(Request $request, $practiceName)
             'flag' => 'nullable|in:enabled,disabled',
             'icon' => 'nullable|string',
             'image_path' => 'nullable|string',
-            'top_image' => 'nullable|string'
+            'top_image' => 'nullable|string',
         ]);
 
         $result = $this->practiceService->updatePractice($practiceName, $validated);
 
         if (!$result['success']) {
-            return response()->json(['success' => false, 'message' => $result['message']], 404);
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => $result['message'],
+                ],
+                400,
+            ); // Return a 400 Bad Request status for errors
         }
 
-        return response()->json(['success' => true, 'message' => 'Practice updated successfully']);
+        return response()->json(
+            [
+                'success' => true,
+                'message' => $result['message'],
+                'data' => $result['data'],
+            ],
+            200,
+        );
     }
 
+    
     public function destroy($practice_name)
     {
-        
         $deletedRows = Practice::where('practice_name', $practice_name)->delete();
-        
+
         if ($deletedRows > 0) {
             return response()->json([
-                'success' => true,  // ✅ Success flag
-                'message' => "$deletedRows practice(s) deleted successfully!"
+                'success' => true, // ✅ Success flag
+                'message' => "$deletedRows practice(s) deleted successfully!",
             ]);
         } else {
-            return response()->json([
-                'success' => false,  // ❌ Failure flag
-                'message' => "No practices found with name: $practice_name"
-            ], 404);
+            return response()->json(
+                [
+                    'success' => false, // ❌ Failure flag
+                    'message' => "No practices found with name: $practice_name",
+                ],
+                404,
+            );
         }
-        
     }
 }
