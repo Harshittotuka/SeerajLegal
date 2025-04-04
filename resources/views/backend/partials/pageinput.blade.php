@@ -104,7 +104,7 @@
 </div>
 
 <script>
-async function updateSection(data, actionType) {
+async function updateSection1(data, actionType) {
     try {
         const response = await fetch("http://localhost:8000/api/update", {
             method: "POST",
@@ -170,7 +170,7 @@ document.getElementById("saveSectionBtn").addEventListener("click", function() {
     };
 
     console.log("Updating Section:", data);
-    updateSection(data, "Section").then(reloadPage);
+    updateSection1(data, "Section").then(reloadPage);
 });
 
 document.getElementById("saveImageBtn").addEventListener("click", function() {
@@ -184,7 +184,7 @@ document.getElementById("saveImageBtn").addEventListener("click", function() {
     };
 
     console.log("Updating Image:", data);
-    updateSection(data, "Image").then(reloadPage);
+    updateSection1(data, "Image").then(reloadPage);
 });
 
 document.getElementById("saveIconBtn").addEventListener("click", function() {
@@ -198,7 +198,7 @@ document.getElementById("saveIconBtn").addEventListener("click", function() {
     };
 
     console.log("Updating Icon:", data);
-    updateSection(data, "Icon").then(reloadPage);
+    updateSection1(data, "Icon").then(reloadPage);
 });
 
 </script>
