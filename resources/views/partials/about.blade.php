@@ -11,11 +11,12 @@
             </div>
             <div class="col-lg-6 offset-lg-1 col-md-12 animate-box" data-animate-effect="fadeInUp">
                 <div class="item">
-                    <div class="year-box vert-move">
-                        <div class="number">1</div>
-                        <div class="txt">Years of experience</div>
-                        <div class="number-bg"></div>
-                    </div> 
+                <div class="year-box vert-move">
+    <div class="number" id="yearsExperience">0</div>
+    <div class="txt">Years of experience</div>
+    <div class="number-bg"></div>
+</div> 
+
                     <img id="section-image" class="img-fluid" alt="Section Image">
                 </div>
             </div>
@@ -24,6 +25,7 @@
 </section>
 
 <script>
+
     fetch('aboutus.json')
         .then(response => response.json())
         .then(data => {
@@ -61,4 +63,13 @@
             }
         })
         .catch(error => console.error('Error fetching data:', error));
+
+        fetch('personal_details.json')
+    .then(res => res.json())
+    .then(data => {
+        const years = data.personal_details.yrs_of_experience || '0';
+        document.getElementById('yearsExperience').textContent = years;
+    })
+    .catch(err => console.error('Failed to load personal details:', err));
+
 </script>
