@@ -157,25 +157,25 @@
                             </div>
                         </div>
                         ${practice.points?.slice(1).map(point => `
-                                                                                <div class="mb-3 d-flex align-items-center">
-                                                                                    <label class="me-3" style="width: 100px;"></label>
-                                                                                    <div class="flex-grow-1 d-flex">
-                                                                                        <input type="text" class="form-control border-1 border-bottom"
-                                                                                            value="${point}" placeholder="Enter point">
-                                                                                        <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            `).join('') || ''}
+                                                                                        <div class="mb-3 d-flex align-items-center">
+                                                                                            <label class="me-3" style="width: 100px;"></label>
+                                                                                            <div class="flex-grow-1 d-flex">
+                                                                                                <input type="text" class="form-control border-1 border-bottom"
+                                                                                                    value="${point}" placeholder="Enter point">
+                                                                                                <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    `).join('') || ''}
                     </div>
                 </form>
                 
                 <button class="btn btn-primary addFormInside">+</button>
                 ${index !== 0 ? `
-                                                                        <button class="btn btn-danger delete-form">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
-                                                                                <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
-                                                                            </svg>
-                                                                        </button>` : ''}
+                                                                                <button class="btn btn-danger delete-form">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
+                                                                                        <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
+                                                                                    </svg>
+                                                                                </button>` : ''}
             </div>
             <br>
         `;
@@ -209,24 +209,24 @@
                     event.target.closest(".mb-3").remove();
                 }
 
-                if (event.target.classList.contains("addFormInside")) {
-                    const currentForm = event.target.closest(".form-box");
-                    const newForm = currentForm.cloneNode(true);
-                    newForm.querySelectorAll("input, textarea").forEach(input => input.value = "");
+                // if (event.target.classList.contains("addFormInside")) {
+                //     const currentForm = event.target.closest(".form-box");
+                //     const newForm = currentForm.cloneNode(true);
+                //     newForm.querySelectorAll("input, textarea").forEach(input => input.value = "");
 
-                    if (!newForm.querySelector(".delete-form")) {
-                        const deleteButton = document.createElement("button");
-                        deleteButton.classList.add("btn", "btn-danger", "delete-form");
-                        deleteButton.textContent = "Delete";
-                        deleteButton.addEventListener("click", function() {
-                            newForm.remove();
-                        });
-                        newForm.appendChild(deleteButton);
+                //     if (!newForm.querySelector(".delete-form")) {
+                //         const deleteButton = document.createElement("button");
+                //         deleteButton.classList.add("btn", "btn-danger", "delete-form");
+                //         deleteButton.textContent = "Delete";
+                //         deleteButton.addEventListener("click", function() {
+                //             newForm.remove();
+                //         });
+                //         newForm.appendChild(deleteButton);
 
-                    }
+                //     }
 
-                    currentForm.insertAdjacentElement("afterend", newForm);
-                }
+                //     currentForm.insertAdjacentElement("afterend", newForm);
+                // }
 
                 if (event.target.classList.contains("delete-form")) {
                     event.target.closest(".form-box").remove();
@@ -235,22 +235,24 @@
         }
     </script>
 
+    {{-- main save --}}
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("saveButton").addEventListener("click", function() {
                 const forms = document.querySelectorAll(".form-box");
 
                 
-                let practiceNameInput = document.getElementById("name").value.trim();
-                let practiceName = practiceNameInput.charAt(0).toUpperCase() + practiceNameInput.slice(1);
+                let serviceNameInput = document.getElementById("name").value.trim();
+                let serviceName = serviceNameInput.charAt(0).toUpperCase() + serviceNameInput.slice(1);
 
                 let icon = document.getElementById("Icon").value.trim(); // Get the icon value
-                let topImagePath = `assets/dynamic/services/top_${practiceName.replace(/\s+/g, "_")}.webp`;
+                let topImagePath = `assets/dynamic/services/top_${serviceName.replace(/\s+/g, "_")}.webp`;
 
                 console.log("Top Image Path:", topImagePath);
-                // Ensure practiceName is not empty
-                if (!practiceName) {
-                    showToast("Practice name is required.", "error");
+
+                // Ensure service name is not empty
+                if (!serviceName) {
+                    showToast("Service name is required.", "error");
                     return;
                 }
 
@@ -259,8 +261,15 @@
                     showToast("Icon is required.", "error");
                     return;
                 }
-                if (!topImagePath || topImagePath === "#") {
-                    showToast("Top image is required.", "error");
+
+
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const serviceNameFromUrl = urlParams.get("servicename");
+
+                // Only require cropping if it's a new service
+                if (!serviceNameFromUrl && !topCroppedCanvas) {
+                    showToast("Please crop and select the top image before saving.", "error");
                     return;
                 }
 
@@ -271,8 +280,8 @@
                     let title = form.querySelector("input[placeholder='Enter title']").value.trim();
                     let para = form.querySelector("textarea[placeholder='Enter paragraph']").value
                         .trim();
-
                     let points = [];
+
                     form.querySelectorAll(".pointsContainer input[placeholder='Enter point']")
                         .forEach(pointInput => {
                             let pointValue = pointInput.value.trim();
@@ -302,7 +311,7 @@
                 }
 
                 let requestData = {
-                    service_name: practiceName, // Required field
+                    service_name: serviceName,
                     paragraphs: paragraphs,
                     what_we_provide: ["Arbitration", "Negotiation"], // Static as per requirement
                     flag: "enabled",
@@ -312,16 +321,16 @@
 
                 console.log("Final Request Data:", requestData);
 
-                const urlParams = new URLSearchParams(window.location.search);
-                const serviceNameFromUrl = urlParams.get("servicename");
+
 
                 // Determine API endpoint dynamically
-                let apiUrl = "http://127.0.0.1:8000/api/services/create"; // Default for new practice
+                let apiUrl = "http://127.0.0.1:8000/api/services/create"; // Default for new service
                 if (serviceNameFromUrl) {
                     apiUrl =
                         `http://127.0.0.1:8000/api/services/update-service/${encodeURIComponent(serviceNameFromUrl)}`;
                 }
 
+                // Step 1: Save Service Data First
                 fetch(apiUrl, {
                         method: "POST",
                         headers: {
@@ -334,6 +343,11 @@
                         console.log("Success:", data);
                         if (data.success) {
                             showToast("All valid data saved successfully!", "success");
+
+                            // Step 2: Upload Top Image
+                            if (topCroppedCanvas) {
+                                  uploadCroppedImage(topCroppedCanvas, topImagePath);
+                            }
                         } else {
                             if (data.message && data.message.includes("already exists")) {
                                 showToast(data.message, "error");
@@ -348,6 +362,34 @@
                     });
             });
 
+            // Function to upload a cropped image
+            function uploadCroppedImage(canvas, imagePath) {
+                canvas.toBlob((blob) => {
+                    const formData = new FormData();
+                    formData.append('image', blob);
+                    formData.append('path', imagePath);
+
+                    fetch('/api/upload-cropped-image', {
+                            method: 'POST',
+                            body: formData,
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                console.log(`Image uploaded successfully: ${imagePath}`);
+                                showToast("Image uploaded successfully!", "success");
+                            } else {
+                                console.error(`Error uploading image: ${data.message}`);
+                                showToast("Error uploading image.", "error");
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error uploading image:", error);
+                            showToast("Error uploading image.", "error");
+                        });
+                }, 'image/webp');
+            }
+
             // Function to show Toastify notifications
             function showToast(message, type) {
                 Toastify({
@@ -361,6 +403,9 @@
             }
         });
     </script>
+
+
+
 
     </script>
     <!-- Toastify CSS -->
