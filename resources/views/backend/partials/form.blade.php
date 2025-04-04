@@ -32,11 +32,27 @@
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
                 <form id="formContainer">
-                    <div class="mb-3 d-flex align-items-center">
-                        <label for="name" class="me-3" style="width: 100px;">Service Name:</label>
-                        <input type="text" class="form-control border-2 border-bottom" id="name"
-                            placeholder="Enter your name" style="box-shadow: none;">
-                    </div>
+                   <div class="mb-3 d-flex align-items-center position-relative">
+    <label for="name" class="me-3" style="width: 100px;">Service Name:</label>
+    <input type="text" class="form-control border-2 border-bottom disabled-input" id="name"
+        placeholder="Enter your name" style="box-shadow: none;" readonly onfocus="this.blur()">
+    <span class="lock-icon position-absolute end-0 me-3">🔒</span>
+</div>
+
+<style>
+    /* Change cursor to 'not-allowed' on hover */
+    .disabled-input,
+    .lock-icon {
+        cursor: not-allowed;
+    }
+
+  
+    .lock-icon {
+        font-size: 1.2rem;
+        transition: all 0.2s ease;
+    }
+</style>
+
 
                     <div class="mb-3 d-flex align-items-center">
                         <label for="Icon" class="me-3" style="width: 100px;">Icon</label>

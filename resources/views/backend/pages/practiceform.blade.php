@@ -344,25 +344,25 @@
                         </div>
                     </div>
                     ${practice.points?.slice(1).map(point => `
-                                        <div class="mb-3 d-flex align-items-center">
-                                            <label class="me-3" style="width: 100px;"></label>
-                                            <div class="flex-grow-1 d-flex">
-                                                <input type="text" class="form-control border-1 border-bottom"
-                                                    value="${point}" placeholder="Enter point">
-                                                <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
-                                            </div>
-                                        </div>
-                                    `).join('') || ''}
+                                                    <div class="mb-3 d-flex align-items-center">
+                                                        <label class="me-3" style="width: 100px;"></label>
+                                                        <div class="flex-grow-1 d-flex">
+                                                            <input type="text" class="form-control border-1 border-bottom"
+                                                                value="${point}" placeholder="Enter point">
+                                                            <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
+                                                        </div>
+                                                    </div>
+                                                `).join('') || ''}
                 </div>
             </form>
             
             <button class="btn btn-primary addFormInside">+</button>
             ${index !== 0 ? `
-                                <button class="btn btn-danger delete-form">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
-                                        <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
-                                    </svg>
-                                </button>` : ''}
+                                            <button class="btn btn-danger delete-form">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
+                                                    <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
+                                                </svg>
+                                            </button>` : ''}
         </div>
         <br>
         <br>
@@ -432,7 +432,7 @@
 
                 let practiceNameInput = document.getElementById("name").value.trim();
                 let practiceName = practiceNameInput.charAt(0).toUpperCase() + practiceNameInput.slice(1);
-        let icon = document.getElementById("Icon").value.trim(); // Get the icon value
+                let icon = document.getElementById("Icon").value.trim(); // Get the icon value
 
                 // Ensure practiceName is not empty
                 if (!practiceName) {
@@ -448,17 +448,22 @@
                 if (!globalImagePath) {
                     globalImagePath = `assets/dynamic/practices/${practiceName.replace(/\s+/g, "_")}.webp`;
                 }
+                // Generate the top image path dynamically
+                let topImagePath = `assets/dynamic/practices/top_${practiceName.replace(/\s+/g, "_")}.webp`;
+                console.log("Top Image Path:", topImagePath);
+
 
                 // Check if both images are cropped before proceeding
-                if (!croppedCanvas) {
+                if (!globalImagePath && !croppedCanvas) {
                     showToast("Please crop and select the main image before saving.", "error");
                     return;
                 }
 
-                if (!topCroppedCanvas) {
+                if (!topImagePath && !topCroppedCanvas) {
                     showToast("Please crop and select the top image before saving.", "error");
                     return;
                 }
+
 
                 console.log("global : ", globalImagePath);
                 let paragraphs = [];
@@ -474,7 +479,7 @@
                         .forEach(pointInput => {
                             let pointValue = pointInput.value.trim();
                             if (pointValue) points.push(
-                            pointValue); // Only add non-empty points
+                                pointValue); // Only add non-empty points
                         });
 
                     // Skip form if all fields (title, para, points) are empty
@@ -501,13 +506,10 @@
                 const selectedServices = Array.from(document.querySelectorAll(
                         ".drop-container .item.selected"))
                     .map(item => item.textContent.replace(/❌/g, "")
-                .trim()); // Remove the ❌ icon and trim whitespace
+                        .trim()); // Remove the ❌ icon and trim whitespace
 
                 console.log("Selected Services:", selectedServices);
 
-                // Generate the top image path dynamically
-                let topImagePath = `assets/dynamic/practices/top_${practiceName.replace(/\s+/g, "_")}.webp`;
-                console.log("Top Image Path:", topImagePath);
 
                 let requestData = {
                     practice_name: practiceName,
@@ -544,11 +546,15 @@
                         if (data.success) {
                             showToast("All valid data saved successfully!", "success");
 
-                            // Step 2: Upload Main Image
-                            uploadCroppedImage(croppedCanvas, globalImagePath);
+                            // Step 2: Upload Main Image only if croppedCanvas exists
+                            if (croppedCanvas) {
+                                uploadCroppedImage(croppedCanvas, globalImagePath);
+                            }
 
-                            // Step 3: Upload Top Image
-                            uploadCroppedImage(topCroppedCanvas, topImagePath);
+                            // Step 3: Upload Top Image only if topCroppedCanvas exists
+                            if (topCroppedCanvas) {
+                                uploadCroppedImage(topCroppedCanvas, topImagePath);
+                            }
                         } else {
                             // 🔴 Prevent image upload if name already exists
                             console.error("Error:", data.message);
