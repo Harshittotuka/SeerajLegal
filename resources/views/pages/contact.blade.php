@@ -125,15 +125,25 @@ document.addEventListener("DOMContentLoaded", function() {
             const socialWrapper = document.getElementById("social-links");
 
             // Dynamically add available social links
-            if (contact.whatsapp) {
-                socialIcons.innerHTML += `<a href="${contact.whatsapp}" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>`;
-            }
-            if (contact.twitter_link) {
-                socialIcons.innerHTML += `<a href="${contact.twitter_link}" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>`;
-            }
-            if (contact.facebook_link) {
-                socialIcons.innerHTML += `<a href="${contact.facebook_link}" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>`;
-            }
+if (contact.whatsapp) {
+    socialIcons.innerHTML += `<a href="${contact.whatsapp}" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>`;
+}
+if (contact.twitter_link) {
+    socialIcons.innerHTML += `<a href="${contact.twitter_link}" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>`;
+}
+if (contact.facebook_link) {
+    socialIcons.innerHTML += `<a href="${contact.facebook_link}" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>`;
+}
+if (contact.insta_link) {
+    socialIcons.innerHTML += `<a href="${contact.insta_link}" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>`;
+}
+if (contact.youtube_link) {
+    socialIcons.innerHTML += `<a href="${contact.youtube_link}" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>`;
+}
+if (contact.linkedin) {
+    socialIcons.innerHTML += `<a href="${contact.linkedin}" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>`;
+}
+
 
             // Show the social links block only if any link is added
             if (socialIcons.innerHTML.trim() !== "") {

@@ -167,20 +167,27 @@
                                 <p class="text-sm mb-0 text-capitalize">FAQ</p>
                                 <h3 class="mb-0">Manage FAQ</h3>
                             </div>
-                            <div class="d-flex ">
-                                <!-- FAQ HEADER Button -->
-                                <button class="btn btn-warning edit-btn  me-4" data-imageid="TopImg_faq"
-                                    data-bs-toggle="modal" data-bs-target="#topImageModal">
-                                    FAQ Header
-                                </button>
+                            <div class="d-flex align-items-center">
+    <!-- FAQ HEADER Button -->
+    <button class="btn btn-warning edit-btn me-4" data-imageid="TopImg_faq"
+        data-bs-toggle="modal" data-bs-target="#topImageModal">
+        FAQ Header
+    </button>
 
-                                <!-- Add Button -->
-                                <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon"
-                                    style="cursor: pointer; width: 35px; height: 35px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
-                                    data-bs-toggle="modal" data-bs-target="#faqModal">
-                                    <i class="material-symbols-rounded opacity-10">add</i>
-                                </div>
-                            </div>
+    <!-- Add Button -->
+    <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon me-3"
+        style="cursor: pointer; width: 35px; height: 35px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transform: translateY(-4px);"
+        data-bs-toggle="modal" data-bs-target="#faqModal">
+        <i class="material-symbols-rounded opacity-10">add</i>
+    </div>
+
+    <!-- View Button -->
+    <a href="{{ route('faq') }}" target="_blank" class="btn btn-secondary d-flex align-items-center justify-content-center"
+        style="width: 40px; height: 40px;" title="FAQ Page">
+        <i class="fas fa-eye"></i>
+    </a>
+</div>
+
 
                         </div>
                         <hr class="dark horizontal my-0">
