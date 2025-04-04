@@ -147,7 +147,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     directorsContainer.innerHTML = ""; // Clear previous content
 
                     directors.forEach(director => {
-                        const imageUrl = director.image ? `/storage/${director.image}` : 'assets/img/my/profile_icon2.png'; // Default image
+                        // console.log("Director api response:", directors);
+
+                        const imageUrl = director.profile_image ? `/${director.profile_image}` : 'assets/img/my/profile_icon2.png';
+
                         const directorElement = document.createElement("div");
                         directorElement.className = "director-item";
                         directorElement.innerHTML = `

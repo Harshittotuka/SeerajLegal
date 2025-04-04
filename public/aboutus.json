@@ -103,12 +103,9 @@
             2,
             3
         ],
-        "title": "We are here to provide legal Services",
+        "title": "We are here to provide <span>legal Services</span>",
         "para": "All people are equal before the law. A good attorney is what makes a difference.",
-        "points": [
-            "Rajan Sharma",
-            "Seema Sharma"
-        ],
+        "points": null,
         "flag": "enabled",
         "image-count": "fixed",
         "image-resolution": [

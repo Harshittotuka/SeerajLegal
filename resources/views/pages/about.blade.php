@@ -83,7 +83,6 @@
         .then(data => {
             const section = data.find(item => item.S_id === 5);
 
-            // ✅ Hide the section if its flag is "disabled"
             if (!section || section.flag === "disabled") {
                 console.log("Section S_id:5 is disabled.");
                 document.getElementById('section-5-container').style.display = "none";
@@ -93,13 +92,11 @@
             document.getElementById('section-5-title').innerHTML = section.title;
             document.getElementById('section-5-para').textContent = section.para;
 
-            // ✅ Set the icon dynamically
             const sectionIcon = document.getElementById('section-5-icon');
             if (section.icon) {
                 sectionIcon.className = section.icon;
             }
 
-            // ✅ Set the image dynamically
             const sectionImage = document.getElementById('section-5-image');
             if (section.image && section.image.length > 0) {
                 sectionImage.src = section.image[0];
@@ -107,19 +104,37 @@
                 sectionImage.style.display = 'none';
             }
 
-            // ✅ Set the points dynamically
-            const pointsContainer = document.getElementById('section-5-points');
-            if (section.points) {
-                section.points.forEach(point => {
-                    const div = document.createElement('div');
-                    div.className = 'about-name';
-                    div.textContent = point;
-                    pointsContainer.appendChild(div);
-                });
-            }
+            // Utility function to convert string to title case
+function toTitleCase(str) {
+    return str
+        .toLowerCase()
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}
+            // ✅ Fetch and populate director names from API instead of aboutus.json
+            fetch('http://127.0.0.1:8000/api/team/designation/Director')
+    .then(response => response.json())
+    .then(directors => {
+        const pointsContainer = document.getElementById('section-5-points');
+        pointsContainer.innerHTML = ""; // Clear existing
+
+        if (Array.isArray(directors) && directors.length > 0) {
+            directors.forEach(director => {
+                const div = document.createElement('div');
+                div.className = 'about-name';
+                div.textContent = toTitleCase(director.name); // ✅ Apply title case
+                pointsContainer.appendChild(div);
+            });
+        } else {
+            console.warn("No directors found in API.");
+        }
+    })
+    .catch(error => console.error('Error fetching director names:', error));
         })
         .catch(error => console.error('Error fetching aboutus.json:', error));
 </script>
+
 
 
 
