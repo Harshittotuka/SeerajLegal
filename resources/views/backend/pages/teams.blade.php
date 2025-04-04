@@ -653,19 +653,28 @@ const adr_services = adrInput
                                 <h4 class="mb-0">Manage Teams</h4>
                             </div>
 
-                            <div class="d-flex mt-2">
-                                <!-- Teams HEADER Button -->
-                                <button class="btn btn-warning edit-btn me-4" data-imageid="TopImg_tea"
-                                    data-bs-toggle="modal" data-bs-target="#topImageModal">
-                                    Teams Header
-                                </button>
+                            <div class="d-flex align-items-center mt-2">
+    <!-- Teams Header Button -->
+    <button class="btn btn-warning edit-btn mb-2 me-4" data-imageid="TopImg_tea"
+        data-bs-toggle="modal" data-bs-target="#topImageModal">
+        Teams Header
+    </button>
 
-                                <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon"
-                                    id="addMemberBtn" style="cursor: pointer; width: 40px; height: 40px;"
-                                    data-bs-toggle="modal" data-bs-target="#memberModal">
-                                    <i class="material-symbols-rounded opacity-10">add</i>
-                                </div>
-                            </div>
+    <!-- Add Button -->
+    <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon me-3"
+        id="addMemberBtn"
+        style="cursor: pointer; width: 40px; height: 40px; transform: translateY(-4px);"
+        data-bs-toggle="modal" data-bs-target="#memberModal">
+        <i class="material-symbols-rounded opacity-10">add</i>
+    </div>
+
+    <!-- View Button -->
+    <a href="{{ route('team') }}" target="_blank" class="btn btn-outline-primary mb-2 d-flex align-items-center justify-content-center"
+        style="width: 40px; height: 40px;" title="Teams Page">
+        <i class="fas fa-eye"></i>
+    </a>
+</div>
+
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="table-responsive mt-3">

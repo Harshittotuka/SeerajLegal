@@ -61,12 +61,19 @@
 
         @include('backend.components.topimage-modal')
         <div class="d-flex justify-content-between align-items-center mt-3 ms-3">
-            <h5 class="mb-0">HomePage</h5> <!-- Optional Title -->
-            <button class="btn btn-warning edit-btn mt-3 me-4" data-imageid="TopImg_abt" data-bs-toggle="modal"
-                data-bs-target="#topImageModal">
-                HomePage Header
-            </button>
-        </div>
+    <h5 class="mb-0">HomePage</h5> <!-- Optional Title -->
+    <div class="d-flex align-items-center gap-2 me-4 mt-3">
+        <button class="btn btn-warning edit-btn" data-imageid="TopImg_abt" data-bs-toggle="modal"
+            data-bs-target="#topImageModal">
+            HomePage Header
+        </button>
+        <a href="{{ route('home') }}" target="_blank" class="btn btn-outline-primary" title="View Homepage">
+            <i class="fas fa-eye"></i>
+        </a>
+    </div>
+</div>
+
+
 
 
         {{-- @include('components.image-cropper') --}}

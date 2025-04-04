@@ -53,25 +53,32 @@
                     <!-- Buttons in the Contact Info Section -->
                     <div class="d-flex justify-content-end align-items-center mt-3">
 
-                        <button class="btn edit-btn me-4" style="background-color: #e91e63; color: white;"
-                            data-imageid="TopImg_con" data-bs-toggle="modal" data-bs-target="#topImageModal"
-                            type="button">
-                            <i class="fas fa-layer-group me-2"></i> Contact Us Header
-                        </button>
+    <button class="btn edit-btn me-4" style="background-color: #e91e63; color: white;"
+        data-imageid="TopImg_con" data-bs-toggle="modal" data-bs-target="#topImageModal"
+        type="button">
+        <i class="fas fa-layer-group me-2"></i> Contact Us Header
+    </button>
 
-                        <button type="button" class="btn btn-warning me-2" id="cancel-btn" style="display: none;">
-                            <i class="fas fa-times"></i> Cancel
-                        </button>
-                        <button type="button" class="btn btn-primary me-2" id="edit-btn">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
+    <button type="button" class="btn btn-warning me-2" id="cancel-btn" style="display: none;">
+        <i class="fas fa-times"></i> Cancel
+    </button>
 
-                        <button type="submit" class="btn btn-success" id="save-btn" style="display: none;">
-                            <i class="fas fa-check"></i> Save
-                        </button>
+    <button type="button" class="btn btn-primary me-2" id="edit-btn">
+        <i class="fas fa-edit"></i> Edit
+    </button>
 
+    <button type="submit" class="btn btn-success me-2" id="save-btn" style="display: none;">
+        <i class="fas fa-check"></i> Save
+    </button>
 
-                    </div>
+    <!-- View Button -->
+    <a href="{{ route('contact') }}" target="_blank" class="btn btn-outline-primary d-flex align-items-center justify-content-center"
+        style="width: 40px; height: 40px;" title="Contact Page">
+        <i class="fas fa-eye"></i>
+    </a>
+
+</div>
+
 
 
                     <!-- Profile Section -->
