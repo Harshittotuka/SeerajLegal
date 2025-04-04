@@ -233,11 +233,28 @@ async function updateSection(S_id, updateData) {
         });
 
         if (response.ok) {
-            alert("Section updated successfully!");
-            loadSections();
-        } else {
-            alert("Failed to update section.");
-        }
+    Toastify({
+        text: "Section updated successfully!",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "green",
+        close: true
+    }).showToast();
+    loadSections(); // Reload sections after update
+} else {
+    const errorText = await response.text();
+    console.error("Failed to update:", errorText);
+    Toastify({
+        text: `Failed to update section: ${errorText}`,
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "red",
+        close: true
+    }).showToast();
+}
+
     } catch (error) {
         console.error("Error updating section:", error);
     }

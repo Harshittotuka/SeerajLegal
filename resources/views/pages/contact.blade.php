@@ -73,6 +73,14 @@
                         <p id="contact-email">Loading...</p>
                     </div>
                 </div>
+                <div class="item" id="social-links" style="display: none;">
+    <i class="icon fa-solid fa-share-nodes"></i>
+    <div class="cont">
+        <h5>Connect with us</h5>
+        <p id="social-icons" class="d-flex gap-2"></p>
+    </div>
+</div>
+
             </div>
 
             <div class="col-md-5 offset-md-1">
@@ -112,12 +120,43 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("contact-phone").innerText = contact.phone_no;
             document.getElementById("contact-phone").href = "tel:" + contact.phone_no;
             document.getElementById("contact-email").innerText = contact.email;
+
+            const socialIcons = document.getElementById("social-icons");
+            const socialWrapper = document.getElementById("social-links");
+
+            // Dynamically add available social links
+            if (contact.whatsapp) {
+                socialIcons.innerHTML += `<a href="${contact.whatsapp}" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>`;
+            }
+            if (contact.twitter_link) {
+                socialIcons.innerHTML += `<a href="${contact.twitter_link}" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>`;
+            }
+            if (contact.facebook_link) {
+                socialIcons.innerHTML += `<a href="${contact.facebook_link}" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>`;
+            }
+
+            // Show the social links block only if any link is added
+            if (socialIcons.innerHTML.trim() !== "") {
+                socialWrapper.style.display = "flex";
+                socialIcons.classList.add("social-icons"); // optional class for consistent styling
+            }
         }
     })
     .catch(error => console.error("Error fetching contact data from JSON:", error));
 });
 </script>
 
+<style>
+    .social-icons a {
+    margin-right: 10px;
+    color: #333;
+    font-size: 18px;
+}
+.social-icons a:hover {
+    color:rgb(107, 112, 119);
+}
+
+</style>
 
 
    
