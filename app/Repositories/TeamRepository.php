@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Repositories;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\Team;
 
 class TeamRepository
@@ -63,5 +63,41 @@ class TeamRepository
 
         $team->update($data);
         return $team;
+    }
+
+    public function countTeamMembersByService(array $services): array
+    {
+        $result = [];
+
+        foreach ($services as $service) {
+            $count = Team::where('adr_services', 'like', "%$service%")->count(); // Adjust if your column is JSON
+            $result[$service] = $count;
+        }
+        
+        return $result;
+    }
+    public function countByPractice()
+    {
+        $records = DB::table('teams')->pluck('area_of_practice');
+
+        $practiceCounts = [];
+
+        foreach ($records as $practiceField) {
+            // Attempt to decode as JSON
+            $practices = json_decode($practiceField, true);
+
+            if (is_array($practices)) {
+                foreach ($practices as $practice) {
+                    if (!empty($practice)) {
+                        $practiceCounts[$practice] = ($practiceCounts[$practice] ?? 0) + 1;
+                    }
+                }
+            } elseif (!empty($practiceField)) {
+                // If not JSON, treat as single string
+                $practiceCounts[$practiceField] = ($practiceCounts[$practiceField] ?? 0) + 1;
+            }
+        }
+
+        return $practiceCounts;
     }
 }

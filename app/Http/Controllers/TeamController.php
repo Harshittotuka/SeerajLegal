@@ -180,4 +180,23 @@ class TeamController extends Controller
 
         return response()->json($members, 200);
     }
+    //code to show number of members on backend
+    public function serviceCount()
+    {
+        $counts = $this->teamService->getServiceCounts();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $counts
+        ]);
+    }
+    public function getPracticeCounts()
+    {
+        $counts = $this->teamService->getPracticeCounts();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $counts
+        ]);
+    }
 }

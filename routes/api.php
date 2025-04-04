@@ -14,6 +14,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ImageController;
 
 
+Route::get('/service_count', [TeamController::class, 'serviceCount']);
+Route::get('/practice_count', [TeamController::class, 'getPracticeCounts']);
+
 //api to get team based on designation
 Route::get('/team/designation/{designation}', [TeamController::class, 'getByDesignation']);
 
