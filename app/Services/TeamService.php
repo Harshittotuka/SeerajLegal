@@ -68,6 +68,25 @@ class TeamService
     {
         return $this->teamRepository->filterTeams($adrServices, $areaOfPractice);
     }
+
+    public function getServiceCounts(): array
+{
+    $allServices = \App\Models\Team::pluck('adr_services')->toArray();
+
+    $services = collect($allServices)
+        ->flatten() // since each is an array
+        ->unique()
+        ->values()
+        ->toArray();
+
+    return $this->teamRepository->countTeamMembersByService($services);
+}
+public function getPracticeCounts()
+    {
+        return $this->teamRepository->countByPractice();
+    }
+
+
 }
     
 
