@@ -18,9 +18,10 @@
                                 <button class="btn btn-primary me-2 mb-2" id="saveButton">
                                     <i class="material-symbols-rounded">save</i> Save
                                 </button>
-                                {{-- <button class="btn btn-secondary mb-2">
-                                    <i class="material-symbols-rounded">visibility</i> Preview
-                                </button> --}}
+                                <button class="btn btn-outline-primary mb-2" id="viewButton" style="display: none;">
+                                      <i class="fas fa-eye"></i>
+
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -32,26 +33,26 @@
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
                 <form id="formContainer">
-                   <div class="mb-3 d-flex align-items-center position-relative">
-    <label for="name" class="me-3" style="width: 100px;">Service Name:</label>
-    <input type="text" class="form-control border-2 border-bottom disabled-input" id="name"
-        placeholder="Enter your name" style="box-shadow: none;" readonly onfocus="this.blur()">
-    <span class="lock-icon position-absolute end-0 me-3">🔒</span>
-</div>
+                    <div class="mb-3 d-flex align-items-center position-relative">
+                        <label for="name" class="me-3" style="width: 100px;">Service Name:</label>
+                        <input type="text" class="form-control border-2 border-bottom disabled-input" id="name"
+                            placeholder="Enter your name" style="box-shadow: none;" readonly onfocus="this.blur()">
+                        <span class="lock-icon position-absolute end-0 me-3">🔒</span>
+                    </div>
 
-<style>
-    /* Change cursor to 'not-allowed' on hover */
-    .disabled-input,
-    .lock-icon {
-        cursor: not-allowed;
-    }
+                    <style>
+                        /* Change cursor to 'not-allowed' on hover */
+                        .disabled-input,
+                        .lock-icon {
+                            cursor: not-allowed;
+                        }
 
-  
-    .lock-icon {
-        font-size: 1.2rem;
-        transition: all 0.2s ease;
-    }
-</style>
+
+                        .lock-icon {
+                            font-size: 1.2rem;
+                            transition: all 0.2s ease;
+                        }
+                    </style>
 
 
                     <div class="mb-3 d-flex align-items-center">
@@ -387,29 +388,29 @@
             reader.readAsDataURL(file);
         }
     }
-let topCroppedCanvas = null; // Store the cropped canvas globally
+    let topCroppedCanvas = null; // Store the cropped canvas globally
 
-function cropTopImage() {
-    if (topImageCropper) {
-        topCroppedCanvas = topImageCropper.getCroppedCanvas({
-            width: 1792,
-            height: 1024,
-        });
+    function cropTopImage() {
+        if (topImageCropper) {
+            topCroppedCanvas = topImageCropper.getCroppedCanvas({
+                width: 1792,
+                height: 1024,
+            });
 
-        topImagePreview.src = topCroppedCanvas.toDataURL();
-        topImagePreview.style.display = 'block';
+            topImagePreview.src = topCroppedCanvas.toDataURL();
+            topImagePreview.style.display = 'block';
 
-        // Determine the type (practice or service) from the URL
-        const urlPath = window.location.pathname;
-        const type = urlPath.includes('/practice/') ? 'practices' : 'services';
-        const name = document.getElementById('name').value.trim();
+            // Determine the type (practice or service) from the URL
+            const urlPath = window.location.pathname;
+            const type = urlPath.includes('/practice/') ? 'practices' : 'services';
+            const name = document.getElementById('name').value.trim();
 
-        // Generate the path for the top image dynamically
-        topImagePath = `assets/dynamic/${type}/top_${name.replace(/\s+/g, "_")}.webp`;
+            // Generate the path for the top image dynamically
+            topImagePath = `assets/dynamic/${type}/top_${name.replace(/\s+/g, "_")}.webp`;
 
-        closeTopImageCropperModal();
+            closeTopImageCropperModal();
+        }
     }
-}
 
 
     function closeTopImageCropperModal() {
