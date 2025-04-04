@@ -79,7 +79,7 @@ View::composer('*', function ($view) {
 Route::prefix('backend')->group(function () {
     Route::get('/admin/login', [AuthAdminController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthAdminController::class, 'login'])->name('admin.login.submit');
-    Route::post('/logout', [AuthAdminController::class, 'logout'])->name('admin.logout');
+    Route::get('/logout', [AuthAdminController::class, 'logout'])->name('admin.logout');
 });
 
 // Protected Admin Routes
