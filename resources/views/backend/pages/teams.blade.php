@@ -136,14 +136,16 @@
                                 <!-- Type -->
                                 <div class="col-md-6">
                                     <label for="memberType" class="form-label fw-bold">Type</label>
-                                    <select class="form-select" id="memberType" required>
-                                        <option value="" disabled selected>Select Member Type</option>
-                                        <option value="Advocate">Advocate</option>
-                                        <option value="Retired Judge">Retired Judge</option>
-                                        <option value="Senior">Senior</option>
-                                        <option value="Other">Other</option>
-                                    </select>
+                                    <input list="memberTypeList" class="form-control" id="memberType" name="memberType"
+                                        placeholder="Select or Enter Member Type" required>
+                                    <datalist id="memberTypeList">
+                                        <option value="Advocate"></option>
+                                        <option value="Retired Judge"></option>
+                                        <option value="Senior"></option>
+                                        <option value="Other"></option>
+                                    </datalist>
                                 </div>
+
 
                                 <!-- Email -->
                                 <div class="col-md-6">
@@ -515,20 +517,20 @@
 
                 // Convert comma-separated inputs into arrays
                 function capitalizeEachWord(str) {
-    return str.replace(/\w\S*/g, (txt) => {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
-}
+                    return str.replace(/\w\S*/g, (txt) => {
+                        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                    });
+                }
 
-const area_of_practice = areaInput
-    .split(',')
-    .map(item => capitalizeEachWord(item.trim()))
-    .filter(item => item);
+                const area_of_practice = areaInput
+                    .split(',')
+                    .map(item => capitalizeEachWord(item.trim()))
+                    .filter(item => item);
 
-const adr_services = adrInput
-    .split(',')
-    .map(item => capitalizeEachWord(item.trim()))
-    .filter(item => item);
+                const adr_services = adrInput
+                    .split(',')
+                    .map(item => capitalizeEachWord(item.trim()))
+                    .filter(item => item);
 
                 const experience = experienceInput.split(',').map(item => item.trim()).filter(item => item);
                 const education = educationInput.split(',').map(item => item.trim()).filter(item => item);
@@ -654,26 +656,27 @@ const adr_services = adrInput
                             </div>
 
                             <div class="d-flex align-items-center mt-2">
-    <!-- Teams Header Button -->
-    <button class="btn btn-warning edit-btn mb-2 me-4" data-imageid="TopImg_tea"
-        data-bs-toggle="modal" data-bs-target="#topImageModal">
-        Teams Header
-    </button>
+                                <!-- Teams Header Button -->
+                                <button class="btn btn-warning edit-btn mb-2 me-4" data-imageid="TopImg_tea"
+                                    data-bs-toggle="modal" data-bs-target="#topImageModal">
+                                    Teams Header
+                                </button>
 
-    <!-- Add Button -->
-    <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon me-3"
-        id="addMemberBtn"
-        style="cursor: pointer; width: 40px; height: 40px; transform: translateY(-4px);"
-        data-bs-toggle="modal" data-bs-target="#memberModal">
-        <i class="material-symbols-rounded opacity-10">add</i>
-    </div>
+                                <!-- Add Button -->
+                                <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon me-3"
+                                    id="addMemberBtn"
+                                    style="cursor: pointer; width: 40px; height: 40px; transform: translateY(-4px);"
+                                    data-bs-toggle="modal" data-bs-target="#memberModal">
+                                    <i class="material-symbols-rounded opacity-10">add</i>
+                                </div>
 
-    <!-- View Button -->
-    <a href="{{ route('team') }}" target="_blank" class="btn btn-outline-primary mb-2 d-flex align-items-center justify-content-center"
-        style="width: 40px; height: 40px;" title="Teams Page">
-        <i class="fas fa-eye"></i>
-    </a>
-</div>
+                                <!-- View Button -->
+                                <a href="{{ route('team') }}" target="_blank"
+                                    class="btn btn-outline-primary mb-2 d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px;" title="Teams Page">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
 
                         </div>
                         <hr class="dark horizontal my-0">
