@@ -61,17 +61,17 @@
 
         @include('backend.components.topimage-modal')
         <div class="d-flex justify-content-between align-items-center mt-3 ms-3">
-    <h5 class="mb-0">HomePage</h5> <!-- Optional Title -->
-    <div class="d-flex align-items-center gap-2 me-4 mt-3">
-        <button class="btn btn-warning edit-btn" data-imageid="TopImg_abt" data-bs-toggle="modal"
-            data-bs-target="#topImageModal">
-            HomePage Header
-        </button>
-        <a href="{{ route('home') }}" target="_blank" class="btn btn-outline-primary" title="View Homepage">
-            <i class="fas fa-eye"></i>
-        </a>
-    </div>
-</div>
+            <h5 class="mb-0">HomePage</h5> <!-- Optional Title -->
+            <div class="d-flex align-items-center gap-2 me-4 mt-3">
+                <button class="btn btn-warning edit-btn" data-imageid="TopImg_abt" data-bs-toggle="modal"
+                    data-bs-target="#topImageModal">
+                    HomePage Header
+                </button>
+                <a href="{{ route('home') }}" target="_blank" class="btn btn-outline-primary" title="View Homepage">
+                    <i class="fas fa-eye"></i>
+                </a>
+            </div>
+        </div>
 
 
 
@@ -81,7 +81,7 @@
 
         @include('backend.partials.pageinput');
 
-        
+
 
 
 
@@ -108,41 +108,41 @@
 
 
     <script>
-         let allSections = []; // Global: all sections merged from both JSON files
-    let filteredSectionsGlobal = []; // Global: filtered and sorted sections that are displayed
+        let allSections = []; // Global: all sections merged from both JSON files
+        let filteredSectionsGlobal = []; // Global: filtered and sorted sections that are displayed
 
-    document.addEventListener("DOMContentLoaded", function () {
-        loadSections();
-        document.addEventListener("click", () => {
-            document.getElementById("contextMenu").style.display = "none";
+        document.addEventListener("DOMContentLoaded", function() {
+            loadSections();
+            document.addEventListener("click", () => {
+                document.getElementById("contextMenu").style.display = "none";
+            });
         });
-    });
 
-    async function loadSections() {
-        try {
-            const [homeResponse, aboutResponse] = await Promise.all([
-                fetch('/home.json'),
-                fetch('/aboutus.json')
-            ]);
+        async function loadSections() {
+            try {
+                const [homeResponse, aboutResponse] = await Promise.all([
+                    fetch('/home.json'),
+                    fetch('/aboutus.json')
+                ]);
 
-            const homeSections = await homeResponse.json();
-            const aboutSections = await aboutResponse.json();
+                const homeSections = await homeResponse.json();
+                const aboutSections = await aboutResponse.json();
 
-            homeSections.forEach(section => section.source = 'home.json');
-            aboutSections.forEach(section => section.source = 'aboutus.json');
+                homeSections.forEach(section => section.source = 'home.json');
+                aboutSections.forEach(section => section.source = 'aboutus.json');
 
-            allSections = [...homeSections, ...aboutSections];
-            let filteredSections = allSections.filter(section => section.usage?.includes("home"));
-            filteredSections.sort((a, b) => a.S_order - b.S_order);
-            filteredSectionsGlobal = filteredSections;
+                allSections = [...homeSections, ...aboutSections];
+                let filteredSections = allSections.filter(section => section.usage?.includes("home"));
+                filteredSections.sort((a, b) => a.S_order - b.S_order);
+                filteredSectionsGlobal = filteredSections;
 
-            const container = document.querySelector(".row.g-4");
-            container.innerHTML = "";
+                const container = document.querySelector(".row.g-4");
+                container.innerHTML = "";
 
-            filteredSections.forEach((section, index) => {
-                const card = document.createElement("div");
-                card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
-                card.innerHTML = `
+                filteredSections.forEach((section, index) => {
+                    const card = document.createElement("div");
+                    card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
+                    card.innerHTML = `
                     <div class="card text-center shadow-lg" style="height: 250px; width: 250px;" data-index="${index}">
                         <div class="card-header p-2 ps-3" onclick="populateModal(${index})" data-bs-toggle="modal" data-bs-target="#contentModal" style="border-radius: 10px;">
                             <div class="d-flex justify-content-between align-items-center">
@@ -162,106 +162,112 @@
                     </div>
                 `;
 
-                card.addEventListener("contextmenu", (event) => {
-                    event.preventDefault();
-                    showContextMenu(event, index);
+                    card.addEventListener("contextmenu", (event) => {
+                        event.preventDefault();
+                        showContextMenu(event, index);
+                    });
+
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Error loading sections:", error);
+            }
+        }
+
+        function showContextMenu(event, index) {
+            const menu = document.getElementById("contextMenu");
+            menu.style.display = "block";
+            menu.style.top = `${event.pageY}px`;
+            menu.style.left = `${event.pageX}px`;
+            menu.setAttribute("data-index", index);
+        }
+
+        async function toggleSectionStatus() {
+            const index = document.getElementById("contextMenu").getAttribute("data-index");
+            if (index === null) return;
+
+            const section = filteredSectionsGlobal[index]; // Get the section object
+
+            if (!section || !section.source) {
+                console.error("Error: Section source is missing!");
+                alert("Error: Section source is undefined.");
+                return;
+            }
+
+            const newStatus = section.flag === "enabled" ? "disabled" : "enabled";
+
+            // ✅ Pass the `source` property to `updateSection()`
+            await updateSection(section.S_id, {
+                flag: newStatus,
+                source: section.source
+            });
+        }
+
+
+        async function updateSection(S_id, updateData) {
+            try {
+                console.log("updateData received:", updateData); // Debugging log
+
+                if (!updateData || !updateData.source) {
+                    console.error("Error: updateData.source is undefined or missing!");
+                    alert("Error: Unable to determine source file.");
+                    return;
+                }
+
+                const response = await fetch("http://localhost:8000/api/update", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        file: updateData.source.replace(".json", ""), // Extract file name
+                        S_id: S_id,
+                        ...updateData
+                    })
                 });
 
-                container.appendChild(card);
-            });
-        } catch (error) {
-            console.error("Error loading sections:", error);
-        }
-    }
+                if (response.ok) {
+                    Toastify({
+                        text: "Section updated successfully!",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "green",
+                        close: true
+                    }).showToast();
+                    loadSections(); // Reload sections after update
+                } else {
+                    const errorText = await response.text();
+                    console.error("Failed to update:", errorText);
+                    Toastify({
+                        text: `Failed to update section: ${errorText}`,
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "red",
+                        close: true
+                    }).showToast();
+                }
 
-    function showContextMenu(event, index) {
-        const menu = document.getElementById("contextMenu");
-        menu.style.display = "block";
-        menu.style.top = `${event.pageY}px`;
-        menu.style.left = `${event.pageX}px`;
-        menu.setAttribute("data-index", index);
-    }
-
-    async function toggleSectionStatus() {
-    const index = document.getElementById("contextMenu").getAttribute("data-index");
-    if (index === null) return;
-    
-    const section = filteredSectionsGlobal[index]; // Get the section object
-    
-    if (!section || !section.source) {
-        console.error("Error: Section source is missing!");
-        alert("Error: Section source is undefined.");
-        return;
-    }
-
-    const newStatus = section.flag === "enabled" ? "disabled" : "enabled";
-
-    // ✅ Pass the `source` property to `updateSection()`
-    await updateSection(section.S_id, { flag: newStatus, source: section.source });
-}
-
-
-async function updateSection(S_id, updateData) {
-    try {
-        console.log("updateData received:", updateData); // Debugging log
-        
-        if (!updateData || !updateData.source) {
-            console.error("Error: updateData.source is undefined or missing!");
-            alert("Error: Unable to determine source file.");
-            return;
+            } catch (error) {
+                console.error("Error updating section:", error);
+            }
         }
 
-        const response = await fetch("http://localhost:8000/api/update", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                file: updateData.source.replace(".json", ""), // Extract file name
-                S_id: S_id,
-                ...updateData
-            })
-        });
-
-        if (response.ok) {
-    Toastify({
-        text: "Section updated successfully!",
-        duration: 3000,
-        gravity: "top",
-        position: "right",
-        backgroundColor: "green",
-        close: true
-    }).showToast();
-    loadSections(); // Reload sections after update
-} else {
-    const errorText = await response.text();
-    console.error("Failed to update:", errorText);
-    Toastify({
-        text: `Failed to update section: ${errorText}`,
-        duration: 3000,
-        gravity: "top",
-        position: "right",
-        backgroundColor: "red",
-        close: true
-    }).showToast();
-}
-
-    } catch (error) {
-        console.error("Error updating section:", error);
-    }
-}
 
 
 
-
-    // Context Menu HTML
-    const contextMenu = document.createElement("div");
-    contextMenu.id = "contextMenu";
-    contextMenu.style = "position: absolute; display: none; background: white; border: 1px solid #ccc; padding: 5px; border-radius: 8px; z-index: 1000;";
-    contextMenu.innerHTML = `
+        // Context Menu HTML
+        const contextMenu = document.createElement("div");
+        contextMenu.id = "contextMenu";
+        contextMenu.style =
+            "position: absolute; display: none; background: white; border: 1px solid #ccc; padding: 5px; border-radius: 8px; z-index: 1000;";
+        contextMenu.innerHTML = `
         <ul style="list-style: none; margin: 0; padding: 5px; border-radius: 8px;">
             <li onclick="toggleSectionStatus()" style="cursor: pointer; padding: 5px;">Change Status</li>
         </ul>
     `;
-    document.body.appendChild(contextMenu);
+        document.body.appendChild(contextMenu);
 
         function showImagePreview(imageUrl) {
             const modalImage = document.getElementById('modalPreviewImage');
@@ -324,14 +330,33 @@ async function updateSection(S_id, updateData) {
 
 
 
-                document.getElementById("iconClassInput").value = section.icon || "";
-                document.getElementById("iconPreview").innerHTML = section.icon ? `<i class="${section.icon}"></i>` :
-                    "";
+                const iconInput = document.getElementById("iconClassInput");
+                iconInput.value = section.icon || "";
+
+                // Sync with iconInputs based on detected library type
+                if (section.icon_Type === "fontawesome") {
+                    iconInputs.fontawesome = section.icon || "";
+                    selectedLibrary = "fontawesome"; // sync selected tab value too
+                } else {
+                    iconInputs.bootstrap = section.icon || "";
+                    selectedLibrary = "bootstrap"; // sync selected tab value too
+                }
+
+                // Manually trigger the preview
+                const iconPreview1 = document.getElementById("iconPreview1");
+                if (iconInput.value.trim()) {
+                    iconPreview1.innerHTML = `<i class="${iconInput.value.trim()}"></i>`;
+                } else {
+                    iconPreview1.innerHTML = "";
+                }
+
 
                 // Handle images
                 const imageContainer = document.querySelector("#imageUpload .d-flex");
                 const addButton = document.querySelector("#imageUpload .btn-success");
                 imageContainer.innerHTML = "";
+                // const img_res = document.getElementById("img-res");
+                // img_res.value = `${section["image-resolution"][0]} | ${section["image-resolution"][1]}`;
 
                 if (section.image && Array.isArray(section.image)) {
                     section.image.forEach(img => {
@@ -366,6 +391,7 @@ async function updateSection(S_id, updateData) {
                     document.getElementById("iconLink").classList.remove("d-none");
                     document.getElementById("faLink").classList.add("d-none");
                 }
+
 
                 // **Tab Visibility Logic**
                 const tabs = {
@@ -404,6 +430,65 @@ async function updateSection(S_id, updateData) {
 
 
 
+    {{-- // Handle Form Submission for Section and Image --}}
+    <script>
+        let selectedLibrary = "bootstrap"; // Default tab
+        let iconInputs = {
+            bootstrap: "",
+            fontawesome: ""
+        };
+
+        const inputField = document.getElementById("iconClassInput");
+        const iconLabel = document.getElementById("iconLabel");
+        iconInputs[selectedLibrary] = inputField.value.trim();
+
+        document.querySelectorAll("#iconTabs .nav-link").forEach(tab => {
+            tab.addEventListener("click", function() {
+                // Prevent action if same tab is clicked
+                if (this.classList.contains("active")) return;
+
+                // ✅ Save the current input value to the currently active library
+                iconInputs[selectedLibrary] = inputField.value.trim();
+
+                // Switch active class
+                document.querySelectorAll("#iconTabs .nav-link").forEach(t => t.classList.remove("active"));
+                this.classList.add("active");
+
+                // Update selected library
+                selectedLibrary = this.getAttribute("data-library");
+
+                // Update label and placeholder
+                if (selectedLibrary === "bootstrap") {
+                    iconLabel.innerText = "Enter Bootstrap Icon Class";
+                    inputField.placeholder = "e.g., bi-house";
+                    document.getElementById("iconLink").classList.remove("d-none");
+                    document.getElementById("faLink").classList.add("d-none");
+                } else {
+                    iconLabel.innerText = "Enter Font Awesome Icon Class";
+                    inputField.placeholder = "e.g., fa-solid fa-house";
+                    document.getElementById("iconLink").classList.add("d-none");
+                    document.getElementById("faLink").classList.remove("d-none");
+                }
+
+                // ✅ Restore value from new selected library
+                inputField.value = iconInputs[selectedLibrary] || "";
+                updateIconPreview();
+            });
+        });
+
+
+        // Update preview and save input on typing
+        inputField.addEventListener("input", function() {
+            iconInputs[selectedLibrary] = inputField.value.trim();
+            updateIconPreview();
+        });
+
+        function updateIconPreview() {
+            const previewEl = document.getElementById("iconPreview1");
+            const iconClass = inputField.value.trim();
+            previewEl.innerHTML = iconClass ? `<i class="${iconClass}"></i>` : "";
+        }
+    </script>
 
 
 
@@ -498,54 +583,6 @@ async function updateSection(S_id, updateData) {
 
 
 
-    {{-- // Handle Form Submission for Section and Image --}}
-    <script>
-        let selectedLibrary = "bootstrap"; // Default to Bootstrap Icons
-
-
-        document.querySelectorAll("#iconTabs .nav-link").forEach(tab => {
-            tab.addEventListener("click", function() {
-                document.querySelectorAll("#iconTabs .nav-link").forEach(t => t.classList.remove("active"));
-                this.classList.add("active");
-
-                selectedLibrary = this.getAttribute("data-library");
-
-                // Update Placeholder and Labels
-                const inputField = document.getElementById("iconClassInput");
-                const label = document.getElementById("iconLabel");
-
-                if (selectedLibrary === "bootstrap") {
-                    label.innerText = "Enter Bootstrap Icon Class";
-                    inputField.placeholder = "e.g., bi-house";
-                    document.getElementById("iconLink").classList.remove("d-none");
-                    document.getElementById("faLink").classList.add("d-none");
-                } else {
-                    label.innerText = "Enter Font Awesome Icon Class";
-                    inputField.placeholder = "e.g., fa-solid fa-house";
-                    document.getElementById("iconLink").classList.add("d-none");
-                    document.getElementById("faLink").classList.remove("d-none");
-                }
-
-                // Clear preview on switch
-                document.getElementById("iconPreview").innerHTML = "";
-                inputField.value = "";
-            });
-        });
-
-        // Update icon preview on input change
-        document.getElementById("iconClassInput").addEventListener("input", function() {
-            const iconPreview = document.getElementById("iconPreview");
-            const iconClass = this.value.trim();
-
-            if (iconClass) {
-                iconPreview.innerHTML = `<i class="${iconClass}"></i>`;
-            } else {
-                iconPreview.innerHTML = "";
-            }
-        });
-
-        // Save button functionality
-    </script>
 
 
 
