@@ -28,7 +28,7 @@
             "assets\/img\/Experience.webp"
         ],
         "icon_Type": "fontawesome",
-        "icon": "fa-r",
+        "icon": "fa-solid fa-leaf",
         "ss": "\/assets\/backend\/img\/previews\/S_id1.png",
         "source": "aboutus.json"
     },
@@ -49,7 +49,7 @@
         "flag": "enabled",
         "image": null,
         "icon_Type": "fontawesome",
-        "icon": "fa-r",
+        "icon":"fa-regular fa-registered",
         "ss": "\/assets\/backend\/img\/previews\/S_id2.png"
     },
     {
@@ -69,7 +69,7 @@
         "flag": "enabled",
         "image": null,
         "icon_Type": "fontawesome",
-        "icon": "fa-r",
+        "icon":"fa-solid fa-scale-balanced",
         "ss": "\/assets\/backend\/img\/previews\/S_id3.png"
     },
     {
@@ -89,7 +89,7 @@
         "flag": "enabled",
         "image": null,
         "icon_Type": "fontawesome",
-        "icon": "fa-r",
+        "icon": "fa-solid fa-graduation-cap",
         "ss": "\/assets\/backend\/img\/previews\/S_id4.png"
     },
     {
@@ -116,7 +116,7 @@
             "assets\/img\/team (2).webp"
         ],
         "icon_Type": "fontawesome",
-        "icon": "fa-h",
+        "icon": "fa-solid fa-arrows-to-dot",
         "ss": "\/assets\/backend\/img\/previews\/S_id5who.png"
     },
     {
@@ -146,7 +146,7 @@
             "assets\/img\/awards\/04.png"
         ],
         "icon_Type": "fontawesome",
-        "icon": "fa-r",
+        "icon": "fa-solid fa-trophy",
         "ss": "\/assets\/backend\/img\/previews\/S_id6.png"
     },
     {
@@ -171,7 +171,7 @@
         ],
         "image": null,
         "icon_Type": "fontawesome",
-        "icon": "fa-r",
+        "icon": "fa-solid fa-sitemap",
         "ss": "\/assets\/backend\/img\/previews\/S_id7.png"
     }
 ]
