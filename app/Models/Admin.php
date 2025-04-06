@@ -9,7 +9,7 @@ class Admin extends Authenticatable
     protected $table = 'admins';
 
     // Add any fillable fields
-   protected $fillable = ['name', 'email', 'phone','type', 'profile_image', 'password'];
+   protected $fillable = ['name', 'email', 'phone','type', 'profile_image', 'password', 'remember_token'];
 
     // If you're hashing the password on registration, ensure this is set
     protected $hidden = [

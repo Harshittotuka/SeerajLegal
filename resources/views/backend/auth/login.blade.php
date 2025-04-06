@@ -70,7 +70,8 @@
             <!-- Remember Me Checkbox -->
             <div class="forget">
                 <label for="remember">
-                    <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                  <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
                     <p>Remember me</p>
                 </label>
                 <a href="#" onclick="showForgotPassword()">Forgot password?</a>

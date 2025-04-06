@@ -28,7 +28,7 @@ public function login(Request $request)
     ]);
   
     // Use 'admin' guard here
-    if (Auth::guard('admin')->attempt($credentials, $request->remember)) {
+   if (Auth::guard('admin')->attempt($credentials, $request->filled('remember'))) {
         $request->session()->regenerate();
         return redirect()->intended(route('backend.dashboard'));
     }
