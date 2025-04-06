@@ -25,24 +25,45 @@
     @include('partials.navbar')
 
     <!-- Kenburns SlideShow  S_id:0 -->
-    <aside class="kenburns-section" id="kenburnsSliderContainer" data-overlay-dark="5">
-        <div class="kenburns-inner h-100">
-            <div class="v-middle">
-                <div class="container">
-                    <div class="row justify-content-center align-items-center">
-                        <div class="col-lg-7 col-md-12 text-center">
-                            <h5>
-                                <div class="icon"><i class="fa-regular fa-building-columns"></i></div>Transforming Conflicts
-                                into Agreements
-                            </h5>
-                            <h3>Justice Made Accessible: <span> faster and fairer</span></h3>
-
-                        </div>
+<aside class="kenburns-section" id="kenburnsSliderContainer" data-overlay-dark="5">
+    <div class="kenburns-inner h-100">
+        <div class="v-middle">
+            <div class="container">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-lg-7 col-md-12 text-center">
+                        <h5>
+                            <div class="icon"><i id="slider-icon" class=""></i></div>
+                            <span id="slider-title"></span>
+                        </h5>
+                        <h3 id="slider-para"></h3>
                     </div>
                 </div>
             </div>
         </div>
-    </aside>
+    </div>
+</aside>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("home.json")
+            .then(response => response.json())
+            .then(data => {
+                const sliderData = data.find(item => item.S_id === 0);
+
+                if (sliderData) {
+                    document.getElementById("slider-icon").className = sliderData.icon;
+                    document.getElementById("slider-title").textContent = sliderData.title;
+                    document.getElementById("slider-para").innerHTML = sliderData.para;
+                } else {
+                    console.warn("S_id:0 not found in home.json");
+                }
+            })
+            .catch(error => {
+                console.error("Error loading home.json:", error);
+            });
+    });
+</script>
+
 
     <!-- About -->
     @include('partials.about')

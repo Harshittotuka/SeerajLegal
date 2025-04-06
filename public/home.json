@@ -3,6 +3,23 @@
         "usage": [
             "home"
         ],
+        "S_id": 0,
+        "S_order": 0,
+        "s_include": [
+            0
+        ],
+        "title": "Transforming Conflicts into Agreements",
+        "para": "Justice Made Accessible: <span>faster and fairer</span>",
+        "points": null,
+        "flag": "enabled",
+        "icon_Type": "fontawesome",
+        "icon": "fa-brands fa-servicestack",
+        "ss" : null
+    },
+    {
+        "usage": [
+            "home"
+        ],
         "S_id": 5,
         "S_order": 7,
         "s_include": [
