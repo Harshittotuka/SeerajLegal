@@ -148,7 +148,7 @@ if (contact.linkedin) {
             // Show the social links block only if any link is added
             if (socialIcons.innerHTML.trim() !== "") {
                 socialWrapper.style.display = "flex";
-                socialIcons.classList.add("social-icons"); // optional class for consistent styling
+                socialIcons.classList.add("contact-social-icons"); // optional class for consistent styling
             }
         }
     })
@@ -157,14 +157,15 @@ if (contact.linkedin) {
 </script>
 
 <style>
-    .social-icons a {
+   .contact-social-icons a {
     margin-right: 10px;
     color: #333;
     font-size: 18px;
 }
-.social-icons a:hover {
-    color:rgb(107, 112, 119);
+.contact-social-icons a:hover {
+    color: rgb(107, 112, 119);
 }
+
 
 </style>
 
