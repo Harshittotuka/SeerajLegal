@@ -19,7 +19,7 @@
                                     <i class="material-symbols-rounded">save</i> Save
                                 </button>
                                 <button class="btn btn-outline-primary mb-2" id="viewButton" style="display: none;">
-                                      <i class="fas fa-eye"></i>
+                                    <i class="fas fa-eye"></i>
 
                                 </button>
                             </div>
@@ -35,19 +35,32 @@
                 <form id="formContainer">
                     <div class="mb-3 d-flex align-items-center position-relative">
                         <label for="name" class="me-3" style="width: 100px;">Service Name:</label>
-                        <input type="text" class="form-control border-2 border-bottom disabled-input" id="name"
-                            placeholder="Enter your name" style="box-shadow: none;" readonly onfocus="this.blur()">
-                        <span class="lock-icon position-absolute end-0 me-3">🔒</span>
+                        <input type="text" class="form-control border-2 border-bottom" id="name"
+                            placeholder="Enter your name" style="box-shadow: none;">
+
+                        <span class="lock-icon position-absolute end-0 me-3" style="display: none;">🔒</span>
+
                     </div>
 
                     <style>
-                        /* Change cursor to 'not-allowed' on hover */
-                        .disabled-input,
-                        .lock-icon {
+                        /* Locked state */
+                        .disabled-input {
                             cursor: not-allowed;
+                            background-color: #f5f5f5;
+                            user-select: none;
+                            pointer-events: none;
+
                         }
 
 
+                        /* Editable (normal) state */
+                        #name:not(.disabled-input) {
+                            cursor: text;
+                            background-color: #fff;
+                            /* optional: normal background */
+                        }
+
+                        /* Lock icon cursor */
                         .lock-icon {
                             font-size: 1.2rem;
                             transition: all 0.2s ease;
