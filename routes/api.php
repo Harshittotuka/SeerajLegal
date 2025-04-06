@@ -12,6 +12,11 @@ use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\Contact2Controller;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\SubscriptionController;
+
+// Route to subscribe to the newsletter
+Route::post('/subscribe', [SubscriptionController::class, 'subscribe']);
+
 
 
 Route::get('/service_count', [TeamController::class, 'serviceCount']);
