@@ -3,18 +3,19 @@
         "usage": [
             "home"
         ],
-        "S_id": 0,
+        "S_id": 10,
         "S_order": 0,
         "s_include": [
-            0
+            1,
+            3
         ],
         "title": "Transforming Conflicts into Agreements",
-        "para": "Justice Made Accessible: <span>faster and fairer</span>",
+        "para": "Justice Made Accessible: <span>faster and fairer<\/span>",
         "points": null,
         "flag": "enabled",
         "icon_Type": "fontawesome",
-        "icon": "fa-brands fa-servicestack",
-        "ss" : null
+        "icon": "bi bi-bank",
+        "ss": null
     },
     {
         "usage": [
@@ -32,7 +33,7 @@
         "flag": "enabled",
         "icon_Type": "fontawesome",
         "icon": "fa-brands fa-servicestack",
-        "ss" : "/assets/backend/img/previews/S_id5home.png"
+        "ss": "\/assets\/backend\/img\/previews\/S_id5home.png"
     },
     {
         "usage": [
@@ -53,13 +54,16 @@
             "24\u00d77 Availability"
         ],
         "flag": "enabled",
-        "image-count":"fixed",
-        "image-resolution":[300,200],
+        "image-count": "fixed",
+        "image-resolution": [
+            300,
+            200
+        ],
         "image": [
             "assets\/img\/Rajasthan.png"
         ],
         "icon_Type": "fontawesome",
         "icon": "fa-solid fa-location-dot",
-        "ss" : "/assets/backend/img/previews/S_id8.png"
+        "ss": "\/assets\/backend\/img\/previews\/S_id8.png"
     }
 ]
