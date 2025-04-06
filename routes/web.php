@@ -19,6 +19,16 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 
 
 
+use Illuminate\Support\Facades\Mail;
+
+Route::get('/test-mail', function () {
+    Mail::raw('This is a test email from Laravel using Gmail SMTP.', function ($message) {
+        $message->to('harshittotuka1@gmail.com')
+                ->subject('Test Email from Laravel');
+    });
+
+    return response()->json(['message' => 'Test email sent successfully!']);
+});
 
 
 
@@ -82,6 +92,11 @@ Route::prefix('backend')->group(function () {
     Route::get('/logout', [AuthAdminController::class, 'logout'])->name('admin.logout');
 });
 
+Route::get('admin/password/reset/{token}', [AuthAdminController::class, 'showResetForm'])->name('admin.password.reset');
+Route::post('admin/password/reset', [AuthAdminController::class, 'reset'])->name('admin.password.update');
+
+
+  Route::post('admin/password/email', [AuthAdminController::class, 'sendResetLinkEmail'])->name('admin.password.email');
 // Protected Admin Routes
 
 Route::middleware('auth:admin')->group(function () {
