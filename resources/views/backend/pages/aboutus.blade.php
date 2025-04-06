@@ -52,17 +52,18 @@
         <!-- End Navbar -->
         @include('backend.components.topimage-modal')
         <div class="d-flex justify-content-between align-items-center mt-3 ms-3">
-    <h5 class="mb-0">Who We are?</h5> <!-- Optional Title -->
-    <div class="d-flex align-items-center gap-2 me-4 mt-3">
-        <button class="btn btn-warning edit-btn" data-imageid="TopImg_abt" data-bs-toggle="modal"
-            data-bs-target="#topImageModal">
-            Who we are? Header
-        </button>
-        <a href="{{ route('about') }}" target="_blank" class="btn btn-outline-primary" title="View Who We Are Page">
-            <i class="fas fa-eye"></i>
-        </a>
-    </div>
-</div>
+            <h5 class="mb-0">Who We are?</h5> <!-- Optional Title -->
+            <div class="d-flex align-items-center gap-2 me-4 mt-3">
+                <button class="btn btn-warning edit-btn" data-imageid="TopImg_abt" data-bs-toggle="modal"
+                    data-bs-target="#topImageModal">
+                    Who we are? Header
+                </button>
+                <a href="{{ route('about') }}" target="_blank" class="btn btn-outline-primary"
+                    title="View Who We Are Page">
+                    <i class="fas fa-eye"></i>
+                </a>
+            </div>
+        </div>
 
 
 
@@ -72,49 +73,49 @@
         @include('backend.partials.pageinput');
 
 
-        </main>
+    </main>
 
-        <script>
-            const cards = document.querySelectorAll(".card");
-            const menu = document.getElementById("custom-menu");
+    <script>
+        const cards = document.querySelectorAll(".card");
+        const menu = document.getElementById("custom-menu");
 
-            cards.forEach(card => {
-                card.addEventListener("contextmenu", (event) => {
-                    event.preventDefault();
+        cards.forEach(card => {
+            card.addEventListener("contextmenu", (event) => {
+                event.preventDefault();
 
-                    // Get viewport width & height
-                    const viewportWidth = window.innerWidth;
-                    const viewportHeight = window.innerHeight;
+                // Get viewport width & height
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
 
-                    // Get menu dimensions
-                    const menuWidth = menu.offsetWidth;
-                    const menuHeight = menu.offsetHeight;
+                // Get menu dimensions
+                const menuWidth = menu.offsetWidth;
+                const menuHeight = menu.offsetHeight;
 
-                    // Adjust position to prevent overflow
-                    let posX = event.clientX;
-                    let posY = event.clientY;
+                // Adjust position to prevent overflow
+                let posX = event.clientX;
+                let posY = event.clientY;
 
-                    if (posX + menuWidth > viewportWidth) {
-                        posX -= menuWidth; // Move left if it overflows
-                    }
-                    if (posY + menuHeight > viewportHeight) {
-                        posY -= menuHeight; // Move up if it overflows
-                    }
+                if (posX + menuWidth > viewportWidth) {
+                    posX -= menuWidth; // Move left if it overflows
+                }
+                if (posY + menuHeight > viewportHeight) {
+                    posY -= menuHeight; // Move up if it overflows
+                }
 
-                    menu.style.left = `${posX}px`;
-                    menu.style.top = `${posY}px`;
-                    menu.style.display = "block";
-                });
+                menu.style.left = `${posX}px`;
+                menu.style.top = `${posY}px`;
+                menu.style.display = "block";
             });
+        });
 
-            document.addEventListener("click", () => {
-                menu.style.display = "none";
-            });
+        document.addEventListener("click", () => {
+            menu.style.display = "none";
+        });
 
-            function handleOption(action) {
-                alert(`You clicked ${action}`);
-            }
-        </script>
+        function handleOption(action) {
+            alert(`You clicked ${action}`);
+        }
+    </script>
     </main>
 
     <style>
@@ -139,41 +140,41 @@
 
 
     <script>
-       let allSections = []; // Global: all sections merged from both JSON files
-let filteredSectionsGlobal = []; // Global: filtered and sorted sections that are displayed
+        let allSections = []; // Global: all sections merged from both JSON files
+        let filteredSectionsGlobal = []; // Global: filtered and sorted sections that are displayed
 
-document.addEventListener("DOMContentLoaded", function () {
-    loadSections();
-    document.addEventListener("click", () => {
-        document.getElementById("contextMenu").style.display = "none";
-    });
-});
+        document.addEventListener("DOMContentLoaded", function() {
+            loadSections();
+            document.addEventListener("click", () => {
+                document.getElementById("contextMenu").style.display = "none";
+            });
+        });
 
-async function loadSections() {
-    try {
-        const [homeResponse, aboutResponse] = await Promise.all([
-            fetch('/home.json'),
-            fetch('/aboutus.json')
-        ]);
+        async function loadSections() {
+            try {
+                const [homeResponse, aboutResponse] = await Promise.all([
+                    fetch('/home.json'),
+                    fetch('/aboutus.json')
+                ]);
 
-        const homeSections = await homeResponse.json();
-        const aboutSections = await aboutResponse.json();
+                const homeSections = await homeResponse.json();
+                const aboutSections = await aboutResponse.json();
 
-        homeSections.forEach(section => section.source = 'home.json');
-        aboutSections.forEach(section => section.source = 'aboutus.json');
+                homeSections.forEach(section => section.source = 'home.json');
+                aboutSections.forEach(section => section.source = 'aboutus.json');
 
-        allSections = [...homeSections, ...aboutSections];
-        let filteredSections = allSections.filter(section => section.usage?.includes("about"));
-        filteredSections.sort((a, b) => a.S_order - b.S_order);
-        filteredSectionsGlobal = filteredSections;
+                allSections = [...homeSections, ...aboutSections];
+                let filteredSections = allSections.filter(section => section.usage?.includes("about"));
+                filteredSections.sort((a, b) => a.S_order - b.S_order);
+                filteredSectionsGlobal = filteredSections;
 
-        const container = document.querySelector(".row.g-4");
-        container.innerHTML = "";
+                const container = document.querySelector(".row.g-4");
+                container.innerHTML = "";
 
-        filteredSections.forEach((section, index) => {
-            const card = document.createElement("div");
-            card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
-            card.innerHTML = `
+                filteredSections.forEach((section, index) => {
+                    const card = document.createElement("div");
+                    card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
+                    card.innerHTML = `
                 <div class="card text-center shadow-lg" style="height: 250px; width: 250px;" data-index="${index}">
                     <div class="card-header p-2 ps-3" onclick="populateModal(${index})" data-bs-toggle="modal" data-bs-target="#contentModal">
                         <div class="d-flex justify-content-between align-items-center">
@@ -193,98 +194,107 @@ async function loadSections() {
                 </div>
             `;
 
-            card.addEventListener("contextmenu", (event) => {
-                event.preventDefault();
-                showContextMenu(event, index);
+                    card.addEventListener("contextmenu", (event) => {
+                        event.preventDefault();
+                        showContextMenu(event, index);
+                    });
+
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Error loading sections:", error);
+            }
+        }
+
+        function showContextMenu(event, index) {
+            const menu = document.getElementById("contextMenu");
+            menu.style.display = "block";
+            menu.style.top = `${event.pageY}px`;
+            menu.style.left = `${event.pageX}px`;
+            menu.setAttribute("data-index", index);
+        }
+
+        async function toggleSectionStatus() {
+            const index = document.getElementById("contextMenu").getAttribute("data-index");
+            if (index === null) return;
+            const section = filteredSectionsGlobal[index];
+            const newStatus = section.flag === "enabled" ? "disabled" : "enabled";
+
+            await updateSection(section.S_id, {
+                flag: newStatus
             });
+        }
 
-            container.appendChild(card);
-        });
-    } catch (error) {
-        console.error("Error loading sections:", error);
-    }
-}
+        // async function deleteSection() {
+        //     const index = document.getElementById("contextMenu").getAttribute("data-index");
+        //     if (index === null) return;
+        //     const section = filteredSectionsGlobal[index];
 
-function showContextMenu(event, index) {
-    const menu = document.getElementById("contextMenu");
-    menu.style.display = "block";
-    menu.style.top = `${event.pageY}px`;
-    menu.style.left = `${event.pageX}px`;
-    menu.setAttribute("data-index", index);
-}
+        //     await updateSection(section.S_id, { delete: true });
+        // }
 
-async function toggleSectionStatus() {
-    const index = document.getElementById("contextMenu").getAttribute("data-index");
-    if (index === null) return;
-    const section = filteredSectionsGlobal[index];
-    const newStatus = section.flag === "enabled" ? "disabled" : "enabled";
+        async function updateSection(S_id, updateData) {
+            try {
+                const response = await fetch("http://localhost:8000/api/update", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        file: "aboutus",
+                        S_id,
+                        ...updateData
+                    })
+                });
 
-    await updateSection(section.S_id, { flag: newStatus });
-}
+                if (response.ok) {
+                    Toastify({
+                        text: "Section updated successfully!",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "green",
+                        close: true
+                    }).showToast();
+                    loadSections(); // Reload sections after update
+                } else {
+                    const errorText = await response.text();
+                    console.error("Failed to update:", errorText);
+                    Toastify({
+                        text: `Failed to update section: ${errorText}`,
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "red",
+                        close: true
+                    }).showToast();
+                }
 
-// async function deleteSection() {
-//     const index = document.getElementById("contextMenu").getAttribute("data-index");
-//     if (index === null) return;
-//     const section = filteredSectionsGlobal[index];
+            } catch (error) {
+                console.error("Error updating section:", error);
+            }
+        }
 
-//     await updateSection(section.S_id, { delete: true });
-// }
-
-async function updateSection(S_id, updateData) {
-    try {
-        const response = await fetch("http://localhost:8000/api/update", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ file: "aboutus", S_id, ...updateData })
-        });
-
-        if (response.ok) {
-    Toastify({
-        text: "Section updated successfully!",
-        duration: 3000,
-        gravity: "top",
-        position: "right",
-        backgroundColor: "green",
-        close: true
-    }).showToast();
-    loadSections(); // Reload sections after update
-} else {
-    const errorText = await response.text();
-    console.error("Failed to update:", errorText);
-    Toastify({
-        text: `Failed to update section: ${errorText}`,
-        duration: 3000,
-        gravity: "top",
-        position: "right",
-        backgroundColor: "red",
-        close: true
-    }).showToast();
-}
-
-    } catch (error) {
-        console.error("Error updating section:", error);
-    }
-}
-
-// Context Menu HTML
-const contextMenu = document.createElement("div");
-contextMenu.id = "contextMenu";
-contextMenu.style = "position: absolute; display: none; background: white; border: 1px solid #ccc; padding: 5px; z-index: 1000;";
-contextMenu.innerHTML = `
+        // Context Menu HTML
+        const contextMenu = document.createElement("div");
+        contextMenu.id = "contextMenu";
+        contextMenu.style =
+            "position: absolute; display: none; background: white; border: 1px solid #ccc; padding: 5px; z-index: 1000;";
+        contextMenu.innerHTML = `
     <ul style="list-style: none; margin: 0; padding: 5px;">
         <li onclick="toggleSectionStatus()" style="cursor: pointer; padding: 5px;">Change Status</li>
         
     </ul>
 `;
-document.body.appendChild(contextMenu);
+        document.body.appendChild(contextMenu);
 
 
         function showImagePreview(imageUrl) {
-    const modalImage = document.getElementById('modalPreviewImage');
-    modalImage.src = imageUrl; // Set the image URL dynamically
-    const modal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
-    modal.show();
-}
+            const modalImage = document.getElementById('modalPreviewImage');
+            modalImage.src = imageUrl; // Set the image URL dynamically
+            const modal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
+            modal.show();
+        }
 
         async function populateModal(index) {
             try {
@@ -303,43 +313,58 @@ document.body.appendChild(contextMenu);
                 // Populate form fields with conditional display
 
                 // Section Heading
-              // Populate Section Fields
-if (section.title) {
-    const headingEl = document.getElementById("sectionHeading");
-    headingEl.value = section.title;
-    headingEl.closest('.form-floating').style.display = "block";
-    headingEl.dataset.required = "true"; // Mark as required
-    headingEl.dataset.initial = section.title; // Store initial value
-} else {
-    document.getElementById("sectionHeading").closest('.form-floating').style.display = "none";
-}
+                // Populate Section Fields
+                if (section.title) {
+                    const headingEl = document.getElementById("sectionHeading");
+                    headingEl.value = section.title;
+                    headingEl.closest('.form-floating').style.display = "block";
+                    headingEl.dataset.required = "true"; // Mark as required
+                    headingEl.dataset.initial = section.title; // Store initial value
+                } else {
+                    document.getElementById("sectionHeading").closest('.form-floating').style.display = "none";
+                }
 
-// Section Paragraph
-if (section.para) {
-    const paraEl = document.getElementById("sectionPara");
-    paraEl.value = section.para;
-    paraEl.closest('.form-floating').style.display = "block";
-    paraEl.dataset.required = "true";
-    paraEl.dataset.initial = section.para;
-} else {
-    document.getElementById("sectionPara").closest('.form-floating').style.display = "none";
-}
+                // Section Paragraph
+                if (section.para) {
+                    const paraEl = document.getElementById("sectionPara");
+                    paraEl.value = section.para;
+                    paraEl.closest('.form-floating').style.display = "block";
+                    paraEl.dataset.required = "true";
+                    paraEl.dataset.initial = section.para;
+                } else {
+                    document.getElementById("sectionPara").closest('.form-floating').style.display = "none";
+                }
 
-// Section Points
-if (section.points && section.points.length > 0) {
-    const pointsEl = document.getElementById("sectionPoints");
-    pointsEl.value = section.points.join("\n");
-    pointsEl.closest('.form-floating').style.display = "block";
-    pointsEl.dataset.required = "true";
-    pointsEl.dataset.initial = section.points.join("\n");
-} else {
-    document.getElementById("sectionPoints").closest('.form-floating').style.display = "none";
-}
+                // Section Points
+                if (section.points && section.points.length > 0) {
+                    const pointsEl = document.getElementById("sectionPoints");
+                    pointsEl.value = section.points.join("\n");
+                    pointsEl.closest('.form-floating').style.display = "block";
+                    pointsEl.dataset.required = "true";
+                    pointsEl.dataset.initial = section.points.join("\n");
+                } else {
+                    document.getElementById("sectionPoints").closest('.form-floating').style.display = "none";
+                }
 
+   const iconInput = document.getElementById("iconClassInput");
+                iconInput.value = section.icon || "";
 
-                document.getElementById("iconClassInput").value = section.icon || "";
-                document.getElementById("iconPreview").innerHTML = section.icon ? `<i class="${section.icon}"></i>` :
-                "";
+                // Sync with iconInputs based on detected library type
+                if (section.icon_Type === "fontawesome") {
+                    iconInputs.fontawesome = section.icon || "";
+                    selectedLibrary = "fontawesome"; // sync selected tab value too
+                } else {
+                    iconInputs.bootstrap = section.icon || "";
+                    selectedLibrary = "bootstrap"; // sync selected tab value too
+                }
+
+                // Manually trigger the preview
+                const iconPreview1 = document.getElementById("iconPreview1");
+                if (iconInput.value.trim()) {
+                    iconPreview1.innerHTML = `<i class="${iconInput.value.trim()}"></i>`;
+                } else {
+                    iconPreview1.innerHTML = "";
+                }
 
                 // Handle images
                 const imageContainer = document.querySelector("#imageUpload .d-flex");
@@ -519,53 +544,65 @@ if (section.points && section.points.length > 0) {
 
 
     {{-- // Handle Form Submission for Section and Image --}}
-    <script>
-        let selectedLibrary = "bootstrap"; // Default to Bootstrap Icons
+     <script>
+        let selectedLibrary = "bootstrap"; // Default tab
+        let iconInputs = {
+            bootstrap: "",
+            fontawesome: ""
+        };
 
+        const inputField = document.getElementById("iconClassInput");
+        const iconLabel = document.getElementById("iconLabel");
+        iconInputs[selectedLibrary] = inputField.value.trim();
 
         document.querySelectorAll("#iconTabs .nav-link").forEach(tab => {
             tab.addEventListener("click", function() {
+                // Prevent action if same tab is clicked
+                if (this.classList.contains("active")) return;
+
+                // ✅ Save the current input value to the currently active library
+                iconInputs[selectedLibrary] = inputField.value.trim();
+
+                // Switch active class
                 document.querySelectorAll("#iconTabs .nav-link").forEach(t => t.classList.remove("active"));
                 this.classList.add("active");
 
+                // Update selected library
                 selectedLibrary = this.getAttribute("data-library");
 
-                // Update Placeholder and Labels
-                const inputField = document.getElementById("iconClassInput");
-                const label = document.getElementById("iconLabel");
-
+                // Update label and placeholder
                 if (selectedLibrary === "bootstrap") {
-                    label.innerText = "Enter Bootstrap Icon Class";
+                    iconLabel.innerText = "Enter Bootstrap Icon Class";
                     inputField.placeholder = "e.g., bi-house";
                     document.getElementById("iconLink").classList.remove("d-none");
                     document.getElementById("faLink").classList.add("d-none");
                 } else {
-                    label.innerText = "Enter Font Awesome Icon Class";
+                    iconLabel.innerText = "Enter Font Awesome Icon Class";
                     inputField.placeholder = "e.g., fa-solid fa-house";
                     document.getElementById("iconLink").classList.add("d-none");
                     document.getElementById("faLink").classList.remove("d-none");
                 }
 
-                // Clear preview on switch
-                document.getElementById("iconPreview").innerHTML = "";
-                inputField.value = "";
+                // ✅ Restore value from new selected library
+                inputField.value = iconInputs[selectedLibrary] || "";
+                updateIconPreview();
             });
         });
 
-        // Update icon preview on input change
-        document.getElementById("iconClassInput").addEventListener("input", function() {
-            const iconPreview = document.getElementById("iconPreview");
-            const iconClass = this.value.trim();
 
-            if (iconClass) {
-                iconPreview.innerHTML = `<i class="${iconClass}"></i>`;
-            } else {
-                iconPreview.innerHTML = "";
-            }
+        // Update preview and save input on typing
+        inputField.addEventListener("input", function() {
+            iconInputs[selectedLibrary] = inputField.value.trim();
+            updateIconPreview();
         });
 
-        // Save button functionality
+        function updateIconPreview() {
+            const previewEl = document.getElementById("iconPreview1");
+            const iconClass = inputField.value.trim();
+            previewEl.innerHTML = iconClass ? `<i class="${iconClass}"></i>` : "";
+        }
     </script>
+
 
 
 
@@ -608,7 +645,7 @@ if (section.points && section.points.length > 0) {
 
 
 
-    
+
 
 
 
@@ -639,21 +676,21 @@ if (section.points && section.points.length > 0) {
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
- <!-- modal to show preview images -->
-        <!-- Image Preview Modal -->
-        <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Section Preview</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-                <img id="modalPreviewImage" src="" alt="Preview" class="img-fluid rounded shadow">
+    <!-- modal to show preview images -->
+    <!-- Image Preview Modal -->
+    <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Section Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalPreviewImage" src="" alt="Preview" class="img-fluid rounded shadow">
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </body>
 
