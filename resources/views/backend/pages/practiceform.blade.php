@@ -252,7 +252,22 @@
 
             // Populate Service Name, Image, and Icon (Assuming the first practice contains these)
             if (practiceData.length > 0) {
-                document.getElementById("name").value = practiceData[0].practice_name || "";
+                const nameInput = document.getElementById("name");
+                const lockIcon = document.querySelector(".lock-icon");
+                const autoFilledPractice = practiceData[0].practice_name;
+
+                if (autoFilledPractice && autoFilledPractice.trim() !== "") {
+                    nameInput.value = autoFilledPractice;
+                    nameInput.readOnly = true;
+                    nameInput.classList.add("disabled-input");
+                    if (lockIcon) lockIcon.style.display = "inline";
+                } else {
+                    nameInput.value = "";
+                    nameInput.readOnly = false;
+                    nameInput.classList.remove("disabled-input");
+                    if (lockIcon) lockIcon.style.display = "none";
+                }
+
                 let imagePath = practiceData[0].image_path.replace(/\\/g, '/');
                 let topImagePath = practiceData[0].top_image?.replace(/\\/g, '/'); // Handle top_image
 
@@ -351,25 +366,25 @@
                         </div>
                     </div>
                     ${practice.points?.slice(1).map(point => `
-                                                        <div class="mb-3 d-flex align-items-center">
-                                                            <label class="me-3" style="width: 100px;"></label>
-                                                            <div class="flex-grow-1 d-flex">
-                                                                <input type="text" class="form-control border-1 border-bottom"
-                                                                    value="${point}" placeholder="Enter point">
-                                                                <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
+                                                            <div class="mb-3 d-flex align-items-center">
+                                                                <label class="me-3" style="width: 100px;"></label>
+                                                                <div class="flex-grow-1 d-flex">
+                                                                    <input type="text" class="form-control border-1 border-bottom"
+                                                                        value="${point}" placeholder="Enter point">
+                                                                    <button type="button" class="btn btn-danger ms-2 removePoint">-</button>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    `).join('') || ''}
+                                                        `).join('') || ''}
                 </div>
             </form>
             
             <button class="btn btn-primary addFormInside">+</button>
             ${index !== 0 ? `
-                                                <button class="btn btn-danger delete-form">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
-                                                        <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
-                                                    </svg>
-                                                </button>` : ''}
+                                                    <button class="btn btn-danger delete-form">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30">
+                                                            <path fill="white" d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
+                                                        </svg>
+                                                    </button>` : ''}
         </div>
         <br>
         <br>
@@ -460,16 +475,7 @@
                 console.log("Top Image Path:", topImagePath);
 
 
-                // Check if both images are cropped before proceeding
-                if (!globalImagePath && !croppedCanvas) {
-                    showToast("Please crop and select the main image before saving.", "error");
-                    return;
-                }
 
-                if (!topImagePath && !topCroppedCanvas) {
-                    showToast("Please crop and select the top image before saving.", "error");
-                    return;
-                }
 
 
                 console.log("global : ", globalImagePath);
@@ -532,6 +538,19 @@
 
                 const urlParams = new URLSearchParams(window.location.search);
                 const practiceNameFromUrl = urlParams.get("practicename");
+                 const isCreating = !practiceNameFromUrl;   
+
+                 if (isCreating) {
+    if (!croppedCanvas) {
+        showToast("Please crop and select the main image before saving.", "error");
+        return;
+    }
+
+    if (!topCroppedCanvas) {
+        showToast("Please crop and select the top image before saving.", "error");
+        return;
+    }
+}
 
                 // Determine API endpoint dynamically
                 let apiUrl = "http://127.0.0.1:8000/api/practices/create";
@@ -615,7 +634,7 @@
             }
         });
     </script>
-    </script>
+    
     <!-- Toastify -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
