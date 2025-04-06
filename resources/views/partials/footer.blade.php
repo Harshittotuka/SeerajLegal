@@ -91,14 +91,19 @@ document.getElementById('subscribe-form').addEventListener('submit', function(e)
         document.getElementById('subscribe-email').value = '';
 
         // Show success toast
-        Toastify({
-            text: "Subscription successful!",
-            duration: 3000,
-            gravity: "top",
-            position: "right",
-            backgroundColor: "#4BB543",
-            stopOnFocus: true
-        }).showToast();
+     Toastify({
+    text: "✅ Subscribed successfully!",
+    duration: 3000,
+    gravity: "top",
+    position: "center",
+    style: {
+        background: "linear-gradient(135deg, #4BB543, #32CD32)",
+        borderRadius: "12px",
+        color: "#fff",
+        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+    }
+}).showToast();
+
     });
 });
 </script>
