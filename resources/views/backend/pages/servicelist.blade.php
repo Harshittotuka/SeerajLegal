@@ -50,88 +50,92 @@
         </div>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                fetch("http://127.0.0.1:8000/api/services/list")
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const services = data.data;
-                            const container = document.getElementById("services-container");
-                            const icon = "gavel"; // Change this to any other Material Symbols icon
-        
-                            services.forEach(service => {
-                                const statusClass = service.flag === "enabled" ? "enabled" : "disabled";
-                                const encodedServiceName = encodeURIComponent(service.service_name);
-                                const serviceUrl = `http://127.0.0.1:8000/backend/service/form?servicename=${encodedServiceName}`;
-        
-                                const cardHtml = `
-                                    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 ${statusClass}">
-                                        <a href="${serviceUrl}" target="_blank" style="text-decoration: none; color: inherit;">
-                                            <div class="card">
-                                                <div class="card-header p-2 ps-3">
-                                                    <div class="d-flex justify-content-between">
-                                                        <div>
-                                                            <p class="text-sm mb-0 text-capitalize">Service</p>
-                                                            <h4 class="mb-0">${service.service_name}</h4>
-                                                        </div>
-                                                        <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                                            <i class="material-symbols-rounded opacity-10">${icon}</i>
-                                                        </div>
-                                                    </div>
+    document.addEventListener("DOMContentLoaded", function () {
+        const servicesUrl = "http://127.0.0.1:8000/api/services/list";
+        const expertCountUrl = "http://127.0.0.1:8000/api/service_count";
+        const container = document.getElementById("services-container");
+        const icon = "gavel";
+
+        // Fetch both services and counts in parallel
+        Promise.all([
+            fetch(servicesUrl).then(res => res.json()),
+            fetch(expertCountUrl).then(res => res.json())
+        ])
+            .then(([servicesData, countsData]) => {
+                if (servicesData.success && countsData.status === "success") {
+                    const services = servicesData.data;
+                    const serviceCounts = countsData.data;
+
+                    services.forEach(service => {
+                        const statusClass = service.flag === "enabled" ? "enabled" : "disabled";
+                        const encodedServiceName = encodeURIComponent(service.service_name);
+                        const serviceUrl = `http://127.0.0.1:8000/backend/service/form?servicename=${encodedServiceName}`;
+
+                        const expertCount = serviceCounts[service.service_name] || 0;
+
+                        const cardHtml = `
+                            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 ${statusClass}">
+                                <a href="${serviceUrl}" target="_blank" style="text-decoration: none; color: inherit;">
+                                    <div class="card">
+                                        <div class="card-header p-2 ps-3">
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <p class="text-sm mb-0 text-capitalize">Service</p>
+                                                    <h4 class="mb-0">${service.service_name}</h4>
                                                 </div>
-                                                <hr class="dark horizontal my-0">
-                                                <div class="card-footer p-2 ps-3">
-                                                    <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">4 </span>Experts</p>
+                                                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                                    <i class="material-symbols-rounded opacity-10">${icon}</i>
                                                 </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                `;
-                                container.insertAdjacentHTML("beforeend", cardHtml);
-                            });
-        
-                            const addServiceUrl = "http://127.0.0.1:8000/backend/service/form";
-                            const addServiceCard = `
-                                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                                    <a href="${addServiceUrl}" target="_blank" style="text-decoration: none; color: inherit;">
-                                        <div class="card card1">
-                                            <div class="card-header p-2 ps-3">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <p class="text-sm mb-0 text-capitalize">Add</p>
-                                                        <h4 class="mb-0">Add Services</h4>
-                                                    </div>
-                                                    <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg" style="cursor: pointer;">
-                                                        <i class="material-symbols-rounded opacity-10">${icon}</i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr class="dark horizontal my-0">
-                                            <div class="card-footer p-2 ps-3">
-                                                <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">${services.length} </span>Services Currently</p>
                                             </div>
                                         </div>
-                                    </a>
-                                </div>
-                            `;
-                            container.insertAdjacentHTML("beforeend", addServiceCard);
-                        } else {
-                            console.error("API response unsuccessful");
-                        }
-                    })
-                    .catch(error => console.error("Error fetching services:", error));
-            });
-        </script>
-        
+                                        <hr class="dark horizontal my-0">
+                                        <div class="card-footer p-2 ps-3">
+                                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">${expertCount} </span>Experts</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        `;
 
-        <script>
-            document.addEventListener("click", function(event) {
-                const card = event.target.closest(".card1");
-                if (card) {
-                    window.open("/backend/service/form", "_blank"); // Open in a new tab
+                        container.insertAdjacentHTML("beforeend", cardHtml);
+                    });
+
+                    // Add service card
+                    const addServiceUrl = "http://127.0.0.1:8000/backend/service/form";
+                    const addServiceCard = `
+                        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                            <a href="${addServiceUrl}" target="_blank" style="text-decoration: none; color: inherit;">
+                                <div class="card card1">
+                                    <div class="card-header p-2 ps-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <p class="text-sm mb-0 text-capitalize">Add</p>
+                                                <h4 class="mb-0">Add Services</h4>
+                                            </div>
+                                            <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg" style="cursor: pointer;">
+                                                <i class="material-symbols-rounded opacity-10">${icon}</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="dark horizontal my-0">
+                                    <div class="card-footer p-2 ps-3">
+                                        <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">${services.length} </span>Services Currently</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML("beforeend", addServiceCard);
+                } else {
+                    console.error("API data fetch failed.");
                 }
+            })
+            .catch(error => {
+                console.error("Error fetching services or counts:", error);
             });
-        </script>
+    });
+</script>
+
 
         <!-- Custom Context Menu -->
         <!-- Custom Context Menu -->

@@ -151,9 +151,24 @@ class TeamController extends Controller
                 'awards' => 'nullable|array',
                 'socials' => 'nullable|array',
             ]);
+    
+            // Convert practices and services to uppercase (if they exist)
+            // Capitalize first letter of each word for practices and services
+if (isset($validatedData['area_of_practice'])) {
+    $validatedData['area_of_practice'] = array_map(function ($item) {
+        return ucwords(strtolower($item));
+    }, $validatedData['area_of_practice']);
+}
 
+if (isset($validatedData['adr_services'])) {
+    $validatedData['adr_services'] = array_map(function ($item) {
+        return ucwords(strtolower($item));
+    }, $validatedData['adr_services']);
+}
+
+    
             $response = $this->teamService->updateTeam($id, $validatedData);
-
+    
             return response()->json($response, $response['success'] ? 200 : 404);
         } catch (ValidationException $e) {
             return response()->json(
@@ -166,6 +181,7 @@ class TeamController extends Controller
             );
         }
     }
+    
 
     //based on designation
     public function getByDesignation($designation)
@@ -179,5 +195,24 @@ class TeamController extends Controller
         }
 
         return response()->json($members, 200);
+    }
+    //code to show number of members on backend
+    public function serviceCount()
+    {
+        $counts = $this->teamService->getServiceCounts();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $counts
+        ]);
+    }
+    public function getPracticeCounts()
+    {
+        $counts = $this->teamService->getPracticeCounts();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $counts
+        ]);
     }
 }

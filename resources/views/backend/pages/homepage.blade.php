@@ -61,12 +61,19 @@
 
         @include('backend.components.topimage-modal')
         <div class="d-flex justify-content-between align-items-center mt-3 ms-3">
-            <h5 class="mb-0">HomePage</h5> <!-- Optional Title -->
-            <button class="btn btn-warning edit-btn mt-3 me-4" data-imageid="TopImg_abt" data-bs-toggle="modal"
-                data-bs-target="#topImageModal">
-                HomePage Header
-            </button>
-        </div>
+    <h5 class="mb-0">HomePage</h5> <!-- Optional Title -->
+    <div class="d-flex align-items-center gap-2 me-4 mt-3">
+        <button class="btn btn-warning edit-btn" data-imageid="TopImg_abt" data-bs-toggle="modal"
+            data-bs-target="#topImageModal">
+            HomePage Header
+        </button>
+        <a href="{{ route('home') }}" target="_blank" class="btn btn-outline-primary" title="View Homepage">
+            <i class="fas fa-eye"></i>
+        </a>
+    </div>
+</div>
+
+
 
 
         {{-- @include('components.image-cropper') --}}
@@ -215,13 +222,28 @@ async function updateSection(S_id, updateData) {
         });
 
         if (response.ok) {
-            alert("Section updated successfully!");
-            loadSections(); // Reload sections after update
-        } else {
-            const errorText = await response.text();
-            console.error("Failed to update:", errorText);
-            alert(`Failed to update section: ${errorText}`);
-        }
+    Toastify({
+        text: "Section updated successfully!",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "green",
+        close: true
+    }).showToast();
+    loadSections(); // Reload sections after update
+} else {
+    const errorText = await response.text();
+    console.error("Failed to update:", errorText);
+    Toastify({
+        text: `Failed to update section: ${errorText}`,
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "red",
+        close: true
+    }).showToast();
+}
+
     } catch (error) {
         console.error("Error updating section:", error);
     }
@@ -564,7 +586,7 @@ async function updateSection(S_id, updateData) {
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Image Preview</h5>
+                    <h5 class="modal-title">Section Preview</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">

@@ -303,20 +303,27 @@
                                 <p class="text-sm mb-0 text-capitalize">Members List</p>
                                 <h4 class="mb-0">Manage Members</h4>
                             </div>
-                              <div class="d-flex ">
-                                <!-- FAQ Header Button -->
-                                <button class="btn btn-warning edit-btn me-3" data-imageid="TopImg_mem"
-                                    data-bs-toggle="modal" data-bs-target="#topImageModal">
-                                    Members Header
-                                </button>
+                            <div class="d-flex align-items-center">
+    <!-- Members Header Button -->
+    <button class="btn btn-warning edit-btn mb-1 me-3" data-imageid="TopImg_mem"
+        data-bs-toggle="modal" data-bs-target="#topImageModal">
+        Members Header
+    </button>
 
-                                <!-- Add Button -->
-                                <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon"
-                                    style="cursor: pointer; width: 40px; height: 40px;" data-bs-toggle="modal"
-                                    data-bs-target="#memberModal">
-                                    <i class="material-symbols-rounded opacity-10">add</i>
-                                </div>
-                            </div>
+    <!-- Add Button -->
+    <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon me-3"
+        style="cursor: pointer; width: 40px; height: 40px; transform: translateY(-4px);"
+        data-bs-toggle="modal" data-bs-target="#memberModal">
+        <i class="material-symbols-rounded opacity-10">add</i>
+    </div>
+
+    <!-- View Button -->
+    <a href="{{ route('membership.list') }}" target="_blank" class="btn btn-outline-primary mb-1 d-flex align-items-center justify-content-center"
+        style="width: 40px; height: 40px;" title="Members Page">
+        <i class="fas fa-eye"></i>
+    </a>
+</div>
+
                         </div>
 
                         <hr class="dark horizontal my-0">

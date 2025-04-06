@@ -245,7 +245,7 @@
     <div class="sidenav-footer position-absolute w-100 bottom-0 active">
         <div class="mx-3">
             <!-- Logout Form -->
-            <form method="POST" action="{{ route('admin.logout') }}">
+            <form method="get" action="{{ route('admin.logout') }}">
                 @csrf
                 <button type="submit" class="btn bg-gradient-dark w-100">
                     <i class="fas fa-sign-out-alt fa-sm me-2"></i>

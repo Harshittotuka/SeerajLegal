@@ -185,12 +185,10 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         console.log("API Response:", teamMembers);
 
-        // 🚀 Ensure API response is an array
         if (!Array.isArray(teamMembers)) {
             throw new Error("❌ API did not return an array. Check response format.");
         }
 
-        // 🚀 Ensure API response is not empty
         if (teamMembers.length === 0) {
             console.warn("⚠ No team members found!");
             teamSections.innerHTML = "<p>No team members available.</p>";
@@ -228,6 +226,10 @@ document.addEventListener('DOMContentLoaded', async function () {
                     ${teamsByCategory[category].map(member => {
                         const profileImage = member.profile_image || 'assets/img/my/profile_icon2.png';
                         const socials = member.socials || {};
+                        const adrServices = (category === 'ADR Experts' && member.adr_services?.length > 0)
+                            ? `<p class="adr-services"><strong>ADR Services:</strong> ${member.adr_services.join(', ')}</p>`
+                            : '';
+
                         return `
                             <div class="col-lg-3 col-md-6 item" data-id="${member.id}">
                                 <div class="img">
@@ -241,6 +243,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                                 <div class="info">
                                     <h5><a href="/team-details?id=${member.id}">${member.name}</a></h5>
                                     <p>${member.designation}</p>
+                                    ${adrServices} <!-- ✅ Now only appears in ADR Experts -->
                                 </div>
                             </div>
                         `;
