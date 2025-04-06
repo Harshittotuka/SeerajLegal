@@ -21,7 +21,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-scale-balanced",
                  'top_image' => 'assets/dynamic/services/top_conciliation.webp',
             ],
             [
@@ -34,7 +34,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-scale-balanced",
                  'top_image' => 'assets/dynamic/services/top_conciliation.webp',
             ],
             [
@@ -47,7 +47,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-scale-balanced",
                  'top_image' => 'assets/dynamic/services/top_conciliation.webp',
             ],
             [
@@ -60,7 +60,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-scale-balanced",
                  'top_image' => 'assets/dynamic/services/top_conciliation.webp',
             ],
             [
@@ -73,7 +73,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-scale-balanced",
                  'top_image' => 'assets/dynamic/services/top_conciliation.webp',
             ],
             [
@@ -86,7 +86,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-scale-balanced",
                  'top_image' => 'assets/dynamic/services/top_conciliation.webp',
             ],
             [
@@ -99,7 +99,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-scale-balanced",
                  'top_image' => 'assets/dynamic/services/top_conciliation.webp',
             ],
             [
@@ -112,7 +112,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-briefcase",
                  'top_image' => 'assets/dynamic/services/top_arbitration.webp',
             ],
             [
@@ -125,7 +125,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-briefcase",
                  'top_image' => 'assets/dynamic/services/top_arbitration.webp',
             ],
             [
@@ -138,7 +138,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-briefcase",
                  'top_image' => 'assets/dynamic/services/top_arbitration.webp',
             ],
             [
@@ -151,7 +151,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-briefcase",
                  'top_image' => 'assets/dynamic/services/top_arbitration.webp',
             ],
             [
@@ -164,7 +164,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-briefcase",
                  'top_image' => 'assets/dynamic/services/top_arbitration.webp',
             ],
             [
@@ -177,7 +177,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-briefcase",
                  'top_image' => 'assets/dynamic/services/top_arbitration.webp',
             ],
             [
@@ -190,7 +190,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-briefcase",
                  'top_image' => 'assets/dynamic/services/top_arbitration.webp',
             ],
             [
@@ -203,7 +203,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-briefcase",
                  'top_image' => 'assets/dynamic/services/top_arbitration.webp',
             ],
             [
@@ -216,7 +216,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-briefcase",
                  'top_image' => 'assets/dynamic/services/top_arbitration.webp',
             ],
             [
@@ -229,7 +229,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-briefcase",
                  'top_image' => 'assets/dynamic/services/top_arbitration.webp',
             ],
             [
@@ -242,7 +242,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => 'fa-solid fa-building-columns',
                  'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
             ],
             [
@@ -255,7 +255,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => 'fa-solid fa-building-columns',
                  'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
             ],
 
@@ -269,7 +269,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => 'fa-solid fa-building-columns',
                  'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
             ],
             [
@@ -282,7 +282,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => 'fa-solid fa-building-columns',
                  'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
             ],
             [
@@ -295,7 +295,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => 'fa-solid fa-building-columns',
                  'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
             ],
             [
@@ -308,7 +308,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => 'fa-solid fa-building-columns',
                  'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
             ],
             [
@@ -321,7 +321,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => 'fa-solid fa-building-columns',
                  'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
             ],
             [
@@ -334,7 +334,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => 'fa-solid fa-building-columns',
                  'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
             ],
             [
@@ -347,7 +347,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => 'fa-solid fa-building-columns',
                  'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
             ],
             [
@@ -360,7 +360,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'enabled', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-injured",
                  'top_image' => 'assets/dynamic/services/top_negotiation.webp',
             ],
             [
@@ -373,7 +373,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-injured",
                  'top_image' => 'assets/dynamic/services/top_negotiation.webp',
             ],
             [
@@ -386,7 +386,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-injured",
                  'top_image' => 'assets/dynamic/services/top_negotiation.webp',
             ],
             [
@@ -399,7 +399,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-injured",
                  'top_image' => 'assets/dynamic/services/top_negotiation.webp',
             ],
             [
@@ -412,7 +412,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-injured",
                  'top_image' => 'assets/dynamic/services/top_negotiation.webp',
             ],
             [
@@ -425,7 +425,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-injured",
                  'top_image' => 'assets/dynamic/services/top_negotiation.webp',
             ],
             [
@@ -438,7 +438,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-injured",
                  'top_image' => 'assets/dynamic/services/top_negotiation.webp',
             ],
             [
@@ -451,7 +451,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-injured",
                  'top_image' => 'assets/dynamic/services/top_negotiation.webp',
             ],
             [
@@ -464,7 +464,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'enabled', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-graduate",
                  'top_image' => 'assets/dynamic/services/top_mediation.webp',
             ],
             [
@@ -477,7 +477,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-graduate",
                  'top_image' => 'assets/dynamic/services/top_mediation.webp',
             ],
             [
@@ -490,7 +490,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-graduate",
                  'top_image' => 'assets/dynamic/services/top_mediation.webp',
             ],
             [
@@ -503,7 +503,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-graduate",
                  'top_image' => 'assets/dynamic/services/top_mediation.webp',
             ],
             [
@@ -516,7 +516,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-graduate",
                  'top_image' => 'assets/dynamic/services/top_mediation.webp',
             ],
             [
@@ -529,7 +529,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-graduate",
                 'top_image' => 'assets/dynamic/services/top_mediation.webp',
             ],
             
@@ -543,7 +543,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-graduate",
                  'top_image' => 'assets/dynamic/services/top_mediation.webp',
             ],
             [
@@ -556,7 +556,7 @@ class ServicesSeeder extends Seeder
                 'flag' => 'null', // New flag column
                 'created_at' => now(),
                 'updated_at' => now(),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-user-graduate",
                  'top_image' => 'assets/dynamic/services/top_mediation.webp',
             ],
         ]);

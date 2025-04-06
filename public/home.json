@@ -14,7 +14,7 @@
         "points": null,
         "flag": "enabled",
         "icon_Type": "fontawesome",
-        "icon": "fas fa-r",
+        "icon": "fa-brands fa-servicestack",
         "ss" : "/assets/backend/img/previews/S_id5home.png"
     },
     {
@@ -42,7 +42,7 @@
             "assets\/img\/Rajasthan.png"
         ],
         "icon_Type": "fontawesome",
-        "icon": "fas fa-r",
+        "icon": "fa-solid fa-location-dot",
         "ss" : "/assets/backend/img/previews/S_id8.png"
     }
 ]

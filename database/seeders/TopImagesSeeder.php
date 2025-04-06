@@ -15,7 +15,7 @@ class TopImagesSeeder extends Seeder {
                 'sub_title' => 'Who we Are ?',
                 'image_url' => 'assets/dynamic/Top/TopImg_abt.webp',
                 'image_resolution' => json_encode([1792, 1024]),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-eject",
             ],
             [
                 'image_id' => 'TopImg_faq',
@@ -24,7 +24,7 @@ class TopImagesSeeder extends Seeder {
                 'sub_title' => 'Frequently Asked Questions',
                 'image_url' => 'assets/dynamic/Top/TopImg_faq.webp',
                 'image_resolution' => json_encode([1792, 1024]),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-circle-question",
             ],
             [
                 'image_id' => 'TopImg_bec',
@@ -33,7 +33,7 @@ class TopImagesSeeder extends Seeder {
                 'sub_title' => 'Become a member',
                 'image_url' => 'assets/dynamic/Top/TopImg_mem.webp',
                 'image_resolution' => json_encode([1792, 1024]),
-                'icon' => 'fa-s',
+                'icon' => "fa-regular fa-id-badge",
             ],
             [
                 'image_id' => 'TopImg_mem',
@@ -42,7 +42,7 @@ class TopImagesSeeder extends Seeder {
                 'sub_title' => 'Our Members',
                 'image_url' => 'assets/dynamic/Top/TopImg_mem.webp',
                 'image_resolution' => json_encode([1792, 1024]),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-address-book",
             ],
             [
                 'image_id' => 'TopImg_pan',
@@ -51,7 +51,7 @@ class TopImagesSeeder extends Seeder {
                 'sub_title' => 'Our Panel',
                 'image_url' => 'assets/dynamic/Top/TopImg_pan.webp',
                 'image_resolution' => json_encode([1792, 1024]),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-table-columns",
             ],
             [
                 'image_id' => 'TopImg_tea',
@@ -60,7 +60,7 @@ class TopImagesSeeder extends Seeder {
                 'sub_title' => 'Meet Our Attorneys',
                 'image_url' => 'assets/dynamic/Top/TopImg_tea.webp',
                 'image_resolution' => json_encode([1792, 1024]),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-database",
             ],
             [
                 'image_id' => 'TopImg_con',
@@ -69,7 +69,7 @@ class TopImagesSeeder extends Seeder {
                 'sub_title' => 'Contact Info',
                 'image_url' => 'assets/dynamic/Top/TopImg_con.webp',
                 'image_resolution' => json_encode([1792, 1024]),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-id-card-clip",
             ],
             [
                 'image_id' => 'TopImg_hom',
@@ -78,7 +78,7 @@ class TopImagesSeeder extends Seeder {
                 'sub_title' => 'Justice Made Accessible: faster and fairer',
                 'image_url' => 'assets/dynamic/Top/TopImg_hom.webp',
                 'image_resolution' => json_encode([1792, 1024]),
-                'icon' => 'fa-s',
+                'icon' => "fa-solid fa-house",
             ],
         ];
 
