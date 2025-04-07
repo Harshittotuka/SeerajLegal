@@ -20,17 +20,39 @@ class AdminSeeder extends Seeder
         foreach ($emailPrefixes as $prefix) {
             Admin::create([
                 'name' => $faker->name,
-                'email' => "{$prefix}@gmail.com", // Generate emails like a@gmail.com, b@gmail.com, etc.
-                'password' => Hash::make('1234'), // Hashed password for security
+                'email' => "{$prefix}@gmail.com",
+                'password' => Hash::make('1234'),
                 'phone' => $faker->phoneNumber,
                 'profile_image' => $faker->imageUrl(),
                 'type' => $faker->randomElement(['Admin', 'Superadmin']),
             ]);
         }
+
+        // Existing custom admin
         Admin::create([
-            'name' => 'Harshit ',
+            'name' => 'Harshit',
             'email' => '1',
-            'password' => Hash::make('1'), // Hashed password
+            'password' => Hash::make('1'),
+            'phone' => $faker->phoneNumber,
+            'profile_image' => $faker->imageUrl(),
+            'type' => 'Superadmin',
+        ]);
+
+        // New Admin
+        Admin::create([
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('12345678'),
+            'phone' => $faker->phoneNumber,
+            'profile_image' => $faker->imageUrl(),
+            'type' => 'Admin',
+        ]);
+
+        // New SuperAdmin
+        Admin::create([
+            'name' => 'SuperAdmin',
+            'email' => 'superadmin@gmail.com',
+            'password' => Hash::make('12345678'),
             'phone' => $faker->phoneNumber,
             'profile_image' => $faker->imageUrl(),
             'type' => 'Superadmin',
