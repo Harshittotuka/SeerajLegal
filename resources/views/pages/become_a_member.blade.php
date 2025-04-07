@@ -8,19 +8,19 @@
     <title>Seeraj Legal Relief Foundation</title>
 
     <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
- <!-- code for topimage.js -->
- <script src="{{ asset('assets/js/topimage.js') }}"></script>
+    <!-- code for topimage.js -->
+    <script src="{{ asset('assets/js/topimage.js') }}"></script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        fetchPageContent("TopImg_mem");
-    });
-</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetchPageContent("TopImg_mem");
+        });
+    </script>
 
 </head>
 
@@ -31,20 +31,18 @@
 
     <!-- Header Banner -->
     <div id="page-bg" class="banner-header valign bg-img bg-fixed" data-overlay-dark="5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 caption mt-60 text-center">
-                <h6>
-                    <div class="icon"><i id="page-icon"></i></div> 
-                    <span id="page-title"></span>
-                </h6>
-                <h1><span id="page-subtitle"></span></h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 caption mt-60 text-center">
+                    <h6>
+                        <div class="icon"><i id="page-icon"></i></div>
+                        <span id="page-title"></span>
+                    </h6>
+                    <h1><span id="page-subtitle"></span></h1>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-
 
     <!-- Form -->
     <section class="membership-form section-padding mu-10" style="background-color: #f8f9fa;">
@@ -177,16 +175,17 @@
                                 </div>
 
                                 <script>
-                                    document.addEventListener("DOMContentLoaded", function () {
+                                    document.addEventListener("DOMContentLoaded", function() {
                                         fetch("http://127.0.0.1:8000/api/membership-types") // API Call
                                             .then(response => response.json()) // Convert to JSON
                                             .then(data => {
                                                 let dropdown = document.getElementById("membershipType");
-                                                
+
                                                 data.data.forEach(item => {
                                                     let option = document.createElement("option");
                                                     option.value = item.membership_type;
-                                                    option.textContent = item.membership_type.charAt(0).toUpperCase() + item.membership_type.slice(1); // Capitalize
+                                                    option.textContent = item.membership_type.charAt(0).toUpperCase() + item
+                                                        .membership_type.slice(1); // Capitalize
                                                     dropdown.appendChild(option);
                                                 });
                                             })
@@ -211,9 +210,18 @@
     </section>
 
 
-    <!-- Optional: Add custom CSS for extra styling -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
+    <!-- JavaScript to handle form submission -->
+    <script>
+        document.getElementById('membershipForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Membership form submitted successfully!');
+            this.reset();
+        });
+    </script>
+
+
+    <!-- Optional: Add custom CSS for extra styling -->
     <style>
         .membership-form .form-control:focus,
         .membership-form .form-select:focus {
@@ -239,6 +247,7 @@
         .membership-form .row.mb-3 {
             margin-bottom: 1rem !important;
         }
+
         .card {
             border: none;
             border-radius: 15px;
@@ -304,23 +313,13 @@
         }
     </style>
 
-    <!-- JavaScript to handle form submission -->
-    <script>
-        document.getElementById('membershipForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('Membership form submitted successfully!');
-            this.reset();
-        });
-    </script>
-
 
     <!-- Get in touch -->
     @include('partials.getintouch')
-    
 
     <!-- Footer -->
     @include('partials.footer')
-    
+
     <!-- jQuery -->
     <script src="{{ asset('assets/js/jquery-migrate-3.0.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery-3.6.3.min.js') }}"></script>
