@@ -548,7 +548,7 @@
 </a>
 <div id="doc-iframe-container">
     <div id="doc-close-btn">&times;</div>
-    <iframe src="https://docs.google.com/presentation/d/1D_Bgnf42RiC3kOOq5u7SCZ_0NBvyG5c9cvHqLKkxvr4/edit?usp=sharing"
+    <iframe src="https://docs.google.com/presentation/d/1D_Bgnf42RiC3kOOq5u7SCZ_0NBvyG5c9cvHqLKkxvr4/edit?usp=drivesdk"
         frameborder="0" allowfullscreen></iframe>
 </div>
 <script>
