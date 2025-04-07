@@ -172,20 +172,22 @@
 
     {{-- SIDE BAR NAVIGATION --}}
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let currentService = "{{ $serviceName }}"; // Assuming this is passed from Laravel controller
-            let apiUrl = "http://127.0.0.1:8000/api/services/list";
+    document.addEventListener("DOMContentLoaded", function() {
+        let currentService = "{{ $serviceName }}"; // Assuming this is passed from Laravel controller
+        let apiUrl = "http://127.0.0.1:8000/api/services/list";
 
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        let services = data.data;
-                        let listContainer = document.getElementById('relatedServicesList');
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    let services = data.data;
+                    let listContainer = document.getElementById('relatedServicesList');
 
-                        listContainer.innerHTML = ''; // Clear existing content
+                    listContainer.innerHTML = ''; // Clear existing content
 
-                        services.forEach(serviceObj => {
+                    services.forEach(serviceObj => {
+                        // Only include services where flag is 'enabled'
+                        if (serviceObj.flag === 'enabled') {
                             let service = serviceObj.service_name; // Extract the service name
                             let isActive = (service.toLowerCase() === currentService.toLowerCase()) ?
                                 'font-weight: bold;' : '';
@@ -193,13 +195,14 @@
                             li.innerHTML =
                                 `<a href="/service/${service}" style="${isActive}">${service}</a>`;
                             listContainer.appendChild(li);
-                        });
-                    }
-                })
-                .catch(error => console.error("Error fetching related services:", error));
+                        }
+                    });
+                }
+            })
+            .catch(error => console.error("Error fetching related services:", error));
+    });
+</script>
 
-        });
-    </script>
 
     <style>
         .custom-box {
