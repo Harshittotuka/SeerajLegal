@@ -10,6 +10,7 @@
         <div class="preloader-position loader"> <span></span> </div>
     </div>
 </div>
+
 <!-- Progress scroll totop -->
 <div class="progress-wrap cursor-pointer">
     <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
@@ -192,7 +193,7 @@
         opacity: 0.3;
     }
 
-    .shadow {
+    .shadow1 {
         position: absolute;
         top: 200px;
         left: 50%;
@@ -219,7 +220,7 @@
         height: 180px;
     }
 
-    .letter-image:hover .shadow {
+    .letter-image:hover .shadow1 {
         width: 250px;
     }
 </style>
@@ -241,7 +242,7 @@
             <div class="body"></div>
             <div class="left-fold"></div>
         </div>
-        <div class="shadow"></div>
+        <div class="shadow1"></div>
     </div>
 </div>
 
@@ -343,7 +344,7 @@
                                 background: "linear-gradient(135deg, #4BB543, #32CD32)",
                                 borderRadius: "12px",
                                 color: "#fff",
-                                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+                                boxshadow1: "0 4px 12px rgba(0, 0, 0, 0.15)",
                             }
                         }).showToast();
 
@@ -361,7 +362,7 @@
                             background: "linear-gradient(135deg, #e95f55, #cf4a43)",
                             borderRadius: "12px",
                             color: "#fff",
-                            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+                            boxshadow1: "0 4px 12px rgba(0, 0, 0, 0.15)",
                         }
                     }).showToast();
 
@@ -472,12 +473,12 @@
         border-radius: 8px;
         border: 1px solid #ccc;
         font-size: 1rem;
-        transition: border-color 0.3s, box-shadow 0.3s;
+        transition: border-color 0.3s, box-shadow1 0.3s;
     }
 
     .form-group input:focus {
         border-color: #e95f55;
-        box-shadow: 0 0 8px rgba(233, 95, 85, 0.4);
+        box-shadow1: 0 0 8px rgba(233, 95, 85, 0.4);
         outline: none;
     }
 
