@@ -11,8 +11,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">
+
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.2/css/intlTelInput.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" />
+
+
     <!-- code for topimage.js -->
     <script src="{{ asset('assets/js/topimage.js') }}"></script>
 
@@ -44,274 +54,572 @@
         </div>
     </div>
 
-    <!-- Form -->
-    <section class="membership-form section-padding mu-10" style="background-color: #f8f9fa;">
-        <div class="container my-4">
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="card shadow border-0 rounded-4">
-                        <div class="card-header text-center bg-white border-0 rounded-top-4">
-                            <h3 class="fw-bold text-primary"><i class="bi bi-person-plus"></i> Join our Team</h3>
-                        </div>
-                        <div class="card-body p-4">
-                            <form id="membershipForm">
-                                <!-- First Name and Last Name -->
-                                <div class="row mb-3 d-flex align-items-center">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="firstName" class="form-label fw-semibold">
-                                            <i class="bi bi-person"></i> First Name
-                                        </label>
-                                        <input type="text" class="form-control rounded-3 shadow-sm" id="firstName"
-                                            placeholder="Enter your first name" required>
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="lastName" class="form-label fw-semibold">
-                                            <i class="bi bi-person"></i> Last Name
-                                        </label>
-                                        <input type="text" class="form-control rounded-3 shadow-sm" id="lastName"
-                                            placeholder="Enter your last name" required>
-                                    </div>
-                                </div>
 
 
-                                <!-- Date of Birth and Gender -->
-                                <div class="row mb-3">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="dob" class="form-label fw-semibold"><i
-                                                class="bi bi-calendar"></i> Date of Birth</label>
-                                        <input type="date" class="form-control rounded-3 shadow-sm" id="dob"
-                                            required>
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="gender" class="form-label fw-semibold"><i
-                                                class="bi bi-gender-ambiguous"></i> Gender</label>
-                                        <select class="form-select rounded-3 shadow-sm" id="gender" required>
-                                            <option value="">Select Gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                            <option value="other">Other</option>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-                                        </select>
-                                    </div>
-                                </div>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f3f5;
+            margin: 0;
+            padding: 0;
+            color: #212529;
+        }
 
-                                <!-- Phone and Email -->
+        .multi-step-form {
+            width: 90%;
+            max-width: 850px;
+            height: max-content;
+            /* Set fixed height */
+            overflow-y: auto;
+            /* Scroll if content is taller */
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            padding: 30px 40px;
+            scroll-behavior: smooth;
 
-                                <div class="row mb-3">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="phone" class="form-label fw-semibold"><i
-                                                class="bi bi-telephone"></i> Phone</label>
-                                        <input type="tel" class="form-control rounded-3 shadow-sm" id="phone"
-                                            placeholder="Enter your phone number" required>
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="email" class="form-label fw-semibold"><i
-                                                class="bi bi-envelope"></i> Email</label>
-                                        <input type="email" class="form-control rounded-3 shadow-sm" id="email"
-                                            placeholder="Enter your email" required>
+        }
 
-                                    </div>
-                                </div>
 
-                                <!-- Address -->
+        #msform {
+            text-align: left;
+        }
 
-                                <div class="row mb-3">
-                                    <div class="col-md-12 mb-2">
-                                        <label for="address" class="form-label fw-semibold"><i
-                                                class="bi bi-geo-alt"></i> Address</label>
-                                        <input type="text" class="form-control rounded-3 shadow-sm" id="address"
-                                            placeholder="Enter your address" required>
+        /* Progress bar */
+        #progressbar {
+            display: flex;
+            justify-content: space-between;
+            counter-reset: step;
+            margin-bottom: 40px;
+            padding-left: 0;
+        }
 
-                                    </div>
-                                </div>
+        #progressbar li {
+            list-style: none;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            font-size: 13px;
+            font-weight: 500;
+            color: #adb5bd;
+        }
 
-                                <!-- City and State -->
+        #progressbar li:before {
+            content: counter(step);
+            counter-increment: step;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            border: 2px solid #dee2e6;
+            display: block;
+            text-align: center;
+            margin: 0 auto 8px auto;
+            border-radius: 50%;
+            background: #f1f3f5;
+            font-weight: 600;
+            color: #6c757d;
+        }
 
-                                <div class="row mb-3">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="city" class="form-label fw-semibold"><i
-                                                class="bi bi-buildings"></i> City</label>
-                                        <input type="text" class="form-control rounded-3 shadow-sm" id="city"
-                                            placeholder="Enter your city" required>
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="state" class="form-label fw-semibold"><i
-                                                class="bi bi-map"></i> State</label>
-                                        <input type="text" class="form-control rounded-3 shadow-sm" id="state"
-                                            placeholder="Enter your state" required>
+        #progressbar li.active:before {
+            background: #198754;
+            color: white;
+            border-color: #198754;
+        }
 
-                                    </div>
-                                </div>
+        #progressbar li.active {
+            color: #198754;
+        }
 
-                                <!-- Pincode and Country -->
+        /* Fieldset */
+        #msform fieldset {
+            border: none;
+            display: none;
+            padding: 0;
+        }
 
-                                <div class="row mb-3">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="pincode" class="form-label fw-semibold"><i
-                                                class="bi bi-geo"></i> Pincode</label>
-                                        <input type="text" class="form-control rounded-3 shadow-sm" id="pincode"
-                                            placeholder="Enter your pincode" required>
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="country" class="form-label fw-semibold"><i
-                                                class="bi bi-globe"></i> Country</label>
-                                        <input type="text" class="form-control rounded-3 shadow-sm" id="country"
-                                            placeholder="Enter your country" required>
+        #msform fieldset.active {
+            display: block;
+        }
 
-                                    </div>
-                                </div>
+        .form-section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #343a40;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+            text-align: center;
+        }
 
-                                <!-- Membership Type -->
+        .sub-section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #495057;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-                                <div class="row mb-3">
-                                    <div class="col-md-12 mb-2">
-                                        <label for="membershipType" class="form-label fw-semibold">
-                                            <i class="bi bi-card-list"></i> Membership Type
-                                        </label>
-                                        <select class="form-select rounded-3 shadow-sm" id="membershipType" required>
-                                            <option value="">Select Membership Type</option>
-                                        </select>
-                                    </div>
-                                </div>
+        .sub-section-title::before {
+            content: "📌";
+            font-size: 1rem;
+        }
 
-                                <script>
-                                    document.addEventListener("DOMContentLoaded", function() {
-                                        fetch("http://127.0.0.1:8000/api/membership-types") // API Call
-                                            .then(response => response.json()) // Convert to JSON
-                                            .then(data => {
-                                                let dropdown = document.getElementById("membershipType");
 
-                                                data.data.forEach(item => {
-                                                    let option = document.createElement("option");
-                                                    option.value = item.membership_type;
-                                                    option.textContent = item.membership_type.charAt(0).toUpperCase() + item
-                                                        .membership_type.slice(1); // Capitalize
-                                                    dropdown.appendChild(option);
-                                                });
-                                            })
-                                            .catch(error => console.error("Error fetching membership types:", error));
-                                    });
-                                </script>
-                                <!-- Submit Button -->
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-                                <div class="text-center">
-                                    <button type="submit" class="btn px-4 py-2 rounded-3 shadow"
-                                        style="background-color: goldenrod; border-color: goldenrod; color: white; font-weight: 600; font-size: 18px;">
-                                        <i class="bi bi-check-circle"></i> Submit
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+        .form-group label {
+            font-weight: 500;
+            margin-bottom: 6px;
+            display: block;
+            color: #495057;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+            transition: border 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #198754;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(25, 135, 84, 0.15);
+        }
+
+        .action-button {
+            background-color: #198754;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            margin: 20px 10px 0 0;
+            transition: background-color 0.2s ease;
+        }
+
+        .action-button:hover {
+            background-color: #157347;
+        }
+
+        .action-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        input[type="file"] {
+            padding: 8px 10px;
+            background: #f8f9fa;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #495057;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+    </style>
+
+
+    <div class="multi-step-form">
+        <form id="msform">
+            <!-- Progressbar -->
+            <ul id="progressbar">
+                <li class="active">Basic Info</li>
+                <li>Address Info</li>
+                <li>Identity Docs</li>
+                <li>Degree Proof</li>
+                <li>Certification</li>
+                <li>Membership</li>
+            </ul>
+            <!-- SECTION 1: Basic Information -->
+            <fieldset class="active">
+                <h2 class="form-section-title">Basic Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="Enter your first name"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Enter your last name"
+                            required>
                     </div>
                 </div>
-            </div>
-        </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number"
+                            required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <button type="button" class="next action-button">Next</button>
+            </fieldset>
+            <!-- SECTION 2: Address Information -->
+            <fieldset>
+                <h2 class="form-section-title">Address Information</h2>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" placeholder="Enter your address" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city" placeholder="Enter your city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" id="state" name="state" placeholder="Enter your state" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" id="country" name="country" placeholder="Enter your country" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pincode">Pin Code</label>
+                        <input type="text" id="pincode" name="pincode" placeholder="Enter your pincode"
+                            required>
+                    </div>
+                </div>
+                <button type="button" class="previous action-button">Back</button>
+                <button type="button" class="next action-button">Next</button>
+            </fieldset>
+            <!-- SECTION 3: Identity Documents -->
+            <fieldset>
+                <h2 class="form-section-title">Identity Documents</h2>
+                <h3 class="sub-section-title">Aadhar Details</h3>
+                <div class="form-group">
+                    <label for="aadharName">Aadhar Full Name</label>
+                    <input type="text" id="aadharName" name="aadharName"
+                        placeholder="Enter your name as on Aadhar" required>
+                </div>
+                <div class="form-group">
+                    <label for="aadharNumber">Aadhar Number</label>
+                    <input type="text" id="aadharNumber" name="aadharNumber"
+                        placeholder="Enter your Aadhar number" required>
+                </div>
+                <div class="form-group">
+                    <label for="aadharImage">Aadhar Card Image</label>
+                    <input type="file" id="aadharImage" name="aadharImage" accept="image/*" required>
+                </div>
+                <h3 class="sub-section-title">PAN Details</h3>
+                <div class="form-group">
+                    <label for="panName">PAN Name</label>
+                    <input type="text" id="panName" name="panName" placeholder="Enter your name as on PAN"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="panNumber">PAN Number</label>
+                    <input type="text" id="panNumber" name="panNumber" placeholder="Enter your PAN number"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="panImage">PAN Card Image</label>
+                    <input type="file" id="panImage" name="panImage" accept="image/*" required>
+                </div>
+                <button type="button" class="previous action-button">Back</button>
+                <button type="button" class="next action-button">Next</button>
+            </fieldset>
+            <!-- SECTION 4: Degree Proof -->
+            <fieldset>
+                <h2 class="form-section-title">Degree Proof</h2>
+                <div class="form-group">
+                    <label for="degreeProof">Upload Degree Proof (PDF)</label>
+                    <input type="file" id="degreeProof" name="degreeProof" accept="application/pdf" required>
+                </div>
+                <button type="button" class="previous action-button">Back</button>
+                <button type="button" class="next action-button">Next</button>
+            </fieldset>
+            <!-- SECTION 5: Certification Proof -->
+            <fieldset>
+                <h2 class="form-section-title">Certification Proof</h2>
+                <div class="form-group">
+                    <label for="certificationProof">Upload Certification Proof (PDF)</label>
+                    <input type="file" id="certificationProof" name="certificationProof" accept="application/pdf"
+                        required>
+                </div>
+                <button type="button" class="previous action-button">Back</button>
+                <button type="button" class="next action-button">Next</button>
+            </fieldset>
+            <!-- SECTION 6: Membership Type -->
+            <fieldset>
+                <h2 class="form-section-title">Membership Type</h2>
+                <div class="form-group">
+                    <label for="membershipType">Select Membership Type</label>
+                    <select id="membershipType" name="membershipType" required>
+                        <option value="">Select Membership Type</option>
+                        <!-- Options will be dynamically loaded from API -->
+                    </select>
+                </div>
+                <button type="button" class="previous action-button">Back</button>
+                <button type="submit" class="action-button">Submit</button>
+            </fieldset>
+        </form>
+    </div>
 
-    </section>
+    <style>
+        .input-error {
+            border: 2px solid red !important;
+            background-color: #fff0f0;
+        }
 
+        .error-msg {
+            color: red;
+            font-size: 13px;
+            margin-top: -20px;
+        }
+    </style>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- JavaScript to handle form submission -->
+    <!-- jQuery Library -->
     <script>
-        document.getElementById('membershipForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('Membership form submitted successfully!');
-            this.reset();
+        $(document).ready(function() {
+            var current_fs, next_fs, previous_fs;
+            var animating = false;
+
+            function saveToLocalStorage() {
+                $('#msform').find('input, select').each(function() {
+                    if ($(this).attr('type') !== 'file') {
+                        localStorage.setItem($(this).attr('id'), $(this).val());
+                    }
+                });
+            }
+
+            function populateFromLocalStorage() {
+                $('#msform').find('input, select').each(function() {
+                    if ($(this).attr('type') !== 'file') {
+                        var savedVal = localStorage.getItem($(this).attr('id'));
+                        if (savedVal) {
+                            $(this).val(savedVal);
+                        }
+                    }
+                });
+            }
+
+            populateFromLocalStorage();
+
+            $('#msform').on('input change', 'input, select', function() {
+                saveToLocalStorage();
+            });
+
+            // $(".next").click(function() {
+            //     if (animating) return false;
+
+            //     current_fs = $(this).parent();
+            //     let valid = true;
+
+            //     // Remove old error styles/messages
+            //     current_fs.find("input, select").removeClass("input-error");
+            //     current_fs.find(".error-msg").remove();
+
+            //     // Validate each field
+            //     current_fs.find("input, select").each(function() {
+            //         if ($(this).prop("required") && !$(this).val()) {
+            //             $(this).addClass("input-error");
+
+            //             // Optional: add an inline error message below the field
+            //             if ($(this).next(".error-msg").length === 0) {
+            //                 $(this).after("<div class='error-msg'>This field is required.</div>");
+            //             }
+
+            //             valid = false;
+            //         } else {
+            //             $(this).removeClass("input-error");
+            //             $(this).next(".error-msg").remove();
+            //         }
+            //     });
+
+            //     if (!valid) {
+            // // $('html, body').animate({
+            // //     scrollTop: current_fs.find(".input-error").first().offset().top - 100
+            // // }, 500);
+
+            //         return false;
+            //     }
+
+            //     animating = true;
+            //     next_fs = current_fs.next();
+
+            //     // Update progress bar
+            //     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+            //     // Transition fieldsets
+            //     next_fs.addClass("active");
+            //     current_fs.removeClass("active");
+
+            //     $('.multi-step-form').animate({
+            //         scrollTop: 0
+            //     }, 500);
+
+            //     animating = false;
+            // });
+
+            $(".next").click(function() {
+                if (animating) return false;
+                animating = true;
+                current_fs = $(this).parent();
+                next_fs = $(this).parent().next();
+
+                // Update progress bar
+                $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+                // Transition between fieldsets
+                next_fs.addClass('active');
+                current_fs.removeClass('active');
+
+                // Scroll to top of the form
+                $('.multi-step-form').animate({
+                    scrollTop: 0
+                }, 500);
+
+                animating = false;
+            });
+
+
+            $(".previous").click(function() {
+                if (animating) return false;
+                animating = true;
+                current_fs = $(this).parent();
+                previous_fs = $(this).parent().prev();
+
+                // Update progress bar
+                $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+                // Transition between fieldsets
+                previous_fs.addClass('active');
+                current_fs.removeClass('active');
+
+                // Scroll to top of the form
+                $('.multi-step-form').animate({
+                    scrollTop: 0
+                }, 500);
+
+                animating = false;
+            });
+
+
+            // $("#msform").submit(function(e) {
+            //     e.preventDefault();
+            //     alert("Form submitted successfully!");
+            //     localStorage.clear();
+            //     this.reset();
+            //     $("fieldset").removeClass("active");
+            //     $("fieldset").first().addClass("active");
+            //     $("#progressbar li").removeClass("active");
+            //     $("#progressbar li").first().addClass("active");
+            // });
+
+            fetch("http://127.0.0.1:8000/api/membership-types")
+                .then(response => response.json())
+                .then(data => {
+                    let dropdown = document.getElementById("membershipType");
+                    data.data.forEach(item => {
+                        let option = document.createElement("option");
+                        option.value = item.membership_type;
+                        option.textContent = item.membership_type.charAt(0).toUpperCase() + item
+                            .membership_type.slice(1);
+                        dropdown.appendChild(option);
+                    });
+                })
+                .catch(error => console.error("Error fetching membership types:", error));
         });
+    </script>
+    <script>
+        document.getElementById("msform").addEventListener("submit", async function(e) {
+            e.preventDefault();
+
+            const form = document.getElementById("msform");
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch("http://localhost:8000/api/membership/apply", {
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json'
+                    },
+                    body: formData,
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert("✅ Application submitted successfully!");
+                    console.log(result);
+                    // Optionally reset or redirect
+                    form.reset();
+                } else {
+                    console.log(result);
+                    alert("❌ Submission failed. Check the form again.");
+                    // Highlight error fields
+                    if (result.errors) {
+                        Object.keys(result.errors).forEach(field => {
+                            const el = document.querySelector(`[name="${field}"]`);
+                            if (el) {
+                                el.classList.add("error-border");
+                            }
+                        });
+                    }
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Something went wrong while submitting.");
+            }
+        });
+    </script>
+    <style>
+        .error-border {
+            border: 2px solid red !important;
+        }
+    </style>
+
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.2/js/intlTelInput.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js">
     </script>
 
 
-    <!-- Optional: Add custom CSS for extra styling -->
-    <style>
-        .membership-form .form-control:focus,
-        .membership-form .form-select:focus {
-            border-color: goldenrod;
-            box-shadow: 0 0 0 0.2rem rgba(218, 165, 32, 0.25);
-        }
-
-        .membership-form .card {
-            border-radius: 1rem;
-        }
-
-        .membership-form h3 {
-            font-size: 1.8rem;
-            color: #333;
-        }
-
-        @media (max-width: 768px) {
-            .membership-form .btn {
-                width: 100%;
-            }
-        }
-
-        .membership-form .row.mb-3 {
-            margin-bottom: 1rem !important;
-        }
-
-        .card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-header {
-            background-color: #ffffff;
-            border-bottom: none;
-            padding: 2rem 1rem;
-            border-radius: 15px 15px 0 0;
-        }
-
-        .card-header h3 {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .form-control,
-        .form-select {
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 12px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus,
-        .form-select:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
-        }
-
-        .form-control:hover,
-        .form-select:hover {
-            border-color: #007bff;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #007bff, #0056b3);
-            border: none;
-            border-radius: 10px;
-            padding: 12px;
-            font-size: 16px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #0056b3, #007bff);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
-        }
-
-        .form-label {
-            font-weight: 500;
-            color: #555;
-            margin-bottom: 8px;
-        }
-
-        .card-body {
-            padding: 2rem;
-        }
-    </style>
 
 
     <!-- Get in touch -->
