@@ -5,6 +5,9 @@ use app\Repositories\MembershipRepository;
 use Illuminate\Http\Request;
 use App\Services\MembershipService;
 use App\Models\Membership;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PaymentLinkMail;
 
 class MembershipController extends Controller
 {
@@ -13,6 +16,18 @@ class MembershipController extends Controller
     public function __construct(MembershipService $membershipService)
     {
         $this->membershipService = $membershipService;
+    }
+
+    public function showPaymentPage($id)
+    {
+        $member = Membership::with('type')->findOrFail($id);
+
+        return view('emails.payment', [
+            'member' => $member,
+            'membershipType' => $member->type->membershipType ?? 'N/A',
+            'price' => $member->type->price ?? 'N/A',
+            'duration' => $member->type->duration ?? 'N/A',
+        ]);
     }
 
     public function index()
@@ -79,14 +94,36 @@ class MembershipController extends Controller
         );
     }
 
-    // Admin approval
     public function approve($id)
     {
-        $membership = Membership::findOrFail($id);
-        $membership->status = 'approved';
-        $membership->save();
+        try {
+            $membership = Membership::findOrFail($id);
+            $membership->status = 'approved';
+            $membership->save();
 
-        return response()->json(['message' => 'Membership approved. Awaiting payment.']);
+            // Generate payment link route
+            $paymentLink = route('membership.payment', ['id' => $membership->id]);
+
+            // Send mail via queue
+            if (config('queue.default') !== 'sync') {
+                Mail::to($membership->email)->queue(new PaymentLinkMail($membership->firstName, $paymentLink));
+            } else {
+                // fallback in case queue is not configured
+                Mail::to($membership->email)->send(new PaymentLinkMail($membership->firstName, $paymentLink));
+            }
+
+            return response()->json(['message' => 'Membership approved. Payment link sent to member\'s email.']);
+        } catch (\Exception $e) {
+            Log::error('Approval or email failed: ' . $e->getMessage());
+
+            return response()->json(
+                [
+                    'message' => 'Failed to approve membership or send email.',
+                    'error' => $e->getMessage(),
+                ],
+                500,
+            );
+        }
     }
 
     // Admin rejection
@@ -109,7 +146,7 @@ class MembershipController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'membership_type' => 'required|string',
+            'membershipType' => 'required|string',
         ]);
 
         $member = $this->membershipService->createMember($request->all());
@@ -151,7 +188,7 @@ class MembershipController extends Controller
     {
         $request->validate([
             'name' => 'string|max:255',
-            'membership_type' => 'required|string',
+            'membershipType' => 'required|string',
         ]);
 
         $updatedMember = $this->membershipService->updateMember($id, $request->all());

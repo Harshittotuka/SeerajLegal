@@ -554,9 +554,9 @@
                     let dropdown = document.getElementById("membershipType");
                     data.data.forEach(item => {
                         let option = document.createElement("option");
-                        option.value = item.membership_type;
-                        option.textContent = item.membership_type.charAt(0).toUpperCase() + item
-                            .membership_type.slice(1);
+                        option.value = item.membershipType;
+                        option.textContent = item.membershipType.charAt(0).toUpperCase() + item
+                            .membershipType.slice(1);
                         dropdown.appendChild(option);
                     });
                 })

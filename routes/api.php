@@ -67,7 +67,7 @@ Route::post('create', [AboutController::class, 'store']);
 });
 
 
-//create, update, delete, for membership_type(nova)
+//create, update, delete, for membershipType(nova)
 // Routes: api.php
 Route::prefix('membership-types')->group(function () {
     Route::post('create', [MembershipTypeController::class, 'create']);

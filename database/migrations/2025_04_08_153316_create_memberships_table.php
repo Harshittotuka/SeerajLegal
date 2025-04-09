@@ -29,7 +29,7 @@ return new class extends Migration {
             $table->string('degreeProof')->nullable();
             $table->string('certificationProof')->nullable();
             $table->string('membershipType');
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['pending', 'approved', 'rejected','confirmed'])->default('pending');
             $table->timestamps();
         });
     }

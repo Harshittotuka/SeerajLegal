@@ -9,5 +9,11 @@ class MembershipType extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['membership_type', 'priority',];
+    protected $fillable = ['membershipType', 'priority', 'price', 'duration'];
+
+    // Mutator for membershipType attribute
+    public function setMembershipTypeAttribute($value)
+    {
+        $this->attributes['membershipType'] = ucfirst($value);
+    }
 }

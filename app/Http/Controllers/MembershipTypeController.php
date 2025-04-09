@@ -25,7 +25,7 @@ class MembershipTypeController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'membership_type' => 'required|string',
+            'membershipType' => 'required|string',
             'priority' => 'required|integer',
         ]);
 
@@ -45,7 +45,7 @@ class MembershipTypeController extends Controller
     public function update(Request $request, $membershipType)
     {
         $request->validate([
-            'membership_type' => 'required|string',
+            'membershipType' => 'required|string',
             'priority' => 'required|integer',
         ]);
 
