@@ -17,7 +17,7 @@ class MembershipTypeRepository
         if (MembershipType::where('priority', $data['priority'])->exists()) {
             return ['error' => 'Priority value already exists'];
         }
-        if (MembershipType::where('membership_type', $data['membership_type'])->exists()) {
+        if (MembershipType::where('membershipType', $data['membershipType'])->exists()) {
             return ['error' => 'Name entered already exists'];
         }
         return MembershipType::create($data);
@@ -25,14 +25,14 @@ class MembershipTypeRepository
 
     public function update($membershipType, array $data)
     {
-        $existing = MembershipType::where('membership_type', $membershipType)->first();
+        $existing = MembershipType::where('membershipType', $membershipType)->first();
         if (!$existing) {
             return ['error' => 'Membership you are trying to update does not exist'];
         }
-        if (MembershipType::where('membership_type', $data['membership_type'])->where('membership_type', '!=', $membershipType)->exists()) {
+        if (MembershipType::where('membershipType', $data['membershipType'])->where('membershipType', '!=', $membershipType)->exists()) {
             return ['error' => 'Name entered already exists'];
         }
-        if (MembershipType::where('priority', $data['priority'])->where('membership_type', '!=', $membershipType)->exists()) {
+        if (MembershipType::where('priority', $data['priority'])->where('membershipType', '!=', $membershipType)->exists()) {
             return ['error' => 'Priority entered already exists'];
         }
         $existing->update($data);
@@ -41,7 +41,7 @@ class MembershipTypeRepository
 
     public function delete($membershipType)
     {
-        $existing = MembershipType::where('membership_type', $membershipType)->first();
+        $existing = MembershipType::where('membershipType', $membershipType)->first();
         if (!$existing) {
             return ['error' => 'Membership type does not exist'];
         }

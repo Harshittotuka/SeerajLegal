@@ -88,7 +88,7 @@
                         <tr>
                             <td>${index + 1}</td>
                             <td>${member.name}</td>
-                            <td>${member.membership_type.charAt(0).toUpperCase() + member.membership_type.slice(1)}</td>
+                            <td>${member.membershipType.charAt(0).toUpperCase() + member.membershipType.slice(1)}</td>
                         </tr>
                     `;
                                         membersTable.innerHTML += row;

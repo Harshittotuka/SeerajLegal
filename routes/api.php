@@ -18,6 +18,17 @@ use App\Http\Controllers\SubscriptionController;
 Route::post('/subscribe', [SubscriptionController::class, 'subscribe']);
 
 
+// Route to get all members
+
+Route::post('/membership/apply', [MembershipController::class, 'store']);
+Route::post('/membership/{id}/approve', [MembershipController::class, 'approve']);
+Route::post('/membership/{id}/reject', [MembershipController::class, 'reject']);
+Route::get('/members/all', [MembershipController::class, 'index']);
+Route::get('/members/pending', [MembershipController::class, 'pending']);
+Route::get('/members/pending/count', [MembershipController::class, 'pendingCount']);
+
+
+
 
 Route::get('/service_count', [TeamController::class, 'serviceCount']);
 Route::get('/practice_count', [TeamController::class, 'getPracticeCounts']);
@@ -56,7 +67,7 @@ Route::post('create', [AboutController::class, 'store']);
 });
 
 
-//create, update, delete, for membership_type(nova)
+//create, update, delete, for membershipType(nova)
 // Routes: api.php
 Route::prefix('membership-types')->group(function () {
     Route::post('create', [MembershipTypeController::class, 'create']);

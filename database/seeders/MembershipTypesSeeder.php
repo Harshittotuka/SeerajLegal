@@ -10,11 +10,6 @@ class MembershipTypesSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('membership_types')->insert([
-            ['membership_type' => 'basic','priority' => 1 ,'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['membership_type' => 'premium','priority' => 2 ,'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['membership_type' => 'gold','priority' => 3, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['membership_type' => 'platinum','priority'=> 4 , 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-        ]);
+        DB::table('membership_types')->insert([['membershipType' => 'Basic', 'priority' => 1, 'price' => 499.0, 'duration' => '1 year', 'created_at' => now(), 'updated_at' => now()], ['membershipType' => 'Premium', 'priority' => 2, 'price' => 999.0, 'duration' => '1 year', 'created_at' => now(), 'updated_at' => now()], ['membershipType' => 'Gold', 'priority' => 3, 'price' => 1499.0, 'duration' => '1 year', 'created_at' => now(), 'updated_at' => now()], ['membershipType' => 'Platinum', 'priority' => 4, 'price' => 1999.0, 'duration' => '1 year', 'created_at' => now(), 'updated_at' => now()]]);
     }
 }

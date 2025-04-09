@@ -106,6 +106,8 @@ Route::middleware('auth:admin')->group(function () {
 
 
 
+Route::get('/membership/payment/{id}', [MembershipController::class, 'showPaymentPage'])->name('membership.payment');
+
 
 
 Route::get('/backend/home', function () {
@@ -124,6 +126,11 @@ Route::get('/backend/faq', function () {
 Route::get('/backend/members', function () {
     return view('backend/pages/members');
 })->name('backend.members');
+
+
+Route::get('/backend/members/manage', function () {
+    return view('backend/pages/manageMembers');
+})->name('backend.manage.members');
 
 Route::get('/backend/teams', function () {
     return view('backend/pages/teams');
