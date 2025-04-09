@@ -10,9 +10,27 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\Contact2Controller;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\SubscriptionController;
+
+// Route to subscribe to the newsletter
+Route::post('/subscribe', [SubscriptionController::class, 'subscribe']);
 
 
 
+Route::get('/service_count', [TeamController::class, 'serviceCount']);
+Route::get('/practice_count', [TeamController::class, 'getPracticeCounts']);
+
+//api to get team based on designation
+Route::get('/team/designation/{designation}', [TeamController::class, 'getByDesignation']);
+
+
+
+
+Route::get('/topimages', [ImageController::class, 'index']);  // List all
+Route::get('/topimages/{image_id}', [ImageController::class, 'show']);  // Get by ID
+Route::put('/topimages/{image_id}', [ImageController::class, 'update']);  // Update by ID
 
 
 //api to update json file of personal details(nova)
@@ -81,3 +99,18 @@ Route::put('/members/{id}', [MembershipController::class, 'update']);
 Route::post('/contact/create', [ContactController::class, 'store']);
 Route::delete('/contact/delete/{id}', [ContactController::class, 'destroy']);
 Route::put('/contact/update/{id}', [ContactController::class, 'update']);
+
+Route::post('/upload-cropped-image', [ImageController::class, 'uploadCroppedImage']);
+
+Route::prefix('admin')->group(function () {
+    Route::post('/create', [AdminController::class, 'create']); // Create admin
+    Route::put('/{id}/edit', [AdminController::class, 'edit']); // Edit admin
+    Route::delete('/delete/{id}', [AdminController::class, 'delete']); // Delete admin
+    Route::get('/', [AdminController::class, 'index']); // Add this route for getting admins
+    Route::get('/{id}', [AdminController::class, 'getAccountById']);
+    Route::post('/update-password/{id}', [AdminController::class, 'updatePassword']);
+    Route::post('/{id}/update-password-d', [AdminController::class, 'updatePasswordDirect']);
+
+
+
+});

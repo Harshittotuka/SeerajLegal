@@ -462,6 +462,107 @@
         // Initialize the chart when the page loads
         document.addEventListener('DOMContentLoaded', initializeMemberChart);
     </script>
+   
+   <style>
+    /* Button styling */
+    #doc-button {
+        position: fixed;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #4a90e2;
+        width: 60px;
+        height: 60px;
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 24px;
+        z-index: 9999;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.3s, width 0.3s, padding 0.3s;
+        overflow: hidden;
+    }
+
+    #doc-button:hover {
+        background: #357ab8;
+        width: 100px; /* Elongate */
+        justify-content: space-around;
+    }
+
+    @media (max-width: 768px) {
+        #doc-button {
+            width: 45px;
+            height: 45px;
+            font-size: 18px;
+            border-top-left-radius: 22.5px;
+            border-bottom-left-radius: 22.5px;
+        }
+
+        #doc-button:hover {
+            width: 70px; /* smaller elongation for mobile */
+        }
+    }
+
+    /* Iframe overlay */
+    #doc-iframe-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+    }
+
+    #doc-iframe-container iframe {
+        width: 90%;
+        height: 90%;
+        margin: 5vh auto;
+        display: block;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    #doc-close-btn {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 36px;
+        color: white;
+        cursor: pointer;
+        z-index: 10000;
+    }
+</style>
+
+
+  <!-- Floating Documentation Button -->
+  <a href="#" id="doc-button" title="View Documentation">
+    <i class="fas fa-book"></i>
+</a>
+<div id="doc-iframe-container">
+    <div id="doc-close-btn">&times;</div>
+    <iframe src="https://docs.google.com/presentation/d/1D_Bgnf42RiC3kOOq5u7SCZ_0NBvyG5c9cvHqLKkxvr4/edit?usp=drivesdk"
+        frameborder="0" allowfullscreen></iframe>
+</div>
+<script>
+    document.getElementById("doc-button").addEventListener("click", function (e) {
+        e.preventDefault();
+        document.getElementById("doc-iframe-container").style.display = "block";
+    });
+
+    document.getElementById("doc-close-btn").addEventListener("click", function () {
+        document.getElementById("doc-iframe-container").style.display = "none";
+    });
+</script>
+
+
 </body>
 
 </html>

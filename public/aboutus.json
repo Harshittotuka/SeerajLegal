@@ -11,20 +11,26 @@
             2,
             3
         ],
-        "title": "We are here to Empower <span>Justice</span>",
+        "title": "We are here to Empower <span>Justice<\/span>",
         "para": "Seeraj Legal Relief Foundation is a non-government organization committed to resolving disputes cost-effectively, offering expert legal advice, and spreading legal awareness through educational programs.",
         "points": [
             "Recognized Entity",
             "Public Benefit Focus",
             "Trustworthy and Authentic"
         ],
-        "flag": "disabled",
+        "flag": "enabled",
+        "image-count": "fixed",
+        "image-resolution": [
+            300,
+            200
+        ],
         "image": [
-            "assets/img/Experience.webp",
-            "assets/img/Experience.webp"
+            "assets\/img\/Experience.webp"
         ],
         "icon_Type": "fontawesome",
-        "icon": "fa-r"
+        "icon": "fa-solid fa-leaf",
+        "ss": "\/assets\/backend\/img\/previews\/S_id1.png",
+        "source": "aboutus.json"
     },
     {
         "usage": [
@@ -43,7 +49,8 @@
         "flag": "enabled",
         "image": null,
         "icon_Type": "fontawesome",
-        "icon": "fa-r"
+        "icon":"fa-regular fa-registered",
+        "ss": "\/assets\/backend\/img\/previews\/S_id2.png"
     },
     {
         "usage": [
@@ -62,7 +69,8 @@
         "flag": "enabled",
         "image": null,
         "icon_Type": "fontawesome",
-        "icon": "fa-r"
+        "icon":"fa-solid fa-scale-balanced",
+        "ss": "\/assets\/backend\/img\/previews\/S_id3.png"
     },
     {
         "usage": [
@@ -81,32 +89,36 @@
         "flag": "enabled",
         "image": null,
         "icon_Type": "fontawesome",
-        "icon": "fa-r"
+        "icon": "fa-solid fa-graduation-cap",
+        "ss": "\/assets\/backend\/img\/previews\/S_id4.png"
     },
-   {
-    "usage": [
-        "about"
-    ],
-    "S_id": 5,
-    "S_order": 5,
-    "s_include": [
-        1,
-        2,
-        3
-    ],
-    "title": "We are here to provide legal Services",
-    "para": "All people are equal before the law. A good attorney is what makes a difference.",
-    "points": [
-        "Rajan Sharma",
-        "Seema Sharma"
-    ],
-    "flag": "enabled",
-    "image": [
-        "assets\/img\/team (2).webp"
-    ],
-    "icon_Type": "fontawesome",
-    "icon": "fa-h"
-},
+    {
+        "usage": [
+            "about"
+        ],
+        "S_id": 5,
+        "S_order": 5,
+        "s_include": [
+            1,
+            2,
+            3
+        ],
+        "title": "We are here to provide <span>legal Services</span>",
+        "para": "All people are equal before the law. A good attorney is what makes a difference.",
+        "points": null,
+        "flag": "enabled",
+        "image-count": "fixed",
+        "image-resolution": [
+            300,
+            200
+        ],
+        "image": [
+            "assets\/img\/team (2).webp"
+        ],
+        "icon_Type": "fontawesome",
+        "icon": "fa-solid fa-arrows-to-dot",
+        "ss": "\/assets\/backend\/img\/previews\/S_id5who.png"
+    },
     {
         "usage": [
             "about"
@@ -122,14 +134,20 @@
         "para": null,
         "points": null,
         "flag": "enabled",
+        "image-count": "variable",
+        "image-resolution": [
+            300,
+            200
+        ],
         "image": [
-            "assets/img/awards/01.png",
-            "assets/img/awards/02.png",
-            "assets/img/awards/03.png",
-            "assets/img/awards/04.png"
+            "assets\/img\/awards\/01.png",
+            "assets\/img\/awards\/02.png",
+            "assets\/img\/awards\/03.png",
+            "assets\/img\/awards\/04.png"
         ],
         "icon_Type": "fontawesome",
-        "icon": "fa-r"
+        "icon": "fa-solid fa-trophy",
+        "ss": "\/assets\/backend\/img\/previews\/S_id6.png"
     },
     {
         "usage": [
@@ -146,8 +164,14 @@
         "para": null,
         "points": null,
         "flag": "enabled",
+        "image-count": "variable",
+        "image-resolution": [
+            300,
+            200
+        ],
         "image": null,
         "icon_Type": "fontawesome",
-        "icon": "fa-r"
+        "icon": "fa-solid fa-sitemap",
+        "ss": "\/assets\/backend\/img\/previews\/S_id7.png"
     }
 ]

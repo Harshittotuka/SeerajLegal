@@ -290,6 +290,7 @@
                 }
             }
         </script>
+        @include('backend.components.topimage-modal')
 
         <!-- html  table-->
         <div class="container-fluid overflow-hidden py-2">
@@ -302,11 +303,27 @@
                                 <p class="text-sm mb-0 text-capitalize">Members List</p>
                                 <h4 class="mb-0">Manage Members</h4>
                             </div>
-                            <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon"
-                                style="cursor: pointer; width: 40px; height: 40px;" data-bs-toggle="modal"
-                                data-bs-target="#memberModal">
-                                <i class="material-symbols-rounded opacity-10">add</i>
-                            </div>
+                            <div class="d-flex align-items-center">
+    <!-- Members Header Button -->
+    <button class="btn btn-warning edit-btn mb-1 me-3" data-imageid="TopImg_mem"
+        data-bs-toggle="modal" data-bs-target="#topImageModal">
+        Members Header
+    </button>
+
+    <!-- Add Button -->
+    <div class="icon icon-md bg-success text-white rounded-circle d-flex justify-content-center align-items-center plus-icon me-3"
+        style="cursor: pointer; width: 40px; height: 40px; transform: translateY(-4px);"
+        data-bs-toggle="modal" data-bs-target="#memberModal">
+        <i class="material-symbols-rounded opacity-10">add</i>
+    </div>
+
+    <!-- View Button -->
+    <a href="{{ route('membership.list') }}" target="_blank" class="btn btn-outline-primary mb-1 d-flex align-items-center justify-content-center"
+        style="width: 40px; height: 40px;" title="Members Page">
+        <i class="fas fa-eye"></i>
+    </a>
+</div>
+
                         </div>
 
                         <hr class="dark horizontal my-0">
@@ -763,14 +780,13 @@
     </script>
 
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script><!-- Keep Bootstrap 4 -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css">
-
+   
     <!-- Use Bootstrap 4 DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>

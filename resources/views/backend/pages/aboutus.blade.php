@@ -22,6 +22,7 @@
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -49,57 +50,72 @@
         <!-- Navbar -->
         @include('backend.partials.top-nav')
         <!-- End Navbar -->
+        @include('backend.components.topimage-modal')
+        <div class="d-flex justify-content-between align-items-center mt-3 ms-3">
+            <h5 class="mb-0">Who We are?</h5> <!-- Optional Title -->
+            <div class="d-flex align-items-center gap-2 me-4 mt-3">
+                <button class="btn btn-warning edit-btn" data-imageid="TopImg_abt" data-bs-toggle="modal"
+                    data-bs-target="#topImageModal">
+                    Who we are? Header
+                </button>
+                <a href="{{ route('about') }}" target="_blank" class="btn btn-outline-primary"
+                    title="View Who We Are Page">
+                    <i class="fas fa-eye"></i>
+                </a>
+            </div>
+        </div>
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
 
-        @include('components.image-cropper')
+        {{-- @include('components.image-cropper') --}}
 
 
         @include('backend.partials.pageinput');
 
 
-        <script>
-            const cards = document.querySelectorAll(".card");
-            const menu = document.getElementById("custom-menu");
+    </main>
 
-            cards.forEach(card => {
-                card.addEventListener("contextmenu", (event) => {
-                    event.preventDefault();
+    <script>
+        const cards = document.querySelectorAll(".card");
+        const menu = document.getElementById("custom-menu");
 
-                    // Get viewport width & height
-                    const viewportWidth = window.innerWidth;
-                    const viewportHeight = window.innerHeight;
+        cards.forEach(card => {
+            card.addEventListener("contextmenu", (event) => {
+                event.preventDefault();
 
-                    // Get menu dimensions
-                    const menuWidth = menu.offsetWidth;
-                    const menuHeight = menu.offsetHeight;
+                // Get viewport width & height
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
 
-                    // Adjust position to prevent overflow
-                    let posX = event.clientX;
-                    let posY = event.clientY;
+                // Get menu dimensions
+                const menuWidth = menu.offsetWidth;
+                const menuHeight = menu.offsetHeight;
 
-                    if (posX + menuWidth > viewportWidth) {
-                        posX -= menuWidth; // Move left if it overflows
-                    }
-                    if (posY + menuHeight > viewportHeight) {
-                        posY -= menuHeight; // Move up if it overflows
-                    }
+                // Adjust position to prevent overflow
+                let posX = event.clientX;
+                let posY = event.clientY;
 
-                    menu.style.left = `${posX}px`;
-                    menu.style.top = `${posY}px`;
-                    menu.style.display = "block";
-                });
+                if (posX + menuWidth > viewportWidth) {
+                    posX -= menuWidth; // Move left if it overflows
+                }
+                if (posY + menuHeight > viewportHeight) {
+                    posY -= menuHeight; // Move up if it overflows
+                }
+
+                menu.style.left = `${posX}px`;
+                menu.style.top = `${posY}px`;
+                menu.style.display = "block";
             });
+        });
 
-            document.addEventListener("click", () => {
-                menu.style.display = "none";
-            });
+        document.addEventListener("click", () => {
+            menu.style.display = "none";
+        });
 
-            function handleOption(action) {
-                alert(`You clicked ${action}`);
-            }
-        </script>
+        function handleOption(action) {
+            alert(`You clicked ${action}`);
+        }
+    </script>
     </main>
 
     <style>
@@ -123,49 +139,44 @@
     </style>
 
 
- <script>
-    let allSections = [];           // Global: all sections merged from both JSON files
-let filteredSectionsGlobal = []; // Global: filtered and sorted sections that are displayed
+    <script>
+        let allSections = []; // Global: all sections merged from both JSON files
+        let filteredSectionsGlobal = []; // Global: filtered and sorted sections that are displayed
 
-async function loadSections() {
-    try {
-        // Fetch both JSON files
-        const [homeResponse, aboutResponse] = await Promise.all([
-            fetch('/home.json'),
-            fetch('/aboutus.json')
-        ]);
+        document.addEventListener("DOMContentLoaded", function() {
+            loadSections();
+            document.addEventListener("click", () => {
+                document.getElementById("contextMenu").style.display = "none";
+            });
+        });
 
-        const homeSections = await homeResponse.json();
-        const aboutSections = await aboutResponse.json();
+        async function loadSections() {
+            try {
+                const [homeResponse, aboutResponse] = await Promise.all([
+                    fetch('/home.json'),
+                    fetch('/aboutus.json')
+                ]);
 
-        // Add the source (file name) to each section
-        homeSections.forEach(section => section.source = 'home.json');
-        aboutSections.forEach(section => section.source = 'aboutus.json');
+                const homeSections = await homeResponse.json();
+                const aboutSections = await aboutResponse.json();
 
-        // Merge both JSON data into a global array
-        allSections = [...homeSections, ...aboutSections];
+                homeSections.forEach(section => section.source = 'home.json');
+                aboutSections.forEach(section => section.source = 'aboutus.json');
 
-        // Filter sections that include "home" in the "usage" array
-        let filteredSections = allSections.filter(section =>
-            section.usage && section.usage.includes("about")
-        );
+                allSections = [...homeSections, ...aboutSections];
+                let filteredSections = allSections.filter(section => section.usage?.includes("about"));
+                filteredSections.sort((a, b) => a.S_order - b.S_order);
+                filteredSectionsGlobal = filteredSections;
 
-        // Sort the filtered sections by S_order (assuming S_order exists)
-        filteredSections.sort((a, b) => a.S_order - b.S_order);
+                const container = document.querySelector(".row.g-4");
+                container.innerHTML = "";
 
-        // Store the filtered sections globally so we can reference them by index later
-        filteredSectionsGlobal = filteredSections;
-
-        const container = document.querySelector(".row.g-4");
-        container.innerHTML = "";
-
-        filteredSections.forEach((section, index) => {
-            const card = document.createElement("div");
-            card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
-            card.innerHTML = `
-                <div class="card text-center" style="height: 250px; width: 250px;" 
-                     data-bs-toggle="modal" data-bs-target="#contentModal" onclick="populateModal(${index})">
-                    <div class="card-header p-2 ps-3">
+                filteredSections.forEach((section, index) => {
+                    const card = document.createElement("div");
+                    card.className = `col-xl-3 col-sm-6 mb-xl-0 mb-4 ${section.flag}`;
+                    card.innerHTML = `
+                <div class="card text-center shadow-lg" style="height: 250px; width: 250px;" data-index="${index}">
+                    <div class="card-header p-2 ps-3" onclick="populateModal(${index})" data-bs-toggle="modal" data-bs-target="#contentModal">
                         <div class="d-flex justify-content-between align-items-center">
                             <i><h6 class="text-uppercase fw-bold mb-0">Section ${index}</h6></i>
                             <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
@@ -175,132 +186,258 @@ async function loadSections() {
                         <hr class="my-2">
                         <h5 class="mb-0">${section.title}</h5>
                     </div>
+                    <div class="card-body p-2" onclick="showImagePreview('${section.ss || 'default-placeholder.png'}')">
+                        <div class="image-container" style="width: 100%; height: 100%; overflow: hidden; border-radius: 10px;">
+                            <img src="${section.ss || 'default-placeholder.png'}" alt="Preview" class="img-fluid rounded" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    </div>
                 </div>
             `;
-            container.appendChild(card);
-        });
 
-    } catch (error) {
-        console.error("Error loading sections:", error);
-    }
-}
+                    card.addEventListener("contextmenu", (event) => {
+                        event.preventDefault();
+                        showContextMenu(event, index);
+                    });
 
-async function populateModal(index) {
-    try {
-        // Now use filteredSectionsGlobal so that the index matches the displayed cards.
-        const section = filteredSectionsGlobal[index];
-        if (!section) return;
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Error loading sections:", error);
+            }
+        }
 
-        // For debugging: log which section is loaded
-        console.log(`Populating modal with section: "${section.title}" from ${section.source}`);
+        function showContextMenu(event, index) {
+            const menu = document.getElementById("contextMenu");
+            menu.style.display = "block";
+            menu.style.top = `${event.pageY}px`;
+            menu.style.left = `${event.pageX}px`;
+            menu.setAttribute("data-index", index);
+        }
 
-        // Populate hidden fields (if you need them for API calls)
-        document.getElementById("filename").value = section.source || "";
-        document.getElementById("sectionId").value = section.S_id || "";
+        async function toggleSectionStatus() {
+            const index = document.getElementById("contextMenu").getAttribute("data-index");
+            if (index === null) return;
+            const section = filteredSectionsGlobal[index];
+            const newStatus = section.flag === "enabled" ? "disabled" : "enabled";
 
-        // Populate form fields
-      // Populate form fields with conditional display
-
-// Section Heading
-if (section.title) {
-    document.getElementById("sectionHeading").value = section.title;
-    document.getElementById("sectionHeading").closest('.form-floating').style.display = "block";
-} else {
-    document.getElementById("sectionHeading").closest('.form-floating').style.display = "none";
-}
-
-// Section Paragraph
-if (section.para) {
-    document.getElementById("sectionPara").value = section.para;
-    document.getElementById("sectionPara").closest('.form-floating').style.display = "block";
-} else {
-    document.getElementById("sectionPara").closest('.form-floating').style.display = "none";
-}
-
-// Section Points
-if (section.points && section.points.length > 0) {
-    document.getElementById("sectionPoints").value = section.points.join("\n");
-    document.getElementById("sectionPoints").closest('.form-floating').style.display = "block";
-} else {
-    document.getElementById("sectionPoints").closest('.form-floating').style.display = "none";
-}
-
-
-        document.getElementById("iconClassInput").value = section.icon || "";
-        document.getElementById("iconPreview").innerHTML = section.icon ? `<i class="${section.icon}"></i>` : "";
-
-        // Handle images
-        const imageContainer = document.querySelector("#imageUpload .d-flex");
-        const addButton = document.querySelector("#imageUpload .btn-success");
-        imageContainer.innerHTML = "";
-
-        if (section.image && Array.isArray(section.image)) {
-            section.image.forEach(img => {
-                const imageUrl = `http://127.0.0.1:8000/${img}`;
-                const imgAnchor = document.createElement("a");
-                imgAnchor.href = imageUrl;
-                imgAnchor.target = "_blank";
-                imgAnchor.className = "image-preview bg-light border rounded";
-                imgAnchor.style = "width: 150px; height: 150px; display: block; background-size: cover; background-position: center;";
-                imgAnchor.style.backgroundImage = `url('${imageUrl}')`;
-                imageContainer.appendChild(imgAnchor);
+            await updateSection(section.S_id, {
+                flag: newStatus
             });
         }
 
-        if (addButton) {
-            addButton.onclick = () => openImageCropper(250, 250);
-            imageContainer.appendChild(addButton);
-        }
+        // async function deleteSection() {
+        //     const index = document.getElementById("contextMenu").getAttribute("data-index");
+        //     if (index === null) return;
+        //     const section = filteredSectionsGlobal[index];
 
-        // **Tab Selection Based on icon_Type**
-        if (section.icon_Type === "fontawesome") {
-            document.querySelector('[data-library="fontawesome"]').classList.add("active");
-            document.querySelector('[data-library="bootstrap"]').classList.remove("active");
-            document.getElementById("iconLabel").innerText = "Enter Font Awesome Icon Class";
-            document.getElementById("iconLink").classList.add("d-none");
-            document.getElementById("faLink").classList.remove("d-none");
-        } else {
-            document.querySelector('[data-library="bootstrap"]').classList.add("active");
-            document.querySelector('[data-library="fontawesome"]').classList.remove("active");
-            document.getElementById("iconLabel").innerText = "Enter Bootstrap Icon Class";
-            document.getElementById("iconLink").classList.remove("d-none");
-            document.getElementById("faLink").classList.add("d-none");
-        }
+        //     await updateSection(section.S_id, { delete: true });
+        // }
 
-        // **Tab Visibility Logic**
-        const tabs = {
-            1: "sectionForm",
-            2: "imageUpload",
-            3: "iconInput"
-        };
+        async function updateSection(S_id, updateData) {
+            try {
+                const response = await fetch("http://localhost:8000/api/update", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        file: "aboutus",
+                        S_id,
+                        ...updateData
+                    })
+                });
 
-        let sortedTabs = section.s_include ? section.s_include.sort((a, b) => a - b) : [];
-        let firstTab = sortedTabs.length > 0 ? tabs[sortedTabs[0]] : "sectionForm";
+                if (response.ok) {
+                    Toastify({
+                        text: "Section updated successfully!",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "green",
+                        close: true
+                    }).showToast();
+                    loadSections(); // Reload sections after update
+                } else {
+                    const errorText = await response.text();
+                    console.error("Failed to update:", errorText);
+                    Toastify({
+                        text: `Failed to update section: ${errorText}`,
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "red",
+                        close: true
+                    }).showToast();
+                }
 
-        Object.keys(tabs).forEach(tabKey => {
-            const tabElement = document.querySelector(`[href='#${tabs[tabKey]}']`);
-            const tabPane = document.getElementById(tabs[tabKey]);
-            tabElement.style.display = "none";
-            tabPane.classList.remove("show", "active");
-        });
-
-        sortedTabs.forEach(tabKey => {
-            const tabElement = document.querySelector(`[href='#${tabs[tabKey]}']`);
-            const tabPane = document.getElementById(tabs[tabKey]);
-            tabElement.style.display = "block";
-            if (tabs[tabKey] === firstTab) {
-                tabPane.classList.add("show", "active");
-                new bootstrap.Tab(tabElement).show();
+            } catch (error) {
+                console.error("Error updating section:", error);
             }
-        });
-    } catch (error) {
-        console.error("Error populating modal:", error);
-    }
-}
+        }
 
-document.addEventListener("DOMContentLoaded", loadSections);
+        // Context Menu HTML
+        const contextMenu = document.createElement("div");
+        contextMenu.id = "contextMenu";
+        contextMenu.style =
+            "position: absolute; display: none; background: white; border: 1px solid #ccc; padding: 5px; z-index: 1000;";
+        contextMenu.innerHTML = `
+    <ul style="list-style: none; margin: 0; padding: 5px;">
+        <li onclick="toggleSectionStatus()" style="cursor: pointer; padding: 5px;">Change Status</li>
+        
+    </ul>
+`;
+        document.body.appendChild(contextMenu);
 
- </script>
+
+        function showImagePreview(imageUrl) {
+            const modalImage = document.getElementById('modalPreviewImage');
+            modalImage.src = imageUrl; // Set the image URL dynamically
+            const modal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
+            modal.show();
+        }
+
+        async function populateModal(index) {
+            try {
+                // Now use filteredSectionsGlobal so that the index matches the displayed cards.
+                const section = filteredSectionsGlobal[index];
+                if (!section) return;
+
+                // For debugging: log which section is loaded
+                console.log(`Populating modal with section: "${section.title}" from ${section.source}`);
+
+                // Populate hidden fields (if you need them for API calls)
+                document.getElementById("filename").value = section.source || "";
+                document.getElementById("sectionId").value = section.S_id || "";
+
+                // Populate form fields
+                // Populate form fields with conditional display
+
+                // Section Heading
+                // Populate Section Fields
+                if (section.title) {
+                    const headingEl = document.getElementById("sectionHeading");
+                    headingEl.value = section.title;
+                    headingEl.closest('.form-floating').style.display = "block";
+                    headingEl.dataset.required = "true"; // Mark as required
+                    headingEl.dataset.initial = section.title; // Store initial value
+                } else {
+                    document.getElementById("sectionHeading").closest('.form-floating').style.display = "none";
+                }
+
+                // Section Paragraph
+                if (section.para) {
+                    const paraEl = document.getElementById("sectionPara");
+                    paraEl.value = section.para;
+                    paraEl.closest('.form-floating').style.display = "block";
+                    paraEl.dataset.required = "true";
+                    paraEl.dataset.initial = section.para;
+                } else {
+                    document.getElementById("sectionPara").closest('.form-floating').style.display = "none";
+                }
+
+                // Section Points
+                if (section.points && section.points.length > 0) {
+                    const pointsEl = document.getElementById("sectionPoints");
+                    pointsEl.value = section.points.join("\n");
+                    pointsEl.closest('.form-floating').style.display = "block";
+                    pointsEl.dataset.required = "true";
+                    pointsEl.dataset.initial = section.points.join("\n");
+                } else {
+                    document.getElementById("sectionPoints").closest('.form-floating').style.display = "none";
+                }
+
+   const iconInput = document.getElementById("iconClassInput");
+                iconInput.value = section.icon || "";
+
+                // Sync with iconInputs based on detected library type
+                if (section.icon_Type === "fontawesome") {
+                    iconInputs.fontawesome = section.icon || "";
+                    selectedLibrary = "fontawesome"; // sync selected tab value too
+                } else {
+                    iconInputs.bootstrap = section.icon || "";
+                    selectedLibrary = "bootstrap"; // sync selected tab value too
+                }
+
+                // Manually trigger the preview
+                const iconPreview1 = document.getElementById("iconPreview1");
+                if (iconInput.value.trim()) {
+                    iconPreview1.innerHTML = `<i class="${iconInput.value.trim()}"></i>`;
+                } else {
+                    iconPreview1.innerHTML = "";
+                }
+
+                // Handle images
+                const imageContainer = document.querySelector("#imageUpload .d-flex");
+                const addButton = document.querySelector("#imageUpload .btn-success");
+                imageContainer.innerHTML = "";
+
+                if (section.image && Array.isArray(section.image)) {
+                    section.image.forEach(img => {
+                        const imageUrl = `http://127.0.0.1:8000/${img}`;
+                        const imgAnchor = document.createElement("a");
+                        imgAnchor.href = imageUrl;
+                        imgAnchor.target = "_blank";
+                        imgAnchor.className = "image-preview bg-light border rounded";
+                        imgAnchor.style =
+                            "width: 150px; height: 150px; display: block; background-size: cover; background-position: center;";
+                        imgAnchor.style.backgroundImage = `url('${imageUrl}')`;
+                        imageContainer.appendChild(imgAnchor);
+                    });
+                }
+
+                if (addButton) {
+                    addButton.onclick = () => openImageCropper(250, 250);
+                    imageContainer.appendChild(addButton);
+                }
+
+                // **Tab Selection Based on icon_Type**
+                if (section.icon_Type === "fontawesome") {
+                    document.querySelector('[data-library="fontawesome"]').classList.add("active");
+                    document.querySelector('[data-library="bootstrap"]').classList.remove("active");
+                    document.getElementById("iconLabel").innerText = "Enter Font Awesome Icon Class";
+                    document.getElementById("iconLink").classList.add("d-none");
+                    document.getElementById("faLink").classList.remove("d-none");
+                } else {
+                    document.querySelector('[data-library="bootstrap"]').classList.add("active");
+                    document.querySelector('[data-library="fontawesome"]').classList.remove("active");
+                    document.getElementById("iconLabel").innerText = "Enter Bootstrap Icon Class";
+                    document.getElementById("iconLink").classList.remove("d-none");
+                    document.getElementById("faLink").classList.add("d-none");
+                }
+
+                // **Tab Visibility Logic**
+                const tabs = {
+                    1: "sectionForm",
+                    2: "imageUpload",
+                    3: "iconInput"
+                };
+
+                let sortedTabs = section.s_include ? section.s_include.sort((a, b) => a - b) : [];
+                let firstTab = sortedTabs.length > 0 ? tabs[sortedTabs[0]] : "sectionForm";
+
+                Object.keys(tabs).forEach(tabKey => {
+                    const tabElement = document.querySelector(`[href='#${tabs[tabKey]}']`);
+                    const tabPane = document.getElementById(tabs[tabKey]);
+                    tabElement.style.display = "none";
+                    tabPane.classList.remove("show", "active");
+                });
+
+                sortedTabs.forEach(tabKey => {
+                    const tabElement = document.querySelector(`[href='#${tabs[tabKey]}']`);
+                    const tabPane = document.getElementById(tabs[tabKey]);
+                    tabElement.style.display = "block";
+                    if (tabs[tabKey] === firstTab) {
+                        tabPane.classList.add("show", "active");
+                        new bootstrap.Tab(tabElement).show();
+                    }
+                });
+            } catch (error) {
+                console.error("Error populating modal:", error);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadSections);
+    </script>
 
 
 
@@ -390,16 +527,13 @@ document.addEventListener("DOMContentLoaded", loadSections);
         }
     </script>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- Cropper.js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.0.0/cropper.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.0.0/cropper.min.js"></script>
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.0.0/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.0.0/cropper.min.js"></script> --}}
 
 
 
@@ -410,59 +544,70 @@ document.addEventListener("DOMContentLoaded", loadSections);
 
 
     {{-- // Handle Form Submission for Section and Image --}}
-    <script>
-        let selectedLibrary = "bootstrap"; // Default to Bootstrap Icons
+     <script>
+        let selectedLibrary = "bootstrap"; // Default tab
+        let iconInputs = {
+            bootstrap: "",
+            fontawesome: ""
+        };
 
+        const inputField = document.getElementById("iconClassInput");
+        const iconLabel = document.getElementById("iconLabel");
+        iconInputs[selectedLibrary] = inputField.value.trim();
 
         document.querySelectorAll("#iconTabs .nav-link").forEach(tab => {
             tab.addEventListener("click", function() {
+                // Prevent action if same tab is clicked
+                if (this.classList.contains("active")) return;
+
+                // ✅ Save the current input value to the currently active library
+                iconInputs[selectedLibrary] = inputField.value.trim();
+
+                // Switch active class
                 document.querySelectorAll("#iconTabs .nav-link").forEach(t => t.classList.remove("active"));
                 this.classList.add("active");
 
+                // Update selected library
                 selectedLibrary = this.getAttribute("data-library");
 
-                // Update Placeholder and Labels
-                const inputField = document.getElementById("iconClassInput");
-                const label = document.getElementById("iconLabel");
-
+                // Update label and placeholder
                 if (selectedLibrary === "bootstrap") {
-                    label.innerText = "Enter Bootstrap Icon Class";
+                    iconLabel.innerText = "Enter Bootstrap Icon Class";
                     inputField.placeholder = "e.g., bi-house";
                     document.getElementById("iconLink").classList.remove("d-none");
                     document.getElementById("faLink").classList.add("d-none");
                 } else {
-                    label.innerText = "Enter Font Awesome Icon Class";
+                    iconLabel.innerText = "Enter Font Awesome Icon Class";
                     inputField.placeholder = "e.g., fa-solid fa-house";
                     document.getElementById("iconLink").classList.add("d-none");
                     document.getElementById("faLink").classList.remove("d-none");
                 }
 
-                // Clear preview on switch
-                document.getElementById("iconPreview").innerHTML = "";
-                inputField.value = "";
+                // ✅ Restore value from new selected library
+                inputField.value = iconInputs[selectedLibrary] || "";
+                updateIconPreview();
             });
         });
 
-        // Update icon preview on input change
-        document.getElementById("iconClassInput").addEventListener("input", function() {
-            const iconPreview = document.getElementById("iconPreview");
-            const iconClass = this.value.trim();
 
-            if (iconClass) {
-                iconPreview.innerHTML = `<i class="${iconClass}"></i>`;
-            } else {
-                iconPreview.innerHTML = "";
-            }
+        // Update preview and save input on typing
+        inputField.addEventListener("input", function() {
+            iconInputs[selectedLibrary] = inputField.value.trim();
+            updateIconPreview();
         });
 
-        // Save button functionality
+        function updateIconPreview() {
+            const previewEl = document.getElementById("iconPreview1");
+            const iconClass = inputField.value.trim();
+            previewEl.innerHTML = iconClass ? `<i class="${iconClass}"></i>` : "";
+        }
     </script>
 
 
 
 
+
     <!-- Bootstrap JS (including Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Enable mouse drag to trigger slide change
         document.addEventListener('DOMContentLoaded', function() {
@@ -500,12 +645,12 @@ document.addEventListener("DOMContentLoaded", loadSections);
 
 
 
-    </main>
 
 
 
 
-    
+
+
 
 
 
@@ -531,6 +676,21 @@ document.addEventListener("DOMContentLoaded", loadSections);
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
+    <!-- modal to show preview images -->
+    <!-- Image Preview Modal -->
+    <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Section Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalPreviewImage" src="" alt="Preview" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 

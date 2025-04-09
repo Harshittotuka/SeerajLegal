@@ -23,6 +23,7 @@ class CreateTeamsTable extends Migration
             $table->json('awards')->nullable(); // Awards received (Changed to JSON array)
             $table->json('socials')->nullable(); // Social links (Should store multiple links)
             $table->timestamps(); // Created_at and Updated_at
+            $table->string('profile_image')->nullable(); // Field to store image path or URL
         });
     }
 

@@ -42,77 +42,106 @@ class ServicesService
 
     public function createService(array $data)
     {
+        // Check if a service with the same name already exists
+        $existingService = Service::where('service_name', $data['service_name'])->exists();
+        if ($existingService) {
+            return [
+                'success' => false,
+                'message' => "A service with the name '{$data['service_name']}' already exists.",
+                'data' => [], // Include an empty data key
+            ];
+        }
+
         $createdServices = []; // Initialize an array to store created services
-    
+
         // Check if paragraphs exist to prevent undefined array key error
         if (!isset($data['paragraphs']) || !is_array($data['paragraphs'])) {
-            throw new \Exception("Invalid paragraphs data");
+            return [
+                'success' => false,
+                'message' => 'Invalid paragraphs data.',
+                'data' => [], // Include an empty data key
+            ];
         }
-    
+
         foreach ($data['paragraphs'] as $paragraph) {
             $service = $this->serviceRepository->create([
-                'service_name' => $data['service_name'],  // Ensure this column exists in DB
+                'service_name' => $data['service_name'], // Ensure this column exists in DB
                 'para_sno' => $paragraph['para_sno'] ?? null,
                 'title' => $paragraph['title'] ?? null,
                 'para' => $paragraph['para'] ?? null,
                 'points' => $paragraph['points'] ?? [],
+                'icon' => $data['icon'],
+                'top_image' => $data['top_image'],
             ]);
-    
+
             // Store the created service in the array
             $createdServices[] = $service;
         }
-    
+
         return [
             'success' => true,
-            'message' => 'Practices created successfully',
-            'data' => $createdServices
+            'message' => 'Service created successfully.',
+            'data' => $createdServices,
         ];
     }
-    
 
     //toggle service
     public function toggleServiceFlag($serviceName)
     {
         return $this->serviceRepository->toggleFlag($serviceName);
-
-}
-public function deleteServiceByName($name): bool
+    }
+    public function deleteServiceByName($name): bool
     {
         return $this->serviceRepository->deleteByName($name);
     }
 
-
     public function updateService($ServiceName, $data)
     {
-        // Check if service exists
-        $existingService = Service::where('service_name', $ServiceName)->exists();
-    
-        if (!$existingService) {
-            return ['success' => false, 'message' => 'Practice does not exist'];
+        // Check if the new service name already exists (excluding the current service)
+        $existingService = Service::where('service_name', $data['service_name'])->where('service_name', '!=', $ServiceName)->exists();
+
+        if ($existingService) {
+            return [
+                'success' => false,
+                'message' => "A service with the name '{$data['service_name']}' already exists.",
+                'data' => [], // Include an empty data key
+            ];
         }
-    
-        // Delete existing records
+
+        // Check if the service to be updated exists
+        $existingService = Service::where('service_name', $ServiceName)->exists();
+
+        if (!$existingService) {
+            return [
+                'success' => false,
+                'message' => 'Service does not exist.',
+                'data' => [], // Include an empty data key
+            ];
+        }
+
+        // Delete existing records for the service
         $this->serviceRepository->deleteByName($ServiceName);
-    
+
         $createdServices = [];
-    
+
         foreach ($data['paragraphs'] as $paragraph) {
             $createdService = $this->serviceRepository->create([
                 'service_name' => $data['service_name'], // Ensure consistency
-                'para_sno' => $paragraph['para_sno'],
-                'title' => $paragraph['title'],
-                'para' => $paragraph['para'],
-                'points' => $paragraph['points'] ?? [], // Ensure proper JSON encoding
+                'para_sno' => $paragraph['para_sno'] ?? null,
+                'title' => $paragraph['title'] ?? null,
+                'para' => $paragraph['para'] ?? null,
+                'points' => $paragraph['points'] ?? [],
+                'icon' => $data['icon'],
+                'top_image' => $data['top_image'],
             ]);
-    
+
             $createdServices[] = $createdService;
         }
-    
+
         return [
             'success' => true,
-            'message' => 'Practice updated successfully',
-            'data' => $createdServices
+            'message' => 'Service updated successfully.',
+            'data' => $createdServices,
         ];
     }
-    
 }

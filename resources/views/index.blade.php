@@ -12,9 +12,12 @@
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
-    <link rel="preload" href="{{ asset('assets/fonts/themify.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
-<link rel="preload" href="{{ asset('assets/fonts/Flaticon.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="{{ asset('assets/fonts/themify.woff') }}" as="font" type="font/woff"
+        crossorigin="anonymous">
+    <link rel="preload" href="{{ asset('assets/fonts/Flaticon.woff2') }}" as="font" type="font/woff2"
+        crossorigin="anonymous">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
 
 
@@ -32,11 +35,10 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="col-lg-7 col-md-12 text-center">
                             <h5>
-                                <div class="icon"><i class="fa-regular fa-building-columns"></i></div>Transforming Conflicts
-                                into Agreements
+                                <div class="icon"><i id="slider-icon" class=""></i></div>
+                                <span id="slider-title"></span>
                             </h5>
-                            <h3>Justice Made Accessible: <span> faster and fairer</span></h3>
-
+                            <h3 id="slider-para"></h3>
                         </div>
                     </div>
                 </div>
@@ -44,103 +46,127 @@
         </div>
     </aside>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("home.json")
+                .then(response => response.json())
+                .then(data => {
+                    const sliderData = data.find(item => item.S_id === 10);
+
+                    if (sliderData) {
+                        document.getElementById("slider-icon").className = sliderData.icon;
+                        document.getElementById("slider-title").textContent = sliderData.title;
+                        document.getElementById("slider-para").innerHTML = sliderData.para;
+                    } else {
+                        console.warn("S_id:0 not found in home.json");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error loading home.json:", error);
+                });
+        });
+    </script>
+
+
     <!-- About -->
     @include('partials.about')
 
     <!-- Info box Box -->
     @include('partials.infobox')
 
-<!-- ADR Services -->
-<section id="adr-services" class="practice-areas section-padding animate-box" style="display: none;">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-4 col-md-12 mb-30">
-                <div class="section-subtitle">
-                    <div class="icon"><i id="adr-icon" class="flaticon-courthouse"></i></div> What we do?
+    <!-- ADR Services -->
+    <section id="adr-services" class="practice-areas section-padding animate-box" style="display: none;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 col-md-12 mb-30">
+                    <div class="section-subtitle">
+                        <div class="icon"><i id="adr-icon" class="flaticon-courthouse"></i></div> What we do?
+                    </div>
+                    <div class="section-title"><span id="adr-title">ADR</span> Services</div>
+                    <p id="adr-para"></p>
+                    <a href="{{ route('service.all') }}" class="button-2">Discover more<span></span></a>
                 </div>
-                <div class="section-title"><span id="adr-title">ADR</span> Services</div>
-                <p id="adr-para"></p>
-                <a href="{{ route('service.all') }}" class="button-2">Discover more<span></span></a>
-            </div>
-            <div class="col-lg-7 offset-lg-1 col-md-12">
-                <div class="row" id="services-container">
-                    <!-- Services will be dynamically added here -->
+                <div class="col-lg-7 offset-lg-1 col-md-12">
+                    <div class="row" id="services-container">
+                        <!-- Services will be dynamically added here -->
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    // Fetch the JSON file
-    fetch('/home.json')
-        .then(response => response.json())
-        .then(data => {
-            // Find the ADR Services section data
-            const serviceData = data.find(service => service.S_id === 5);
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Fetch home.json to get ADR section details
+            fetch('/home.json')
+                .then(response => response.json())
+                .then(data => {
+                    const serviceData = data.find(service => service.S_id === 5);
 
-            if (!serviceData || serviceData.flag !== "enabled") {
-                console.log("ADR Services not enabled or not found.");
-                return;
-            }
+                    if (!serviceData || serviceData.flag !== "enabled") {
+                        console.log("ADR Services section is disabled.");
+                        return;
+                    }
 
-            const section = document.getElementById("adr-services");
+                    const section = document.getElementById("adr-services");
+                    section.style.display = "block"; // Show section
 
-            // ✅ Update the title and paragraph
-            section.querySelector(".section-title span").textContent = serviceData.title;
-            section.querySelector("p").textContent = serviceData.para;
+                    // ✅ Update title, paragraph, and icon dynamically
+                    document.getElementById("adr-title").textContent = serviceData.title;
+                    document.getElementById("adr-para").textContent = serviceData.para;
+                    document.getElementById("adr-icon").className = serviceData.icon || "flaticon-courthouse";
 
-            // ✅ Update the main section icon (Font Awesome)
-            section.querySelector(".section-subtitle .icon").innerHTML = `<i class="${serviceData.icon}"></i>`;
+                    // ✅ Now fetch API data if section is enabled
+                    fetchADRServices();
+                })
+                .catch(error => console.error("Error fetching home.json:", error));
+        });
 
-            // ✅ Show the section if it's hidden
-            section.style.display = "block";
-        })
-        .catch(error => console.error("Error fetching JSON:", error));
-});
-</script>
+        function fetchADRServices() {
+            fetch("http://127.0.0.1:8000/api/services/list")
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.success || !Array.isArray(data.data) || data.data.length === 0) {
+                        console.log("No ADR services found.");
+                        return;
+                    }
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    fetch("http://127.0.0.1:8000/api/services/list")
-        .then(response => response.json())
-        .then(data => {
-            if (data.success && data.data.length > 0) {
-                const enabledServices = data.data.filter(service => service.flag === "enabled");
+                    const enabledServices = data.data.filter(service => service.flag === "enabled");
+                    if (enabledServices.length === 0) {
+                        console.log("No enabled ADR services available.");
+                        return;
+                    }
 
-                if (enabledServices.length === 0) {
-                    return; // If no services are enabled, exit without showing the section
-                }
+                    const servicesContainer = document.getElementById("services-container");
+                    servicesContainer.innerHTML = ""; // Clear previous content
 
-                const servicesContainer = document.getElementById("services-container");
-                const adrSection = document.getElementById("adr-services");
-                adrSection.style.display = "block"; // Show the section if at least one service is enabled
+                    const defaultIcon = "flaticon-courthouse";
 
-                const defaultIcon = "flaticon-courthouse"; // Single default icon for all services
+                    enabledServices.forEach(service => {
+                        const serviceName = service.service_name;
+                        const serviceIcon = service.icon || defaultIcon;
 
-                enabledServices.forEach(service => {
-                    const serviceName = service.service_name;
+                        const serviceElement = document.createElement("div");
+                        serviceElement.className = "col-lg-4 col-md-6";
+                        serviceElement.innerHTML = `
+                    <div class="item">
+                        <a href="/service/${serviceName}">
+                            <i class="${serviceIcon}"></i>
+                            <h5>${serviceName}</h5>
+                            <div class="shape"><i class="${serviceIcon}"></i></div>
+                        </a>
+                    </div>
+                `;
 
-                    const serviceHTML = `
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item">
-                                <a href="/service/${serviceName}">
-                                    <i class="${defaultIcon}"></i>
-                                    <h5>${serviceName}</h5>
-                                    <div class="shape"><i class="${defaultIcon}"></i></div>
-                                </a>
-                            </div>
-                        </div>
-                    `;
+                        servicesContainer.appendChild(serviceElement);
+                    });
+                })
+                .catch(error => console.error("Error fetching ADR services:", error));
+        }
+    </script>
 
-                    servicesContainer.innerHTML += serviceHTML;
-                });
-            }
-        })
-        .catch(error => console.error("Error fetching services:", error));
-});
-</script>
+
+
 
 
     <!-- Case Study -->
@@ -151,70 +177,93 @@ document.addEventListener("DOMContentLoaded", function() {
 
     <!-- Rajasthan S_id: -->
     <!-- Rajasthan S_id: 8 -->
-<section class="serve section-padding bg-lightbrown animate-box">
-    <div class="container">
-        <div class="row justify-content-center align-items-center">
-            <!-- Left Column - Map Visualization -->
-            <div class="col-lg-6 col-md-12 animate-box" data-animate-effect="fadeInUp">
-                <div class="rajasthan-map">
-                    <img id="rajasthanMap" src="" alt="Rajasthan Map" class="img-fluid">
-                </div>
-            </div>
-
-            <!-- Right Column - Content -->
-            <div class="col-lg-6 col-md-12 animate-box" data-animate-effect="fadeInUp">
-                <div class="section-subtitle">
-                    <div class="icon" id="rajasthan-icon-container"><i class="flaticon-courthouse"></i></div>
-                    Beyond Boundaries & Barriers
-                </div>
-                <h2 id="sectionTitle" class="section-title heritage-text"></h2>
-                <p id="sectionPara"></p>
-
-                <!-- Service Highlights -->
-                <div class="row stats-row mt-4" id="servicePoints">
-                    <!-- Points will be inserted here dynamically -->
+    <section id="rajasthan-section" class="serve section-padding bg-lightbrown animate-box">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <!-- Left Column - Map Visualization -->
+                <div class="col-lg-6 col-md-12 animate-box" data-animate-effect="fadeInUp">
+                    <div class="rajasthan-map">
+                        <img id="rajasthanMap" src="" alt="Rajasthan Map" class="img-fluid">
+                    </div>
                 </div>
 
-                <div class="heritage-pattern-border mt-4"></div>
+                <!-- Right Column - Content -->
+                <div class="col-lg-6 col-md-12 animate-box" data-animate-effect="fadeInUp">
+                    <div class="section-subtitle">
+                        <div class="icon" id="rajasthan-icon-container"><i class="flaticon-courthouse"></i></div>
+                        Beyond Boundaries & Barriers
+                    </div>
+                    <h2 id="sectionTitle" class="section-title heritage-text"></h2>
+                    <p id="sectionPara"></p>
+
+                    <!-- Service Highlights -->
+                    <div class="row stats-row mt-4" id="servicePoints">
+                        <!-- Points will be inserted here dynamically -->
+                    </div>
+
+                    <div class="heritage-pattern-border mt-4"></div>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    fetch('home.json')
-        .then(response => response.json())
-        .then(data => {
-            const sectionData = data.find(section => section.S_id === 8);
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('home.json')
+                .then(response => response.json())
+                .then(data => {
+                    const sectionData = data.find(section => section.S_id === 8);
+                    const sectionElement = document.getElementById("rajasthan-section");
 
-            if (sectionData && sectionData.flag === "enabled") {
-                document.getElementById('sectionTitle').innerHTML = sectionData.title;
-                document.getElementById('sectionPara').innerHTML = sectionData.para;
-                document.getElementById('rajasthanMap').src = sectionData.image[0];
+                    if (!sectionData || sectionData.flag !== "enabled") {
+                        console.log("Rajasthan section is disabled.");
+                        sectionElement.remove();
+                        return;
+                    }
 
-                // ✅ Update the icon dynamically from JSON
-                const iconContainer = document.getElementById("rajasthan-icon-container");
-                iconContainer.innerHTML = `<i class="${sectionData.icon}"></i>`;
+                    // ✅ Cache elements for better performance
+                    const titleElement = document.getElementById('sectionTitle');
+                    const paraElement = document.getElementById('sectionPara');
+                    const mapElement = document.getElementById('rajasthanMap');
+                    const iconContainer = document.getElementById("rajasthan-icon-container");
+                    const pointsContainer = document.getElementById('servicePoints');
 
-                // ✅ Update the service points
-                const pointsContainer = document.getElementById('servicePoints');
-                pointsContainer.innerHTML = '';
+                    // ✅ Populate data
+                    titleElement.textContent = sectionData.title || "Default Title";
+                    paraElement.textContent = sectionData.para || "Default Description";
 
-                sectionData.points.forEach(point => {
-                    const pointHTML = `
-                        <div class="col-4 stat-item">
-                            <div class="stat-number">${point.split(' ')[0]}</div>
-                            <div class="stat-label">${point.split(' ').slice(1).join(' ')}</div>
-                        </div>
+                    // ✅ Handle missing image gracefully
+                    if (sectionData.image && sectionData.image.length > 0) {
+                        mapElement.src = sectionData.image[0];
+                    } else {
+                        mapElement.src = "assets/img/default-map.png"; // Default fallback
+                    }
+
+                    // ✅ Update the icon dynamically (fallback if missing)
+                    iconContainer.innerHTML = `<i class="${sectionData.icon || 'flaticon-courthouse'}"></i>`;
+
+                    // ✅ Clear previous service points and update
+                    pointsContainer.innerHTML = "";
+                    if (Array.isArray(sectionData.points) && sectionData.points.length > 0) {
+                        sectionData.points.forEach(point => {
+                            const [number, ...labelParts] = point.split(' ');
+                            const label = labelParts.join(' ');
+
+                            const pointDiv = document.createElement("div");
+                            pointDiv.className = "col-4 stat-item";
+                            pointDiv.innerHTML = `
+                        <div class="stat-number">${number}</div>
+                        <div class="stat-label">${label}</div>
                     `;
-                    pointsContainer.innerHTML += pointHTML;
-                });
-            }
-        })
-        .catch(error => console.error('Error fetching home.json:', error));
-});
-</script>
+                            pointsContainer.appendChild(pointDiv);
+                        });
+                    }
+                })
+                .catch(error => console.error('Error fetching home.json:', error));
+        });
+    </script>
+
+
 
     <STYle>
         .bg-royalgold {
@@ -291,7 +340,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     </STYle>
-    
+
     <!-- Get in touch -->
     @include('partials.getintouch')
 
@@ -340,7 +389,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     </script>
 
-    
+
 
 </body>
 

@@ -128,6 +128,15 @@
             margin: 0;
         }
     </style>
+<!-- code for topimage.js -->
+<script src="{{ asset('assets/js/topimage.js') }}"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetchPageContent("TopImg_tea");
+    });
+</script>
+
 </head>
 
 <body>
@@ -136,18 +145,19 @@
 
 
     <!-- Header Banner -->
-    <div class="banner-header valign bg-img bg-fixed" data-overlay-dark="5" data-background="{{ asset('assets/img/Team.webp') }}">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 caption mt-60 text-center">
-                    <h6>
-                        <div class="icon"><i class="flaticon-courthouse"></i></div> Qualified experts
-                    </h6>
-                    <h1>Meet Our <span>Attorneys</span></h1>
-                </div>
+    <div id="page-bg" class="banner-header valign bg-img bg-fixed" data-overlay-dark="5">
+    <div class="container">
+        <div class="row">   
+            <div class="col-md-12 caption mt-60 text-center">
+                <h6>
+                    <div class="icon"><i id="page-icon"></i></div> 
+                    <span id="page-title"></span>
+                </h6>
+                <h1 id="page-subtitle"></h1>
             </div>
         </div>
     </div>
+</div>
 
 
     <!-- --MAIN SECTION== -->
@@ -168,36 +178,43 @@ document.addEventListener('DOMContentLoaded', async function () {
     const teamSections = document.getElementById('team-sections');
 
     try {
+        console.log("Fetching team members...");
+
         const response = await fetch('http://127.0.0.1:8000/api/teams');
         const teamMembers = await response.json();
 
-        // Extract unique categories from API response
+        console.log("API Response:", teamMembers);
+
+        if (!Array.isArray(teamMembers)) {
+            throw new Error("❌ API did not return an array. Check response format.");
+        }
+
+        if (teamMembers.length === 0) {
+            console.warn("⚠ No team members found!");
+            teamSections.innerHTML = "<p>No team members available.</p>";
+            return;
+        }
+
         const categories = new Set();
-        categories.add('All'); // Keep "All" for the filter buttons
+        categories.add('All'); // Default category
 
         teamMembers.forEach(member => {
             if (member.all_rounder) categories.add('All-Rounders');
-            if (member.area_of_practice) {
-                member.area_of_practice.forEach(practice => categories.add(practice));
-            }
-            if (member.adr_services.length > 0) categories.add('ADR Experts');
+            member.area_of_practice?.forEach(practice => categories.add(practice));
+            if (member.adr_services?.length > 0) categories.add('ADR Experts');
         });
 
         const teamsByCategory = {};
         categories.forEach(category => teamsByCategory[category] = []);
 
-        // Assign members to categories
         teamMembers.forEach(member => {
             if (member.all_rounder) teamsByCategory['All-Rounders'].push(member);
-            if (member.area_of_practice) {
-                member.area_of_practice.forEach(practice => teamsByCategory[practice].push(member));
-            }
-            if (member.adr_services.length > 0) teamsByCategory['ADR Experts'].push(member);
+            member.area_of_practice?.forEach(practice => teamsByCategory[practice].push(member));
+            if (member.adr_services?.length > 0) teamsByCategory['ADR Experts'].push(member);
         });
 
-        // Create sections for each category (except "All")
         categories.forEach(category => {
-            if (category === 'All') return; // Don't create a section for "All"
+            if (category === 'All') return;
 
             const section = document.createElement('div');
             section.className = `law-section ${category.replace(/\s+/g, '-').toLowerCase()}`;
@@ -209,6 +226,10 @@ document.addEventListener('DOMContentLoaded', async function () {
                     ${teamsByCategory[category].map(member => {
                         const profileImage = member.profile_image || 'assets/img/my/profile_icon2.png';
                         const socials = member.socials || {};
+                        const adrServices = (category === 'ADR Experts' && member.adr_services?.length > 0)
+                            ? `<p class="adr-services"><strong>ADR Services:</strong> ${member.adr_services.join(', ')}</p>`
+                            : '';
+
                         return `
                             <div class="col-lg-3 col-md-6 item" data-id="${member.id}">
                                 <div class="img">
@@ -222,6 +243,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                                 <div class="info">
                                     <h5><a href="/team-details?id=${member.id}">${member.name}</a></h5>
                                     <p>${member.designation}</p>
+                                    ${adrServices} <!-- ✅ Now only appears in ADR Experts -->
                                 </div>
                             </div>
                         `;
@@ -232,16 +254,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             teamSections.appendChild(section);
         });
 
-        // Create filter buttons dynamically in alphabetical order
-        const createFilterButton = (name, className) => {
-            const button = document.createElement('button');
-            button.className = 'btn-filter';
-            button.dataset.filter = className;
-            button.textContent = name;
-            return button;
-        };
-
-        // Convert Set to Array, sort alphabetically, and ensure "All" stays first
+        // Filter buttons
         const sortedCategories = Array.from(categories).sort((a, b) => {
             if (a === 'All') return -1;
             if (b === 'All') return 1;
@@ -249,8 +262,10 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
 
         sortedCategories.forEach(category => {
-            const className = category.replace(/\s+/g, '-').toLowerCase();
-            const button = createFilterButton(category, className);
+            const button = document.createElement('button');
+            button.className = 'btn-filter';
+            button.dataset.filter = category.replace(/\s+/g, '-').toLowerCase();
+            button.textContent = category;
             if (category === 'All') button.classList.add('active');
             filterBar.appendChild(button);
         });
@@ -271,7 +286,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
         });
 
-        // Redirection logic for team member clicks
+        // Click redirect for team members
         teamSections.addEventListener('click', (event) => {
             const memberItem = event.target.closest('.item');
             if (memberItem) {
@@ -282,7 +297,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         });
     } catch (error) {
-        console.error('Error fetching team members:', error);
+        console.error('❌ Error fetching team members:', error);
     }
 });
 

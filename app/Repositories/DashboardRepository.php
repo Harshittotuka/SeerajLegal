@@ -9,15 +9,16 @@ use App\Models\Member;
 
 class DashboardRepository
 {
-    public function getCounts()
-    {
-        return [
-            'practices' => Practice::count(),
-            'practices_disabled' => Practice::where('flag', 'disabled')->count(),
-            'services' => Service::count(),
-            'services_disabled' => Service::where('flag', 'disabled')->count(),
-            'members' => Member::count(),
-            'teams' => Team::count(),
-        ];
-    }
+  public function getCounts()
+{
+    return [
+        'practices' => Practice::distinct('practice_name')->count('practice_name'),
+        'practices_disabled' => Practice::where('flag', 'disabled')->distinct('practice_name')->count('practice_name'),
+        'services' => Service::distinct('service_name')->count('service_name'),
+        'services_disabled' => Service::where('flag', 'disabled')->distinct('service_name')->count('service_name'),
+        'members' => Member::count(),
+        'teams' => Team::count(),
+    ];
+}
+
 }

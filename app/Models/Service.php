@@ -10,7 +10,7 @@ class Service extends Model
     use HasFactory;
 
     protected $fillable = [
-        'service_name','para_sno','title','para','points','rules','flag',
+        'service_name','para_sno','title','para','points','rules','flag','icon','top_image'
     ];
     protected $casts = [
         'points' => 'array', // ✅ Automatically converts JSON to array when fetching

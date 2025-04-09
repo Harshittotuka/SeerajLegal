@@ -12,22 +12,35 @@
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
+
+<!-- code for topimage.js -->
+<script src="{{ asset('assets/js/topimage.js') }}"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetchPageContent("TopImg_con");
+    });
+</script>
+
 </head>
 <body>
    <!-- Navbar -->
    @include('partials.navbar')
 
     <!-- Header Banner -->
-    <div class="banner-header valign bg-img bg-fixed" data-overlay-dark="5" data-background=" {{ asset('assets/img/Contact.webp') }}">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 caption mt-60 text-center">
-                    <h6><div class="icon"><i class="flaticon-courthouse"></i></div> Get in touch</h6>
-                    <h1>Contact <span>Info</span></h1>
-                </div>
+    <div id="page-bg" class="banner-header valign bg-img bg-fixed" data-overlay-dark="5">
+    <div class="container">
+        <div class="row">   
+            <div class="col-md-12 caption mt-60 text-center">
+                <h6>
+                    <div class="icon"><i id="page-icon"></i></div> 
+                    <span id="page-title"></span>
+                </h6>
+                <h1 id="page-subtitle"></h1>
             </div>
         </div>
     </div>
+</div>
 
     <!-- Contact -->
     <section class="info-box section-padding">
@@ -60,6 +73,14 @@
                         <p id="contact-email">Loading...</p>
                     </div>
                 </div>
+                <div class="item" id="social-links" style="display: none;">
+    <i class="icon fa-solid fa-share-nodes"></i>
+    <div class="cont">
+        <h5>Connect with us</h5>
+        <p id="social-icons" class="d-flex gap-2"></p>
+    </div>
+</div>
+
             </div>
 
             <div class="col-md-5 offset-md-1">
@@ -99,12 +120,54 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("contact-phone").innerText = contact.phone_no;
             document.getElementById("contact-phone").href = "tel:" + contact.phone_no;
             document.getElementById("contact-email").innerText = contact.email;
+
+            const socialIcons = document.getElementById("social-icons");
+            const socialWrapper = document.getElementById("social-links");
+
+            // Dynamically add available social links
+if (contact.whatsapp) {
+    socialIcons.innerHTML += `<a href="${contact.whatsapp}" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>`;
+}
+if (contact.twitter_link) {
+    socialIcons.innerHTML += `<a href="${contact.twitter_link}" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>`;
+}
+if (contact.facebook_link) {
+    socialIcons.innerHTML += `<a href="${contact.facebook_link}" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>`;
+}
+if (contact.insta_link) {
+    socialIcons.innerHTML += `<a href="${contact.insta_link}" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>`;
+}
+if (contact.youtube_link) {
+    socialIcons.innerHTML += `<a href="${contact.youtube_link}" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>`;
+}
+if (contact.linkedin) {
+    socialIcons.innerHTML += `<a href="${contact.linkedin}" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>`;
+}
+
+
+            // Show the social links block only if any link is added
+            if (socialIcons.innerHTML.trim() !== "") {
+                socialWrapper.style.display = "flex";
+                socialIcons.classList.add("contact-social-icons"); // optional class for consistent styling
+            }
         }
     })
     .catch(error => console.error("Error fetching contact data from JSON:", error));
 });
 </script>
 
+<style>
+   .contact-social-icons a {
+    margin-right: 10px;
+    color: #333;
+    font-size: 18px;
+}
+.contact-social-icons a:hover {
+    color: rgb(107, 112, 119);
+}
+
+
+</style>
 
 
    
