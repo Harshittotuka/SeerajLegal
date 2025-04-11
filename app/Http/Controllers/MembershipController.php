@@ -8,6 +8,8 @@ use App\Models\Membership;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PaymentLinkMail;
+use Razorpay\Api\Api;
+use Illuminate\Support\Str;
 
 class MembershipController extends Controller
 {
@@ -22,12 +24,53 @@ class MembershipController extends Controller
     {
         $member = Membership::with('type')->findOrFail($id);
 
+        $amount = ($member->type->price ?? 0) * 100; // Razorpay takes amount in paise
+
+        $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
+
+        $order = $api->order->create([
+            'receipt' => 'member_' . $member->id . '_' . Str::random(6),
+            'amount' => $amount,
+            'currency' => 'INR',
+            'notes' => [
+                'membership_type' => $member->membershipType,
+                'member_email' => $member->email,
+            ],
+        ]);
+
         return view('emails.payment', [
             'member' => $member,
             'membershipType' => $member->type->membershipType ?? 'N/A',
             'price' => $member->type->price ?? 'N/A',
             'duration' => $member->type->duration ?? 'N/A',
+            'orderId' => $order->id,
+            'razorpayKey' => config('services.razorpay.key'),
+            'amount' => $amount,
         ]);
+    }
+
+    public function verifyRazorpay(Request $request)
+    {
+        try {
+            $api = new \Razorpay\Api\Api(config('services.razorpay.key'), config('services.razorpay.secret'));
+
+            $attributes = [
+                'razorpay_order_id' => $request->razorpay_order_id,
+                'razorpay_payment_id' => $request->razorpay_payment_id,
+                'razorpay_signature' => $request->razorpay_signature,
+            ];
+
+            $api->utility->verifyPaymentSignature($attributes);
+
+            // You can now mark the member's status as "confirmed"
+            $member = Membership::findOrFail($request->member_id);
+            $member->status = 'confirmed';
+            $member->save();
+
+            return response()->json(['status' => true, 'message' => 'Payment verified successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => 'Payment verification failed.', 'error' => $e->getMessage()], 400);
+        }
     }
 
     public function index()
@@ -45,6 +88,11 @@ class MembershipController extends Controller
     {
         $count = \App\Models\Membership::where('status', 'Pending')->count();
         return response()->json(['pending_count' => $count]);
+    }
+    public function confirmed()
+    {
+        $members = Membership::where('status', 'confirmed')->get();
+        return response()->json(['data' => $members]);
     }
 
     public function store(Request $request)
@@ -136,11 +184,11 @@ class MembershipController extends Controller
         return response()->json(['message' => 'Membership rejected.']);
     }
 
-    public function getAllMembers()
-    {
-        $members = $this->membershipService->getAllMembers();
-        return response()->json($members, 200);
-    }
+    // public function getAllMembers()
+    // {
+    //     $members = $this->membershipService->getAllMembers();
+    //     return response()->json($members, 200);
+    // }
     // Create Member
     public function createMember(Request $request)
     {

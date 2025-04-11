@@ -66,9 +66,12 @@
                                 <tr>
                                     <th scope="col">S.No</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
                                     <th scope="col">Membership Type</th>
                                 </tr>
                             </thead>
+
+
                             <tbody id="membersTable">
                                 <!-- Data will be dynamically inserted here -->
                             </tbody>
@@ -77,17 +80,19 @@
 
                     <script>
                         document.addEventListener("DOMContentLoaded", function() {
-                            fetch("http://127.0.0.1:8000/api/members")
+                            fetch("http://localhost:8000/api/members/confirmed")
                                 .then(response => response.json())
                                 .then(data => {
                                     const membersTable = document.getElementById("membersTable");
                                     membersTable.innerHTML = ""; // Clear existing rows
 
-                                    data.forEach((member, index) => {
+                                    data.data.forEach((member, index) => {
+                                        const fullName = `${member.firstName} ${member.lastName}`;
                                         const row = `
                         <tr>
                             <td>${index + 1}</td>
-                            <td>${member.name}</td>
+                            <td>${fullName}</td>
+                            <td>${member.email}</td>
                             <td>${member.membershipType.charAt(0).toUpperCase() + member.membershipType.slice(1)}</td>
                         </tr>
                     `;
@@ -97,6 +102,8 @@
                                 .catch(error => console.error("Error fetching data:", error));
                         });
                     </script>
+
+
                 </div>
                 <div class="col-lg-3 col-md-12">
                     <div class="sidebar custom-box">

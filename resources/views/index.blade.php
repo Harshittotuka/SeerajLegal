@@ -27,24 +27,199 @@
     <!-- Navbar -->
     @include('partials.navbar')
 
+
+
     <!-- Kenburns SlideShow  S_id:0 -->
     <aside class="kenburns-section" id="kenburnsSliderContainer" data-overlay-dark="5">
-        <div class="kenburns-inner h-100">
-            <div class="v-middle">
-                <div class="container">
-                    <div class="row justify-content-center align-items-center">
-                        <div class="col-lg-7 col-md-12 text-center">
-                            <h5>
-                                <div class="icon"><i id="slider-icon" class=""></i></div>
-                                <span id="slider-title"></span>
-                            </h5>
-                            <h3 id="slider-para"></h3>
+        <!-- FONT LINKS -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap"
+            rel="stylesheet">
+
+        <style>
+            /* Overlay effect */
+            .kenburns-section {
+                position: relative;
+                overflow: hidden;
+            }
+
+            .kenburns-section::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.1);
+                z-index: 1;
+            }
+
+            .kenburns-inner {
+                position: relative;
+                z-index: 2;
+                height: 100%;
+                color: #fff;
+                text-align: center;
+                padding-top: 200px;
+            }
+
+            .content-offset {
+                margin-top: 650px;
+            }
+
+            .hero-header {
+                margin-bottom: 50px;
+            }
+
+            /* Website title */
+            .hero-title {
+                font-family: 'Playfair Display', serif;
+                font-size: 3.5rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                line-height: 1.3;
+                color: #fff;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                background: linear-gradient(to right, #ffd700, #ff8c00);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            /* Subtitle below title */
+            .slider-subtitle {
+                font-family: 'Poppins', sans-serif;
+                display: inline-block;
+                /* margin-top: 15px; */
+                font-size: 1.4rem;
+                font-weight: 400;
+                color: red;
+                font-style: italic;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+                animation: fadeInUp 1s ease-in-out;
+            }
+
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(15px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .feature-box {
+                background: rgba(255, 255, 255, 0.07);
+                padding: 20px;
+                border-radius: 12px;
+                transition: transform 0.3s ease;
+            }
+
+            .feature-box:hover {
+                transform: translateY(-8px);
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            .feature-box .icon {
+                margin-bottom: 10px;
+                color: #ffd700;
+            }
+
+            .feature-box h5 {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+
+            .feature-box p {
+                font-family: 'Poppins', sans-serif;
+                font-size: 0.95rem;
+                color: #ddd;
+            }
+        </style>
+
+        <div class="kenburns-inner h-100 container">
+            <div class="content-offset">
+                <div class="v-middle">
+                    <div class="row justify-content-center align-items-center hero-header">
+                        <div class="col-lg-8 col-md-12 text-center">
+                            <!-- Icon above the website name -->
+                            <div class="section-subtitle mb-3">
+                                <div class="icon"> <i class="fas fa-gavel text-warning"></i></div>
+                            </div>
+
+                            <!-- Website Name -->
+                            <h1 class="hero-title">
+                                Seeraj Legal<br>Relief Foundation
+                            </h1>
+
+                            <!-- Subtitle -->
+                            <span id="slider-title" class="slider-subtitle">Empowering Justice, Enabling Hope.</span>
+
                         </div>
                     </div>
+
+                    <!-- Desktop Feature Boxes -->
+                    <div class="d-none d-md-flex row justify-content-center align-items-center pt-5">
+                        <div class="col-lg-4 col-md-6 text-center mb-4">
+                            <div class="feature-box">
+                                <div class="icon mb-3"><i class="fas fa-mobile-alt fa-2x"></i></div>
+                                <h5>Mobile Ready</h5>
+                                <p>Fully responsive layout for all devices.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 text-center mb-4">
+                            <div class="feature-box">
+                                <div class="icon mb-3"><i class="fas fa-sliders-h fa-2x"></i></div>
+                                <h5>Customizable</h5>
+                                {{-- <p>Modular structure for easy customization.</p> --}}
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 text-center mb-4">
+                            <div class="feature-box">
+                                <div class="icon mb-3"><i class="fas fa-dollar-sign fa-2x"></i></div>
+                                <h5>Affordable</h5>
+                                <p>High-quality service at a low cost.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Carousel -->
+                    <div id="featureCarousel" class="carousel slide d-md-none" data-bs-ride="carousel"
+                        data-bs-interval="3000">
+                        <div class="carousel-inner text-center">
+                            <div class="carousel-item active">
+                                <div class="feature-box mx-3">
+                                    <div class="icon mb-3"><i class="fas fa-mobile-alt fa-2x"></i></div>
+                                    <h5>Mobile Ready</h5>
+                                    <p>Fully responsive layout for all devices.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="feature-box mx-3">
+                                    <div class="icon mb-3"><i class="fas fa-sliders-h fa-2x"></i></div>
+                                    <h5>Customizable</h5>
+                                    <p>Modular structure for easy customization.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="feature-box mx-3">
+                                    <div class="icon mb-3"><i class="fas fa-dollar-sign fa-2x"></i></div>
+                                    <h5>Affordable</h5>
+                                    <p>High-quality service at a low cost.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </aside>
+
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -66,6 +241,8 @@
                 });
         });
     </script>
+
+
 
 
     <!-- About -->

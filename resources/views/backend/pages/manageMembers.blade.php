@@ -20,15 +20,25 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('assets/backend/css/material-dashboard.css?v=3.2.0') }}" rel="stylesheet" />
 
+
     <script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             updateBreadcrumbs(["Dashboard"], ["#"]);
         });
     </script>
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            updateBreadcrumbs(["Dashboard", "Members"], ["/backend", "#"]);
+        });
+    </script>
 
 </head>
 
@@ -43,27 +53,50 @@
         <!-- Navbar -->
         @include('backend.partials.top-nav')
         <!-- End Navbar -->
+        @include('backend.components.topimage-modal')
 
 
         <div class="container-fluid py-2">
-            <div class="row">
-                <div class="ms-3 mt-4 mb-4">
-                    <h3 class="mb-0 h4 font-weight-bolder">Dashboard</h3>
-                </div>
-
-
-
-            </div>
+          
 
 
 
             <div class="container mt-4">
                 <div class="card shadow-sm border-0">
-                    <div class="card-header bg-black text-white d-flex justify-content-between align-items-center">
+                    <div
+                        class="card-header bg-black text-white d-flex justify-content-between align-items-center flex-wrap">
                         <h5 class="mb-0">Members List</h5>
-                        <button class="btn btn-light btn-sm" id="refreshMembers"><i
-                                class="material-symbols-rounded">refresh</i> Refresh</button>
+
+                        <div class="d-flex align-items-center ms-auto gap-2 flex-wrap">
+                            <!-- Members Header Button -->
+                            <button class="btn btn-warning edit-btn d-flex align-items-center justify-content-center"
+                                data-imageid="TopImg_mem" data-bs-toggle="modal" data-bs-target="#topImageModal"
+                                style="height: 40px;">
+                                Members Header
+                            </button>
+
+
+
+                            <!-- View Members Page Button -->
+                            <a href="{{ route('membership.list') }}" target="_blank"
+                                class="btn btn-outline-primary d-flex align-items-center justify-content-center"
+                                style="width: 40px; height: 40px;" title="Members Page">
+                                <i class="fas fa-eye"></i>
+                            </a>
+
+
+                            <!-- Refresh Button -->
+                            <button class="btn btn-light d-flex align-items-center justify-content-center"
+                                id="refreshMembers" title="Refresh" style="width: 40px; height: 40px;">
+                                <i class="material-symbols-rounded">refresh</i>
+                            </button>
+
+                        </div>
                     </div>
+
+
+
+
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="membersTable" class="table table-bordered table-striped align-middle">

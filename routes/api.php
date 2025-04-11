@@ -26,6 +26,7 @@ Route::post('/membership/{id}/reject', [MembershipController::class, 'reject']);
 Route::get('/members/all', [MembershipController::class, 'index']);
 Route::get('/members/pending', [MembershipController::class, 'pending']);
 Route::get('/members/pending/count', [MembershipController::class, 'pendingCount']);
+Route::get('/members/confirmed', [MembershipController::class, 'confirmed']);
 
 
 
