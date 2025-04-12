@@ -245,6 +245,70 @@
             flex: 1;
             min-width: 200px;
         }
+
+        /* membership types + price+ duration css */
+        .membership-info-box {
+    margin-top: 1rem;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    color: #333;
+}
+.membership-info-box p {
+    margin: 0.2rem 0;
+}
+
+/* cards slider css  */
+.membership-card {
+    background: #062e2e; /* greenish background */
+    border-radius: 16px;
+    padding: 24px 20px;
+    color: #b9ffdf;
+    box-shadow: 0 8px 30px rgba(0, 255, 163, 0.15);
+    text-align: center;
+    border: 1px solid #0ddf7c;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.membership-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 40px rgba(0, 255, 163, 0.25);
+}
+
+.membership-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0ddf7c;
+    margin-bottom: 10px;
+}
+
+.membership-price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 10px 0;
+}
+
+.membership-duration {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.swiper {
+    width: 100%;
+}
+
+.swiper-slide {
+    width: auto;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.membership-carousel {
+    margin-bottom: 4rem; /* Add space below cards */
+}
     </style>
 
 
@@ -388,12 +452,29 @@
                         <option value="">Select Membership Type</option>
                         <!-- Options will be dynamically loaded from API -->
                     </select>
+                    <div id="membershipInfo" class="membership-info-box" style="display: none;">
+    <p><strong>Price:</strong> <span id="membershipPrice"></span></p>
+    <p><strong>Duration:</strong> <span id="membershipDuration"></span></p>
+</div>
+
                 </div>
                 <button type="button" class="previous action-button">Back</button>
                 <button type="submit" class="action-button">Submit</button>
             </fieldset>
         </form>
     </div>
+
+    <!-- html for the cards slider -->
+    <h2 class="text-center mt-12 mb-6 text-black text-2xl font-bold">Membership Plans</h2>
+
+<div class="membership-carousel swiper mx-auto max-w-6xl px-4">
+  <div class="swiper-wrapper" id="membershipCardsContainer">
+    <!-- Cards injected via JS -->
+  </div>
+  <div class="swiper-pagination mt-4"></div>
+</div>
+
+
 
     <style>
         .input-error {
@@ -548,19 +629,38 @@
             //     $("#progressbar li").first().addClass("active");
             // });
 
-            fetch("/api/membership-types")
-                .then(response => response.json())
-                .then(data => {
-                    let dropdown = document.getElementById("membershipType");
-                    data.data.forEach(item => {
-                        let option = document.createElement("option");
-                        option.value = item.membershipType;
-                        option.textContent = item.membershipType.charAt(0).toUpperCase() + item
-                            .membershipType.slice(1);
-                        dropdown.appendChild(option);
-                    });
-                })
-                .catch(error => console.error("Error fetching membership types:", error));
+
+            let membershipData = {};
+
+  fetch("/api/membership-types")
+    .then(response => response.json())
+    .then(data => {
+        let dropdown = document.getElementById("membershipType");
+        data.data.forEach(item => {
+            membershipData[item.membershipType] = item;
+
+            let option = document.createElement("option");
+            option.value = item.membershipType;
+            option.textContent = item.membershipType.charAt(0).toUpperCase() + item.membershipType.slice(1);
+            dropdown.appendChild(option);
+        });
+    })
+    .catch(error => console.error("Error fetching membership types:", error));
+
+// Update box on select
+document.getElementById("membershipType").addEventListener("change", function () {
+    const selected = this.value;
+    const infoBox = document.getElementById("membershipInfo");
+
+    if (membershipData[selected]) {
+        document.getElementById("membershipPrice").textContent = `₹${membershipData[selected].price}`;
+        document.getElementById("membershipDuration").textContent = membershipData[selected].duration;
+        infoBox.style.display = "block";
+    } else {
+        infoBox.style.display = "none";
+    }
+});
+
         });
     </script>
     <script>
@@ -645,6 +745,58 @@
     <script src="{{ asset('assets/js/smooth-scroll.min.js') }}"></script>
     <script src="{{ asset('assets/js/vegas.slider.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+    <!-- script for cards slider -->
+<!-- Swiper CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("http://127.0.0.1:8000/api/membership-types")
+        .then(res => res.json())
+        .then(res => {
+            const container = document.getElementById("membershipCardsContainer");
+            res.data.forEach(plan => {
+                const card = document.createElement("div");
+                card.className = "swiper-slide";
+                card.innerHTML = `
+                    <div class="membership-card">
+                        <div class="membership-title">${plan.membershipType}</div>
+                        <div class="membership-price">₹${plan.price}</div>
+                        <div class="membership-duration">${plan.duration}</div>
+                        
+                        <!--
+                        <ul class="text-sm opacity-75 text-left px-4 my-4 space-y-1">
+                            <li>✔ Feature 1</li>
+                            <li>✔ Feature 2</li>
+                            <li>✔ Support Access</li>
+                        </ul>
+                        -->
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            new Swiper('.membership-carousel', {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                breakpoints: {
+                    640: { slidesPerView: 1 },
+                    768: { slidesPerView: 2 },
+                    1024: { slidesPerView: 3 }
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                }
+            });
+        })
+        .catch(err => console.error("Failed to load membership types", err));
+});
+</script>
+
+
 </body>
 
 </html>
