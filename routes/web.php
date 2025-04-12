@@ -67,11 +67,6 @@ Route::get('/api/services/rules/{service_name}', [ServiceController::class, 'get
 
 
 
-Route::get('/backend/', function () {
-    return view('backend/index');
-})->name('backend.home');
-
-
 
 
 

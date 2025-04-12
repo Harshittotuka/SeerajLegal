@@ -126,7 +126,7 @@ async function fetchTeamMember() {
     }
 
     try {
-        const response = await fetch(`http://127.0.0.1:8000/api/teams/${teamMemberId}`);
+        const response = await fetch(`/api/teams/${teamMemberId}`);
         const result = await response.json();
 
         if (result.success) {

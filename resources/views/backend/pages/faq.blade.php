@@ -246,7 +246,7 @@
                 };
 
                 // Call API to add new FAQ
-                fetch("http://127.0.0.1:8000/api/faqs/create", {
+                fetch("/api/faqs/create", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -297,7 +297,7 @@
 
 
             document.addEventListener("DOMContentLoaded", function() {
-                fetch("http://127.0.0.1:8000/api/about/faqs")
+                fetch("/api/about/faqs")
                     .then(response => response.json())
                     .then(data => {
                         const tableBody = document.querySelector("#faqTable tbody");
@@ -395,7 +395,7 @@
                 };
 
                 // Call API to update FAQ
-                fetch(`http://127.0.0.1:8000/api/faqs/update/${id}`, {
+                fetch(`/api/faqs/update/${id}`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -452,7 +452,7 @@
                 let row = button.closest("tr");
                 let id = row.cells[1].innerText; // Hidden database ID
 
-                fetch(`http://127.0.0.1:8000/api/faqs/delete/${id}`, {
+                fetch(`/api/faqs/delete/${id}`, {
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json"

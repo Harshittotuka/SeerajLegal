@@ -78,7 +78,7 @@ document.getElementById('subscribe-form').addEventListener('submit', function(e)
     e.preventDefault();
     const email = document.getElementById('subscribe-email').value;
 
-    fetch('http://127.0.0.1:8000/api/subscribe', {
+    fetch('/api/subscribe', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

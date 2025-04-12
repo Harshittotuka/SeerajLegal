@@ -373,7 +373,7 @@
 
                 if (section.image && Array.isArray(section.image)) {
                     section.image.forEach(img => {
-                        const imageUrl = `http://127.0.0.1:8000/${img}`;
+                        const imageUrl = `/${img}`;
                         const imgAnchor = document.createElement("a");
                         imgAnchor.href = imageUrl;
                         imgAnchor.target = "_blank";

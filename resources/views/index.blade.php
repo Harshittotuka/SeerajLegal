@@ -300,7 +300,7 @@
         });
 
         function fetchADRServices() {
-            fetch("http://127.0.0.1:8000/api/services/list")
+            fetch("/api/services/list")
                 .then(response => response.json())
                 .then(data => {
                     if (!data.success || !Array.isArray(data.data) || data.data.length === 0) {

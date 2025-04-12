@@ -249,7 +249,7 @@
                     const memberId = row.getAttribute('data-id');
 
                     // Option 1: If you have a dedicated API to fetch details for a member:
-                    fetch(`http://127.0.0.1:8000/api/teams/${memberId}`)
+                    fetch(`/api/teams/${memberId}`)
                         .then(response => response.json())
                         .then(member => {
                             prefillEditModal(member);
@@ -295,7 +295,7 @@
 
                     // Add the profile image and replace button
                     const imageContainer = document.getElementById('imageContainer');
-                    const baseUrl = 'http://127.0.0.1:8000/'; // Base URL for the image
+                    const baseUrl = '/'; // Base URL for the image
                     const fullImagePath = `${baseUrl}${memberData.profile_image}`;
                     imageContainer.innerHTML = `
             <img src="${fullImagePath}" alt="Profile Image" style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px; border: 1px solid #ccc;">
@@ -339,7 +339,7 @@
                         formData.append('path', currentImagePath);
 
                         // Call the API to replace the image
-                        fetch('http://127.0.0.1:8000/api/upload-cropped-image', {
+                        fetch('/api/upload-cropped-image', {
                                 method: 'POST',
                                 body: formData,
                             })
@@ -352,12 +352,12 @@
                                     const imageElement = document.querySelector('#imageContainer img');
                                     if (imageElement) {
                                         imageElement.src =
-                                            `http://127.0.0.1:8000/${currentImagePath}?t=${Date.now()}`; // Prepend localhost URL
+                                            `/${currentImagePath}?t=${Date.now()}`; // Prepend localhost URL
                                     } else {
                                         // If the image element doesn't exist, create it
                                         const newImageElement = document.createElement('img');
                                         newImageElement.src =
-                                            `http://127.0.0.1:8000/${currentImagePath}?t=${Date.now()}`;
+                                            `/${currentImagePath}?t=${Date.now()}`;
                                         newImageElement.alt = "Profile Image";
                                         newImageElement.style =
                                             "width: 100px; height: 100px; object-fit: cover; border-radius: 5px; border: 1px solid #ccc;";
@@ -437,7 +437,7 @@
                 };
 
                 // Make the PUT request to update the team member
-                fetch(`http://127.0.0.1:8000/api/teams/${memberId}`, {
+                fetch(`/api/teams/${memberId}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
@@ -563,7 +563,7 @@
                     formData.append('path', uniqueImagePath);
 
                     // Call the API to upload the image
-                    fetch('http://127.0.0.1:8000/api/upload-cropped-image', {
+                    fetch('/api/upload-cropped-image', {
                             method: 'POST',
                             body: formData,
                         })
@@ -606,7 +606,7 @@
                 console.log("Saving member data:", memberData);
 
                 // Call your API to save the member data
-                fetch('http://127.0.0.1:8000/api/teams/create', {
+                fetch('/api/teams/create', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -762,7 +762,7 @@
 
             // Function to handle deletion of a member row
             function deleteMember(memberId, rowElement) {
-                const url = `http://127.0.0.1:8000/api/teams/${memberId}`;
+                const url = `/api/teams/${memberId}`;
                 fetch(url, {
                         method: 'DELETE'
                     })
@@ -785,7 +785,7 @@
 
             // Fetch data from the API and populate the table
             // Fetch data from the API and populate the table
-            fetch('http://127.0.0.1:8000/api/teams')
+            fetch('/api/teams')
                 .then(response => response.json())
                 .then(data => {
                     const tbody = document.querySelector('#example tbody');

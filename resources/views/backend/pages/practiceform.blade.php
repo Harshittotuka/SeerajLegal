@@ -58,7 +58,7 @@
     <script>
         async function fetchServices() {
             try {
-                const response = await fetch("http://127.0.0.1:8000/api/services/list");
+                const response = await fetch("/api/services/list");
                 const data = await response.json();
 
                 if (data.success) {
@@ -211,7 +211,7 @@
                 return;
             }
 
-            fetch(`http://127.0.0.1:8000/api/practices/search?name=${encodeURIComponent(practiceName)}`)
+            fetch(`/api/practices/search?name=${encodeURIComponent(practiceName)}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log("Fetched Data:", data);
@@ -272,11 +272,11 @@
                 let topImagePath = practiceData[0].top_image?.replace(/\\/g, '/'); // Handle top_image
 
                 if (!imagePath.startsWith('http')) {
-                    imagePath = `http://127.0.0.1:8000/${imagePath.replace(/^\/+/, '')}`;
+                    imagePath = `/${imagePath.replace(/^\/+/, '')}`;
                 }
 
                 if (topImagePath && !topImagePath.startsWith('http')) {
-                    topImagePath = `http://127.0.0.1:8000/${topImagePath.replace(/^\/+/, '')}`;
+                    topImagePath = `/${topImagePath.replace(/^\/+/, '')}`;
                 }
 
                 console.log('Final Image Path:', imagePath); // Debugging
@@ -553,10 +553,10 @@
 }
 
                 // Determine API endpoint dynamically
-                let apiUrl = "http://127.0.0.1:8000/api/practices/create";
+                let apiUrl = "/api/practices/create";
                 if (practiceNameFromUrl) {
                     apiUrl =
-                        `http://127.0.0.1:8000/api/practices/update-practice/${encodeURIComponent(practiceNameFromUrl)}`;
+                        `/api/practices/update-practice/${encodeURIComponent(practiceNameFromUrl)}`;
                 }
 
                 // Step 1: Save Practice Data First

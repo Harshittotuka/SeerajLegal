@@ -92,7 +92,7 @@
             // Update the header background image dynamically
             const headerBanner = document.getElementById("headerBanner");
             if (firstPractice.top_image) {
-                const imageUrl = `http://127.0.0.1:8000/${firstPractice.top_image.replace(/^\/+/, "")}`;
+                const imageUrl = `/${firstPractice.top_image.replace(/^\/+/, "")}`;
                 headerBanner.setAttribute("data-background", imageUrl);
                 headerBanner.style.backgroundImage = `url('${imageUrl}')`;
                 console.log("Background Image Set:", imageUrl); // Debugging
@@ -175,7 +175,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             let currentService = "{{ $practiceName }}"; // Assuming this is passed from Laravel controller
-            let apiUrl = "http://127.0.0.1:8000/api/practices/list";
+            let apiUrl = "/api/practices/list";
 
             fetch(apiUrl)
                 .then(response => {

@@ -235,7 +235,7 @@
                 return;
             }
 
-            fetch(`http://127.0.0.1:8000/api/admin/update-password/${userId}`, {
+            fetch(`/api/admin/update-password/${userId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -583,7 +583,7 @@
                                 };
 
                                 try {
-                                    const response = await fetch("http://127.0.0.1:8000/api/admin/create", {
+                                    const response = await fetch("/api/admin/create", {
                                         method: "POST",
                                         headers: {
                                             "Content-Type": "application/json"
@@ -757,7 +757,7 @@
                         return;
                     }
 
-                    fetch(`http://127.0.0.1:8000/api/admin/${selectedUserId}/update-password-d`, {
+                    fetch(`/api/admin/${selectedUserId}/update-password-d`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -919,7 +919,7 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const table = document.getElementById('dataTable');
-                const apiUrl = 'http://127.0.0.1:8000/api/admin';
+                const apiUrl = '/api/admin';
                 const tableBody = document.querySelector('#dataTable tbody');
 
                 // Fetch and display data
@@ -1023,7 +1023,7 @@
                     if (type) updatedData.type = type;
                     updatedData.profile_image = null;
 
-                    fetch(`http://127.0.0.1:8000/api/admin/${userId}/edit`, {
+                    fetch(`/api/admin/${userId}/edit`, {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -1155,7 +1155,7 @@
                     }
 
                     if (confirm('Are you sure you want to delete this user?')) {
-                        fetch(`http://127.0.0.1:8000/api/admin/delete/${userId}`, {
+                        fetch(`/api/admin/delete/${userId}`, {
                                 method: 'DELETE',
                             })
                             .then(response => {
@@ -1308,7 +1308,7 @@
                     type: type1
                 };
 
-                fetch(`http://127.0.0.1:8000/api/admin/${id}/edit`, {
+                fetch(`/api/admin/${id}/edit`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',

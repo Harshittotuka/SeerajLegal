@@ -55,8 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const icon = "gavel";
 
     Promise.all([
-        fetch("http://127.0.0.1:8000/api/practices/list").then(res => res.json()).catch(() => ({ success: false, data: [] })),
-        fetch("http://127.0.0.1:8000/api/practice_count").then(res => res.json()).catch(() => ({ status: "error", data: {} }))
+        fetch("/api/practices/list").then(res => res.json()).catch(() => ({ success: false, data: [] })),
+        fetch("/api/practice_count").then(res => res.json()).catch(() => ({ status: "error", data: {} }))
     ])
     .then(([listResponse, countResponse]) => {
         const practices = Array.isArray(listResponse.data) ? listResponse.data : [];
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const name = practice.practice_name || "Unnamed";
                 const statusClass = practice.flag === "enabled" ? "enabled" : "disabled";
                 const encodedPracticeName = encodeURIComponent(name);
-                const practiceUrl = `http://127.0.0.1:8000/backend/practice/form?practicename=${encodedPracticeName}`;
+                const practiceUrl = `/backend/practice/form?practicename=${encodedPracticeName}`;
                 const expertCount = counts[name] || 0;
 
                 const cardHtml = `
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                             <h4 class="mb-0">${name}</h4>
                                         </div>
                                         <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                            <i class="material-symbols-rounded opacity-10">${icon}</i>
+                                                            <i class="${practice.icon}"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Add Practice Card
             const addCardHtml = `
                 <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                    <a href="http://127.0.0.1:8000/backend/practice/form" target="_blank" style="text-decoration: none; color: inherit;">
+                    <a href="/backend/practice/form" target="_blank" style="text-decoration: none; color: inherit;">
                         <div class="card card1">
                             <div class="card-header p-2 ps-3">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             return;
                         }
 
-                        fetch(`http://127.0.0.1:8000/api/practices/delete/${practiceName}`, {
+                        fetch(`/api/practices/delete/${practiceName}`, {
                                 method: "DELETE",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -290,7 +290,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 }).showToast();
                             });
                     } else if (action === 'Change Status') {
-                        fetch(`http://127.0.0.1:8000/api/toggle-practice-flag/${encodeURIComponent(practiceName)}`, {
+                        fetch(`/api/toggle-practice-flag/${encodeURIComponent(practiceName)}`, {
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json",

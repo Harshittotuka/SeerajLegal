@@ -629,9 +629,10 @@
             //     $("#progressbar li").first().addClass("active");
             // });
 
+
             let membershipData = {};
 
-fetch("http://127.0.0.1:8000/api/membership-types")
+  fetch("/api/membership-types")
     .then(response => response.json())
     .then(data => {
         let dropdown = document.getElementById("membershipType");
