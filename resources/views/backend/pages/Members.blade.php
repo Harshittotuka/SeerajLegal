@@ -290,7 +290,7 @@
                 }
             }
         </script>
-        @include('backend.components.topimage-modal')
+        @include('backend.Components.topimage-modal')
 
         <!-- html  table-->
         <div class="container-fluid overflow-hidden py-2">

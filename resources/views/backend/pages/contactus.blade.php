@@ -40,7 +40,7 @@
         <!-- Navbar -->
         @include('backend.partials.top-nav')
         <!-- End Navbar -->
-        @include('backend.components.topimage-modal')
+        @include('backend.Components.topimage-modal')
 
         <!-- div for contactus -->
         <div class="container-fluid overflow-hidden py-2">

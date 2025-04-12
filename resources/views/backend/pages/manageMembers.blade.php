@@ -53,7 +53,7 @@
         <!-- Navbar -->
         @include('backend.partials.top-nav')
         <!-- End Navbar -->
-        @include('backend.components.topimage-modal')
+        @include('backend.Components.topimage-modal')
 
 
         <div class="container-fluid py-2">
@@ -186,7 +186,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", async function() {
-            const apiUrl = "http://localhost:8000/api/members/all";
+            const apiUrl = "/api/members/all";
 
             async function fetchMembers() {
                 try {

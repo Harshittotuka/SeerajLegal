@@ -671,7 +671,7 @@ document.getElementById("membershipType").addEventListener("change", function ()
             const formData = new FormData(form);
 
             try {
-                const response = await fetch("http://localhost:8000/api/membership/apply", {
+                const response = await fetch("/api/membership/apply", {
                     method: "POST",
                     headers: {
                         'Accept': 'application/json'
@@ -753,7 +753,7 @@ document.getElementById("membershipType").addEventListener("change", function ()
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("http://127.0.0.1:8000/api/membership-types")
+    fetch("/api/membership-types")
         .then(res => res.json())
         .then(res => {
             const container = document.getElementById("membershipCardsContainer");
