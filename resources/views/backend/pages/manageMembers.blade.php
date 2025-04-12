@@ -256,7 +256,7 @@
             window.approveMember = async (id) => {
                 try {
                     // Call the approve API (which now also sends the email)
-                    const res = await fetch(`http://127.0.0.1:8000/api/membership/${id}/approve`, {
+                    const res = await fetch(`/api/membership/${id}/approve`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -289,7 +289,7 @@
 
             window.rejectMember = async (id) => {
                 try {
-                    const res = await fetch(`http://127.0.0.1:8000/api/membership/${id}/reject`, {
+                    const res = await fetch(`/api/membership/${id}/reject`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

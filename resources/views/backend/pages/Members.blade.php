@@ -147,7 +147,7 @@
                 };
 
                 // Send a POST request to the API endpoint
-                fetch("http://127.0.0.1:8000/api/members/create", {
+                fetch("/api/members/create", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -174,7 +174,7 @@
             document.addEventListener("DOMContentLoaded", function () {
     const membershipSelect = document.getElementById("membershipType");
 
-    fetch("http://127.0.0.1:8000/api/membership-types")
+    fetch("/api/membership-types")
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -247,7 +247,7 @@
                 const membershipPriority = document.getElementById("membershipPriority").value;
                 const messageContainer = document.getElementById("message-container");
 
-                const apiUrl = "http://127.0.0.1:8000/api/membership-types/create";
+                const apiUrl = "/api/membership-types/create";
 
                 const requestData = {
                     membershipType: membershipName,
@@ -381,7 +381,7 @@
     <!-- JavaScript for Listing Membership Type on outer div -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const apiUrl = "http://127.0.0.1:8000/api/membership-types";
+            const apiUrl = "/api/membership-types";
             let selectedMembership = null;
 
             async function fetchMembershipTypes() {
@@ -555,7 +555,7 @@
         // Function to fetch members and build the table
         function fetchMembers() {
             $.ajax({
-                url: 'http://127.0.0.1:8000/api/members',
+                url: '/api/members',
                 method: 'GET',
                 dataType: 'json',
                 success: function(data) {
@@ -608,7 +608,7 @@
             // Fetch membership types once and store them
             async function fetchMembershipTypes() {
                 try {
-                    const response = await fetch("http://127.0.0.1:8000/api/membership-types");
+                    const response = await fetch("/api/membership-types");
                     const data = await response.json();
 
                     if (data.success && Array.isArray(data.data)) {
@@ -678,7 +678,7 @@
 
                 // Send update request to backend
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/api/members/' + memberId,
+                    url: '/api/members/' + memberId,
                     method: 'PUT',
                     dataType: 'json',
                     contentType: 'application/json',
@@ -747,7 +747,7 @@
                 return; // Cancel deletion if user clicks "Cancel"
             }
 
-            var deleteUrl = 'http://127.0.0.1:8000/api/members/' + id;
+            var deleteUrl = '/api/members/' + id;
             $.ajax({
                 url: deleteUrl,
                 method: 'DELETE',

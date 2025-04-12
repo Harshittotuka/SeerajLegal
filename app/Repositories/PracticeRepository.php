@@ -20,8 +20,8 @@ class PracticeRepository
     {
         return Practice::where('para_sno', 1) // Filter records where para_sno = 1
             ->where('flag', 'enabled') // Only include enabled practices
-            ->select('id', 'practice_name', 'image_path', 'flag') // Select required columns
-            ->groupBy('practice_name', 'id', 'image_path', 'flag') // Group by these to get unique records
+            ->select('id', 'practice_name', 'image_path', 'flag','icon') // Select required columns
+            ->groupBy('practice_name', 'id', 'image_path', 'flag','icon') // Group by these to get unique records
             ->orderBy('id') // Order by ID
             ->get();
     }

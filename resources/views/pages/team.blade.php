@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     try {
         console.log("Fetching team members...");
 
-        const response = await fetch('http://127.0.0.1:8000/api/teams');
+        const response = await fetch('/api/teams');
         const teamMembers = await response.json();
 
         console.log("API Response:", teamMembers);

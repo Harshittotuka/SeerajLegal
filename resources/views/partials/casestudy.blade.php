@@ -129,7 +129,7 @@
    
     async function fetchPractices() {
         try {
-            let response = await fetch("http://127.0.0.1:8000/api/practices/list");
+            let response = await fetch("/api/practices/list");
             let data = await response.json();
 
             if (data.success && data.data.length > 0) {
@@ -144,11 +144,11 @@
 
                     let slide = document.createElement("div");
                     slide.className = "swiper-slide";
-                    slide.setAttribute("data-url", `http://127.0.0.1:8000/practice/${encodedName}`); // Store URL
+                    slide.setAttribute("data-url", `/practice/${encodedName}`); // Store URL
 
                    slide.innerHTML = `
     <div class="img">
-        <img src="http://127.0.0.1:8000/${item.image_path.replace(/^\/+/, '')}" alt="${item.practice_name}">
+        <img src="/${item.image_path.replace(/^\/+/, '')}" alt="${item.practice_name}">
     </div>
     <div class="overlay">
         <div class="title">${item.practice_name}</div>

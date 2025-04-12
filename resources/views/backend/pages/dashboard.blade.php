@@ -55,7 +55,7 @@
         <script>
             document.addEventListener("DOMContentLoaded", async function() {
                 try {
-                    const response = await fetch("http://127.0.0.1:8000/dashboard");
+                    const response = await fetch("/dashboard");
                     const data = await response.json();
 
                     if (data.success) {
@@ -342,7 +342,7 @@
         async function initializeMemberChart() {
             try {
                 // Fetch member data from API
-                const response = await fetch('http://127.0.0.1:8000/api/members');
+                const response = await fetch('/api/members');
                 const members = await response.json();
 
                 // Process data to get monthly counts

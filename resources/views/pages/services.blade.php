@@ -73,7 +73,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             let serviceName = "{{ $serviceName }}";
-            let apiUrl = `http://127.0.0.1:8000/api/service/${serviceName}`;
+            let apiUrl = `/api/service/${serviceName}`;
 
             fetch(apiUrl)
                 .then(response => response.json())
@@ -95,7 +95,7 @@
 
                         if (firstService.top_image) {
                             const imageUrl =
-                                `http://127.0.0.1:8000/${firstService.top_image.replace(/^\/+/, "")}`;
+                                `/${firstService.top_image.replace(/^\/+/, "")}`;
                             headerBanner.setAttribute("data-background", imageUrl);
                             headerBanner.style.backgroundImage = `url('${imageUrl}')`;
                         }
@@ -174,7 +174,7 @@
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         let currentService = "{{ $serviceName }}"; // Assuming this is passed from Laravel controller
-        let apiUrl = "http://127.0.0.1:8000/api/services/list";
+        let apiUrl = "/api/services/list";
 
         fetch(apiUrl)
             .then(response => response.json())
@@ -249,7 +249,7 @@
         try {
             // Capitalize first letter for API call
             const apiService = service.charAt(0).toUpperCase() + service.slice(1);
-            const apiUrl = `http://127.0.0.1:8000/api/teams/service/${apiService}`;
+            const apiUrl = `/api/teams/service/${apiService}`;
             const response = await fetch(apiUrl);
             const teamMembers = await response.json();
             console.log(teamMembers);
@@ -268,8 +268,8 @@
 
             teamMembers.forEach(member => {
                 const profileImage = member.profile_image ?
-                    `http://127.0.0.1:8000/${member.profile_image.replace(/^\/+/, '')}` :
-                    'http://127.0.0.1:8000/assets/img/my/profile_icon2.png';
+                    `/${member.profile_image.replace(/^\/+/, '')}` :
+                    '/assets/img/my/profile_icon2.png';
 
                 const socials = member.socials || {};
                 teamMembersContainer.innerHTML += `

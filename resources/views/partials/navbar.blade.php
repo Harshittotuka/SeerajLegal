@@ -559,7 +559,7 @@
 
                 <script>
                     document.addEventListener("DOMContentLoaded", function() {
-                        let apiUrl = "http://127.0.0.1:8000/api/services/list";
+                        let apiUrl = "/api/services/list";
 
                         fetch(apiUrl)
                             .then(response => response.json())

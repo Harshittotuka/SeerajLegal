@@ -113,7 +113,7 @@ function toTitleCase(str) {
         .join(' ');
 }
             // ✅ Fetch and populate director names from API instead of aboutus.json
-            fetch('http://127.0.0.1:8000/api/team/designation/Director')
+            fetch('/api/team/designation/Director')
     .then(response => response.json())
     .then(directors => {
         const pointsContainer = document.getElementById('section-5-points');
