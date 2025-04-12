@@ -110,7 +110,7 @@
 <!-- JavaScript -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const baseUrl = "http://localhost:8000"; // Your Laravel local URL
+        const baseUrl = ""; // Your Laravel local URL
 
         const iconInput = document.getElementById("icon");
         const iconPreview = document.getElementById("iconPreview");

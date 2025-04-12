@@ -186,7 +186,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", async function() {
-            const apiUrl = "http://localhost:8000/api/members/all";
+            const apiUrl = "/api/members/all";
 
             async function fetchMembers() {
                 try {

@@ -214,7 +214,7 @@
                     return;
                 }
 
-                const response = await fetch("http://localhost:8000/api/update", {
+                const response = await fetch("/api/update", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

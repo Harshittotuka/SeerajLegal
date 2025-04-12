@@ -123,7 +123,7 @@
 <script>
     async function updateSection1(data, actionType) {
         try {
-            const response = await fetch("http://localhost:8000/api/update", {
+            const response = await fetch("/api/update", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -217,7 +217,7 @@
         formData.append("path", relativePath);
 
         try {
-            const uploadRes = await fetch("http://localhost:8000/api/upload-cropped-image", {
+            const uploadRes = await fetch("/api/upload-cropped-image", {
                 method: "POST",
                 body: formData
             });
