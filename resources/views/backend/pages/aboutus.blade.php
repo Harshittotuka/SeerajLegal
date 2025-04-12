@@ -50,7 +50,7 @@
         <!-- Navbar -->
         @include('backend.partials.top-nav')
         <!-- End Navbar -->
-        @include('backend.components.topimage-modal')
+        @include('backend.Components.topimage-modal')
         <div class="d-flex justify-content-between align-items-center mt-3 ms-3">
             <h5 class="mb-0">Who We are?</h5> <!-- Optional Title -->
             <div class="d-flex align-items-center gap-2 me-4 mt-3">
