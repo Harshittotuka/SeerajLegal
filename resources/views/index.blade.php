@@ -26,7 +26,7 @@
 <body>
     <!-- Navbar -->
     @include('partials.navbar')
-test
+
 
 
     <!-- Kenburns SlideShow  S_id:0 -->
