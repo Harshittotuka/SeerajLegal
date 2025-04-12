@@ -9,7 +9,7 @@ return new class extends Migration {
         Schema::create('members', function (Blueprint $table) {
             $table->id(); // Auto-increment primary key
             $table->string('name'); // Member name
-            $table->string('membership_type'); // defaults to VARCHAR(255)
+            $table->string('membershipType'); // defaults to VARCHAR(255)
             $table->timestamps(); // Created at and Updated at timestamps
         });
     }

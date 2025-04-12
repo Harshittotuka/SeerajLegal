@@ -9,8 +9,10 @@ return new class extends Migration {
     {
         Schema::create('membership_types', function (Blueprint $table) {
             $table->id();
-            $table->string('membership_type');
+            $table->string('membershipType');
             $table->integer('priority')->unique();
+            $table->decimal('price', 8, 2); // e.g., 999.99
+            $table->string('duration'); // e.g., "1 year"
             $table->timestamps();
         });
     }

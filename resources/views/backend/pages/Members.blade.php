@@ -143,7 +143,7 @@
                 // Create the payload using the collected values
                 const payload = {
                     name: memberName,
-                    membership_type: membershipType
+                    membershipType: membershipType
                 };
 
                 // Send a POST request to the API endpoint
@@ -187,8 +187,8 @@
 
                 data.data.forEach(item => {
                     const option = document.createElement("option");
-                     option.value = item.membership_type; // Set value as name instead of ID
-                    option.textContent = item.membership_type;
+                     option.value = item.membershipType; // Set value as name instead of ID
+                    option.textContent = item.membershipType;
                     membershipSelect.appendChild(option);
                 });
             } else {
@@ -250,7 +250,7 @@
                 const apiUrl = "http://127.0.0.1:8000/api/membership-types/create";
 
                 const requestData = {
-                    membership_type: membershipName,
+                    membershipType: membershipName,
                     priority: parseInt(membershipPriority, 10)
                 };
 
@@ -406,7 +406,7 @@
                     row.className = "d-flex justify-content-between align-items-center";
 
                     const typeCell = document.createElement("td");
-                    typeCell.textContent = capitalizeFirstLetter(item.membership_type);
+                    typeCell.textContent = capitalizeFirstLetter(item.membershipType);
 
                     const actionCell = document.createElement("td");
                     actionCell.className = "d-flex";
@@ -421,7 +421,7 @@
                     deleteIcon.className = "material-symbols-rounded text-danger";
                     deleteIcon.textContent = "delete";
                     deleteIcon.style.cursor = "pointer";
-                    deleteIcon.onclick = () => deleteMembership(item.membership_type);
+                    deleteIcon.onclick = () => deleteMembership(item.membershipType);
 
                     actionCell.appendChild(updateIcon);
                     actionCell.appendChild(deleteIcon);
@@ -440,7 +440,7 @@
             function openUpdateModal(item) {
                 selectedMembership = item;
                 document.getElementById("membershipModalLabel").textContent = "Update Membership Type";
-                document.getElementById("membershipName").value = item.membership_type;
+                document.getElementById("membershipName").value = item.membershipType;
                 document.getElementById("membershipPriority").value = item.priority;
 
                 const saveButton = document.querySelector("#membershipForm .btn-success");
@@ -462,13 +462,13 @@
                 }
 
                 try {
-                    const response = await fetch(`${apiUrl}/update/${selectedMembership.membership_type}`, {
+                    const response = await fetch(`${apiUrl}/update/${selectedMembership.membershipType}`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
                         },
                         body: JSON.stringify({
-                            membership_type: name,
+                            membershipType: name,
                             priority: parseInt(priority)
                         })
                     });
@@ -565,8 +565,8 @@
                         tableBody += '<td>' + (i + 1) + '</td>'; // Serial number
                         tableBody += '<td>' + member.name + '</td>';
                         // Capitalize first letter of membership type
-                        var membershipType = member.membership_type.charAt(0).toUpperCase() + member
-                            .membership_type.slice(1);
+                        var membershipType = member.membershipType.charAt(0).toUpperCase() + member
+                            .membershipType.slice(1);
                         tableBody += '<td>' + membershipType + '</td>';
                         // Include data attributes with the member id for both edit and delete icons
                         tableBody += '<td class="actions">' +
@@ -640,10 +640,10 @@
                 // Membership type dropdown (ensuring correct pre-selection)
                 var dropdownHtml = '<select class="form-control">';
                 membershipTypes.forEach(function(type) {
-                    var selected = type.membership_type.toLowerCase() === originalMembershipType
+                    var selected = type.membershipType.toLowerCase() === originalMembershipType
                         .toLowerCase() ? 'selected' : '';
                     dropdownHtml +=
-                        `<option value="${type.membership_type}" ${selected}>${type.membership_type}</option>`;
+                        `<option value="${type.membershipType}" ${selected}>${type.membershipType}</option>`;
                 });
                 dropdownHtml += '</select>';
                 row.find('td:eq(2)').html(dropdownHtml);
@@ -684,7 +684,7 @@
                     contentType: 'application/json',
                     data: JSON.stringify({
                         name: updatedName,
-                        membership_type: updatedMembershipType
+                        membershipType: updatedMembershipType
                     }),
                     success: function(response) {
                         Toastify({

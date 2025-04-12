@@ -96,13 +96,21 @@ Route::get('admin/password/reset/{token}', [AuthAdminController::class, 'showRes
 Route::post('admin/password/reset', [AuthAdminController::class, 'reset'])->name('admin.password.update');
 
 
-  Route::post('admin/password/email', [AuthAdminController::class, 'sendResetLinkEmail'])->name('admin.password.email');
+
+Route::get('/membership/payment/{id}', [MembershipController::class, 'showPaymentPage'])->name('membership.payment');
+Route::post('/verify-razorpay', [MembershipController::class, 'verifyRazorpay'])->name('verify.razorpay');
+
+
+
+
+Route::post('admin/password/email', [AuthAdminController::class, 'sendResetLinkEmail'])->name('admin.password.email');
 // Protected Admin Routes
 
 Route::middleware('auth:admin')->group(function () {
     Route::get('backend/dashboard', function () {
         return view('backend.pages.dashboard');
     })->name('backend.dashboard');
+
 
 
 
@@ -124,6 +132,16 @@ Route::get('/backend/faq', function () {
 Route::get('/backend/members', function () {
     return view('backend/pages/members');
 })->name('backend.members');
+
+
+Route::get('/backend/members/manage', function () {
+    return view('backend/pages/manageMembers');
+})->name('backend.manage.members');
+
+
+Route::get('/backend/membership-types', function () {
+    return view('backend.pages.manageMembershipType');
+});
 
 Route::get('/backend/teams', function () {
     return view('backend/pages/teams');
@@ -238,6 +256,11 @@ Route::get('/membership/become-a-member', function () {
 Route::get('/membership/member-list', function () {
     return view('pages.memberlist');
 })->name('membership.list');
+
+
+
+
+
 
 Route::get('/membership/panel', function () {
     return view('pages.panel');
