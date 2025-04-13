@@ -237,7 +237,7 @@
             const showEyeButton = (ruleId) => {
                 eyeButton.style.display = 'block';
                 eyeButton.onclick = () => {
-                    window.open(`http://127.0.0.1:8000/service_rules?rule=${ruleId}`, '_blank');
+                    window.open(`/service_rules?rule=${ruleId}`, '_blank');
                 };
             };
 

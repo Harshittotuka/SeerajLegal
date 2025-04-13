@@ -602,7 +602,7 @@
                                       // Add each rule to the dropdown with the ID in the URL
                                       let ruleItem = document.createElement('li');
                                       ruleItem.innerHTML =
-                                          `<a href="http://127.0.0.1:8000/service_rules?rule=${ruleId}" class="dropdown-item">${rule.name}</a>`;
+                                          `<a href="/service_rules?rule=${ruleId}" class="dropdown-item">${rule.name}</a>`;
                                       rulesDropdown.appendChild(ruleItem);
                                   });
 
