@@ -80,7 +80,7 @@
 
                     <script>
                         document.addEventListener("DOMContentLoaded", function() {
-                            fetch("http://localhost:8000/api/members/confirmed")
+                            fetch("/api/members/confirmed")
                                 .then(response => response.json())
                                 .then(data => {
                                     const membersTable = document.getElementById("membersTable");

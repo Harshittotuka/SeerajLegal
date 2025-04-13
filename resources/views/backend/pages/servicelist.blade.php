@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>
-       Seeraj Legal Relief Foundation
+        Seeraj Legal Relief Foundation
     </title>
     <!--     Fonts and icons     -->
     <link href="{{ asset('assets/backend/css/nucleo-icons.css') }}" rel="stylesheet" />
@@ -30,15 +30,15 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
 
 
-       <!-- Navbar -->
-          @include('backend.partials.top-nav')
+        <!-- Navbar -->
+        @include('backend.partials.top-nav')
         <!-- End Navbar -->
         <script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        updateBreadcrumbs(["Dashboard", "Service List"], ["/backend", "/backend/service/list"]);
-    });
-</script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                updateBreadcrumbs(["Dashboard", "Service List"], ["/backend", "/backend/service/list"]);
+            });
+        </script>
 
         <div class="container-fluid overflow-hidden py-2">
             <div class="row g-4" id="services-container">
@@ -50,30 +50,31 @@
         </div>
 
         <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const servicesUrl = "http://127.0.0.1:8000/api/services/list";
-        const expertCountUrl = "http://127.0.0.1:8000/api/service_count";
-        const container = document.getElementById("services-container");
-        const icon = "gavel";
+            document.addEventListener("DOMContentLoaded", function() {
+                const servicesUrl = "/api/services/list";
+                const expertCountUrl = "/api/service_count";
+                const container = document.getElementById("services-container");
+                const icon = "gavel";
 
-        // Fetch both services and counts in parallel
-        Promise.all([
-            fetch(servicesUrl).then(res => res.json()),
-            fetch(expertCountUrl).then(res => res.json())
-        ])
-            .then(([servicesData, countsData]) => {
-                if (servicesData.success && countsData.status === "success") {
-                    const services = servicesData.data;
-                    const serviceCounts = countsData.data;
+                // Fetch both services and counts in parallel
+                Promise.all([
+                        fetch(servicesUrl).then(res => res.json()),
+                        fetch(expertCountUrl).then(res => res.json())
+                    ])
+                    .then(([servicesData, countsData]) => {
+                        if (servicesData.success && countsData.status === "success") {
+                            const services = servicesData.data;
+                            const serviceCounts = countsData.data;
 
-                    services.forEach(service => {
-                        const statusClass = service.flag === "enabled" ? "enabled" : "disabled";
-                        const encodedServiceName = encodeURIComponent(service.service_name);
-                        const serviceUrl = `http://127.0.0.1:8000/backend/service/form?servicename=${encodedServiceName}`;
+                            services.forEach(service => {
+                                const statusClass = service.flag === "enabled" ? "enabled" : "disabled";
+                                const encodedServiceName = encodeURIComponent(service.service_name);
+                                const serviceUrl =
+                                `/backend/service/form?servicename=${encodedServiceName}`;
 
-                        const expertCount = serviceCounts[service.service_name] || 0;
+                                const expertCount = serviceCounts[service.service_name] || 0;
 
-                        const cardHtml = `
+                                const cardHtml = `
                             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 ${statusClass}">
                                 <a href="${serviceUrl}" target="_blank" style="text-decoration: none; color: inherit;">
                                     <div class="card">
@@ -84,7 +85,7 @@
                                                     <h4 class="mb-0">${service.service_name}</h4>
                                                 </div>
                                                 <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                                    <i class="material-symbols-rounded opacity-10">${icon}</i>
+                                                    <i class="${service.icon}"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -97,12 +98,12 @@
                             </div>
                         `;
 
-                        container.insertAdjacentHTML("beforeend", cardHtml);
-                    });
+                                container.insertAdjacentHTML("beforeend", cardHtml);
+                            });
 
-                    // Add service card
-                    const addServiceUrl = "http://127.0.0.1:8000/backend/service/form";
-                    const addServiceCard = `
+                            // Add service card
+                            const addServiceUrl = "/backend/service/form";
+                            const addServiceCard = `
                         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                             <a href="${addServiceUrl}" target="_blank" style="text-decoration: none; color: inherit;">
                                 <div class="card card1">
@@ -125,16 +126,16 @@
                             </a>
                         </div>
                     `;
-                    container.insertAdjacentHTML("beforeend", addServiceCard);
-                } else {
-                    console.error("API data fetch failed.");
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching services or counts:", error);
+                            container.insertAdjacentHTML("beforeend", addServiceCard);
+                        } else {
+                            console.error("API data fetch failed.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error fetching services or counts:", error);
+                    });
             });
-    });
-</script>
+        </script>
 
 
         <!-- Custom Context Menu -->
@@ -178,161 +179,161 @@
             }
         </style>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const menu = document.getElementById("custom-menu");
-        let selectedCard = null; // Stores the clicked card
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const menu = document.getElementById("custom-menu");
+                let selectedCard = null; // Stores the clicked card
 
-        // Use event delegation for dynamically loaded cards
-        document.addEventListener("contextmenu", function(event) {
-            if (event.target.closest(".card")) {
-                event.preventDefault();
+                // Use event delegation for dynamically loaded cards
+                document.addEventListener("contextmenu", function(event) {
+                    if (event.target.closest(".card")) {
+                        event.preventDefault();
 
-                selectedCard = event.target.closest(".card"); // Store clicked card
+                        selectedCard = event.target.closest(".card"); // Store clicked card
 
-                // Get viewport width & height
-                const viewportWidth = window.innerWidth;
-                const viewportHeight = window.innerHeight;
+                        // Get viewport width & height
+                        const viewportWidth = window.innerWidth;
+                        const viewportHeight = window.innerHeight;
 
-                // Get menu dimensions
-                const menuWidth = menu.offsetWidth;
-                const menuHeight = menu.offsetHeight;
+                        // Get menu dimensions
+                        const menuWidth = menu.offsetWidth;
+                        const menuHeight = menu.offsetHeight;
 
-                // Adjust position to prevent overflow
-                let posX = event.clientX;
-                let posY = event.clientY;
+                        // Adjust position to prevent overflow
+                        let posX = event.clientX;
+                        let posY = event.clientY;
 
-                if (posX + menuWidth > viewportWidth) {
-                    posX -= menuWidth;
-                }
-                if (posY + menuHeight > viewportHeight) {
-                    posY -= menuHeight;
-                }
-
-                menu.style.left = `${posX}px`;
-                menu.style.top = `${posY}px`;
-                menu.style.display = "block";
-            }
-        });
-
-        // Hide menu when clicking anywhere else
-        document.addEventListener("click", function() {
-            menu.style.display = "none";
-        });
-
-        // Close menu on 'Escape' key press
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Escape") {
-                menu.style.display = "none";
-            }
-        });
-
-        // Handle menu actions
-        function handleOption(action) {
-            if (!selectedCard) return;
-
-            const serviceName = selectedCard.querySelector("h4").innerText
-                .trim(); // Get service name dynamically
-
-            if (action === 'Delete') {
-                if (!confirm(`Are you sure you want to delete ${serviceName}?`)) {
-                    return;
-                }
-
-                fetch(`http://127.0.0.1:8000/api/services/delete/${serviceName}`, {
-                        method: "DELETE",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Remove the deleted card from DOM
-                            selectedCard.remove();
-
-                            // Show success notification
-                            Toastify({
-                                text: `Deleted ${serviceName} successfully!`,
-                                duration: 3000,
-                                gravity: "top",
-                                position: "right",
-                                backgroundColor: "linear-gradient(to right, #28a745, #218838)", // Green Success Color
-                                stopOnFocus: true,
-                            }).showToast();
-                            window.location.reload();
-                        } else {
-                            // Show error notification
-                            Toastify({
-                                text: `Failed to delete ${serviceName}! Try again.`,
-                                duration: 3000,
-                                gravity: "top",
-                                position: "right",
-                                backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
-                                stopOnFocus: true,
-                            }).showToast();
+                        if (posX + menuWidth > viewportWidth) {
+                            posX -= menuWidth;
                         }
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                        Toastify({
-                            text: "Something went wrong!",
-                            duration: 3000,
-                            gravity: "top",
-                            position: "right",
-                            backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
-                            stopOnFocus: true,
-                        }).showToast();
-                    });
-            } else if (action === 'Change Status') {
-                fetch(`http://127.0.0.1:8000/api/toggle-service-flag/${encodeURIComponent(serviceName)}`, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Show success notification
-                            Toastify({
-                                text: `Status of ${serviceName} changed successfully!`,
-                                duration: 3000,
-                                gravity: "top",
-                                position: "right",
-                                backgroundColor: "linear-gradient(to right, #28a745, #218838)", // Green Success Color
-                                stopOnFocus: true,
-                            }).showToast();
-                            window.location.reload();
-                        } else {
-                            // Show error notification
-                            Toastify({
-                                text: `Failed to change status of ${serviceName}! Try again.`,
-                                duration: 3000,
-                                gravity: "top",
-                                position: "right",
-                                backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
-                                stopOnFocus: true,
-                            }).showToast();
+                        if (posY + menuHeight > viewportHeight) {
+                            posY -= menuHeight;
                         }
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                        Toastify({
-                            text: "Something went wrong!",
-                            duration: 3000,
-                            gravity: "top",
-                            position: "right",
-                            backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
-                            stopOnFocus: true,
-                        }).showToast();
-                    });
-            }
-        }
 
-        window.handleOption = handleOption; // Make function globally accessible
-    });
-</script>
+                        menu.style.left = `${posX}px`;
+                        menu.style.top = `${posY}px`;
+                        menu.style.display = "block";
+                    }
+                });
+
+                // Hide menu when clicking anywhere else
+                document.addEventListener("click", function() {
+                    menu.style.display = "none";
+                });
+
+                // Close menu on 'Escape' key press
+                document.addEventListener("keydown", function(event) {
+                    if (event.key === "Escape") {
+                        menu.style.display = "none";
+                    }
+                });
+
+                // Handle menu actions
+                function handleOption(action) {
+                    if (!selectedCard) return;
+
+                    const serviceName = selectedCard.querySelector("h4").innerText
+                        .trim(); // Get service name dynamically
+
+                    if (action === 'Delete') {
+                        if (!confirm(`Are you sure you want to delete ${serviceName}?`)) {
+                            return;
+                        }
+
+                        fetch(`/api/services/delete/${serviceName}`, {
+                                method: "DELETE",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Remove the deleted card from DOM
+                                    selectedCard.remove();
+
+                                    // Show success notification
+                                    Toastify({
+                                        text: `Deleted ${serviceName} successfully!`,
+                                        duration: 3000,
+                                        gravity: "top",
+                                        position: "right",
+                                        backgroundColor: "linear-gradient(to right, #28a745, #218838)", // Green Success Color
+                                        stopOnFocus: true,
+                                    }).showToast();
+                                    window.location.reload();
+                                } else {
+                                    // Show error notification
+                                    Toastify({
+                                        text: `Failed to delete ${serviceName}! Try again.`,
+                                        duration: 3000,
+                                        gravity: "top",
+                                        position: "right",
+                                        backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
+                                        stopOnFocus: true,
+                                    }).showToast();
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                                Toastify({
+                                    text: "Something went wrong!",
+                                    duration: 3000,
+                                    gravity: "top",
+                                    position: "right",
+                                    backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
+                                    stopOnFocus: true,
+                                }).showToast();
+                            });
+                    } else if (action === 'Change Status') {
+                        fetch(`/api/toggle-service-flag/${encodeURIComponent(serviceName)}`, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Show success notification
+                                    Toastify({
+                                        text: `Status of ${serviceName} changed successfully!`,
+                                        duration: 3000,
+                                        gravity: "top",
+                                        position: "right",
+                                        backgroundColor: "linear-gradient(to right, #28a745, #218838)", // Green Success Color
+                                        stopOnFocus: true,
+                                    }).showToast();
+                                    window.location.reload();
+                                } else {
+                                    // Show error notification
+                                    Toastify({
+                                        text: `Failed to change status of ${serviceName}! Try again.`,
+                                        duration: 3000,
+                                        gravity: "top",
+                                        position: "right",
+                                        backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
+                                        stopOnFocus: true,
+                                    }).showToast();
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                                Toastify({
+                                    text: "Something went wrong!",
+                                    duration: 3000,
+                                    gravity: "top",
+                                    position: "right",
+                                    backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", // Red Error Color
+                                    stopOnFocus: true,
+                                }).showToast();
+                            });
+                    }
+                }
+
+                window.handleOption = handleOption; // Make function globally accessible
+            });
+        </script>
 
 
     </main>
@@ -357,7 +358,7 @@
     </style>
 
 
-    
+
 
 
 

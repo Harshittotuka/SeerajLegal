@@ -103,7 +103,7 @@
                         });
 
                         // Fetch pending count from API and update UI
-                        fetch("http://localhost:8000/api/members/pending/count")
+                        fetch("/api/members/pending/count")
                             .then(response => response.json())
                             .then(data => {
                                 const count = data.pending_count || 0;

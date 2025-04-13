@@ -2,7 +2,7 @@ async function fetchPageContent(imageId) {
     try {
         console.log(`Fetching content for: ${imageId}`);
 
-        const response = await fetch(`http://127.0.0.1:8000/api/topimages/${imageId}`);
+        const response = await fetch(`/api/topimages/${imageId}`);
         const data = await response.json();
 
         console.log("API Response:", data);

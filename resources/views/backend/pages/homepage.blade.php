@@ -59,7 +59,7 @@
         @include('backend.partials.top-nav')
         <!-- End Navbar -->
 
-        @include('backend.components.topimage-modal')
+        @include('backend.Components.topimage-modal')
         <div class="d-flex justify-content-between align-items-center mt-3 ms-3">
             <h5 class="mb-0">HomePage</h5> <!-- Optional Title -->
             <div class="d-flex align-items-center gap-2 me-4 mt-3">
@@ -214,7 +214,7 @@
                     return;
                 }
 
-                const response = await fetch("http://localhost:8000/api/update", {
+                const response = await fetch("/api/update", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -360,7 +360,7 @@
 
                 if (section.image && Array.isArray(section.image)) {
                     section.image.forEach(img => {
-                        const imageUrl = `http://127.0.0.1:8000/${img}`;
+                        const imageUrl = `/${img}`;
                         const imgAnchor = document.createElement("a");
                         imgAnchor.href = imageUrl;
                         imgAnchor.target = "_blank";

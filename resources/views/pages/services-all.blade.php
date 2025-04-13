@@ -40,7 +40,7 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    fetch("http://127.0.0.1:8000/api/services/list")
+    fetch("/api/services/list")
         .then(response => response.json())
         .then(data => {
             if (data.success && data.data.length > 0) {
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 enabledServices.forEach(service => {
                     const serviceName = service.service_name;
                     const formattedServiceName = encodeURIComponent(serviceName); // Encode for URL safety
-                    const serviceURL = `http://127.0.0.1:8000/service/${formattedServiceName}`; // Correct redirection link
+                    const serviceURL = `/service/${formattedServiceName}`; // Correct redirection link
 
                     const serviceHTML = `
                         <div class="col-lg-3 col-md-4">

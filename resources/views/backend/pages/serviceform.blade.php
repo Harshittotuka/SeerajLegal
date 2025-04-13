@@ -84,7 +84,7 @@
                 return;
             }
 
-            fetch(` http://127.0.0.1:8000/api/service/${encodeURIComponent(practiceName)}`)
+            fetch(` /api/service/${encodeURIComponent(practiceName)}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log("Fetched Data:", data);
@@ -118,7 +118,7 @@
                 return;
             }
             if (topImagePath && !topImagePath.startsWith('http')) {
-                topImagePath = `http://127.0.0.1:8000/${topImagePath.replace(/^\/+/, '')}`;
+                topImagePath = `/${topImagePath.replace(/^\/+/, '')}`;
             }
             // Clear previous form data
             formsContainer.innerHTML = "";
@@ -345,10 +345,10 @@
 
 
                 // Determine API endpoint dynamically
-                let apiUrl = "http://127.0.0.1:8000/api/services/create"; // Default for new service
+                let apiUrl = "/api/services/create"; // Default for new service
                 if (serviceNameFromUrl) {
                     apiUrl =
-                        `http://127.0.0.1:8000/api/services/update-service/${encodeURIComponent(serviceNameFromUrl)}`;
+                        `/api/services/update-service/${encodeURIComponent(serviceNameFromUrl)}`;
                 }
 
                 // Step 1: Save Service Data First

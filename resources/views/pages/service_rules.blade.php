@@ -80,7 +80,7 @@
         }
 
         // Fetch Rules Data
-        fetch(`http://127.0.0.1:8000/api/services/rules/${service}`)
+        fetch(`/api/services/rules/${service}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success && data.data.flag === "enabled") {
@@ -99,7 +99,7 @@
             });
 
         // Fetch All Services for Sidebar
-        fetch(`http://127.0.0.1:8000/api/services/list`)
+        fetch(`/api/services/list`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -109,11 +109,11 @@
                     data.data.forEach(service => {
                         let listItem = `
                             <li>
-                                <a href="http://127.0.0.1:8000/service/${service.service_name}" 
+                                <a href="/service/${service.service_name}" 
                                    class="text-black fw-semibold">${service.service_name}</a>
                                 <ul class="list-unstyled ms-3">
                                     <li>
-                                        <a href="http://127.0.0.1:8000/service_rules?service=${service.service_name}" 
+                                        <a href="/service_rules?service=${service.service_name}" 
                                            class="text-muted small">→ ${service.service_name} Rules</a>
                                     </li>
                                 </ul>
