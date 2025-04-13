@@ -133,6 +133,42 @@
             color: #198754;
         }
 
+        @media (max-width: 768px) {
+            #progressbar {
+                display: flex;
+                flex-wrap: wrap;
+                /* Allow items to wrap into multiple rows */
+                justify-content: space-between;
+                /* Distribute items evenly */
+                padding: 0;
+            }
+
+            #progressbar li {
+                display: block;
+                /* Ensure all steps are displayed */
+                width: 48%;
+                /* Each step takes up 48% width, making two items per row */
+                text-align: center;
+                margin-bottom: 10px;
+                /* Space between rows */
+            }
+
+            #progressbar li.active {
+                font-weight: bold;
+            }
+
+            /* Optional: Adjust font size or other styles for mobile */
+            #progressbar li {
+                font-size: 14px;
+                /* Adjust as needed */
+            }
+        }
+
+
+
+
+
+
         /* Fieldset */
         #msform fieldset {
             border: none;
@@ -248,67 +284,18 @@
 
         /* membership types + price+ duration css */
         .membership-info-box {
-    margin-top: 1rem;
-    background-color: #f7f7f7;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-    color: #333;
-}
-.membership-info-box p {
-    margin: 0.2rem 0;
-}
+            margin-top: 1rem;
+            background-color: #f7f7f7;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            color: #333;
+        }
 
-/* cards slider css  */
-.membership-card {
-    background: #062e2e; /* greenish background */
-    border-radius: 16px;
-    padding: 24px 20px;
-    color: #b9ffdf;
-    box-shadow: 0 8px 30px rgba(0, 255, 163, 0.15);
-    text-align: center;
-    border: 1px solid #0ddf7c;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.membership-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 40px rgba(0, 255, 163, 0.25);
-}
-
-.membership-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #0ddf7c;
-    margin-bottom: 10px;
-}
-
-.membership-price {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #ffffff;
-    margin: 10px 0;
-}
-
-.membership-duration {
-    font-size: 1rem;
-    opacity: 0.8;
-}
-
-.swiper {
-    width: 100%;
-}
-
-.swiper-slide {
-    width: auto;
-    max-width: 320px;
-    margin: 0 auto;
-}
-
-.membership-carousel {
-    margin-bottom: 4rem; /* Add space below cards */
-}
+        .membership-info-box p {
+            margin: 0.2rem 0;
+        }
     </style>
 
 
@@ -453,9 +440,9 @@
                         <!-- Options will be dynamically loaded from API -->
                     </select>
                     <div id="membershipInfo" class="membership-info-box" style="display: none;">
-    <p><strong>Price:</strong> <span id="membershipPrice"></span></p>
-    <p><strong>Duration:</strong> <span id="membershipDuration"></span></p>
-</div>
+                        <p><strong>Price:</strong> <span id="membershipPrice"></span></p>
+                        <p><strong>Duration:</strong> <span id="membershipDuration"></span></p>
+                    </div>
 
                 </div>
                 <button type="button" class="previous action-button">Back</button>
@@ -463,18 +450,6 @@
             </fieldset>
         </form>
     </div>
-
-    <!-- html for the cards slider -->
-    <h2 class="text-center mt-12 mb-6 text-black text-2xl font-bold">Membership Plans</h2>
-
-<div class="membership-carousel swiper mx-auto max-w-6xl px-4">
-  <div class="swiper-wrapper" id="membershipCardsContainer">
-    <!-- Cards injected via JS -->
-  </div>
-  <div class="swiper-pagination mt-4"></div>
-</div>
-
-
 
     <style>
         .input-error {
@@ -489,8 +464,243 @@
         }
     </style>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <hr class="style-one">
+
+
+    <style>
+        /* Flaired edges */
+        /* Gradient color1 - color2 - color1 */
+
+        hr.style-one {
+            margin-bottom: 100px;
+            margin-top: 100px;
+            width: 100%;
+            border: 0;
+            height: 1px;
+            background: #333;
+            background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+            background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+            background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+            background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
+        }
+    </style>
+
+
+    <style>
+        .section-title::after {
+            content: '';
+            display: block;
+            height: 4px;
+            width: 200px;
+            background: linear-gradient(90deg, #004d19, #004d19);
+            border-radius: 2px;
+            margin: 0.5rem auto 0;
+        }
+    </style>
+    <h1
+        class="text-center mb-12 text-gray-900 text-4xl sm:text-5xl font-extrabold tracking-tight relative inline-block section-title">
+        Membership Plans
+    </h1>
+
+    <div class="membership-carousel swiper mx-auto max-w-7xl px-4 mt-6">
+        <div class="swiper-wrapper" id="membershipCardsContainer">
+            <!-- injected cards -->
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <style>
+        /* page & wrapper */
+        body {
+            background-color: #F9FAFB;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .membership-carousel {
+            margin-bottom: 4rem;
+        }
+
+        /* card container */
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* card itself */
+        .membership-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            max-width: 22rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
+
+            margin: 0 auto;
+        }
+
+        .swiper-slide.swiper-slide-active .membership-card {
+            opacity: 1;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .membership-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        /* typography & accents */
+        .membership-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #3B82F6;
+            margin-bottom: 0.5rem;
+        }
+
+        .membership-price {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #111827;
+            margin: 0.5rem 0;
+        }
+
+        .membership-duration {
+            font-size: 1rem;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Dual-tone background line */
+        .membership-card-header {
+            position: relative;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #3B82F6, #2563EB);
+            /* Dual-tone gradient */
+            height: 4px;
+            width: 50px;
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+
+
+        /* call‑to‑action button */
+        .membership-cta {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #3B82F6;
+            color: #FFFFFF;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .membership-cta:hover {
+            background-color: #2563EB;
+        }
+
+
+        /* pagination bullets */
+
+        /* responsive */
+        @media (min-width: 640px) {
+            .swiper-slide {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .membership-carousel {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("/api/membership-types")
+                .then(res => res.json())
+                .then(res => {
+                    const container = document.getElementById("membershipCardsContainer");
+                    res.data.forEach(plan => {
+                        const card = document.createElement("div");
+                        card.className = "swiper-slide";
+                        card.innerHTML = `
+                        <div class="membership-card">
+                           
+                            <div class="membership-icon">
+                                <i class="fa-solid   fa-bookmark"></i> <!-- Icon above membership type -->
+                            </div>
+                            <div class="membership-title">${plan.membershipType}</div>
+                              <div class="membership-card-header"></div> <!-- Dual-tone gradient line -->
+
+                            <div class="membership-price">₹${plan.price}</div>
+                            <div class="membership-duration">${plan.duration}</div>
+                          
+                        </div>
+                    `;
+                        container.appendChild(card);
+                    });
+
+                    new Swiper('.membership-carousel', {
+                        loop: false,
+                        centeredSlides: false,
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                        grabCursor: true,
+                        speed: 600, // increase this for slower, smoother transitions
+
+
+                        breakpoints: {
+                            640: {
+                                slidesPerView: 2
+                            },
+                            1024: {
+                                slidesPerView: 3
+                            },
+                            1280: {
+                                slidesPerView: 4
+                            }
+                        },
+
+                        autoplay: {
+                            delay: 3000,
+                            disableOnInteraction: true,
+                        }
+                    });
+
+
+                })
+                .catch(err => console.error("Failed to load membership types", err));
+        });
+    </script>
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- jQuery Library -->
     <script>
         $(document).ready(function() {
@@ -522,78 +732,78 @@
                 saveToLocalStorage();
             });
 
-            // $(".next").click(function() {
-            //     if (animating) return false;
-
-            //     current_fs = $(this).parent();
-            //     let valid = true;
-
-            //     // Remove old error styles/messages
-            //     current_fs.find("input, select").removeClass("input-error");
-            //     current_fs.find(".error-msg").remove();
-
-            //     // Validate each field
-            //     current_fs.find("input, select").each(function() {
-            //         if ($(this).prop("required") && !$(this).val()) {
-            //             $(this).addClass("input-error");
-
-            //             // Optional: add an inline error message below the field
-            //             if ($(this).next(".error-msg").length === 0) {
-            //                 $(this).after("<div class='error-msg'>This field is required.</div>");
-            //             }
-
-            //             valid = false;
-            //         } else {
-            //             $(this).removeClass("input-error");
-            //             $(this).next(".error-msg").remove();
-            //         }
-            //     });
-
-            //     if (!valid) {
-            // // $('html, body').animate({
-            // //     scrollTop: current_fs.find(".input-error").first().offset().top - 100
-            // // }, 500);
-
-            //         return false;
-            //     }
-
-            //     animating = true;
-            //     next_fs = current_fs.next();
-
-            //     // Update progress bar
-            //     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-            //     // Transition fieldsets
-            //     next_fs.addClass("active");
-            //     current_fs.removeClass("active");
-
-            //     $('.multi-step-form').animate({
-            //         scrollTop: 0
-            //     }, 500);
-
-            //     animating = false;
-            // });
-
             $(".next").click(function() {
                 if (animating) return false;
-                animating = true;
+
                 current_fs = $(this).parent();
-                next_fs = $(this).parent().next();
+                let valid = true;
+
+                // Remove old error styles/messages
+                current_fs.find("input, select").removeClass("input-error");
+                current_fs.find(".error-msg").remove();
+
+                // Validate each field
+                current_fs.find("input, select").each(function() {
+                    if ($(this).prop("required") && !$(this).val()) {
+                        $(this).addClass("input-error");
+
+                        // Optional: add an inline error message below the field
+                        if ($(this).next(".error-msg").length === 0) {
+                            $(this).after("<div class='error-msg'>This field is required.</div>");
+                        }
+
+                        valid = false;
+                    } else {
+                        $(this).removeClass("input-error");
+                        $(this).next(".error-msg").remove();
+                    }
+                });
+
+                if (!valid) {
+                    // $('html, body').animate({
+                    //     scrollTop: current_fs.find(".input-error").first().offset().top - 100
+                    // }, 500);
+
+                    return false;
+                }
+
+                animating = true;
+                next_fs = current_fs.next();
 
                 // Update progress bar
                 $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
-                // Transition between fieldsets
-                next_fs.addClass('active');
-                current_fs.removeClass('active');
+                // Transition fieldsets
+                next_fs.addClass("active");
+                current_fs.removeClass("active");
 
-                // Scroll to top of the form
                 $('.multi-step-form').animate({
                     scrollTop: 0
                 }, 500);
 
                 animating = false;
             });
+
+            // $(".next").click(function() {
+            //     if (animating) return false;
+            //     animating = true;
+            //     current_fs = $(this).parent();
+            //     next_fs = $(this).parent().next();
+
+            //     // Update progress bar
+            //     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+            //     // Transition between fieldsets
+            //     next_fs.addClass('active');
+            //     current_fs.removeClass('active');
+
+            //     // Scroll to top of the form
+            //     $('.multi-step-form').animate({
+            //         scrollTop: 0
+            //     }, 500);
+
+            //     animating = false;
+            // });
 
 
             $(".previous").click(function() {
@@ -632,37 +842,41 @@
 
             let membershipData = {};
 
-  fetch("/api/membership-types")
-    .then(response => response.json())
-    .then(data => {
-        let dropdown = document.getElementById("membershipType");
-        data.data.forEach(item => {
-            membershipData[item.membershipType] = item;
+            fetch("/api/membership-types")
+                .then(response => response.json())
+                .then(data => {
+                    let dropdown = document.getElementById("membershipType");
+                    data.data.forEach(item => {
+                        membershipData[item.membershipType] = item;
 
-            let option = document.createElement("option");
-            option.value = item.membershipType;
-            option.textContent = item.membershipType.charAt(0).toUpperCase() + item.membershipType.slice(1);
-            dropdown.appendChild(option);
-        });
-    })
-    .catch(error => console.error("Error fetching membership types:", error));
+                        let option = document.createElement("option");
+                        option.value = item.membershipType;
+                        option.textContent = item.membershipType.charAt(0).toUpperCase() + item
+                            .membershipType.slice(1);
+                        dropdown.appendChild(option);
+                    });
+                })
+                .catch(error => console.error("Error fetching membership types:", error));
 
-// Update box on select
-document.getElementById("membershipType").addEventListener("change", function () {
-    const selected = this.value;
-    const infoBox = document.getElementById("membershipInfo");
+            // Update box on select
+            document.getElementById("membershipType").addEventListener("change", function() {
+                const selected = this.value;
+                const infoBox = document.getElementById("membershipInfo");
 
-    if (membershipData[selected]) {
-        document.getElementById("membershipPrice").textContent = `₹${membershipData[selected].price}`;
-        document.getElementById("membershipDuration").textContent = membershipData[selected].duration;
-        infoBox.style.display = "block";
-    } else {
-        infoBox.style.display = "none";
-    }
-});
+                if (membershipData[selected]) {
+                    document.getElementById("membershipPrice").textContent =
+                        `₹${membershipData[selected].price}`;
+                    document.getElementById("membershipDuration").textContent = membershipData[selected]
+                        .duration;
+                    infoBox.style.display = "block";
+                } else {
+                    infoBox.style.display = "none";
+                }
+            });
 
         });
     </script>
+
     <script>
         document.getElementById("msform").addEventListener("submit", async function(e) {
             e.preventDefault();
@@ -747,54 +961,11 @@ document.getElementById("membershipType").addEventListener("change", function ()
     <script src="{{ asset('assets/js/custom.js') }}"></script>
 
     <!-- script for cards slider -->
-<!-- Swiper CDN -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <!-- Swiper CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    fetch("/api/membership-types")
-        .then(res => res.json())
-        .then(res => {
-            const container = document.getElementById("membershipCardsContainer");
-            res.data.forEach(plan => {
-                const card = document.createElement("div");
-                card.className = "swiper-slide";
-                card.innerHTML = `
-                    <div class="membership-card">
-                        <div class="membership-title">${plan.membershipType}</div>
-                        <div class="membership-price">₹${plan.price}</div>
-                        <div class="membership-duration">${plan.duration}</div>
-                        
-                        <!--
-                        <ul class="text-sm opacity-75 text-left px-4 my-4 space-y-1">
-                            <li>✔ Feature 1</li>
-                            <li>✔ Feature 2</li>
-                            <li>✔ Support Access</li>
-                        </ul>
-                        -->
-                    </div>
-                `;
-                container.appendChild(card);
-            });
 
-            new Swiper('.membership-carousel', {
-                slidesPerView: 1,
-                spaceBetween: 20,
-                breakpoints: {
-                    640: { slidesPerView: 1 },
-                    768: { slidesPerView: 2 },
-                    1024: { slidesPerView: 3 }
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                }
-            });
-        })
-        .catch(err => console.error("Failed to load membership types", err));
-});
-</script>
 
 
 </body>
