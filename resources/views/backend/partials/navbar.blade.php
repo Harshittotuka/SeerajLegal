@@ -160,31 +160,63 @@
             </li>
 
             <!-- Services Dropdown -->
+    <li class="nav-item">
+        <a class="nav-link {{ Request::is('backend/service/*') ? 'active bg-light text-dark' : 'text-dark' }}" data-bs-toggle="collapse" href="#services-collapse" role="button" aria-expanded="false" aria-controls="services-collapse">
+            <i class="fas fa-concierge-bell fa-sm opacity-5 me-2"></i>
+            <span class="nav-link-text ms-1">Services</span>
+        </a>
+        <div class="collapse {{ Request::is('backend/service/*') ? 'show' : '' }}" id="services-collapse" data-bs-parent="#sidenav-collapse-main">
+            <ul class="nav flex-column ps-4">
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('backend/service/list') ? 'active bg-light text-dark' : 'text-dark' }}" href="{{ route('backend.service.list') }}">
+                        <i class="fas fa-list fa-sm opacity-5 me-2"></i> All
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('backend/service/form') ? 'active bg-light text-dark' : 'text-dark' }}" href="{{ route('backend.service.form') }}">
+                        <i class="fas fa-plus fa-sm opacity-5 me-2"></i> Create
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+
+<li class="nav-item">
+    <a class="nav-link {{ Request::is('backend/rules/*') ? 'active bg-light text-dark' : 'text-dark' }}" data-bs-toggle="collapse" href="#rules-collapse" role="button" aria-expanded="false" aria-controls="rules-collapse">
+        <i class="fas fa-gavel fa-sm opacity-5 me-2"></i>
+        <span class="nav-link-text ms-1">Rules</span>
+    </a>
+    <div class="collapse {{ Request::is('backend/rules/*') ? 'show' : '' }}" id="rules-collapse" data-bs-parent="#sidenav-collapse-main">
+        <ul class="nav flex-column ps-4">
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('backend/service/*') ? 'active bg-light text-dark' : 'text-dark' }}"
-                    data-bs-toggle="collapse" href="#services-collapse" role="button" aria-expanded="false"
-                    aria-controls="services-collapse">
-                    <i class="fas fa-concierge-bell fa-sm opacity-5 me-2"></i>
-                    <span class="nav-link-text ms-1">Services</span>
+                <a class="nav-link {{ Request::is('backend/rules/list') ? 'active bg-light text-dark' : 'text-dark' }}" href="{{ route('backend.rules.list') }}">
+                    <i class="fas fa-list fa-sm opacity-5 me-2"></i> All
                 </a>
-                <div class="collapse {{ Request::is('backend/service/*') ? 'show' : '' }}" id="services-collapse"
-                    data-bs-parent="#sidenav-collapse-main">
-                    <ul class="nav flex-column ps-4">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('backend/service/list') ? 'active bg-light text-dark' : 'text-dark' }}"
-                                href="{{ route('backend.service.list') }}">
-                                <i class="fas fa-list fa-sm opacity-5 me-2"></i> All
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('backend/service/form') ? 'active bg-light text-dark' : 'text-dark' }}"
-                                href="{{ route('backend.service.form') }}">
-                                <i class="fas fa-plus fa-sm opacity-5 me-2"></i> Create
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('backend/rules/form') ? 'active bg-light text-dark' : 'text-dark' }}" href="{{ route('backend.rules.form') }}">
+                    <i class="fas fa-plus fa-sm opacity-5 me-2"></i> Create
+                </a>
+            </li>
+        </ul>
+    </div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <!-- Practice Dropdown -->
             <li class="nav-item">

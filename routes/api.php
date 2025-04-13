@@ -13,6 +13,30 @@ use App\Http\Controllers\Contact2Controller;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\RuleController;
+
+
+
+
+Route::get('/rules', [RuleController::class, 'index']); // get list of rule names
+Route::get('/rules/{id}', [RuleController::class, 'show']); // get rule data
+Route::post('/rules', [RuleController::class, 'store']); // save rule
+Route::post('/rules/upload', [RuleController::class, 'upload']); // upload PDF
+Route::put('/rules/{id}', [RuleController::class, 'update']); // update rule
+Route::delete('/rules/{id}', [RuleController::class, 'destroy']); // delete rule
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Route to subscribe to the newsletter
 Route::post('/subscribe', [SubscriptionController::class, 'subscribe']);

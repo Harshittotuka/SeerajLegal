@@ -36,7 +36,7 @@
     <script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            updateBreadcrumbs(["Dashboard", "Members"], ["/backend", "#"]);
+            updateBreadcrumbs(["Dashboard", "Members"], ["/backend/dashboard", "#"]);
         });
     </script>
 

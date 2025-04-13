@@ -18,6 +18,15 @@ class TopImagesSeeder extends Seeder {
                 'icon' => "fa-solid fa-eject",
             ],
             [
+                'image_id' => 'TopImg_rul',
+                'page_name' => 'Rules page name',
+                'title' => 'Rules title',
+                'sub_title' => 'Rules Subtitle',
+                'image_url' => 'assets/dynamic/Top/TopImg_rul.webp',
+                'image_resolution' => json_encode([1792, 1024]),
+                'icon' => "fa-solid fa-eject",
+            ],
+            [
                 'image_id' => 'TopImg_faq',
                 'page_name' => 'Faq',
                 'title' => 'About us',

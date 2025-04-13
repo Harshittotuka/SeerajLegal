@@ -540,7 +540,7 @@
                                 class="dropdown-item {{ request()->routeIs('faq') ? 'active' : '' }}">FAQ</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" id="servicesMenuItem" style="display:none;">
                     <a class="nav-link dropdown-toggle {{ request()->routeIs('services') ? 'active' : '' }}"
                         href="#" role="button" data-bs-toggle="dropdown">Services <i
                             class="ti-angle-down"></i></a>
@@ -549,52 +549,78 @@
                     </ul>
                 </li>
 
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" id="rulesMenuItem" style="display:none;">
                     <a class="nav-link dropdown-toggle {{ request()->routeIs('service_rules') ? 'active' : '' }}"
                         href="#" role="button" data-bs-toggle="dropdown">Rules <i class="ti-angle-down"></i></a>
                     <ul class="dropdown-menu" id="rulesDropdown">
-                        <!-- Dynamic rules links will be inserted here -->
+                       s <!-- Dynamic rules links will be inserted here -->
                     </ul>
                 </li>
 
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        let apiUrl = "/api/services/list";
 
-                        fetch(apiUrl)
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    let services = data.data;
-                                    let servicesDropdown = document.getElementById('servicesDropdown');
-                                    let rulesDropdown = document.getElementById('rulesDropdown');
+              <script>
+                  document.addEventListener("DOMContentLoaded", function() {
+                      // Use Promise.all to fetch services and rules concurrently
+                      Promise.all([
+                              fetch("/api/services/list").then(response => response.json()), // Services fetch
+                              fetch("/api/rules").then(response => response.json()) // Rules fetch
+                          ])
+                          .then(([servicesData, rulesData]) => {
+                              let servicesDropdown = document.getElementById('servicesDropdown');
+                              let rulesDropdown = document.getElementById('rulesDropdown');
+                              let servicesMenuItem = document.getElementById('servicesMenuItem');
+                              let rulesMenuItem = document.getElementById('rulesMenuItem');
 
-                                    // Clear existing content
-                                    servicesDropdown.innerHTML = '';
-                                    rulesDropdown.innerHTML = '';
+                              // Clear existing content
+                              servicesDropdown.innerHTML = '';
+                              rulesDropdown.innerHTML = '';
 
-                                    services.forEach(service => {
-                                        if (service.flag === "enabled") {
-                                            let encodedServiceName = encodeURIComponent(service.service_name);
+                              // Handle services data
+                              if (servicesData.success && servicesData.data.length > 0) {
+                                  let services = servicesData.data;
+                                  services.forEach(service => {
+                                      if (service.flag === "enabled") {
+                                          let encodedServiceName = encodeURIComponent(service.service_name);
 
-                                            // Add service link (redirect using name)
-                                            let serviceItem = document.createElement('li');
-                                            serviceItem.innerHTML =
-                                                `<a href="/service/${encodedServiceName}" class="dropdown-item">${service.service_name}</a>`;
-                                            servicesDropdown.appendChild(serviceItem);
+                                          // Add service link (redirect using name)
+                                          let serviceItem = document.createElement('li');
+                                          serviceItem.innerHTML =
+                                              `<a href="/service/${encodedServiceName}" class="dropdown-item">${service.service_name}</a>`;
+                                          servicesDropdown.appendChild(serviceItem);
+                                      }
+                                  });
 
-                                            // Add service rules link (redirect using query param)
-                                            let rulesItem = document.createElement('li');
-                                            rulesItem.innerHTML =
-                                                `<a href="/service_rules?service=${encodedServiceName}" class="dropdown-item">${service.service_name} Rules</a>`;
-                                            rulesDropdown.appendChild(rulesItem);
-                                        }
-                                    });
-                                }
-                            })
-                            .catch(error => console.error("Error fetching services list:", error));
-                    });
-                </script>
+                                  // Show the services menu item if there are services
+                                  servicesMenuItem.style.display = 'block';
+                              }
+
+                              // Handle rules data
+                              if (rulesData.length > 0) {
+                                  rulesData.forEach(rule => {
+                                      let ruleId = rule.id;
+
+                                      // Add each rule to the dropdown with the ID in the URL
+                                      let ruleItem = document.createElement('li');
+                                      ruleItem.innerHTML =
+                                          `<a href="http://127.0.0.1:8000/service_rules?rule=${ruleId}" class="dropdown-item">${rule.name}</a>`;
+                                      rulesDropdown.appendChild(ruleItem);
+                                  });
+
+                                  // Show the rules menu item if there are rules
+                                  rulesMenuItem.style.display = 'block';
+                              }
+                          })
+                          .catch(error => console.error("Error fetching data:", error));
+                  });
+
+              </script>
+
+
+
+
+
+
+
 
 
                 <li class="nav-item dropdown">
