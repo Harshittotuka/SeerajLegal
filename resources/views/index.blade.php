@@ -90,7 +90,7 @@
                 font-family: 'Poppins', sans-serif;
                 display: inline-block;
                 /* margin-top: 15px; */
-                font-size: 1.4rem;
+                font-size: 1.2rem;
                 font-weight: 400;
                 color: red;
                 font-style: italic;
@@ -140,107 +140,111 @@
             }
         </style>
 
-        <div class="kenburns-inner h-100 container">
-            <div class="content-offset">
-                <div class="v-middle">
-                    <div class="row justify-content-center align-items-center hero-header">
-                        <div class="col-lg-8 col-md-12 text-center">
-                            <!-- Icon above the website name -->
-                            <div class="section-subtitle mb-3">
-                                <div class="icon"> <i class="fas fa-gavel text-warning"></i></div>
-                            </div>
-
-                            <!-- Website Name -->
-                            <h1 class="hero-title">
-                                Seeraj Legal<br>Relief Foundation
-                            </h1>
-
-                            <!-- Subtitle -->
-                            <span id="slider-title" class="slider-subtitle">Empowering Justice, Enabling Hope.</span>
-
+<div class="kenburns-inner h-100 container">
+        <div class="content-offset">
+            <div class="v-middle">
+                <div class="row justify-content-center align-items-center hero-header">
+                    <div class="col-lg-8 col-md-12 text-center">
+                        <!-- Dynamic Icon -->
+                        <div class="section-subtitle mb-3">
+                            <div id="slider-icon" class="icon"></div>
                         </div>
+
+                        <!-- Dynamic Title -->
+                        <h1 id="slider-title" class="hero-title"></h1>
+
+                        <!-- Dynamic Subtitle -->
+                        <span id="slider-para" class="slider-subtitle"></span>
                     </div>
-
-                    <!-- Desktop Feature Boxes -->
-                    <div class="d-none d-md-flex row justify-content-center align-items-center pt-5">
-                        <div class="col-lg-4 col-md-6 text-center mb-4">
-                            <div class="feature-box">
-                                <div class="icon mb-3"><i class="fas fa-mobile-alt fa-2x"></i></div>
-                                <h5>Mobile Ready</h5>
-                                <p>Fully responsive layout for all devices.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 text-center mb-4">
-                            <div class="feature-box">
-                                <div class="icon mb-3"><i class="fas fa-sliders-h fa-2x"></i></div>
-                                <h5>Customizable</h5>
-                                {{-- <p>Modular structure for easy customization.</p> --}}
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 text-center mb-4">
-                            <div class="feature-box">
-                                <div class="icon mb-3"><i class="fas fa-dollar-sign fa-2x"></i></div>
-                                <h5>Affordable</h5>
-                                <p>High-quality service at a low cost.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Mobile Carousel -->
-                    <div id="featureCarousel" class="carousel slide d-md-none" data-bs-ride="carousel"
-                        data-bs-interval="3000">
-                        <div class="carousel-inner text-center">
-                            <div class="carousel-item active">
-                                <div class="feature-box mx-3">
-                                    <div class="icon mb-3"><i class="fas fa-mobile-alt fa-2x"></i></div>
-                                    <h5>Mobile Ready</h5>
-                                    <p>Fully responsive layout for all devices.</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="feature-box mx-3">
-                                    <div class="icon mb-3"><i class="fas fa-sliders-h fa-2x"></i></div>
-                                    <h5>Customizable</h5>
-                                    <p>Modular structure for easy customization.</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="feature-box mx-3">
-                                    <div class="icon mb-3"><i class="fas fa-dollar-sign fa-2x"></i></div>
-                                    <h5>Affordable</h5>
-                                    <p>High-quality service at a low cost.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+
+                <!-- Desktop Feature Boxes Container -->
+                <div id="feature-boxes-desktop" class="d-none d-md-flex row justify-content-center align-items-center pt-5">
+                    <!-- Boxes inserted dynamically -->
+                </div>
+
+                <!-- Mobile Feature Carousel -->
+                <div id="featureCarousel" class="carousel slide d-md-none" data-bs-ride="carousel" data-bs-interval="3000">
+                    <div id="feature-boxes-mobile" class="carousel-inner text-center">
+                        <!-- Carousel items inserted dynamically -->
+                    </div>
+                </div>
+
             </div>
         </div>
-    </aside>
+    </div>
+</aside>
 
 
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            fetch("home.json")
-                .then(response => response.json())
-                .then(data => {
-                    const sliderData = data.find(item => item.S_id === 10);
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("home.json")
+            .then(response => response.json())
+            .then(data => {
+                const sliderData = data.find(item => item.S_id === 10);
+                if (!sliderData) {
+                    console.warn("S_id:10 not found in home.json");
+                    return;
+                }
 
-                    if (sliderData) {
-                        document.getElementById("slider-icon").className = sliderData.icon;
-                        document.getElementById("slider-title").textContent = sliderData.title;
-                        document.getElementById("slider-para").innerHTML = sliderData.para;
-                    } else {
-                        console.warn("S_id:0 not found in home.json");
-                    }
-                })
-                .catch(error => {
-                    console.error("Error loading home.json:", error);
+                // Inject icon
+                document.getElementById("slider-icon").innerHTML = `<i class="${sliderData.icon} text-warning"></i>`;
+
+                // Inject title and para
+                document.getElementById("slider-title").innerHTML = sliderData.title;
+                document.getElementById("slider-para").textContent = sliderData.para;
+
+                // Feature icon fallback list
+                const iconClasses = [
+                    "fas fa-mobile-alt",
+                    "fas fa-sliders-h",
+                    "fas fa-dollar-sign",
+                    "fas fa-cogs",
+                    "fas fa-rocket"
+                ];
+
+                // Render feature boxes
+                const desktopBoxContainer = document.getElementById("feature-boxes-desktop");
+                const mobileCarouselContainer = document.getElementById("feature-boxes-mobile");
+
+                desktopBoxContainer.innerHTML = "";
+                mobileCarouselContainer.innerHTML = "";
+
+                sliderData.points.forEach((point, index) => {
+                    const iconClass = iconClasses[index % iconClasses.length];
+
+                    // Desktop feature box
+                    const desktopBox = `
+                        <div class="col-lg-4 col-md-6 text-center mb-4">
+                            <div class="feature-box">
+                                <div class="icon mb-3"><i class="${iconClass} fa-2x"></i></div>
+                                <h5>${point}</h5>
+                                <p>${point} feature description.</p>
+                            </div>
+                        </div>
+                    `;
+                    desktopBoxContainer.innerHTML += desktopBox;
+
+                    // Mobile carousel feature box
+                    const activeClass = index === 0 ? "active" : "";
+                    const mobileBox = `
+                        <div class="carousel-item ${activeClass}">
+                            <div class="feature-box mx-3">
+                                <div class="icon mb-3"><i class="${iconClass} fa-2x"></i></div>
+                                <h5>${point}</h5>
+                                <p>${point} feature description.</p>
+                            </div>
+                        </div>
+                    `;
+                    mobileCarouselContainer.innerHTML += mobileBox;
                 });
-        });
-    </script>
+            })
+            .catch(error => {
+                console.error("Error loading home.json:", error);
+            });
+    });
+</script>
 
 
 

@@ -502,6 +502,117 @@
 
 
 
+<!-- info strip -->
+<div class="top-strip bg-dark text-white py-1 px-3 overflow-hidden" id="topStrip">
+    <div class="ticker d-flex" id="ticker">
+        <div class="ticker-item me-4">🚀 Special Offer: Get 20% off on all services this week!</div>
+        <div class="ticker-item me-4">📢 New FAQ Section Updated – Check it out!</div>
+        <div class="ticker-item me-4">📅 Book your appointment today and skip the queue!</div>
+    </div>
+</div>
+
+<style>
+.top-strip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    z-index: 98;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    cursor: grab;
+
+    background-color: inherit !important; /* Match parent background */
+    background: none !important;          /* Prevent any fallback */
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+
+.ticker {
+    display: inline-flex;
+    animation: ticker-scroll 30s linear infinite;
+    
+    will-change: transform;
+    background: none !important;
+}
+
+.ticker-item {
+    white-space: nowrap;
+    padding-right: 50px;
+    color: #fff;
+    background: none !important;
+    font-size: 13px !important;
+    line-height: 1.4;
+}
+    
+
+.ticker-item:hover {
+    color: #ac835d; /* Golden brown hover color to match navbar */
+    text-shadow: none;
+}
+
+@keyframes ticker-scroll {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Adjust body padding to account for the strip */
+
+</style>
+
+<script>
+    const ticker = document.getElementById('ticker');
+    const strip = document.getElementById('topStrip');
+
+    let isPaused = false;
+    let isDragging = false;
+    let startX = 0;
+    let initialTransform = 0;
+
+    // Toggle pause/resume on click
+    strip.addEventListener('click', (e) => {
+        if (e.target.closest('.ticker-item')) { // Only respond to clicking text
+            isPaused = !isPaused;
+            ticker.style.animationPlayState = isPaused ? 'paused' : 'running';
+            strip.style.cursor = isPaused ? 'grab' : 'default';
+        }
+    });
+
+    // Start dragging
+    strip.addEventListener('mousedown', (e) => {
+        if (!isPaused) return;
+        isDragging = true;
+        startX = e.clientX;
+        const transformValue = window.getComputedStyle(ticker).transform;
+        if (transformValue !== 'none') {
+            const match = transformValue.match(/matrix\(1, 0, 0, 1, (-?\d+), 0\)/);
+            initialTransform = match ? parseInt(match[1], 10) : 0;
+        } else {
+            initialTransform = 0;
+        }
+        strip.style.cursor = 'grabbing';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging || !isPaused) return;
+        const deltaX = e.clientX - startX;
+        ticker.style.transform = translateX(${initialTransform + deltaX}px);
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        strip.style.cursor = isPaused ? 'grab' : 'default';
+    });
+</script>
+
+
+
+
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
@@ -535,7 +646,8 @@
                                 class="dropdown-item {{ request()->routeIs('about') ? 'active' : '' }}">Who we
                                 Are?</a>
                         </li>
-                        <li><a href="#" class="dropdown-item" style="color: grey;">What we do?</a></li>
+                        <!-- save for future use -->
+                        <!-- <li><a href="#" class="dropdown-item" style="color: grey;">What we do?</a></li> -->
                         <li><a href="{{ route('faq') }}"
                                 class="dropdown-item {{ request()->routeIs('faq') ? 'active' : '' }}">FAQ</a></li>
                     </ul>
@@ -642,7 +754,9 @@
                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('team') ? 'active' : '' }}"
                         href="{{ route('team') }}">Team</a></li>
 
-                <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button"
+               
+               <!-- saved for future use -->
+                        <!-- <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button"
                         data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Gallery <i
                             class="ti-angle-down"></i></a>
                     <ul class="dropdown-menu">
@@ -650,7 +764,7 @@
                         <li><a href="gallery-video.html" class="dropdown-item"><span>Video Gallery</span></a></li>
                         <li><a href="blog2.html" class="dropdown-item"><span>Blogs</span></a></li>
                     </ul>
-                </li>
+                </li> -->
 
                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}"
                         href="{{ route('contact') }}">Contact</a></li>
