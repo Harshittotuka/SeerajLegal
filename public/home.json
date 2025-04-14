@@ -11,7 +11,9 @@
         ],
         "title": "Seeraj Legal <br> Relief Foundation",
         "para": "non-government organization registered under ministry of corporate affairs",
+
         "points": ["Mobile Ready", "Customizable", "Affordable"],
+
         "flag": "enabled",
         "icon_Type": "fontawesome",
         "icon": "fas fa-gavel",
