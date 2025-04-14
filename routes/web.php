@@ -142,6 +142,17 @@ Route::get('/backend/teams', function () {
     return view('backend/pages/teams');
 })->name('backend.teams');
 
+Route::get('/backend/rules/form/{id?}', function ($id = null) {
+    return view('backend.pages.rulesform');
+})->name('backend.rules.form');
+
+
+Route::get('/backend/rules/list', function () {
+    return view('backend/pages/ruleslist');
+})->name('backend.rules.list');
+
+
+
 Route::get('/backend/service/form', function () {
     return view('backend/pages/serviceform');
 })->name('backend.service.form');

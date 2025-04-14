@@ -14,149 +14,227 @@
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
 
+
+
 </head>
 
 <body>
     <!-- navbar -->
     @include('partials.navbar')
 
-    <div class="banner-header valign bg-img bg-fixed" data-overlay-dark="5"
-    data-background="{{ asset('assets/img/Conciliation.webp') }}">
+
+
+<script>
+    async function fetchPageContent(imageId) {
+        try {
+            console.log(`Fetching content for: ${imageId}`);
+
+            const response = await fetch(`/api/topimages/${imageId}`);
+            const data = await response.json();
+
+            console.log("API Response:", data);
+
+            if (data && data.image_id) {
+                console.log("✅ Valid API Data Structure:", data);
+
+                // Update background image
+                const bgElement = document.getElementById("page-bg");
+                if (bgElement && data.image_url) {
+                    let imageUrl = data.image_url;
+
+                    // Ensure the image URL starts with '/'
+                    if (!imageUrl.startsWith('/')) {
+                        imageUrl = '/' + imageUrl;
+                    }
+
+                    console.log("🔹 Final Background Image URL:", imageUrl);
+                    bgElement.style.backgroundImage = `url('${imageUrl}')`;
+                }
+
+                // Update icon by creating a new <i> element
+                const iconElement = document.getElementById("page-icon");
+                if (iconElement && data.icon) {
+                    // Clear any existing icon
+                    iconElement.innerHTML = "";
+
+                    // Create a new <i> element with the class from the API response
+                    const icon = document.createElement("i");
+                    icon.className = data.icon;
+
+                    // Append the icon to the icon container
+                    iconElement.appendChild(icon);
+                }
+
+                // Update the title inside <h6>
+                const titleElement = document.querySelector("h6");
+                if (titleElement && data.title) {
+                    titleElement.innerHTML = `<div id="page-icon" class="icon">${data.icon ? `<i class="${data.icon}"></i>` : ''}</div> ${data.title}`;
+                }
+
+            } else {
+                console.warn("❌ Invalid data format received:", data);
+            }
+        } catch (error) {
+            console.error("❌ Error fetching page content:", error);
+        }
+    }
+
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetchPageContent("TopImg_rul");
+    });
+
+</script>
+
+<div id="page-bg" class="banner-header valign bg-img bg-fixed" data-overlay-dark="5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12 text-center mt-60">
                 <h6>
-                    <div class="icon"><i class="flaticon-courthouse"></i></div> Rules
+                    <div id="page-icon" class="icon"></div> Rule Details
                 </h6>
-                <h1 id="service-title">Loading...</h1>
+                <h1 id="rule-title">Loading...</h1>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Page -->
-<section class="page section-padding">
-    <div class="container">
-        <div class="row justify-content-center">
-            <!-- Main Content -->
-            <div class="col-lg-9 col-md-12 mb-3">
-                <h4 id="rules-title">Loading...</h4>
-                <p id="rules-content">Fetching rules, please wait...</p>
 
-                <!-- PDF Viewer -->
-                <iframe id="rules-pdf" style="width: 90%; height: 600px; border: 2px solid black;" src=""></iframe>
 
-                <!-- Mobile Download Prompt & Button -->
-                <div id="mobile-download-prompt" style="display: none; text-align: center; margin-top: 10px;">
-                    <p style="font-weight: 500;">📄 To view the PDF on your device, <strong>download the
-                            PDF</strong> below:</p>
 
-                    <a id="download-pdf" href="#" download class="btn btn-outline-primary">Download PDF</a>
+
+
+
+
+
+
+    <!-- Page -->
+    <section class="page section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Main Content -->
+                <div class="col-lg-9 col-md-12 mb-3">
+                    <h4 id="rules-title">Loading...</h4>
+                    <p id="rules-content">Fetching rule details, please wait...</p>
+
+                    <!-- PDF Viewer -->
+                    <iframe id="rules-pdf" style="width: 90%; height: 600px; border: 2px solid black;"
+                        src=""></iframe>
+
+                    <!-- Mobile Download Prompt & Button -->
+                    <div id="mobile-download-prompt" style="display: none; text-align: center; margin-top: 10px;">
+                        <p style="font-weight: 500;">📄 To view the PDF on your device, <strong>download the
+                                PDF</strong> below:</p>
+
+                        <a id="download-pdf" href="#" download class="btn btn-outline-primary">Download PDF</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Related Service Rules Sidebar -->
-            <div class="col-lg-3 col-md-12">
-                <div class="sidebar custom-box">
-                    <h5>Related Service Rules</h5>
-                    <ul class="list-unstyled" id="related-services">
-                        <li>Loading...</li>
-                    </ul>
+                <!-- Related Service Rules Sidebar -->
+                <div class="col-lg-3 col-md-12">
+                    <div class="sidebar custom-box">
+                        <h5>Available Rules</h5>
+                        <ul class="list-unstyled" id="rules-list">
+                            <li>Loading...</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Get service name from URL query parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const service = urlParams.get('service');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch Rule List
+            fetch('/api/rules')
+                .then(response => response.json())
+                .then(data => {
+                    if (Array.isArray(data) && data.length) {
+                        const rulesListContainer = document.getElementById("rules-list");
+                        rulesListContainer.innerHTML = ''; // Clear existing content
 
-        if (!service) {
-            document.getElementById("rules-content").innerText = "No service specified.";
-            return;
+                        data.forEach(rule => {
+                            let listItem = `
+                                <li>
+                                    <a href="/service_rules?rule=${rule.id}" 
+                                       class="text-black fw-semibold">${rule.name}</a>
+                                </li>`;
+                            rulesListContainer.innerHTML += listItem;
+                        });
+                    } else {
+                        document.getElementById("rules-list").innerHTML = "<li>No rules available.</li>";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching rules list:", error);
+                    document.getElementById("rules-list").innerHTML = "<li>Failed to load rules.</li>";
+                });
+
+            // Get rule ID from URL query parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const ruleId = urlParams.get('rule');
+
+            if (!ruleId) {
+                document.getElementById("rules-content").innerText = "No rule specified.";
+                return;
+            }
+
+            // Fetch Rule Details
+            fetch(`/api/rules/${ruleId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.id && data.rules) {
+                        // Update Title and Content
+                        document.getElementById("rule-title").innerText = `${data.name} Rules`;
+                        document.getElementById("rules-title").innerText = `${data.name}`;
+                        document.getElementById("rules-content").innerText =
+                            `The rule content for ${data.name} is available below.`;
+
+                        // Set the PDF source
+                        document.getElementById("rules-pdf").src = data.rules;
+
+                        // Set the download link for the PDF
+                        document.getElementById("download-pdf").href = data.rules;
+
+                        // Ensure download button is shown
+                        document.getElementById("mobile-download-prompt").style.display = "block";
+                    } else {
+                        document.getElementById("rules-content").innerText = "Rule details not available.";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching rule data:", error);
+                    document.getElementById("rules-content").innerText = "Failed to load rule details.";
+                });
+
+            // Mobile check for PDF download prompt
+            if (window.innerWidth <= 768) {
+                document.getElementById("mobile-download-prompt").style.display = "block";
+            }
+        });
+    </script>
+
+    <style>
+        .custom-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2),
+                -5px -5px 15px rgba(255, 255, 255, 0.8);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        // Fetch Rules Data
-        fetch(`/api/services/rules/${service}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success && data.data.flag === "enabled") {
-                    document.getElementById("service-title").innerText = `Rules of ${data.data.service_name}`;
-                    document.getElementById("rules-title").innerText = `Rules of ${data.data.service_name}`;
-                    document.getElementById("rules-content").innerText = `Here are the rules for ${data.data.service_name}`;
-                    document.getElementById("rules-pdf").src = data.data.rules;
-                    document.getElementById("download-pdf").href = data.data.rules;
-                } else {
-                    document.getElementById("rules-content").innerText = "No rules available for this service.";
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching data:", error);
-                document.getElementById("rules-content").innerText = "Failed to load rules.";
-            });
-
-        // Fetch All Services for Sidebar
-        fetch(`/api/services/list`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    const relatedServicesContainer = document.getElementById("related-services");
-                    relatedServicesContainer.innerHTML = ''; // Clear existing content
-
-                    data.data.forEach(service => {
-                        let listItem = `
-                            <li>
-                                <a href="/service/${service.service_name}" 
-                                   class="text-black fw-semibold">${service.service_name}</a>
-                                <ul class="list-unstyled ms-3">
-                                    <li>
-                                        <a href="/service_rules?service=${service.service_name}" 
-                                           class="text-muted small">→ ${service.service_name} Rules</a>
-                                    </li>
-                                </ul>
-                            </li>`;
-                        relatedServicesContainer.innerHTML += listItem;
-                    });
-                } else {
-                    document.getElementById("related-services").innerHTML = "<li>No related services available.</li>";
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching related services:", error);
-                document.getElementById("related-services").innerHTML = "<li>Failed to load related services.</li>";
-            });
-
-        // Mobile check for PDF download prompt
-        if (window.innerWidth <= 768) {
-            document.getElementById("mobile-download-prompt").style.display = "block";
+        .custom-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3),
+                -8px -8px 20px rgba(255, 255, 255, 0.9);
         }
-    });
-</script>
-
-<style>
-    .custom-box {
-        background: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2),
-            -5px -5px 15px rgba(255, 255, 255, 0.8);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .custom-box:hover {
-        transform: translateY(-5px);
-        box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3),
-            -8px -8px 20px rgba(255, 255, 255, 0.9);
-    }
-</style>
-
+    </style>
 
     <!-- Footer -->
     @include('partials.footer')
-
 
     <!-- jQuery -->
     <script src="{{ asset('assets/js/jquery-migrate-3.0.0.min.js') }}"></script>

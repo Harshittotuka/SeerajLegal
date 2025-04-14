@@ -49,6 +49,7 @@
                         </div>
                     </a>
 
+
                     {{-- Notification Dropdown --}}
                     <div id="notificationDropdown"
                         class="dropdown-menu custom-dropdown shadow p-3 rounded position-absolute end-50 top-100 mt-2"
@@ -56,18 +57,25 @@
 
                         <h6 class="dropdown-header fw-bold text-dark">Notifications</h6>
                         <div class="dropdown-divider"></div>
-                        <div class="notification-item">🔔 You have a new membership request</div>
-                        <div class="notification-item">✅ Your profile was updated successfully</div>
-                        <div class="notification-item">📩 New message received</div>
-                        <div class="dropdown-divider"></div>
 
                         {{-- Pending Requests Message --}}
-                        <div id="pendingMessage" class="pending-message text-muted small text-center mb-2">
-                            Loading pending requests...
-                        </div>
+                        <a href="{{ route('backend.manage.members') }}" id="pendingRequestLink"
+                            class="notification-item text-decoration-none d-block text-dark">
+                            <span id="pendingMessage" class="pending-message d-flex align-items-center gap-3">
+                                <i class="material-symbols-rounded text-warning"
+                                    style="font-size: 1.5rem;">notifications</i>
+                                <span id="pendingText">Loading pending requests...</span>
+                            </span>
+                        </a>
 
-                        <a href="#" class="dropdown-item text-center text-primary fw-medium">View All</a>
+
+
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ route('backend.manage.members') }}"
+                            class="dropdown-item text-center text-primary fw-medium">View All</a>
                     </div>
+
+
 
                     {{-- Profile Icon --}}
                     <a href="{{ route('backend.profile') }}"
@@ -108,8 +116,11 @@
                             .then(data => {
                                 const count = data.pending_count || 0;
                                 badge.textContent = count;
-                                pendingMessage.innerHTML =
-                                    `There ${count === 1 ? 'is' : 'are'} <strong>${count}</strong> pending member request${count === 1 ? '' : 's'}`;
+                                pendingMessage.innerHTML = `
+                            <i class="material-symbols-rounded text-warning " style="font-size: 1.5rem;">notifications</i>
+                            <span id="pendingText">There ${count === 1 ? 'is' : 'are'} <strong>${count}</strong> pending member request${count === 1 ? '' : 's'}</span>
+                            `;
+
                             })
                             .catch(error => {
                                 console.error("Error fetching pending count:", error);
