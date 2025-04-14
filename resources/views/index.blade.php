@@ -217,9 +217,8 @@
                         return;
                     }
 
-                    // Inject icon
-                    document.getElementById("slider-icon").innerHTML =
-                        `<i class="${sliderData.icon} text-warning"></i>`;
+                // Inject icon
+                document.getElementById("slider-icon").innerHTML = `<i class="${sliderData.icon}"></i>`;
 
                     // Inject title and para
                     document.getElementById("slider-title").innerHTML = sliderData.title;
@@ -588,7 +587,7 @@
                 transition: 'fade2',
                 animation: 'kenburnsUpRight',
                 transitionDuration: 1000,
-                delay: 100,
+                delay: 10000,
                 animationDuration: 20000
             });
         });

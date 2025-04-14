@@ -502,112 +502,140 @@
 
 
 
-<!-- info strip -->
-<div class="top-strip bg-dark text-white py-1 px-3 overflow-hidden" id="topStrip">
-    <div class="ticker d-flex" id="ticker">
-        <div class="ticker-item me-4">🚀 Special Offer: Get 20% off on all services this week!</div>
-        <div class="ticker-item me-4">📢 New FAQ Section Updated – Check it out!</div>
-        <div class="ticker-item me-4">📅 Book your appointment today and skip the queue!</div>
+<div class="top-strip d-flex justify-content-between align-items-center px-4 bg-dark text-white">
+    <!-- LEFT: Scrolling Text -->
+    <div class="scrolling-text-wrapper overflow-hidden" style="flex: 2;">
+        <div class="scrolling-text d-flex">
+            <span class="me-5">🚀 Special Offer: Get 20% off on all services this week!</span>
+            <span class="me-5">📢 New FAQ Section Updated – Check it out!</span>
+            <span class="me-5">📅 Book your appointment today and skip the queue!</span>
+
+            
+        </div>
+    </div>
+
+    <!-- RIGHT: Static Info -->
+    <div class="static-info d-flex align-items-center justify-content-end ps-4" style="flex: 1;">
+         <div class="me-4">
+        <i class="fas fa-envelope me-1"></i>
+        <span id="dynamic-email">Loading...</span> <!-- Placeholder -->
+        </div>
+        <div>
+        <i class="fas fa-phone me-1"></i>
+            <span id="dynamic-phone">Loading...</span> <!-- Placeholder -->
+        </div>
     </div>
 </div>
 
 <style>
 .top-strip {
+    height: 35px;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 35px;
-    z-index: 98;
+    z-index: 999;
+    font-size: 13px;
+    padding: 0 40px;
+    background: #222;
+    transition: top 0.3s ease-in-out;
+}
+
+/* Marquee styles */
+.scrolling-text-wrapper {
     overflow: hidden;
+    white-space: nowrap;
+    height: 35px;
     display: flex;
     align-items: center;
-    padding-left: 10px;
-    cursor: grab;
-
-    background-color: inherit !important; /* Match parent background */
-    background: none !important;          /* Prevent any fallback */
-    border: none;
-    box-shadow: none;
-    outline: none;
+    position: relative;
 }
 
-
-.ticker {
+.scrolling-text {
     display: inline-flex;
-    animation: ticker-scroll 30s linear infinite;
-    
-    will-change: transform;
-    background: none !important;
-}
-
-.ticker-item {
+    align-items: center;
     white-space: nowrap;
-    padding-right: 50px;
-    color: #fff;
-    background: none !important;
-    font-size: 13px !important;
-    line-height: 1.4;
+    animation: scroll-left 30s linear infinite;
 }
-    
-
-.ticker-item:hover {
-    color: #ac835d; /* Golden brown hover color to match navbar */
-    text-shadow: none;
+/* to increae gap between texts of slider */
+.scroll-gap {
+    margin-right: 6rem;
 }
 
-@keyframes ticker-scroll {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
 }
 
-/* Adjust body padding to account for the strip */
+/* Contact info spacing */
+.static-info {
+    gap: 1.5rem;
+    white-space: nowrap;
+}
+@media screen and (max-width: 768px) {
+    .top-strip {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
 
+    .top-strip .scrolling-text {
+        width: 50%;
+        order: 1;
+    }
+
+    .top-strip .static-info {
+        width: 50% !important;
+        order: 2;
+        text-align: right;
+    }
+}
 </style>
 
+
+
+
+
 <script>
-    const ticker = document.getElementById('ticker');
-    const strip = document.getElementById('topStrip');
+    let lastScrollTop = 0;
+    const topStrip = document.querySelector('.top-strip');
 
-    let isPaused = false;
-    let isDragging = false;
-    let startX = 0;
-    let initialTransform = 0;
-
-    // Toggle pause/resume on click
-    strip.addEventListener('click', (e) => {
-        if (e.target.closest('.ticker-item')) { // Only respond to clicking text
-            isPaused = !isPaused;
-            ticker.style.animationPlayState = isPaused ? 'paused' : 'running';
-            strip.style.cursor = isPaused ? 'grab' : 'default';
-        }
-    });
-
-    // Start dragging
-    strip.addEventListener('mousedown', (e) => {
-        if (!isPaused) return;
-        isDragging = true;
-        startX = e.clientX;
-        const transformValue = window.getComputedStyle(ticker).transform;
-        if (transformValue !== 'none') {
-            const match = transformValue.match(/matrix\(1, 0, 0, 1, (-?\d+), 0\)/);
-            initialTransform = match ? parseInt(match[1], 10) : 0;
+    window.addEventListener('scroll', function () {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > lastScrollTop) {
+            // Scrolling down
+            topStrip.style.top = "-40px"; // hide
         } else {
-            initialTransform = 0;
+            // Scrolling up
+            topStrip.style.top = "0"; // show
         }
-        strip.style.cursor = 'grabbing';
-    });
 
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging || !isPaused) return;
-        const deltaX = e.clientX - startX;
-        ticker.style.transform = translateX(${initialTransform + deltaX}px);
-    });
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    }, false);
 
-    document.addEventListener('mouseup', () => {
-        isDragging = false;
-        strip.style.cursor = isPaused ? 'grab' : 'default';
-    });
+    // Fetch dynamic email and phone number
+     // Fetch and display data
+     fetch('/personal_details.json')
+  .then(response => {
+    if (!response.ok) throw new Error("Network error");
+    return response.json();
+  })
+  .then(data => {
+    document.getElementById('dynamic-email').textContent = data.personal_details.email;
+    document.getElementById('dynamic-phone').textContent = data.personal_details.phone_no;
+  })
+  .catch(error => {
+    console.error("Failed to load contact details:", error);
+    document.getElementById('dynamic-email').textContent = "info@seerajlegal.org";
+    document.getElementById('dynamic-phone').textContent = "+91-12345-67890";
+  });
+
 </script>
 
 

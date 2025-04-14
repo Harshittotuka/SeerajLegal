@@ -138,10 +138,9 @@ function toTitleCase(str) {
 
 
 
-
    <!-- awards -->
 <!-- Include Swiper CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <section id="section-6-container" class="clients section-padding">
     <div class="container">
@@ -156,19 +155,18 @@ function toTitleCase(str) {
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-7 col-md-12 text-center">
-                <!-- Swiper Carousel Container -->
                 <div class="swiper awards-swiper">
                     <div class="swiper-wrapper" id="awards-carousel">
-                        <!-- Dynamic content will be inserted here -->
+                        remove this line manually on removing the commented code as this will render the working 
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 <!-- Include Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
     fetch('aboutus.json')
@@ -230,7 +228,7 @@ function toTitleCase(str) {
             }
         })
         .catch(error => console.error('Error fetching data:', error));
-</script>
+</script>  -->
 
 
 
