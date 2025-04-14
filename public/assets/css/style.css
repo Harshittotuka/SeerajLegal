@@ -1019,7 +1019,7 @@ blockquote cite:before {
 /* ======= Navbar style ======= */
 .navbar {
     position: absolute;
-    margin-top: 0;
+    margin-top: 16px;
     left: 0;
     top: 0;
     width: 100%;
