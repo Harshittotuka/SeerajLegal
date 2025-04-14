@@ -133,7 +133,7 @@
 
                 container.innerHTML += sectionHTML;
 
-                // Store "What We Provide" section separately if available
+                
                 // Store "What We Provide" section separately if available
                 if (practice.what_we_provide && practice.what_we_provide.length > 0 && practice.what_we_provide
                     .some(w => w && w !== "null")) {

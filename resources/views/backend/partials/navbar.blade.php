@@ -254,11 +254,11 @@
             </a>
             <div class="collapse {{ Request::is('backend/members') || Request::is('backend/members/manage') || Request::is('backend/membership-types') ? 'show' : '' }}" id="members-collapse" data-bs-parent="#sidenav-collapse-main">
                 <ul class="nav flex-column ps-4">
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link {{ Request::is('backend/members') ? 'active bg-light text-dark' : 'text-dark' }}" href="{{ route('backend.members') }}">
                             <i class="fas fa-user-check fa-sm opacity-5 me-2"></i> All Members
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a class="nav-link {{ Request::is('backend/members/manage') ? 'active bg-light text-dark' : 'text-dark' }}" href="{{ route('backend.manage.members') }}">
                             <i class="fas fa-user-cog fa-sm opacity-5 me-2"></i> Manage Members
