@@ -613,6 +613,7 @@
 
 
 
+{{-- data-scroll-logo="{{ asset('assets\dynamic\logo\logo-f1.png') }}" --}}
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
@@ -622,7 +623,7 @@
             <a class="logo" href="{{ route('home') }}">
                 <img src="{{ asset('assets\dynamic\logo\logo-f1.png') }}" class="logo-img" alt="Logo" id="logo"
                     data-default-logo="{{ asset('assets\dynamic\logo\logo-f1.png') }}"
-                    data-scroll-logo="{{ asset('assets\dynamic\logo\logo-f1.png') }}">
+                    >
             </a>
         </div>
 

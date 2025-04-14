@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>Seeraj Legal Relief Foundation</title>
-  
+
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">
@@ -140,111 +140,130 @@
             }
         </style>
 
-<div class="kenburns-inner h-100 container">
-        <div class="content-offset">
-            <div class="v-middle">
-                <div class="row justify-content-center align-items-center hero-header">
-                    <div class="col-lg-8 col-md-12 text-center">
-                        <!-- Dynamic Icon -->
-                        <div class="section-subtitle mb-3">
-                            <div id="slider-icon" class="icon"></div>
+        <div class="kenburns-inner h-100 container">
+            <div class="content-offset">
+                <div class="v-middle">
+                    <div class="row justify-content-center align-items-center hero-header">
+                        <div class="col-lg-8 col-md-12 text-center">
+                            <!-- Dynamic Icon -->
+                            <div class="section-subtitle mb-3">
+                                <div id="slider-icon" class="icon"></div>
+                            </div>
+
+                            <!-- Dynamic Title -->
+                            <h1 id="slider-title" class="hero-title"></h1>
+                            <hr class="dots">
+
+                        <style>
+                            hr {
+                                border: 0;
+                                margin: 1.35em auto;
+                                max-width: 100%;
+                                background-position: 50%;
+                                box-sizing: border-box;
+                            }
+
+                            .dots {
+                                color: orange;
+                                border-width: 0 0 8px;
+                                border-style: solid;
+                                border-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 1" width="8" height="4"><circle fill="orange" cx="1" cy="0.5" r="0.5" /></svg>') 0 0 100% repeat;
+                                width: 216px;
+                            }
+
+                        </style>
+
+
+                            <!-- Dynamic Subtitle -->
+                            <span id="slider-para" class="slider-subtitle"></span>
                         </div>
-
-                        <!-- Dynamic Title -->
-                        <h1 id="slider-title" class="hero-title"></h1>
-
-                        <!-- Dynamic Subtitle -->
-                        <span id="slider-para" class="slider-subtitle"></span>
                     </div>
-                </div>
 
-                <!-- Desktop Feature Boxes Container -->
-                <div id="feature-boxes-desktop" class="d-none d-md-flex row justify-content-center align-items-center pt-5">
-                    <!-- Boxes inserted dynamically -->
-                </div>
-
-                <!-- Mobile Feature Carousel -->
-                <div id="featureCarousel" class="carousel slide d-md-none" data-bs-ride="carousel" data-bs-interval="3000">
-                    <div id="feature-boxes-mobile" class="carousel-inner text-center">
-                        <!-- Carousel items inserted dynamically -->
+                    <!-- Desktop Feature Boxes Container -->
+                    <div id="feature-boxes-desktop"
+                        class="d-none d-md-flex row justify-content-center align-items-center pt-5">
+                        <!-- Boxes inserted dynamically -->
                     </div>
-                </div>
 
+                    <!-- Mobile Feature Carousel -->
+                    <div id="featureCarousel" class="carousel slide d-md-none" data-bs-ride="carousel"
+                        data-bs-interval="3000">
+                        <div id="feature-boxes-mobile" class="carousel-inner text-center">
+                            <!-- Carousel items inserted dynamically -->
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
-</aside>
+    </aside>
 
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        fetch("home.json")
-            .then(response => response.json())
-            .then(data => {
-                const sliderData = data.find(item => item.S_id === 10);
-                if (!sliderData) {
-                    console.warn("S_id:10 not found in home.json");
-                    return;
-                }
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("home.json")
+                .then(response => response.json())
+                .then(data => {
+                    const sliderData = data.find(item => item.S_id === 10);
+                    if (!sliderData) {
+                        console.warn("S_id:10 not found in home.json");
+                        return;
+                    }
 
-                // Inject icon
-                document.getElementById("slider-icon").innerHTML = `<i class="${sliderData.icon} text-warning"></i>`;
+                    // Inject icon
+                    document.getElementById("slider-icon").innerHTML =
+                        `<i class="${sliderData.icon} text-warning"></i>`;
 
-                // Inject title and para
-                document.getElementById("slider-title").innerHTML = sliderData.title;
-                document.getElementById("slider-para").textContent = sliderData.para;
+                    // Inject title and para
+                    document.getElementById("slider-title").innerHTML = sliderData.title;
+                    document.getElementById("slider-para").textContent = sliderData.para;
 
-                // Feature icon fallback list
-                const iconClasses = [
-                    "fas fa-mobile-alt",
-                    "fas fa-sliders-h",
-                    "fas fa-dollar-sign",
-                    "fas fa-cogs",
-                    "fas fa-rocket"
-                ];
+                    // Feature icon fallback list
+                    const iconClasses = [
+                        "fa-solid fa-thumbtack"
 
-                // Render feature boxes
-                const desktopBoxContainer = document.getElementById("feature-boxes-desktop");
-                const mobileCarouselContainer = document.getElementById("feature-boxes-mobile");
+                    ];
 
-                desktopBoxContainer.innerHTML = "";
-                mobileCarouselContainer.innerHTML = "";
+                    // Render feature boxes
+                    const desktopBoxContainer = document.getElementById("feature-boxes-desktop");
+                    const mobileCarouselContainer = document.getElementById("feature-boxes-mobile");
 
-                sliderData.points.forEach((point, index) => {
-                    const iconClass = iconClasses[index % iconClasses.length];
+                    desktopBoxContainer.innerHTML = "";
+                    mobileCarouselContainer.innerHTML = "";
 
-                    // Desktop feature box
-                    const desktopBox = `
+                    sliderData.points.forEach((point, index) => {
+                        const iconClass = iconClasses[index % iconClasses.length];
+
+                        // Desktop feature box
+                        const desktopBox = `
                         <div class="col-lg-4 col-md-6 text-center mb-4">
                             <div class="feature-box">
                                 <div class="icon mb-3"><i class="${iconClass} fa-2x"></i></div>
                                 <h5>${point}</h5>
-                                <p>${point} feature description.</p>
                             </div>
                         </div>
                     `;
-                    desktopBoxContainer.innerHTML += desktopBox;
+                        desktopBoxContainer.innerHTML += desktopBox;
 
-                    // Mobile carousel feature box
-                    const activeClass = index === 0 ? "active" : "";
-                    const mobileBox = `
+                        // Mobile carousel feature box
+                        const activeClass = index === 0 ? "active" : "";
+                        const mobileBox = `
                         <div class="carousel-item ${activeClass}">
                             <div class="feature-box mx-3">
                                 <div class="icon mb-3"><i class="${iconClass} fa-2x"></i></div>
                                 <h5>${point}</h5>
-                                <p>${point} feature description.</p>
                             </div>
                         </div>
                     `;
-                    mobileCarouselContainer.innerHTML += mobileBox;
+                        mobileCarouselContainer.innerHTML += mobileBox;
+                    });
+                })
+                .catch(error => {
+                    console.error("Error loading home.json:", error);
                 });
-            })
-            .catch(error => {
-                console.error("Error loading home.json:", error);
-            });
-    });
-</script>
+        });
+    </script>
 
 
 

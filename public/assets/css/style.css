@@ -1112,14 +1112,14 @@ blockquote cite:before {
 }
 
 .nav-scroll .logo-img {
-    width: 200px;
+    width: 150px;
     height: auto;
 
 }
 
 .nav-scroll .logo-img {
 
-    margin-top: 20px;
+    /* margin-top: 5px; */
     margin-bottom: 0px;
 }
 
@@ -1399,9 +1399,10 @@ blockquote cite:before {
     }
 
     .nav-scroll .logo-img {
-        width: 200px;
+        width: 100px;
         height: auto;
         /* width: 135px; */
+       display: none;
     }
 
     .navbar .logo {
@@ -1414,7 +1415,8 @@ blockquote cite:before {
     .logo-img {
         margin-bottom: 0px;
         /* width: 135px; */
-        width: 200px;
+     
+        width: 150px;
         height: auto;
     }
 
