@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class TeamsSeeder extends Seeder
 {
+    
     public function run()
     {
         DB::table('teams')->insert([
@@ -25,7 +26,8 @@ class TeamsSeeder extends Seeder
                     'socials' => json_encode(['linkedin' => 'https://linkedin.com/in/rajeshjain']),
                     'created_at' => now(),
                     'updated_at' => now(),
-                    'profile_image' => 'assets/dynamic/teams/1.webp'
+                    'profile_image' => 'assets/img/my/profile_icon2.png'
+                    
                 ],
                 [
                     'name' => 'Ramesh Chand Sharma',
@@ -42,7 +44,7 @@ class TeamsSeeder extends Seeder
                     'socials' => json_encode(['linkedin' => 'https://linkedin.com/in/rameshsharma']),
                     'created_at' => now(),
                     'updated_at' => now(),
-                    'profile_image' => 'assets/dynamic/teams/1.webp'
+                    'profile_image' => 'assets/img/my/profile_icon2.png'
                 ],
                 [
                     'name' => 'Ashok Sharma',
@@ -59,7 +61,7 @@ class TeamsSeeder extends Seeder
                     'socials' => json_encode(['linkedin' => 'https://linkedin.com/in/ashoksharma']),
                     'created_at' => now(),
                     'updated_at' => now(),
-                    'profile_image' => 'assets/dynamic/teams/1.webp'
+                    'profile_image' => 'assets/img/my/profile_icon2.png'
                 ],
                 [
                     'name' => 'Jai Prakash Sharma',
@@ -76,7 +78,7 @@ class TeamsSeeder extends Seeder
                     'socials' => json_encode(['linkedin' => 'https://linkedin.com/in/jaisharma']),
                     'created_at' => now(),
                     'updated_at' => now(),
-                    'profile_image' => 'assets/dynamic/teams/1.webp'
+                    'profile_image' => 'assets/img/my/profile_icon2.png'
                 ],
                 [
                     'name' => 'Naveen Sharma',
@@ -93,7 +95,7 @@ class TeamsSeeder extends Seeder
                     'socials' => json_encode(['linkedin' => 'https://linkedin.com/in/naveensharma']),
                     'created_at' => now(),
                     'updated_at' => now(),
-                    'profile_image' => 'assets/dynamic/teams/1.webp'
+                    'profile_image' => 'assets/img/my/profile_icon2.png'
                 ],
                 [
                     'name' => 'K.R. Sharma',
@@ -110,7 +112,7 @@ class TeamsSeeder extends Seeder
                     'socials' => json_encode(['linkedin' => 'https://linkedin.com/in/krsharma']),
                     'created_at' => now(),
                     'updated_at' => now(),
-                    'profile_image' => 'assets/dynamic/teams/1.webp'
+                    'profile_image' => 'assets/img/my/profile_icon2.png'
                 ],
                 [
                     'name' => 'Arun Singh Shekhawat',
@@ -127,7 +129,7 @@ class TeamsSeeder extends Seeder
                     'socials' => json_encode(['linkedin' => 'https://linkedin.com/in/arunsingh']),
                     'created_at' => now(),
                     'updated_at' => now(),
-                    'profile_image' => 'assets/dynamic/teams/1.webp'
+                    'profile_image' => 'assets/img/my/profile_icon2.png'
                 ],
                 [
                     'name' => 'Hemant Ruthala',
@@ -144,7 +146,7 @@ class TeamsSeeder extends Seeder
                     'socials' => json_encode(['linkedin' => 'https://linkedin.com/in/hemant']),
                     'created_at' => now(),
                     'updated_at' => now(),
-                    'profile_image' => 'assets/dynamic/teams/1.webp'
+                    'profile_image' => 'assets/img/my/profile_icon2.png'
                 ],
                 [
                     'name' => 'Mrs. Manju Singh Chundawat',
@@ -161,7 +163,7 @@ class TeamsSeeder extends Seeder
                     'socials' => json_encode(['linkedin' => 'https://linkedin.com/in/manjusingh']),
                     'created_at' => now(),
                     'updated_at' => now(),
-                    'profile_image' => 'assets/dynamic/teams/1.webp'
+                    'profile_image' => 'assets/img/my/profile_icon2.png'
                 ],
             
             [
@@ -179,7 +181,7 @@ class TeamsSeeder extends Seeder
                 'socials' => json_encode(['linkedin' => 'https://linkedin.com/in/johndoe', 'twitter' => 'https://twitter.com/johndoe']),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'profile_image' => 'assets/dynamic/teams/1.webp'
+                'profile_image' => 'assets/img/my/profile_icon2.png'
             ],
             [
                 'name' => 'Jane Smith',
@@ -196,7 +198,7 @@ class TeamsSeeder extends Seeder
                 'socials' => json_encode(['linkedin' => 'https://linkedin.com/in/janesmith']),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'profile_image' => 'assets/dynamic/teams/1.webp'
+                'profile_image' => 'assets/img/my/profile_icon2.png'
             ],
             [
                 'name' => 'Robert Brown',
@@ -213,7 +215,7 @@ class TeamsSeeder extends Seeder
                 'socials' => json_encode(['linkedin' => 'https://linkedin.com/in/robertbrown']),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'profile_image' => 'assets/dynamic/teams/1.webp'
+                'profile_image' => 'assets/img/my/profile_icon2.png'
             ],
             [
                     'name' => 'RAJAN SHARMA',
@@ -230,7 +232,7 @@ class TeamsSeeder extends Seeder
                     'socials' => null,
                     'created_at' => now(),
                     'updated_at' => now(),
-                'profile_image' => 'assets/dynamic/teams/1.webp'
+                'profile_image' => 'assets/img/my/profile_icon2.png'
                 ],
                 [
                     'name' => 'SEEMA SHARMA',
@@ -247,7 +249,7 @@ class TeamsSeeder extends Seeder
                     'socials' => null,
                     'created_at' => now(),
                     'updated_at' => now(),
-                'profile_image' => 'assets/dynamic/teams/1.webp'
+                'profile_image' => 'assets/img/my/profile_icon2.png'
                 ]
     ]);
     }
