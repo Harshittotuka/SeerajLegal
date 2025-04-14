@@ -588,7 +588,7 @@
                 transition: 'fade2',
                 animation: 'kenburnsUpRight',
                 transitionDuration: 1000,
-                delay: 100,
+                delay: 10000,
                 animationDuration: 20000
             });
         });
