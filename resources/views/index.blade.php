@@ -479,7 +479,6 @@
         .rajasthan-map {
             position: relative;
             padding: 20px;
-            background: url('img/rajasthani-pattern.png');
             border-radius: 15px;
             box-shadow: 0 0 30px rgba(210, 165, 75, 0.3);
         }
@@ -528,7 +527,7 @@
 
         .heritage-pattern-border {
             height: 4px;
-            background: url('img/rajasthani-border.png') repeat-x;
+            /* background: url('img/rajasthani-border.png') repeat-x; */
             background-size: contain;
         }
 
@@ -589,7 +588,7 @@
                 transition: 'fade2',
                 animation: 'kenburnsUpRight',
                 transitionDuration: 1000,
-                delay: 10000,
+                delay: 100,
                 animationDuration: 20000
             });
         });

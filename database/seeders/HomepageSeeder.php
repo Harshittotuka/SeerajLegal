@@ -88,7 +88,7 @@ class HomepageSeeder extends Seeder
                 'para' => 'We pride ourselves in providing legal solutions throughout the vast and diverse land of Rajasthan. From the capital city of Jaipur to the serene desert of Jaisalmer, we bring justice and consultancy to every corner of this beautiful state.',
                 'points' => json_encode(['33+ Districts', '500+ Cities Covered', '24×7 Availability']),
                 'flag' => 'enabled',
-                'image' => (['assets/img/Rajasthan.png']),
+                'image' => (['assets/img/Rajasthan.webp']),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],

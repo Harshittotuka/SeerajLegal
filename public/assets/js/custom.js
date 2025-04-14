@@ -544,10 +544,11 @@ $(function () {
         });
     }
       
-    // Preloader
-    $("#preloader").fadeOut(300);
-    $(".preloader-bg").delay(400).fadeOut(600);
-    
+    // // Preloader
+    // $("#preloader").fadeOut(300);
+    // $(".preloader-bg").delay(400).fadeOut(600);
+    $("#preloader").fadeOut(600);  // Increased fadeOut duration
+    $(".preloader-bg").delay(800).fadeOut(1000);  // Increased delay and fadeOut duration
     // Button
     var buttons = document.querySelectorAll(".alf-link .alf-more-trigger .alf-blog-item-overlay-more");
     for(var i = 0; i < buttons.length; i++) {
