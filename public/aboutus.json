@@ -46,11 +46,12 @@
         "title": "Legal Registration",
         "para": "A Non-Governmental Organization registered under the Companies Act with CIN No. U94120RJ2024NPL093001.",
         "points": null,
-        "flag": "enabled",
+        "flag": "disabled",
         "image": null,
         "icon_Type": "fontawesome",
-        "icon":"fa-regular fa-registered",
-        "ss": "\/assets\/backend\/img\/previews\/S_id2.png"
+        "icon": "fa-regular fa-registered",
+        "ss": "\/assets\/backend\/img\/previews\/S_id2.png",
+        "source": "aboutus.json"
     },
     {
         "usage": [
@@ -69,7 +70,7 @@
         "flag": "enabled",
         "image": null,
         "icon_Type": "fontawesome",
-        "icon":"fa-solid fa-scale-balanced",
+        "icon": "fa-solid fa-scale-balanced",
         "ss": "\/assets\/backend\/img\/previews\/S_id3.png"
     },
     {
@@ -103,7 +104,7 @@
             2,
             3
         ],
-        "title": "We are here to provide <span>legal Services</span>",
+        "title": "We are here to provide <span>legal Services<\/span>",
         "para": "All people are equal before the law. A good attorney is what makes a difference.",
         "points": null,
         "flag": "enabled",
