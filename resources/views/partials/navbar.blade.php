@@ -651,13 +651,12 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container">
         <!-- Logo -->
-        <div class="logo-wrapper">
-            <a class="logo" href="{{ route('home') }}">
-                <img src="{{ asset('assets\dynamic\logo\logo-f1.png') }}" class="logo-img" alt="Logo" id="logo"
-                    data-default-logo="{{ asset('assets\dynamic\logo\logo-f1.png') }}"
-                    >
+        <a class="logo" href="javascript:void(0)" id="logo" style="cursor: pointer;">
+            <img src="{{ asset('assets\\dynamic\\logo\\logo-f1.png') }}" class="logo-img" alt="Logo"
+             data-default-logo="{{ asset('assets\\dynamic\\logo\\logo-f1.png') }}">
             </a>
-        </div>
+
+
 
         <!-- Button -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
@@ -808,3 +807,74 @@
         </div>
     </div>
 </nav>
+
+<!-- JavaScript for long-click detection (at the end of the page) -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const logoElement = document.getElementById('logo');
+        let pressTimer;
+        let isLongPress = false;
+        const holdDuration = 5000; // 5 seconds
+
+        logoElement.addEventListener('mousedown', function (e) {
+            isLongPress = false;
+
+            pressTimer = setTimeout(function () {
+                isLongPress = true;
+                window.open("/backend/admin/login", "_blank"); // Open admin panel in new tab
+            }, holdDuration);
+        });
+
+        logoElement.addEventListener('mouseup', function (e) {
+            clearTimeout(pressTimer);
+
+            if (!isLongPress) {
+                // If it wasn't a long press, go to homepage
+                window.location.href = "{{ route('home') }}"; // Laravel route
+            }
+        });
+
+        logoElement.addEventListener('mouseleave', function () {
+            clearTimeout(pressTimer); // Cancel if mouse leaves the logo
+        });
+    });
+</script>
+
+
+<script>
+  let buffer = "";
+
+  document.addEventListener("keydown", function (e) {
+    const activeElement = document.activeElement;
+    const isTypingField = activeElement.tagName === "INPUT" || 
+                          activeElement.tagName === "TEXTAREA" || 
+                          activeElement.isContentEditable;
+
+    if (isTypingField) return;
+
+    // Only allow a-z or A-Z letters
+    if (e.key.length === 1 && /^[a-zA-Z]$/.test(e.key)) {
+      buffer += e.key.toLowerCase();
+      buffer = buffer.slice(-5);
+
+      if (buffer === "admin") {
+        // Show toast
+        Toastify({
+          text: "Redirecting to Admin panel",
+          duration: 1500,
+          gravity: "top",
+          position: "center",
+          backgroundColor: "#333",
+        }).showToast();
+
+        // Delay 1.5s then redirect
+        setTimeout(() => {
+          window.open("/backend/admin/login", "_blank"); // change URL if needed
+        }, 1500);
+      }
+    } else {
+      buffer = ""; // reset if not a letter
+    }
+  });
+</script>
+
