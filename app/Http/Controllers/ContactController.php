@@ -42,6 +42,7 @@ class ContactController extends Controller
                 'whatsapp' => 'nullable|string',
                 'linkedin' => 'nullable|url',
                 'website_link' => 'nullable|url',
+                'top_bar_points' => 'array',
             ]);
 
             $contact = $this->contactService->createContact($validatedData);
@@ -69,6 +70,7 @@ class ContactController extends Controller
                 'whatsapp' => 'nullable|string',
                 'linkedin' => 'nullable|url',
                 'website_link' => 'nullable|url',
+                'top_bar_points' => 'array',
             ]);
 
             $updatedContact = $this->contactService->updateContact($id, $validatedData);

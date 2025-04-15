@@ -14,6 +14,9 @@
         "whatsapp_group_link": null,
         "linkedin": null,
         "website_link": null,
-        "Quote": "Justice for all, solutions for every dispute."
+        "Quote": "Justice for all, solutions for every dispute.",
+        "top_bar_points": [
+            "📅Free Consultation","📢24/7 Availability","🚀Expert Legal Advice"
+        ]
     }
 }

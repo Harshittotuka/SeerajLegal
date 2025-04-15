@@ -36,6 +36,7 @@ class Contact2Controller extends Controller
                 'linkedin' => 'nullable',
                 'website_link' => 'nullable',
                 'Quote' => 'nullable|string',
+                'top_bar_points' => 'array',
             ]);
 
             // Update the personal details with new values
