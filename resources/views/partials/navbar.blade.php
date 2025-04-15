@@ -501,28 +501,24 @@
 </style>
 
 
-
+<!-- top bar -->
 <div class="top-strip d-flex justify-content-between align-items-center px-4 bg-dark text-white">
     <!-- LEFT: Scrolling Text -->
     <div class="scrolling-text-wrapper overflow-hidden" style="flex: 2;">
-        <div class="scrolling-text d-flex">
-            <span class="me-5">🚀 Special Offer: Get 20% off on all services this week!</span>
-            <span class="me-5">📢 New FAQ Section Updated – Check it out!</span>
-            <span class="me-5">📅 Book your appointment today and skip the queue!</span>
-
-            
+        <div id="dynamic-scrolling-text" class="scrolling-text d-flex">
+            <!-- Dynamically filled -->
         </div>
     </div>
 
     <!-- RIGHT: Static Info -->
     <div class="static-info d-flex align-items-center justify-content-end ps-4" style="flex: 1;">
-         <div class="me-4">
-        <i class="fas fa-envelope me-1"></i>
-        <span id="dynamic-email">Loading...</span> <!-- Placeholder -->
+        <div class="me-4">
+            <i class="fas fa-envelope me-1"></i>
+            <a id="dynamic-email" href="#" target="_blank" class="text-white text-decoration-none">Loading...</a>
         </div>
         <div>
-        <i class="fas fa-phone me-1"></i>
-            <span id="dynamic-phone">Loading...</span> <!-- Placeholder -->
+            <i class="fas fa-phone me-1"></i>
+            <a id="dynamic-phone" href="#" class="text-white text-decoration-none">Loading...</a>
         </div>
     </div>
 </div>
@@ -530,18 +526,19 @@
 <style>
 .top-strip {
     height: 35px;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 999;
+    z-index: 100;
     font-size: 13px;
     padding: 0 40px;
-    background: #222;
+    background: transparent !important;  /* even idk how i mafe this transparent */
     transition: top 0.3s ease-in-out;
+    color: #fff;
+    pointer-events: auto;
 }
 
-/* Marquee styles */
 .scrolling-text-wrapper {
     overflow: hidden;
     white-space: nowrap;
@@ -552,54 +549,44 @@
 }
 
 .scrolling-text {
-    display: inline-flex;
+    display: flex;  /* Change from inline-flex to flex to use gap */
     align-items: center;
     white-space: nowrap;
-    animation: scroll-left 30s linear infinite;
+    animation: scroll-right-to-left 20s linear infinite;
+    will-change: transform;
+    gap: 4rem; /* Adjust the gap here */
 }
-/* to increae gap between texts of slider */
+
 .scroll-gap {
     margin-right: 6rem;
 }
 
-@keyframes scroll-left {
+@keyframes scroll-right-to-left {
     0% {
-        transform: translateX(0%);
+        transform: translateX(100%);
     }
     100% {
         transform: translateX(-100%);
     }
 }
 
-/* Contact info spacing */
 .static-info {
-    gap: 1.5rem;
+    gap: 4rem;
     white-space: nowrap;
 }
-@media screen and (max-width: 768px) {
-    .top-strip {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+/* More clean targeting for mobile devices */
+@media screen and (max-width: 600px) and (pointer: coarse) {
+    .scrolling-text-wrapper {
+        display: none;  /* Hides scrolling text on phones and devices with coarse pointers (touch) */
+    }
+
+    .static-info {
+        width: 100% !important;
+        gap: 1rem;
         justify-content: space-between;
-    }
-
-    .top-strip .scrolling-text {
-        width: 50%;
-        order: 1;
-    }
-
-    .top-strip .static-info {
-        width: 50% !important;
-        order: 2;
-        text-align: right;
     }
 }
 </style>
-
-
-
-
 
 <script>
     let lastScrollTop = 0;
@@ -607,36 +594,53 @@
 
     window.addEventListener('scroll', function () {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > lastScrollTop) {
-            // Scrolling down
-            topStrip.style.top = "-40px"; // hide
-        } else {
-            // Scrolling up
-            topStrip.style.top = "0"; // show
-        }
-
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        topStrip.style.top = (scrollTop > lastScrollTop) ? "-40px" : "0";
+        lastScrollTop = Math.max(scrollTop, 0);
     }, false);
 
-    // Fetch dynamic email and phone number
-     // Fetch and display data
-     fetch('/personal_details.json')
-  .then(response => {
-    if (!response.ok) throw new Error("Network error");
-    return response.json();
-  })
-  .then(data => {
-    document.getElementById('dynamic-email').textContent = data.personal_details.email;
-    document.getElementById('dynamic-phone').textContent = data.personal_details.phone_no;
-  })
-  .catch(error => {
-    console.error("Failed to load contact details:", error);
-    document.getElementById('dynamic-email').textContent = "info@seerajlegal.org";
-    document.getElementById('dynamic-phone').textContent = "+91-12345-67890";
-  });
+    // Fetch and populate dynamic content
+    fetch('/personal_details.json')
+        .then(response => {
+            if (!response.ok) throw new Error("Network error");
+            return response.json();
+        })
+        .then(data => {
+            const email = data.personal_details.email;
+            const phone = data.personal_details.phone_no;
+            const topBarPoints = data.personal_details.top_bar_points || [];
 
+            // Set email link
+            const emailLink = document.getElementById('dynamic-email');
+            emailLink.textContent = email;
+            emailLink.href = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(email)}`;
+
+            // Set phone link
+            const phoneLink = document.getElementById('dynamic-phone');
+            phoneLink.textContent = phone;
+            phoneLink.href = `tel:${phone}`;
+
+            // Populate scrolling text
+            const scrollingTextContainer = document.getElementById('dynamic-scrolling-text');
+            scrollingTextContainer.innerHTML = '';
+            topBarPoints.forEach(point => {
+                const span = document.createElement('span');
+                span.className = 'me-5';
+                span.textContent = point;
+                scrollingTextContainer.appendChild(span);
+            });
+        })
+        .catch(error => {
+            console.error("Failed to load personal details:", error);
+
+            // Fallbacks
+            document.getElementById('dynamic-email').textContent = "info@seerajlegal.org";
+            document.getElementById('dynamic-email').href = "https://mail.google.com/mail/?view=cm&to=info@seerajlegal.org";
+
+            document.getElementById('dynamic-phone').textContent = "+91-12345-67890";
+            document.getElementById('dynamic-phone').href = "tel:+911234567890";
+        });
 </script>
+
 
 
 

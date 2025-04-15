@@ -157,6 +157,11 @@
                     <div class="col-12">
                         <textarea class="form-control" id="Quote" rows="2" disabled></textarea>
                     </div>
+                    <h5 class="mt-4">Top Bar Points:</h5>
+                    <div class="col-12">
+                       <input type="text" class="form-control" id="top_bar_points" placeholder="Enter multiple points, separated by commas" disabled>
+                    </div>
+
                 </form>
 
                 <!-- Bootstrap & Toastify JS -->
@@ -187,12 +192,18 @@
                             }
                         }
 
-                        function populateForm(details) {
-                            for (const key in details) {
-                                const input = document.getElementById(key);
-                                if (input) input.value = details[key] || '';
-                            }
-                        }
+                             function populateForm(details) {
+                             for (const key in details) {
+                                           const input = document.getElementById(key);
+                                           if (input) {
+                                              if (key === 'top_bar_points' && Array.isArray(details[key])) {
+                                                   input.value = details[key].join(', ');
+                                                } else {
+                                                   input.value = details[key] || '';
+                                               }
+                                           }
+                                        }
+                                    }
 
                         editBtn.addEventListener('click', function() {
                             form.querySelectorAll('input, textarea').forEach(input => input.removeAttribute(
@@ -222,7 +233,13 @@
                                         value = 'https://' + value; // Ensure valid URLs
                                     }
                                 }
-                                updatedDetails[input.id.replace(/-/g, '_')] = value || null;
+                                const key = input.id.replace(/-/g, '_');
+if (key === 'top_bar_points') {
+    updatedDetails[key] = value ? value.split(',').map(p => p.trim()).filter(p => p) : [];
+} else {
+    updatedDetails[key] = value || null;
+}
+
                             });
 
                             try {
