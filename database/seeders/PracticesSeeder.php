@@ -26,7 +26,7 @@ class PracticesSeeder extends Seeder
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-gavel',
                 'image_path' => 'assets/dynamic/practices/Banking_and_Finance.webp',
-                'top_image' => 'assets/dynamic/practices/Top_Banking_and_Finance.webp',
+                'top_image' => 'assets/dynamic/practices/top_Banking_and_Finance.webp',
             ],
             [
                 'practice_name' => 'Banking and Finance',
@@ -40,7 +40,7 @@ class PracticesSeeder extends Seeder
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-gavel',
                 'image_path' => 'assets/dynamic/practices/Banking_and_Finance.webp',
-                'top_image' => 'assets/dynamic/practices/Top_Banking_and_Finance.webp',
+                'top_image' => 'assets/dynamic/practices/top_Banking_and_Finance.webp',
             ],
             [
                 'practice_name' => 'Criminal Law',
@@ -54,7 +54,7 @@ class PracticesSeeder extends Seeder
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-gavel',
                 'image_path' => 'assets/dynamic/practices/Criminal_Law.webp',
-                'top_image' => 'assets/dynamic/practices/Top_Criminal_Law.webp',
+                'top_image' => 'assets/dynamic/practices/top_Criminal_Law.webp',
             ],
             [
                 'practice_name' => 'Criminal Law',
@@ -68,7 +68,7 @@ class PracticesSeeder extends Seeder
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-gavel',
                 'image_path' => 'assets/dynamic/practices/Criminal_Law.webp',
-                'top_image' => 'assets/dynamic/practices/Top_Criminal_Law.webp',
+                'top_image' => 'assets/dynamic/practices/top_Criminal_Law.webp',
             ],
             [
                 'practice_name' => 'Private Firms',
@@ -82,7 +82,7 @@ class PracticesSeeder extends Seeder
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-gavel',
                 'image_path' => 'assets/dynamic/practices/Private_firm.webp',
-                'top_image' => 'assets/dynamic/practices/Top_Private_firm.webp',
+                'top_image' => 'assets/dynamic/practices/top_Private_firm.webp',
             ],
             [
                 'practice_name' => 'Private Firms',
@@ -96,7 +96,7 @@ class PracticesSeeder extends Seeder
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-gavel',
                 'image_path' => 'assets/dynamic/practices/Private_firm.webp',
-                'top_image' => 'assets/dynamic/practices/Top_Private_firm.webp',
+                'top_image' => 'assets/dynamic/practices/top_Private_firm.webp',
             ],
             [
                 'practice_name' => 'Civil Law',
@@ -110,7 +110,7 @@ class PracticesSeeder extends Seeder
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-gavel',
                 'image_path' => 'assets/dynamic/practices/Civil_Law.webp',
-                'top_image' => 'assets/dynamic/practices/Top_Civil_Law.webp',
+                'top_image' => 'assets/dynamic/practices/top_Civil_Law.webp',
             ],
             [
                 'practice_name' => 'Civil Law',
@@ -124,7 +124,7 @@ class PracticesSeeder extends Seeder
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-gavel',
                 'image_path' => 'assets/dynamic/practices/Civil_Law.webp',
-                'top_image' => 'assets/dynamic/practices/Top_Civil_Law.webp',
+                'top_image' => 'assets/dynamic/practices/top_Civil_Law.webp',
             ],
             [
                 'practice_name' => 'Real Estate & Construction',
@@ -138,7 +138,7 @@ class PracticesSeeder extends Seeder
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-gavel',
                 'image_path' => 'assets/dynamic/practices/Real_Estate_Construction.webp',
-                'top_image' => 'assets/dynamic/practices/Top_Real_Estate_Construction.webp',
+                'top_image' => 'assets/dynamic/practices/top_Real_Estate_Construction.webp',
             ],
             [
                 'practice_name' => 'Real Estate & Construction',
@@ -152,7 +152,7 @@ class PracticesSeeder extends Seeder
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-gavel',
                 'image_path' => 'assets/dynamic/practices/Real_Estate_Construction.webp',
-                'top_image' => 'assets/dynamic/practices/Top_Real_Estate_Construction.webp',
+                'top_image' => 'assets/dynamic/practices/top_Real_Estate_Construction.webp',
             ],
             [
                 'practice_name' => 'Consumer Forums',
@@ -166,7 +166,7 @@ class PracticesSeeder extends Seeder
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-gavel',
                 'image_path' => 'assets/dynamic/practices/Consumer_Firm.webp',
-                'top_image' => 'assets/dynamic/practices/Top_Consumer_Firm.webp',
+                'top_image' => 'assets/dynamic/practices/top_Consumer_Firm.webp',
             ],
 
             [
@@ -181,7 +181,7 @@ class PracticesSeeder extends Seeder
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-gavel',
                 'image_path' => 'assets/dynamic/practices/Consumer_Firm.webp',
-                'top_image' => 'assets/dynamic/practices/Top_Consumer_Firm.webp',
+                'top_image' => 'assets/dynamic/practices/top_Consumer_Firm.webp',
             ],
         ];
 
