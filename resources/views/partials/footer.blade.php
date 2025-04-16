@@ -15,9 +15,13 @@
             <div class="row">
                 <div class="col-md-4 mb-30">
                     <div class="item">
-                        <div class="logo">
-                            <img src="{{ asset('assets\dynamic\logo\logo-f1.png') }}" class="logo-img" alt="" style="width: 200px; height: auto;">
-                        </div>
+                    <div class="logo" style="font-size: 48px; font-weight: bold; font-family: 'Georgia', 'Playfair Display', serif; letter-spacing: 1.5px; line-height: 1.2; width: 100%;">
+    <span style="color:rgb(169, 166, 166);">Seeraj Legal</span>
+    <span style="color: #ac835d;">Relief Foundation</span>
+</div>
+
+
+
                         <p>{{ $details['Quote'] }}</p>
                         <div class="social-icons">
                             <ul class="list-inline">
