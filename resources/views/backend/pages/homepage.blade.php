@@ -197,6 +197,17 @@
                 alert("Error: Section source is undefined.");
                 return;
             }
+    // 🚫 Prevent toggling if S_id is 10
+    if (section.S_id === 10) {
+    Toastify({
+    text: "You can't change the status of this section.",
+    duration: 3000,
+    gravity: "top",
+    position: "right",
+    backgroundColor: "#ff6b6b",
+    }).showToast();
+    return;
+    }
 
             const newStatus = section.flag === "enabled" ? "disabled" : "enabled";
 
