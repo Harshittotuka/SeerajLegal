@@ -1,27 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
     <url>
-    <loc>http://localhost/dashboard</loc>
+    <loc>https://seerajlegal.com/</loc>
             </url>
     <url>
-    <loc>http://localhost/test-mail</loc>
+    <loc>https://seerajlegal.com/about</loc>
             </url>
     <url>
-    <loc>http://localhost/api/teams</loc>
+    <loc>https://seerajlegal.com/faq</loc>
             </url>
     <url>
-    <loc>http://localhost/api/membership-types</loc>
+    <loc>https://seerajlegal.com/services</loc>
             </url>
     <url>
-    <loc>http://localhost/api/homepage</loc>
+    <loc>https://seerajlegal.com/service_rules</loc>
             </url>
     <url>
-    <loc>http://localhost/api/contacts</loc>
+    <loc>https://seerajlegal.com/membership/become-a-member</loc>
             </url>
     <url>
-    <loc>http://localhost/api/practices</loc>
+    <loc>https://seerajlegal.com/membership/member-list</loc>
             </url>
     <url>
-    <loc>http://localhost/api/practices/search</loc>
+    <loc>https://seerajlegal.com/membership/panel</loc>
+            </url>
+    <url>
+    <loc>https://seerajlegal.com/practices</loc>
+            </url>
+    <url>
+    <loc>https://seerajlegal.com/team</loc>
+            </url>
+    <url>
+    <loc>https://seerajlegal.com/team-details</loc>
+            </url>
+    <url>
+    <loc>https://seerajlegal.com/contact</loc>
+            </url>
+    <url>
+    <loc>https://seerajlegal.com/service/Conciliation</loc>
+            </url>
+    <url>
+    <loc>https://seerajlegal.com/service/Arbitration</loc>
+            </url>
+    <url>
+    <loc>https://seerajlegal.com/service/Lok+Adalat</loc>
+            </url>
+    <url>
+    <loc>https://seerajlegal.com/service/Negotiation</loc>
+            </url>
+    <url>
+    <loc>https://seerajlegal.com/service/Mediation</loc>
+            </url>
+    <url>
+    <loc>https://seerajlegal.com/practice/Banking+and+Finance</loc>
+            </url>
+    <url>
+    <loc>https://seerajlegal.com/practice/Criminal+Law</loc>
+            </url>
+    <url>
+    <loc>https://seerajlegal.com/practice/Private+Firms</loc>
+            </url>
+    <url>
+    <loc>https://seerajlegal.com/practice/Civil+Law</loc>
+            </url>
+    <url>
+    <loc>https://seerajlegal.com/practice/Real+Estate+%26+Construction</loc>
+            </url>
+    <url>
+    <loc>https://seerajlegal.com/practice/Consumer+Forums</loc>
             </url>
 </urlset>
