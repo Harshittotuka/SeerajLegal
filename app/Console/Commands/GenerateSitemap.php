@@ -23,14 +23,15 @@ class GenerateSitemap extends Command
             ->add(Url::create("$base/"))
             ->add(Url::create("$base/about"))
             ->add(Url::create("$base/faq"))
-            ->add(Url::create("$base/services"))
-            ->add(Url::create("$base/service_rules"))
+            // ->add(Url::create("$base/services"))
+            ->add(Url::create("$base/services-all"))
+            // ->add(Url::create("$base/service_rules"))
             ->add(Url::create("$base/membership/become-a-member"))
             ->add(Url::create("$base/membership/member-list"))
-            ->add(Url::create("$base/membership/panel"))
-            ->add(Url::create("$base/practices"))
+            // ->add(Url::create("$base/membership/panel"))
+            // ->add(Url::create("$base/practices"))
             ->add(Url::create("$base/team"))
-            ->add(Url::create("$base/team-details"))
+            // ->add(Url::create("$base/team-details"))
             ->add(Url::create("$base/contact"));
 
         // ✅ Dynamic Services
