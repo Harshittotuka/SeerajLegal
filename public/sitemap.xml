@@ -10,10 +10,7 @@
     <loc>https://seerajlegal.com/faq</loc>
             </url>
     <url>
-    <loc>https://seerajlegal.com/services</loc>
-            </url>
-    <url>
-    <loc>https://seerajlegal.com/service_rules</loc>
+    <loc>https://seerajlegal.com/services-all</loc>
             </url>
     <url>
     <loc>https://seerajlegal.com/membership/become-a-member</loc>
@@ -21,52 +18,17 @@
     <url>
     <loc>https://seerajlegal.com/membership/member-list</loc>
             </url>
-    <url>
+    <!-- <url>
     <loc>https://seerajlegal.com/membership/panel</loc>
-            </url>
-    <url>
-    <loc>https://seerajlegal.com/practices</loc>
-            </url>
+            </url> -->
     <url>
     <loc>https://seerajlegal.com/team</loc>
             </url>
-    <url>
+    <!-- <url>
     <loc>https://seerajlegal.com/team-details</loc>
-            </url>
+            </url> -->
     <url>
     <loc>https://seerajlegal.com/contact</loc>
             </url>
-    <url>
-    <loc>https://seerajlegal.com/service/Conciliation</loc>
-            </url>
-    <url>
-    <loc>https://seerajlegal.com/service/Arbitration</loc>
-            </url>
-    <url>
-    <loc>https://seerajlegal.com/service/Lok+Adalat</loc>
-            </url>
-    <url>
-    <loc>https://seerajlegal.com/service/Negotiation</loc>
-            </url>
-    <url>
-    <loc>https://seerajlegal.com/service/Mediation</loc>
-            </url>
-    <url>
-    <loc>https://seerajlegal.com/practice/Banking+and+Finance</loc>
-            </url>
-    <url>
-    <loc>https://seerajlegal.com/practice/Criminal+Law</loc>
-            </url>
-    <url>
-    <loc>https://seerajlegal.com/practice/Private+Firms</loc>
-            </url>
-    <url>
-    <loc>https://seerajlegal.com/practice/Civil+Law</loc>
-            </url>
-    <url>
-    <loc>https://seerajlegal.com/practice/Real+Estate+%26+Construction</loc>
-            </url>
-    <url>
-    <loc>https://seerajlegal.com/practice/Consumer+Forums</loc>
-            </url>
+    
 </urlset>
