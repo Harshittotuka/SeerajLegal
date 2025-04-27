@@ -274,6 +274,35 @@
             </div>
         </li>
 
+   <li class="nav-item">
+       <a class="nav-link {{ Request::is('backend/interns/manage') ? 'active bg-light text-dark' : 'text-dark' }}" data-bs-toggle="collapse" href="#interns-collapse" role="button" aria-expanded="{{  Request::is('backend/interns/manage') || Request::is('backend/internship-types') ? 'true' : 'false' }}" aria-controls="interns-collapse">
+
+
+           {{-- <i class="fas fa-users fa-sm opacity-5 me-2"></i> --}}
+           <i class="fa-solid fa-graduation-cap fa-sm opacity-5 me-2"></i>
+
+
+           <span class="nav-link-text ms-1">Interns</span>
+       </a>
+       <div class="collapse {{  Request::is('backend/interns/manage') || Request::is('backend/internship-types') ? 'show' : '' }}" id="interns-collapse" data-bs-parent="#sidenav-collapse-main">
+
+           <ul class="nav flex-column ps-4">
+              
+   <li class="nav-item">
+       <a class="nav-link {{ Request::is('backend/interns/manage') ? 'active bg-light text-dark' : 'text-dark' }}" href="{{ route('backend.manage.interns') }}">
+           <i class="fas fa-user-cog fa-sm opacity-5 me-2"></i> Manage interns
+       </a>
+   </li>
+   <li class="nav-item">
+       <a class="nav-link {{ Request::is('backend/internship-types') ? 'active bg-light text-dark' : 'text-dark' }}" href="{{ url('backend/internship-types') }}">
+           <i class="fas fa-id-card-alt fa-sm opacity-5 me-2"></i>
+           <span class="nav-link-text ms-1">Internship Types</span>
+
+       </a>
+   </li>
+   </ul>
+   </div>
+   </li>
 
 
 

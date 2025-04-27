@@ -138,6 +138,15 @@ Route::get('/backend/membership-types', function () {
     return view('backend.pages.manageMembershipType');
 });
 
+
+Route::get('/backend/interns/manage', function () {
+    return view('backend/pages/manageInterns');
+})->name('backend.manage.interns');
+
+Route::get('/backend/internship-types', function () {
+    return view('backend.pages.manageInternshipType');
+});
+
 Route::get('/backend/teams', function () {
     return view('backend/pages/teams');
 })->name('backend.teams');
@@ -253,6 +262,10 @@ Route::get('/practice/{name}', function ($name) {
     return view('pages.practice', ['practiceName' => $name]);
 })->name('practice.details');
 
+
+Route::get('/membership/become-a-intern', function () {
+    return view('pages.become_a_intern');
+})->name('intern.become');
 
 // Membership Pages
 Route::get('/membership/become-a-member', function () {
