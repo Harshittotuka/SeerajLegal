@@ -14,7 +14,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\RuleController;
-
+use App\Http\Controllers\InternController;
 
 
 
@@ -28,6 +28,15 @@ Route::delete('/rules/{id}', [RuleController::class, 'destroy']); // delete rule
 
 
 
+
+Route::prefix('interns')->group(function () {
+    Route::get('/', [InternController::class, 'index']);
+    Route::post('/', [InternController::class, 'store']);
+    Route::get('/{id}', [InternController::class, 'show']);
+    Route::put('/{id}', [InternController::class, 'update']);
+    Route::delete('/{id}', [InternController::class, 'destroy']);
+});
+Route::patch('/interns/{id}/status', [InternController::class, 'changeStatus']);
 
 
 

@@ -801,9 +801,14 @@
                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}"
                         href="{{ route('contact') }}">Contact</a></li>
             </ul>
-            <div class="navbar-right">
+            <div class="navbar-right me-2">
                 <div class="button"><a href="{{ route('contact') }}">Get Consultancy</a></div>
             </div>
+            <div class="navbar-right">
+                <div class="button"><a href="{{ route('intern.become') }}">Become Intern</a></div>
+
+            </div>
+
         </div>
     </div>
 </nav>

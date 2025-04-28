@@ -10,14 +10,17 @@
         Seeraj Legal Relief Foundation
     </title>
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path fill='%2374C0FC' d='M384 32l128 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L398.4 96c-5.2 25.8-22.9 47.1-46.4 57.3L352 448l160 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-192 0-192 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l160 0 0-294.7c-23.5-10.3-41.2-31.6-46.4-57.3L128 96c-17.7 0-32-14.3-32-32s14.3-32 32-32l128 0c14.6-19.4 37.8-32 64-32s49.4 12.6 64 32zm55.6 288l144.9 0L512 195.8 439.6 320zM512 416c-62.9 0-115.2-34-126-78.9c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C627.2 382 574.9 416 512 416zM126.8 195.8L54.4 320l144.9 0L126.8 195.8zM.9 337.1c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C242 382 189.7 416 126.8 416S11.7 382 .9 337.1z'/></svg>" type="image/svg+xml">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path fill='%2374C0FC' d='M384 32l128 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L398.4 96c-5.2 25.8-22.9 47.1-46.4 57.3L352 448l160 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-192 0-192 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l160 0 0-294.7c-23.5-10.3-41.2-31.6-46.4-57.3L128 96c-17.7 0-32-14.3-32-32s14.3-32 32-32l128 0c14.6-19.4 37.8-32 64-32s49.4 12.6 64 32zm55.6 288l144.9 0L512 195.8 439.6 320zM512 416c-62.9 0-115.2-34-126-78.9c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C627.2 382 574.9 416 512 416zM126.8 195.8L54.4 320l144.9 0L126.8 195.8zM.9 337.1c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C242 382 189.7 416 126.8 416S11.7 382 .9 337.1z'/></svg>"
+        type="image/svg+xml">
     <!--     Fonts and icons     -->
     <link href="{{ asset('assets/backend/css/nucleo-icons.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/backend/css/nucleo-svg.css') }}" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- Material Icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('assets/backend/css/material-dashboard.css?v=3.2.0') }}" rel="stylesheet" />
 
@@ -27,11 +30,11 @@
         document.addEventListener("DOMContentLoaded", function() {
             updateBreadcrumbs(["Dashboard"], ["#"]);
         });
-
     </script>
 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     <script src="{{ asset('assets/Helper/breadcrumbHelper.js') }}"></script>
@@ -39,7 +42,6 @@
         document.addEventListener("DOMContentLoaded", function() {
             updateBreadcrumbs(["Dashboard", "Members"], ["/backend/dashboard", "#"]);
         });
-
     </script>
 
 </head>
@@ -65,25 +67,31 @@
 
             <div class="container mt-4">
                 <div class="card shadow-sm border-0">
-                    <div class="card-header bg-black text-white d-flex justify-content-between align-items-center flex-wrap">
-                        <h5 class="mb-0">Members List</h5>
+                    <div
+                        class="card-header bg-black text-white d-flex justify-content-between align-items-center flex-wrap">
+                        <h5 class="mb-0">Interns List</h5>
 
                         <div class="d-flex align-items-center ms-auto gap-2 flex-wrap">
                             <!-- Members Header Button -->
-                            <button class="btn btn-warning edit-btn d-flex align-items-center justify-content-center" data-imageid="TopImg_mem" data-bs-toggle="modal" data-bs-target="#topImageModal" style="height: 40px;">
-                                Members Header
+                            <button class="btn btn-warning edit-btn d-flex align-items-center justify-content-center"
+                                data-imageid="TopImg_int" data-bs-toggle="modal" data-bs-target="#topImageModal"
+                                style="height: 40px;">
+                                Internship Header
                             </button>
 
 
 
                             <!-- View Members Page Button -->
-                            <a href="{{ route('membership.list') }}" target="_blank" class="btn btn-outline-primary d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;" title="Members Page">
+                            <a href="{{ route('intern.become') }}" target="_blank"
+                                class="btn btn-outline-primary d-flex align-items-center justify-content-center"
+                                style="width: 40px; height: 40px;" title="Members Page">
                                 <i class="fas fa-eye"></i>
                             </a>
 
 
                             <!-- Refresh Button -->
-                            <button class="btn btn-light d-flex align-items-center justify-content-center" id="refreshMembers" title="Refresh" style="width: 40px; height: 40px;">
+                            <button class="btn btn-light d-flex align-items-center justify-content-center"
+                                id="refreshMembers" title="Refresh" style="width: 40px; height: 40px;">
                                 <i class="material-symbols-rounded">refresh</i>
                             </button>
 
@@ -102,6 +110,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
+                                        <th>Date Of Joining</th>
                                         <th>View</th>
                                         <th>Actions</th>
                                     </tr>
@@ -117,12 +126,14 @@
 
 
             <!-- Member Details Modal -->
-            <div class="modal fade" id="memberDetailsModal" tabindex="-1" aria-labelledby="memberDetailsModalLabel" aria-hidden="true">
+            <div class="modal fade" id="memberDetailsModal" tabindex="-1" aria-labelledby="memberDetailsModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-scrollable">
                     <div class="modal-content shadow">
                         <div class="modal-header bg-dark text-white">
                             <h5 class="modal-title" id="memberDetailsModalLabel">Member Full Details</h5>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
 
                         <div class="modal-body">
@@ -139,7 +150,7 @@
                             <span id="memberStatusBadge" class="align-self-center"></span>
                             <div>
                                 <button type="button" class="btn btn-success d-none" id="approveBtn">
-                                    <i class="material-symbols-rounded align-middle">check_circle</i> Approve
+                                    <i class="material-symbols-rounded align-middle">check_circle</i> Accept
                                 </button>
                                 <button type="button" class="btn btn-danger d-none" id="rejectBtn">
                                     <i class="material-symbols-rounded align-middle">cancel</i> Reject
@@ -153,252 +164,255 @@
                 </div>
             </div>
 
+ <style>
+     .btn-icon-square {
+         width: 44px;
+         height: 44px;
+         display: inline-flex;
+         justify-content: center;
+         align-items: center;
+         padding: 0;
+         font-size: 1rem;
+         border-radius: 0.5rem;
+     }
+
+
+     /* Optional hover effect */
+     .btn-icon-square:hover {
+         background-color: #e9f5ff;
+         border-color: #007bff;
+     }
+
+ </style>
+
+ <script>
+     document.addEventListener("DOMContentLoaded", async function() {
+         const apiUrl = "/api/interns";
+
+         async function fetchInterns() {
+             try {
+                 const response = await fetch(apiUrl);
+                 const result = await response.json();
+
+                 console.log("Interns fetched:", result); // Debugging
+
+                 const interns = result.data; // ✅ Correct place to grab data array
+
+                 const tableBody = document.getElementById("membersTableBody");
+                 tableBody.innerHTML = "";
+
+                 interns.forEach((intern, index) => {
+                     let actionHTML = '';
+
+                     if (intern.status === "pending" || intern.status === "payment pending" ||
+                         intern.status === "payment done waiting approval") {
+                         actionHTML = `
+           <button class="btn btn-sm btn-outline-success me-1" onclick='changeInternStatus(${intern.id}, "payment-pending")'>
+               <i class="material-symbols-rounded">check_circle</i> Accept
+           </button>
+           <button class="btn btn-sm btn-outline-danger" onclick='changeInternStatus(${intern.id}, "rejected")'>
+               <i class="material-symbols-rounded">cancel</i> Reject
+           </button>`;
+                     } else {
+                         let statusColor = "secondary"; // default
+
+                         switch (intern.status) {
+                             case "pending":
+                                 statusColor = "warning"; // Yellow
+                                 break;
+                             case "payment-pending":
+                                 statusColor = "info"; // Light Blue
+                                 break;
+                             case "payment-done-waiting-for-approval":
+                                 statusColor = "primary"; // Darker Blue
+                                 break;
+                             case "approved":
+                                 statusColor = "success"; // Green
+                                 break;
+                             case "rejected":
+                                 statusColor = "danger"; // Red
+                                 break;
+                         }
+
+
+
+                         actionHTML =
+                             `<span class="badge bg-${statusColor} text-capitalize">${intern.status}</span>`;
+                     }
+
+                     const row = `
+           <tr>
+               <td class="text-center align-middle">${index + 1}</td>
+               <td>${intern.firstName} ${intern.lastName}</td>
+               <td>${intern.email}</td>
+               <td>${intern.phone}</td>
+                <td>${new Date(intern.updated_at).toLocaleDateString()}</td>
+
+               <td class="text-center align-middle">
+                   <button class="btn btn-outline-primary btn-icon-square" onclick='viewInternDetails(${JSON.stringify(intern)})'>
+                       <i class="fas fa-eye"></i>
+                   </button>
+               </td>
+               <td>${actionHTML}</td>
+           </tr>`;
+
+                     tableBody.insertAdjacentHTML("beforeend", row);
+                 });
+
+                 if (!$.fn.DataTable.isDataTable('#membersTable')) {
+                     $('#membersTable').DataTable({
+                         paging: true
+                         , searching: true
+                         , ordering: true
+                         , responsive: true
+                     });
+                 }
+
+             } catch (error) {
+                 console.error("Error loading interns:", error);
+                 showToast("Failed to fetch interns.", true);
+             }
+         }
+
+
+
+         window.changeInternStatus = async (id, newStatus) => {
+             try {
+                 const response = await fetch(`/api/interns/${id}/status`, {
+                     method: 'PATCH'
+                     , headers: {
+                         'Content-Type': 'application/json'
+                     }
+                     , body: JSON.stringify({
+                         status: newStatus
+                     })
+                 });
+
+                 const result = await response.json();
+
+                 if (response.ok) {
+                     showToast("Payment link has been sent to the user."|| "Status updated successfully.");
+                     refreshTable();
+                 } else {
+                     showToast(result.message || "Failed to update status.", true);
+                 }
+             } catch (error) {
+                 console.error("Change status error:", error);
+                 showToast("Error changing status.", true);
+             }
+         };
+
+     window.viewInternDetails = (intern) => {
+     const detailBlock = (label, value) => `
+     <div class="col-md-6">
+         <div class="border rounded p-2">
+             <strong>${label}:</strong><br> ${value || 'N/A'}
+         </div>
+     </div>`;
+
+     const sectionTitle = (title) => `
+     <div class="col-12 mt-3">
+         <h6 class="text-primary border-bottom pb-1">${title}</h6>
+     </div>`;
+
+     const resumeDownload = intern.resumePath
+     ? `<a href="/${intern.resumePath}" class="btn btn-outline-primary btn-sm mt-2" target="_blank">
+         <i class="fas fa-download"></i> Download Resume
+     </a>`
+     : 'No Resume Uploaded';
+
+     const detailsHTML = `
+     ${sectionTitle('Basic Information')}
+     ${detailBlock('Name', `${intern.firstName} ${intern.lastName}`)}
+     ${detailBlock('Email', intern.email)}
+     ${detailBlock('Phone', intern.phone)}
+     ${detailBlock('DOB', intern.dob)}
+
+     ${sectionTitle('Address')}
+     ${detailBlock('Address', intern.address)}
+     ${detailBlock('City', intern.city)}
+     ${detailBlock('State', intern.state)}
+     ${detailBlock('Country', intern.country)}
+     ${detailBlock('Pincode', intern.pincode)}
+
+     ${sectionTitle('Education')}
+     ${detailBlock('College Name', intern.collegeName)}
+     ${detailBlock('Degree', intern.degree)}
+     ${detailBlock('Graduation Year', intern.graduationYear)}
+
+     ${sectionTitle('Membership Details')}
+     ${detailBlock('Membership Type', intern.membershipType)}
+     ${detailBlock('Cover Letter', intern.coverLetter)}
+     ${detailBlock('Resume', resumeDownload)}
+
+     ${sectionTitle('Status')}
+     ${detailBlock('Status', `<span class="badge bg-warning text-dark text-capitalize">${intern.status.replaceAll('-', ' ')}</span>`)}
+
+     ${detailBlock('Created At', new Date(intern.created_at).toLocaleString())}
+     `;
+
+     document.getElementById("memberDetailsContainer").innerHTML = detailsHTML;
+
+     // Set up approve/reject buttons visibility and actions
+     const approveBtn = document.getElementById("approveBtn");
+     const rejectBtn = document.getElementById("rejectBtn");
+
+     if (intern.status === "pending" || intern.status === "payment pending" || intern.status === "payment done waiting approval") {
+     approveBtn.classList.remove('d-none');
+     rejectBtn.classList.remove('d-none');
+
+     approveBtn.onclick = () => {
+     changeInternStatus(intern.id, "payment-pending");
+     bootstrap.Modal.getInstance(document.getElementById("memberDetailsModal")).hide();
+     };
+
+     rejectBtn.onclick = () => {
+     changeInternStatus(intern.id, "rejected");
+     bootstrap.Modal.getInstance(document.getElementById("memberDetailsModal")).hide();
+     };
+     } else {
+     approveBtn.classList.add('d-none');
+     rejectBtn.classList.add('d-none');
+     }
+
+     const modal = new bootstrap.Modal(document.getElementById("memberDetailsModal"));
+     modal.show();
+     };
+
+
+
+
+
+         function showToast(message, isError = false) {
+             Toastify({
+                 text: message
+                 , backgroundColor: isError ?
+                     "linear-gradient(to right, #ff416c, #ff4b2b)" : "linear-gradient(to right, #00b09b, #96c93d)"
+                 , duration: 3000
+             }).showToast();
+         }
+
+         function refreshTable() {
+             if ($.fn.DataTable.isDataTable('#membersTable')) {
+                 $('#membersTable').DataTable().destroy();
+             }
+             fetchInterns();
+         }
+
+         document.getElementById("refreshMembers")?.addEventListener("click", () => {
+             refreshTable();
+         });
+
+         fetchInterns();
+     });
+
+ </script>
 
 
 
     </main>
 
-    <style>
-        .btn-icon-square {
-            width: 44px;
-            height: 44px;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0;
-            font-size: 1rem;
-            border-radius: 0.5rem;
-        }
-
-
-        /* Optional hover effect */
-        .btn-icon-square:hover {
-            background-color: #e9f5ff;
-            border-color: #007bff;
-        }
-
-    </style>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", async function() {
-            const apiUrl = "/api/members/all";
-
-            async function fetchMembers() {
-                try {
-                    const response = await fetch(apiUrl);
-                    const {
-                        data
-                    } = await response.json();
-
-                    const tableBody = document.getElementById("membersTableBody");
-                    tableBody.innerHTML = "";
-
-                    data.forEach((member, index) => {
-                        let actionHTML = '';
-
-                        if (member.status === "pending") {
-                            actionHTML = `
-                            <button class="btn btn-sm btn-outline-success me-1" onclick='approveMember(${member.id})'>
-                                <i class="material-symbols-rounded">check_circle</i> Approve
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger" onclick='rejectMember(${member.id})'>
-                                <i class="material-symbols-rounded">cancel</i> Reject
-                            </button>`;
-                        } else {
-                            let statusColor = "secondary";
-                            if (member.status === "approved") statusColor = "success";
-                            else if (member.status === "rejected") statusColor = "danger";
-                            else if (member.status === "confirmed") statusColor = "info";
-
-                            actionHTML =
-                                `<span class="badge bg-${statusColor} text-capitalize">${member.status}</span>`;
-
-
-                        }
-
-                        const row = `
-                       <tr data-member='${JSON.stringify(member).replace(/' /g, "&apos;" )}'>
-
-
-                            <td class="text-center align-middle">${index + 1}</td>
-                            <td>${member.firstName} ${member.lastName}</td>
-                            <td>${member.email}</td>
-                            <td>${member.phone}</td>
-                            <td class="text-center align-middle" style="width: 60px;">
-                                <button class="btn btn-outline-primary btn-icon-square" onclick='viewDetails(${JSON.stringify(member)})' title="View Details">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </td>
-                            <td>${actionHTML}</td>
-                        </tr>`;
-
-                        tableBody.insertAdjacentHTML("beforeend", row);
-                    });
-
-                    if (!$.fn.DataTable.isDataTable('#membersTable')) {
-                        $('#membersTable').DataTable({
-                            paging: true
-                            , searching: true
-                            , ordering: true
-                            , responsive: true
-                        });
-                    }
-                } catch (err) {
-                    console.error("Error fetching members:", err);
-                }
-            }
-
-            window.approveMember = async (id) => {
-                try {
-                    // Call the approve API (which now also sends the email)
-                    const res = await fetch(`/api/membership/${id}/approve`, {
-                        method: 'POST'
-                        , headers: {
-                            'Content-Type': 'application/json'
-                        }
-                        , body: JSON.stringify({})
-                    });
-
-                    const result = await res.json();
-
-                    if (res.ok) {
-                        Toastify({
-                            text: result.message || "Member Approved & Payment Link Sent"
-                            , backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)"
-                            , duration: 3000
-                        }).showToast();
-                    } else {
-                        throw new Error(result.message || 'Something went wrong');
-                    }
-
-                    refreshTable();
-                } catch (error) {
-                    console.error("Approve error:", error);
-                    showToast("Error approving member or sending email", true);
-                }
-            };
-
-
-
-
-
-            window.rejectMember = async (id) => {
-                try {
-                    const res = await fetch(`/api/membership/${id}/reject`, {
-                        method: 'POST'
-                        , headers: {
-                            'Content-Type': 'application/json'
-                        }
-                        , body: JSON.stringify({})
-                    });
-                    const result = await res.json();
-                    Toastify({
-                        text: result.message || "Member Rejected"
-                        , backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)"
-                        , duration: 3000
-                    }).showToast();
-
-                    const modalElement = document.getElementById('memberDetailsModal');
-                    const modalInstance = bootstrap.Modal.getInstance(modalElement);
-                    if (modalInstance) modalInstance.hide();
-
-                    refreshTable();
-                } catch (error) {
-                    console.error("Reject error:", error);
-                    showToast("Error rejecting member", true);
-                }
-            };
-
-            function showToast(message, isError = false) {
-                Toastify({
-                    text: message
-                    , backgroundColor: isError ? "linear-gradient(to right, #ff416c, #ff4b2b)" : "linear-gradient(to right, #00b09b, #96c93d)"
-                    , duration: 3000
-                }).showToast();
-            }
-
-            function refreshTable() {
-                if ($.fn.DataTable.isDataTable('#membersTable')) {
-                    $('#membersTable').DataTable().destroy();
-                }
-                fetchMembers();
-            }
-
-            window.viewDetails = (member) => {
-                const detailBlock = (label, value) => `
-                <div class="col-md-6">
-                    <div class="border rounded p-2">
-                        <strong>${label}:</strong><br> ${value || 'N/A'}
-                    </div>
-                </div>`;
-
-                const sectionTitle = (title) => `
-                <div class="col-12 mt-3">
-                    <h6 class="text-primary border-bottom pb-1">${title}</h6>
-                </div>`;
-
-                const detailsHTML = `
-                ${sectionTitle('Basic Information')}
-                ${detailBlock('Name', `${member.firstName} ${member.lastName}`)}
-                ${detailBlock('Email', member.email)}
-                ${detailBlock('Phone', member.phone)}
-                ${detailBlock('DOB', member.dob)}
-                ${sectionTitle('Address')}
-                ${detailBlock('Address', member.address)}
-                ${detailBlock('City', member.city)}
-                ${detailBlock('State', member.state)}
-                ${detailBlock('Country', member.country)}
-                ${detailBlock('Pincode', member.pincode)}
-                ${sectionTitle('Identification')}
-                ${detailBlock('Aadhar Name', member.aadharName)}
-                ${detailBlock('Aadhar Number', member.aadharNumber)}
-                ${detailBlock('PAN Name', member.panName)}
-                ${detailBlock('PAN Number', member.panNumber)}
-                ${sectionTitle('Membership Info')}
-                ${detailBlock('Membership Type', member.membershipType)}
-                ${detailBlock('Status', `<span class="badge bg-warning text-dark">${member.status}</span>`)}
-                ${detailBlock('Created At', new Date(member.created_at).toLocaleString())}
-            `;
-
-                document.getElementById("memberDetailsContainer").innerHTML = detailsHTML;
-
-                // Control modal footer buttons
-                const approveBtn = document.getElementById("approveBtn");
-                const rejectBtn = document.getElementById("rejectBtn");
-                const statusBadge = document.getElementById("memberStatusBadge");
-
-                if (member.status === "pending") {
-                    approveBtn.classList.remove("d-none");
-                    rejectBtn.classList.remove("d-none");
-                    approveBtn.onclick = () => approveMember(member.id);
-                    rejectBtn.onclick = () => rejectMember(member.id);
-                    statusBadge.innerHTML = `<span class="badge bg-warning text-dark">Pending</span>`;
-                } else {
-                    approveBtn.classList.add("d-none");
-                    rejectBtn.classList.add("d-none");
-
-                    let badgeClass = "secondary";
-                    if (member.status === "approved") badgeClass = "success";
-                    else if (member.status === "rejected") badgeClass = "danger";
-                    else if (member.status === "confirmed") badgeClass = "info";
-
-                    statusBadge.innerHTML =
-                        `<span class="badge bg-${badgeClass} text-capitalize">${member.status}</span>`;
-
-                }
-
-                const modal = new bootstrap.Modal(document.getElementById("memberDetailsModal"));
-                modal.show();
-            };
-
-            document.getElementById("refreshMembers").addEventListener("click", () => {
-                refreshTable();
-            });
-
-            fetchMembers();
-        });
-
-    </script>
+   
 
 
 
@@ -435,7 +449,6 @@
             }
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
-
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
@@ -448,4 +461,3 @@
 </body>
 
 </html>
-

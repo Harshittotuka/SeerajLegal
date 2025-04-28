@@ -31,7 +31,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            fetchPageContent("TopImg_mem");
+            fetchPageContent("TopImg_int");
         });
     </script>
 
@@ -317,7 +317,7 @@
                     <div class="about-content">
                         <h5 class="text-primary mb-3">You Are Looking For Us</h5>
                         <h1 class="main-title">Why Choose our <span> Company</span> ?</h1>
-                        
+
 
                         <p class="mb-4">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -342,9 +342,9 @@
                             </li>
                         </ul>
 
-                     <a href="#pricing" class="btn btn-primary">
-                         Learn More
-                     </a>
+                        <a href="#pricing" class="btn btn-primary">
+                            Learn More
+                        </a>
 
 
                     </div>
@@ -355,16 +355,13 @@
 
 
 
-
-
-
-
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap"
         rel="stylesheet">
+
     <style>
         /* Reset and Variables */
-      
+
         :root {
             --primary-font: 'Poppins', sans-serif;
             --secondary-font: 'Playfair Display', serif;
@@ -378,15 +375,15 @@
             --hover-shadow: 0 10px 25px rgba(212, 175, 55, 0.25);
         }
 
-   
+
         .container1 {
             width: 100%;
-       
+
             color: var(--light);
-            padding-bottom: 80px ;
-           
+            padding-bottom: 80px;
+
             overflow: hidden;
-     
+
             text-align: center;
         }
 
@@ -856,260 +853,382 @@
             background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
             background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
         }
-
     </style>
 
 
+    <style>
+        .application-container {
+            max-width: 1200px;
 
+            margin: 0 auto 60px auto;
+            /* top right bottom left */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  <style>
-   
-
-      .application-container {
-        max-width: 1200px;
-
-          margin: 0 auto 60px auto; /* top right bottom left */
-
-          background: white;
-          padding: 40px;
-          border-radius: 15px;
-          box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
-      }
-
-      .form-header {
-          text-align: center;
-          margin-bottom: 40px;
-      }
-
-      .form-header h1 {
-          color: #2c3e50;
-          font-size: 2.5em;
-          margin-bottom: 10px;
-      }
-
-      .form-header p {
-          color: #7f8c8d;
-          font-size: 1.1em;
-      }
-
-      .form-group {
-          margin-bottom: 25px;
-      }
-
-      .form-row {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 25px;
-      }
-
-      label {
-          display: block;
-          margin-bottom: 8px;
-          color: #34495e;
-          font-weight: 600;
-          font-size: 0.95em;
-      }
-
-      input,
-      select,
-      textarea {
-          width: 100%;
-          padding: 12px;
-          border: 2px solid #e0e0e0;
-          border-radius: 8px;
-          font-size: 1em;
-          transition: border-color 0.3s ease;
-      }
-
-      input:focus,
-      select:focus,
-      textarea:focus {
-          outline: none;
-          border-color: #3498db;
-      }
-
-      textarea {
-          height: 120px;
-          resize: vertical;
-      }
-
-      .submit-btn {
-          background: #3498db;
-          color: white;
-          padding: 15px 40px;
-          border: none;
-          border-radius: 8px;
-          font-size: 1.1em;
-          cursor: pointer;
-          transition: background 0.3s ease;
-          display: block;
-          margin: 30px auto 0;
-      }
-
-      .submit-btn:hover {
-          background: #2980b9;
-      }
-
-      .file-upload {
-          position: relative;
-          overflow: hidden;
-          display: inline-block;
-      }
-
-      .file-upload input[type="file"] {
-          position: absolute;
-          left: 0;
-          top: 0;
-          opacity: 0;
-          cursor: pointer;
-          height: 100%;
-          width: 100%;
-      }
-
-      .custom-file-upload {
-          border: 2px solid #3498db;
-          color: #3498db;
-          padding: 10px 25px;
-          border-radius: 8px;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.3s ease;
-      }
-
-      .custom-file-upload:hover {
-          background: #3498db;
-          color: white;
-      }
-
-  </style>
-<style>
-    /* Your existing styles here... */
-
-    /* Make it responsive on mobile */
-    @media (max-width: 768px) {
-        .form-row {
-            grid-template-columns: 1fr;
-            /* Stack fields vertically */
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
         }
 
-        .application-container {
-            padding: 20px;
-            margin: 20px;
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
         }
 
         .submit-btn {
-            width: 100%;
-            /* Button takes full width on mobile */
+            background: #3498db;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: block;
+            margin: 30px auto 0;
         }
-    }
 
-</style>
+        .submit-btn:hover {
+            background: #2980b9;
+        }
 
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
 
-     <div class="application-container">
-         <div class="form-header">
-              <h1 class="main-title"><span>Application</span></h1>
-             <p>Please fill out the form below to apply for our legal internship program</p>
-         </div>
+        .file-upload input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+            height: 100%;
+            width: 100%;
+        }
 
-         <form>
-             <div class="form-row">
-                 <div class="form-group">
-                     <label>First Name</label>
-                     <input type="text" required>
-                 </div>
-                 <div class="form-group">
-                     <label>Last Name</label>
-                     <input type="text" required>
-                 </div>
-             </div>
+        .custom-file-upload {
+            border: 2px solid #3498db;
+            color: #3498db;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-             <div class="form-row">
-                 <div class="form-group">
-                     <label>Email Address</label>
-                     <input type="email" required>
-                 </div>
-                 <div class="form-group">
-                     <label>Phone Number</label>
-                     <input type="tel" required>
-                 </div>
-             </div>
+        .custom-file-upload:hover {
+            background: #3498db;
+            color: white;
+        }
+    </style>
 
-             <div class="form-group">
-                 <label>University/College</label>
-                 <input type="text" required>
-             </div>
+    <style>
+        /* Your existing styles here... */
 
-             <div class="form-row">
-                 <div class="form-group">
-                     <label>Current Degree Program</label>
-                     <select required>
-                         <option value="">Select Degree</option>
-                         <option>LL.B</option>
-                         <option>JD</option>
-                         <option>LL.M</option>
-                         <option>Other</option>
-                     </select>
-                 </div>
-                 <div class="form-group">
-                     <label>Expected Graduation Year</label>
-                     <input type="number" min="2023" max="2030" required>
-                 </div>
-             </div>
+        /* Make it responsive on mobile */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                /* Stack fields vertically */
+            }
 
-             <div class="form-group">
-                 <label>Membership Type</label>
-                 <select required>
-                     <option value="">Select Membership</option>
-                     <option>Student Member</option>
-                     <option>Professional Member</option>
-                     <option>Guest Member</option>
-                     <option>Lifetime Member</option>
-                 </select>
-             </div>
+            .application-container {
+                padding: 20px;
+                margin: 20px;
+            }
 
-             <div class="form-group">
-                 <label>Cover Letter</label>
-                 <textarea placeholder="Explain why you're interested in this internship..." required></textarea>
-             </div>
-
-             <div class="form-group">
-                 <label>Upload Resume/CV (PDF only)</label>
-                 <div class="file-upload">
-                     <input type="file" accept=".pdf" required>
-                     <div class="custom-file-upload">
-                         <i class="fas fa-upload"></i> Choose File
-                     </div>
-                 </div>
-             </div>
-
-             <button type="submit" class="submit-btn">Submit Application</button>
-         </form>
-     </div>
+            .submit-btn {
+                width: 100%;
+                /* Button takes full width on mobile */
+            }
+        }
+    </style>
 
 
+    <div class="application-container">
+        <div class="form-header">
+            <h1 class="main-title"><span>Application</span></h1>
+            <p>Please fill out the form below to apply for our legal internship program</p>
+        </div>
 
-      <!-- Font Awesome for icons -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <form id="internForm" method="POST" action="{{ url('/api/interns') }}" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="status" value="pending">
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" id="state" name="state" required>
+                </div>
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" id="country" name="country" required>
+                </div>
+                <div class="form-group">
+                    <label for="pincode">Pincode</label>
+                    <input type="text" id="pincode" name="pincode" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="collegeName">University/College</label>
+                <input type="text" id="collegeName" name="collegeName" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="degree">Current Degree Program</label>
+                    <select id="degree" name="degree" required>
+                        <option value="">Select Degree</option>
+                        <option value="LL.B">LL.B</option>
+                        <option value="JD">JD</option>
+                        <option value="LL.M">LL.M</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="graduationYear">Expected Graduation Year</label>
+                    <input type="number" id="graduationYear" name="graduationYear" min="2023" max="2030"
+                        required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="membershipType">Membership Type</label>
+                <select id="membershipType" name="membershipType" required>
+                    <option value="">Select Membership</option>
+                    <option value="Student Member">Student Member</option>
+                    <option value="Professional Member">Professional Member</option>
+                    <option value="Guest Member">Guest Member</option>
+                    <option value="Lifetime Member">Lifetime Member</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="coverLetter">Cover Letter</label>
+                <textarea id="coverLetter" name="coverLetter" placeholder="Explain why you're interested in this internship..."
+                    required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="resume">Upload Resume/CV (PDF only)</label>
+                <div class="file-upload">
+
+                    <input type="file" id="resume" name="resume" accept=".pdf" style="display:none;">
+
+
+                    <div class="custom-file-upload" id="fileLabel">
+                        <i class="fas fa-upload"></i> Choose File
+                    </div>
+                </div>
+            </div>
+
+
+            <button type="submit" class="submit-btn">Submit Application</button>
+        </form>
+    </div>
+
+    <!-- Toastify and SweetAlert2 scripts -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // File input label update
+        const resumeInput = document.getElementById('resume');
+        const fileLabel = document.getElementById('fileLabel');
+        fileLabel.addEventListener('click', () => resumeInput.click());
+        resumeInput.addEventListener('change', () => {
+            const fileName = resumeInput.files[0]?.name || 'Choose File';
+            fileLabel.innerHTML = fileName;
+        });
+
+        // AJAX form submission with Toastify for errors and SweetAlert2 for success
+        const form = document.getElementById('internForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Manual check for resume file selection
+            if (!resumeInput.files.length) {
+                Toastify({
+                    text: '🚫 Please upload your resume before submitting!',
+                    duration: 3000,
+                    close: true,
+                    gravity: 'top',
+                    position: 'right',
+                    style: {
+                        background: 'linear-gradient(to right, #ff4e50, #f9d423)',
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                        padding: '16px',
+                        fontSize: '14px',
+                    },
+                    stopOnFocus: true,
+                }).showToast();
+                return; // Stop the form submission if no file
+            }
+
+            const formData = new FormData(form);
+            fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(async response => {
+                    const data = await response.json();
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Submitted',
+                            text: 'Your form has been submitted. You will receive a payment link once confirmed by our admin.',
+                            confirmButtonText: 'OK'
+                        });
+                        form.reset();
+                        fileLabel.innerHTML = '<i class="fas fa-upload"></i> Choose File';
+                    } else {
+                        const errors = data.errors ? Object.values(data.errors).flat().join(' ') : data
+                            .message;
+                        Toastify({
+                            text: `Submission failed: ${errors}`,
+                            duration: 3000,
+                            close: true,
+                            gravity: 'top',
+                            position: 'right',
+                            style: {
+                                background: 'linear-gradient(to right, #ff6b6b, #ff0000)',
+                                  color: '#fff',
+                                  fontWeight: 'bold',
+                                  borderRadius: '8px',
+                                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                                  padding: '16px',
+                                  fontSize: '14px',
+
+                            }
+                        }).showToast();
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    Toastify({
+                        text: 'An error occurred. Please try again later.',
+                        duration: 3000,
+                        close: true,
+                        gravity: 'top',
+                        position: 'right',
+                        style: {
+                            background: 'linear-gradient(to right, #ff6b6b, #ff0000)',
+                              color: '#fff',
+                              fontWeight: 'bold',
+                              borderRadius: '8px',
+                              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                              padding: '16px',
+                              fontSize: '14px',
+
+                        }
+                    }).showToast();
+                });
+        });
+    </script>
+
+
+
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 
 
