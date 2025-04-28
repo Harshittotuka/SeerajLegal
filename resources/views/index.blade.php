@@ -16,13 +16,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Seeraj Legal Relief Foundation | Legal Aid & ADR Services Across Rajasthan</title>
-    <meta name="description" content="Seeraj Legal Relief Foundation is a registered NGO offering legal aid, ADR services, and dispute resolution across Rajasthan's 33+ districts.">
-<meta name="keywords" content="legal aid NGO Rajasthan,seeraj , NGO ,ADR services India, alternative dispute resolution, Seeraj Legal, legal help NGO, legal support Rajasthan">
+    <title>Seeraj Legal Relief Foundation | Legal Aid & ADR Services Across India</title>
+    <meta name="description" content="Seeraj Legal Relief Foundation is a registered NGO offering legal aid, ADR services, and dispute resolution across India.">
+<meta name="keywords" content="legal aid NGO Rajasthan,seeraj , NGO ,ADR services India, alternative dispute resolution, Seeraj Legal, legal help NGO, legal support ">
 
 <!-- Open Graph for social previews -->
-<meta property="og:title" content="Seeraj Legal Relief Foundation | Legal Help Across Rajasthan">
-<meta property="og:description" content="Bringing justice to every corner of Rajasthan with affordable legal services, mediation, and NGO-driven legal aid.">
+<meta property="og:title" content="Seeraj Legal Relief Foundation | Legal Help Across India">
+<meta property="og:description" content="Bringing justice to every corner of India with affordable legal services, mediation, and NGO-driven legal aid.">
 <meta property="og:image" content="https://seerajlegal.com/assets/dynamic/logo/seerajlegal_card.webp">
 <meta property="og:url" content="https://seerajlegal.com/">
 <meta property="og:type" content="website">
@@ -30,7 +30,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Seeraj Legal Relief Foundation">
-<meta name="twitter:description" content="Legal aid, ADR, and dispute resolution across all 33+ districts of Rajasthan.">
+<meta name="twitter:description" content="Legal aid, ADR, and dispute resolution all over India.">
 <meta name="twitter:image" content="https://seerajlegal.com/assets/dynamic/logo/seerajlegal_card.webp">
 
 
@@ -120,6 +120,13 @@
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
+            /* smaller font for the legal relief foundation from title */
+            .small-title {
+                font-size: 2rem; /* Or 1.8rem, depending on what you prefer */
+                display: block;
+                margin-top: 10px;
+            }
+
 
             /* Subtitle below title */
             .slider-subtitle {
@@ -252,7 +259,13 @@
                 document.getElementById("slider-icon").innerHTML = `<i class="${sliderData.icon}"></i>`;
 
                     // Inject title and para
-                    document.getElementById("slider-title").innerHTML = sliderData.title;
+                    // Split title into two parts if it contains <br> for seeraj legal relief foundation
+                    const titleParts = sliderData.title.split('<br>');
+                        document.getElementById("slider-title").innerHTML = `
+                          ${titleParts[0]}<br>
+                          <span class="small-title">${titleParts[1]}</span>
+                        `;
+
                     document.getElementById("slider-para").textContent = sliderData.para;
 
                     // Feature icon fallback list
@@ -318,7 +331,7 @@
                     <div class="section-subtitle">
                         <div class="icon"><i id="adr-icon" class="flaticon-courthouse"></i></div> What we do?
                     </div>
-                    <div class="section-title"><span id="adr-title">ADR</span> Services</div>
+                    <div class="section-title"><span id="adr-title">ADR</span> </div>
                     <p id="adr-para"></p>
                     <a href="{{ route('service.all') }}" class="button-2">Discover more<span></span></a>
                 </div>

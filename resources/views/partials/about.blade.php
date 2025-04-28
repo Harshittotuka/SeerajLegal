@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-5 col-md-12 mb-30 animate-box" data-animate-effect="fadeInUp">
                 <div class="section-subtitle">
-                    <div class="icon" id="about-icon-container"><i class="flaticon-courthouse"></i></div> About Seeraj Legal
+                    <div class="icon" id="about-icon-container"><i class="flaticon-courthouse"></i></div> About Seeraj
                 </div>
                 <div id="section-title" class="section-title"></div>
                 <p id="section-para"></p>
