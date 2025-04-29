@@ -4,8 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Seeraj Legal Relief Foundation</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path fill='%2374C0FC' d='M384 32l128 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L398.4 96c-5.2 25.8-22.9 47.1-46.4 57.3L352 448l160 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-192 0-192 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l160 0 0-294.7c-23.5-10.3-41.2-31.6-46.4-57.3L128 96c-17.7 0-32-14.3-32-32s14.3-32 32-32l128 0c14.6-19.4 37.8-32 64-32s49.4 12.6 64 32zm55.6 288l144.9 0L512 195.8 439.6 320zM512 416c-62.9 0-115.2-34-126-78.9c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C627.2 382 574.9 416 512 416zM126.8 195.8L54.4 320l144.9 0L126.8 195.8zM.9 337.1c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C242 382 189.7 416 126.8 416S11.7 382 .9 337.1z'/></svg>" type="image/svg+xml">
+    <title>Seeraj Legal Relief Foundation</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path fill='%2374C0FC' d='M384 32l128 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L398.4 96c-5.2 25.8-22.9 47.1-46.4 57.3L352 448l160 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-192 0-192 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l160 0 0-294.7c-23.5-10.3-41.2-31.6-46.4-57.3L128 96c-17.7 0-32-14.3-32-32s14.3-32 32-32l128 0c14.6-19.4 37.8-32 64-32s49.4 12.6 64 32zm55.6 288l144.9 0L512 195.8 439.6 320zM512 416c-62.9 0-115.2-34-126-78.9c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C627.2 382 574.9 416 512 416zM126.8 195.8L54.4 320l144.9 0L126.8 195.8zM.9 337.1c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C242 382 189.7 416 126.8 416S11.7 382 .9 337.1z'/></svg>"
+        type="image/svg+xml">
 
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
@@ -44,19 +46,19 @@
 
             <!-- Header and Add Button -->
             <div class="header">
-                <h2 id="dashboard-title">Membership Types Management</h2>
-                <button class="btn-add" onclick="openAddModal()">+ Add New Type</button>
+                <h2 id="dashboard-title">Internship Types Management</h2>
+                <button class="btn-add" onclick="openAddModal()">+ Add New Internship Type</button>
             </div>
 
             <!-- Table -->
             <div class="table-container">
-                <table id="membershipTable" aria-labelledby="dashboard-title">
+                <table id="internshipTable" aria-labelledby="dashboard-title">
                     <thead>
                         <tr>
                             <th scope="col">Type</th>
                             <th scope="col">Priority</th>
                             <th scope="col">Price</th>
-                            <th scope="col">Duration</th>
+                            <th scope="col">Description</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -69,36 +71,31 @@
             <!-- Add Modal -->
             <div id="addModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="add-modal-title"
                 tabindex="-1">
-                <div class="modal-content" role="document">
+                <div class="modal-content" role="document"
+                    style="width: 600px; max-width: 90%; margin: 0 auto; padding: 20px; background: white; border-radius: 8px;">
                     <button class="close" onclick="closeAddModal()" aria-label="Close Add Modal">&times;</button>
-                    <h3 id="add-modal-title">Add New Membership Type</h3>
+                    <h3 id="add-modal-title">Add New Internship Type</h3>
                     <form id="addForm" onsubmit="saveNewType(); return false;">
                         <div class="form-group">
                             <label for="newType">Type Name:</label>
                             <input type="text" id="newType" class="form-input" placeholder="Enter type name"
-                                required>
+                                required style="width: 100%; box-sizing: border-box;">
                         </div>
                         <div class="form-group">
                             <label for="newPriority">Priority:</label>
                             <input type="number" id="newPriority" class="form-input number-input" min="1"
-                                max="10" value="1" required>
+                                 value="1" style="width: 100%; box-sizing: border-box;">
                         </div>
                         <div class="form-group">
                             <label for="newPrice">Price:</label>
                             <input type="number" id="newPrice" class="form-input number-input" step="0.01"
-                                placeholder="0.00" required>
+                                placeholder="0.00" required style="width: 100%; box-sizing: border-box;">
                         </div>
                         <div class="form-group">
-                            <label for="newDurationAmount">Duration:</label>
-                            <div class="duration-control">
-                                <input type="number" id="newDurationAmount" class="form-input number-input"
-                                    min="1" value="1" required>
-                                <select id="newDurationUnit" class="form-select">
-                                    <option value="day">Days</option>
-                                    <option value="month">Months</option>
-                                    <option value="year" selected>Years</option>
-                                </select>
-                            </div>
+                            <label for="newDescription">Description:</label>
+                            <textarea id="newDescription" class="form-input" rows="5"
+                                placeholder="Enter each point on a new line, for example:&#10;Point 1&#10;Point 2&#10;Point 3"
+                                style="width: 100%; box-sizing: border-box;"></textarea>
                         </div>
                         <button type="submit" class="btn-save">Save</button>
                     </form>
@@ -108,42 +105,38 @@
             <!-- Edit Modal -->
             <div id="editModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title"
                 tabindex="-1">
-                <div class="modal-content" role="document">
+                <div class="modal-content" role="document"
+                    style="width: 600px; max-width: 90%; margin: 0 auto; padding: 20px; background: white; border-radius: 8px;">
                     <button class="close" onclick="closeEditModal()" aria-label="Close Edit Modal">&times;</button>
-                    <h3 id="edit-modal-title">Edit Membership Type</h3>
+                    <h3 id="edit-modal-title">Edit Internship Type</h3>
                     <form id="editForm" onsubmit="updateType(); return false;">
                         <input type="hidden" id="editId">
                         <div class="form-group">
                             <label for="editType">Type Name:</label>
                             <input type="text" id="editType" class="form-input" placeholder="Enter type name"
-                                required>
+                                required style="width: 100%; box-sizing: border-box;">
                         </div>
                         <div class="form-group">
                             <label for="editPriority">Priority:</label>
                             <input type="number" id="editPriority" class="form-input number-input" min="1"
-                                max="10" value="1" required>
+                                max="10" style="width: 100%; box-sizing: border-box;">
                         </div>
                         <div class="form-group">
                             <label for="editPrice">Price:</label>
                             <input type="number" id="editPrice" class="form-input number-input" step="0.01"
-                                placeholder="0.00" required>
+                                placeholder="0.00" required style="width: 100%; box-sizing: border-box;">
                         </div>
                         <div class="form-group">
-                            <label for="editDurationAmount">Duration:</label>
-                            <div class="duration-control">
-                                <input type="number" id="editDurationAmount" class="form-input number-input"
-                                    min="1" value="1" required>
-                                <select id="editDurationUnit" class="form-select">
-                                    <option value="day">Days</option>
-                                    <option value="month">Months</option>
-                                    <option value="year">Years</option>
-                                </select>
-                            </div>
+                            <label for="editDescription">Description:</label>
+                            <textarea id="editDescription" class="form-input" placeholder="Enter description"
+                                style="width: 100%; box-sizing: border-box;"></textarea>
                         </div>
                         <button type="submit" class="btn-save">Update</button>
                     </form>
                 </div>
             </div>
+
+
         </div>
 
         <style>
@@ -360,8 +353,10 @@
 
                 td:last-child,
                 th:last-child {
-                  white-space: nowrap; /* Prevent wrapping */
-                  text-align: center; /* Center align the action buttons */
+                    white-space: nowrap;
+                    /* Prevent wrapping */
+                    text-align: center;
+                    /* Center align the action buttons */
 
                 }
             }
@@ -479,8 +474,7 @@
             }
 
             .duration-control {
-                display: flex;
-                gap: 0.6rem;
+                display: none;
             }
 
             .btn-save {
@@ -508,7 +502,7 @@
             <div class="modal-content" role="document">
                 <button class="close" onclick="closeDeleteModal()" aria-label="Close Confirmation">&times;</button>
                 <h3 id="delete-confirm-title">Confirm Deletion</h3>
-                <p id="deleteConfirmText">Are you sure you want to delete this membership type?</p>
+                <p id="deleteConfirmText">Are you sure you want to delete this internship type?</p>
                 <div class="modal-actions">
                     <button class="btn-delete-confirm" onclick="confirmDelete()">Yes, Delete</button>
                     <button class="btn-cancel" onclick="closeDeleteModal()">Cancel</button>
@@ -559,7 +553,7 @@
         </style>
 
         <script>
-            let membershipData = [];
+            let internshipData = [];
             let typeToDelete = null;
             const fadeDuration = 300; // in milliseconds (should match CSS transition duration)
 
@@ -625,20 +619,26 @@
                 document.getElementById('addModal').style.display = 'none';
             }
 
-            function openEditModal(typeName) {
-                const item = membershipData.find(i => i.membershipType === typeName);
-                if (!item) return;
-                document.getElementById('editId').value = item.membershipType;
-                document.getElementById('editType').value = item.membershipType;
-                document.getElementById('editPriority').value = item.priority;
+            function openEditModal(typeId) {
+                const id = parseInt(typeId, 10); // Convert string ID to number
+                const item = internshipData.find(i => i.id === id);
+
+                if (!item) {
+                    console.error("No internship type found for ID:", id);
+                    return;
+                }
+
+                document.getElementById('editId').value = item.id;
+                document.getElementById('editType').value = item.type;
+                document.getElementById('editPriority').value = item.priority || '';
                 document.getElementById('editPrice').value = parseFloat(item.price).toFixed(2);
-                const [amount, unit] = item.duration.split(' ');
-                document.getElementById('editDurationAmount').value = amount;
-                document.getElementById('editDurationUnit').value = unit;
+                document.getElementById('editDescription').value = item.description || '';
+
                 const modal = document.getElementById('editModal');
                 modal.style.display = 'flex';
                 modal.focus();
                 trapFocus(modal);
+
                 modal.addEventListener('click', function(e) {
                     if (e.target === modal) {
                         smoothCloseModal(modal, closeEditModal);
@@ -648,75 +648,80 @@
                 });
             }
 
+
             function closeEditModal() {
                 document.getElementById('editModal').style.display = 'none';
             }
 
             function populateTable() {
                 const tbody = document.getElementById('tableBody');
-                tbody.innerHTML = membershipData.map(item => `
+                tbody.innerHTML = internshipData.map(item => `
             <tr>
-                <td>${item.membershipType}</td>
-                <td>${item.priority}</td>
+                <td>${item.type}</td>
+                <td>${item.priority || '-'}</td>
                 <td>₹${parseFloat(item.price).toFixed(2)}</td>
-                <td>${item.duration}</td>
+                <td>${item.description || '-'}</td>
                 <td>
-                    <button class="btn-edit" onclick="openEditModal('${item.membershipType}')">Edit</button>
-                    <button class="btn-delete" onclick="openDeleteModal('${item.membershipType}')">Delete</button>
+                    <button class="btn-edit" onclick="openEditModal('${item.id}')">Edit</button>
+                    <button class="btn-delete" onclick="openDeleteModal('${item.id}')">Delete</button>
                 </td>
             </tr>
             `).join('');
             }
 
-            async function fetchMembershipTypes() {
+            async function fetchInternshipTypes() {
                 try {
-                    const response = await fetch('/api/membership-types');
+                    const response = await fetch('/api/internship-types');
                     const {
                         data
                     } = await response.json();
-                    membershipData = data;
+                    internshipData = data;
                     populateTable();
                 } catch (e) {
                     console.error('Error fetching data:', e);
-                    showToast('Failed to load membership types.', 'error');
+                    showToast('Failed to load internship types.', 'error');
                 }
             }
 
-            document.addEventListener('DOMContentLoaded', fetchMembershipTypes);
+            document.addEventListener('DOMContentLoaded', fetchInternshipTypes);
 
             function saveNewType() {
                 const type = document.getElementById('newType').value.trim();
                 const priority = parseInt(document.getElementById('newPriority').value, 10);
                 const price = parseFloat(document.getElementById('newPrice').value);
-                const duration =
-                    `${document.getElementById('newDurationAmount').value} ${document.getElementById('newDurationUnit').value}`;
+                const description = document.getElementById('newDescription').value.trim();
 
-                if (membershipData.some(i => i.priority === priority)) {
-                    showToast('Priority ' + priority + ' already exists. Please choose a different priority.', 'error');
-                    return;
-                }
-
-                fetch('/api/membership-types/create', {
+                fetch('/api/internship-types', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'Accept': 'application/json'
                         },
                         body: JSON.stringify({
-                            membershipType: type,
+                            type,
                             priority,
                             price,
-                            duration
+                            description
                         })
                     })
                     .then(res => res.json())
                     .then(data => {
                         if (data.success) {
-                            showToast('Membership type created successfully');
-                            fetchMembershipTypes();
+                            showToast('Internship type created successfully');
+                            fetchInternshipTypes();
                             smoothCloseModal(document.getElementById('addModal'), closeAddModal);
                         } else {
-                            showToast(data.error || 'Failed to create membership type.', 'error');
+                            // Handle errors for uniqueness
+                            if (data.errors) {
+                                if (data.errors.type) {
+                                    showToast(`Type: ${data.errors.type[0]}`, 'error');
+                                }
+                                if (data.errors.priority) {
+                                    showToast(`Priority: ${data.errors.priority[0]}`, 'error');
+                                }
+                            } else {
+                                showToast(data.error || 'Failed to create internship type.', 'error');
+                            }
                         }
                     })
                     .catch(err => {
@@ -725,24 +730,19 @@
                     });
             }
 
+
+
             function updateType() {
                 const id = document.getElementById('editId').value;
-                const newPriority = parseInt(document.getElementById('editPriority').value, 10);
-
-                if (membershipData.some(i => i.priority === newPriority && i.membershipType !== id)) {
-                    showToast('Priority ' + newPriority + ' already exists. Please choose a different priority.', 'error');
-                    return;
-                }
-
                 const updated = {
-                    membershipType: document.getElementById('editType').value.trim(),
-                    priority: newPriority,
+                    type: document.getElementById('editType').value.trim(),
+                    priority: parseInt(document.getElementById('editPriority').value, 10),
                     price: parseFloat(document.getElementById('editPrice').value),
-                    duration: `${document.getElementById('editDurationAmount').value} ${document.getElementById('editDurationUnit').value}`
+                    description: document.getElementById('editDescription').value.trim()
                 };
 
-                fetch(`/api/membership-types/update/${id}`, {
-                        method: 'POST',
+                fetch(`/api/internship-types/${id}`, {
+                        method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
                             'Accept': 'application/json'
@@ -752,11 +752,21 @@
                     .then(res => res.json())
                     .then(data => {
                         if (data.success) {
-                            showToast('Membership type updated successfully');
-                            fetchMembershipTypes();
+                            showToast('Internship type updated successfully');
+                            fetchInternshipTypes();
                             smoothCloseModal(document.getElementById('editModal'), closeEditModal);
                         } else {
-                            showToast(data.error || 'Update failed.', 'error');
+                            // Handle errors for uniqueness
+                            if (data.errors) {
+                                if (data.errors.type) {
+                                    showToast(`Type: ${data.errors.type[0]}`, 'error');
+                                }
+                                if (data.errors.priority) {
+                                    showToast(`Priority: ${data.errors.priority[0]}`, 'error');
+                                }
+                            } else {
+                                showToast(data.error || 'Update failed.', 'error');
+                            }
                         }
                     })
                     .catch(err => {
@@ -765,9 +775,12 @@
                     });
             }
 
-            function openDeleteModal(typeName) {
-                typeToDelete = typeName;
-                document.getElementById('deleteConfirmText').textContent = `Are you sure you want to delete "${typeName}"?`;
+
+
+            function openDeleteModal(typeId) {
+                typeToDelete = typeId;
+                document.getElementById('deleteConfirmText').textContent =
+                    `Are you sure you want to delete this internship type?`;
                 const modal = document.getElementById('deleteConfirmModal');
                 modal.style.display = 'flex';
                 trapFocus(modal);
@@ -788,13 +801,14 @@
             function confirmDelete() {
                 if (!typeToDelete) return;
 
-                fetch(`/api/membership-types/delete/${typeToDelete}`, {
+                fetch(`/api/internship-types/${typeToDelete}`, {
+
                         method: 'DELETE'
                     })
                     .then(res => res.json())
                     .then(data => {
                         if (data.success) {
-                            fetchMembershipTypes();
+                            fetchInternshipTypes();
                             showToast('Deleted successfully!');
                         } else {
                             showToast('Delete failed.', 'error');
@@ -802,7 +816,7 @@
                     })
                     .catch(err => {
                         console.error('Delete error:', err);
-                        showToast('Error deleting membership type.', 'error');
+                        showToast('Error deleting internship type.', 'error');
                     })
                     .finally(() => {
                         smoothCloseModal(document.getElementById('deleteConfirmModal'), closeDeleteModal);

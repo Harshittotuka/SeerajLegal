@@ -27,5 +27,6 @@ class Intern extends Model
         'membershipType',
         'coverLetter',
         'resumePath', // Path to the uploaded resume
+        'price',
     ];
 }

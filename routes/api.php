@@ -15,6 +15,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\RuleController;
 use App\Http\Controllers\InternController;
+use App\Http\Controllers\InternshipTypeController;
 
 
 
@@ -37,6 +38,14 @@ Route::prefix('interns')->group(function () {
     Route::delete('/{id}', [InternController::class, 'destroy']);
 });
 Route::patch('/interns/{id}/status', [InternController::class, 'changeStatus']);
+
+Route::prefix('internship-types')->group(function () {
+     Route::get('/', [InternshipTypeController::class, 'index']);    // Create
+    Route::post('/', [InternshipTypeController::class, 'store']);    // Create
+    Route::get('/{id}', [InternshipTypeController::class, 'show']);   // Show
+    Route::put('/{id}', [InternshipTypeController::class, 'update']); // Update
+    Route::delete('/{id}', [InternshipTypeController::class, 'destroy']); // Delete
+});
 
 
 
@@ -108,6 +117,9 @@ Route::prefix('membership-types')->group(function () {
     Route::post('update/{membershipType}', [MembershipTypeController::class, 'update']);
     Route::delete('delete/{membershipType}', [MembershipTypeController::class, 'delete']);
 });
+
+
+
 
 
 //toggle api for service and practices(nova)

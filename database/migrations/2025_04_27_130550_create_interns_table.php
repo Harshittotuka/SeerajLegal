@@ -23,16 +23,11 @@ class CreateInternsTable extends Migration
             $table->string('collegeName');
             $table->string('degree');
             $table->year('graduationYear');
-$table->string('membershipType')->nullable();
-$table->text('coverLetter')->nullable();
-            $table->string('resumePath');       // <-- new (file path of uploaded pdf)
-            $table->enum('status', [
-                'pending', 
-                'rejected', 
-                'payment-pending', 
-                'payment-done-waiting-for-approval', 
-                'approved'
-            ])->default('pending');
+            $table->string('membershipType')->nullable();
+            $table->string('price')->nullable();
+            $table->text('coverLetter')->nullable();
+            $table->string('resumePath'); // <-- new (file path of uploaded pdf)
+            $table->enum('status', ['pending', 'rejected', 'payment-pending', 'payment-done-waiting-for-approval', 'approved'])->default('pending');
             $table->timestamps();
         });
     }

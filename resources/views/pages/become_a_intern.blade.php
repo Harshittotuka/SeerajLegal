@@ -710,13 +710,13 @@
     </style>
 
 
-    <div id="pricing" class="container1">
+    {{-- <div id="pricing" class="container1">
 
         <h1 class="main-title"><span>Pricing</span> Plans</h1>
         <p class="subtitle">Choose the perfect plan that suits your needs</p>
 
         <div class="pricing-cards">
-            <!-- Card 1 -->
+          
             <div class="card premium" data-tier="basic">
 
                 <div class="card-header">
@@ -738,9 +738,9 @@
                 <div class="shine"></div>
             </div>
 
-            <!-- Card 2 -->
+           
             <div class="card premium" data-tier="premium">
-                {{-- <div class="popular-tag">Most Popular</div> --}}
+             
                 <div class="card-header">
                     <div class="tier">Premium</div>
                     <div class="price"><span class="currency">$</span><span class="amount">79</span><span
@@ -762,7 +762,153 @@
 
 
         </div>
+
+
+        
+    </div> --}}
+
+    <style>
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            /* take up remaining vertical space */
+            justify-content: space-between;
+            /* push the button down */
+        }
+    </style>
+
+
+    <!-- 2) Your pricing markup (unchanged) -->
+    <div id="pricing" class="container1">
+        <h1 class="main-title"><span>Pricing</span> Plans</h1>
+        <p class="subtitle">Choose the perfect plan that suits your needs</p>
+
+        <div class="pricing-cards">
+            <!-- JS will inject each .card here -->
+        </div>
     </div>
+
+    <!-- 3) Updated script: fetch → render → equalize heights → 3D tilt on mousemove -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const API_URL = 'http://localhost:8000/api/internship-types';
+            const container = document.querySelector('.pricing-cards');
+            const membershipSelect = document.getElementById('membershipType');
+            const priceDisplay = document.getElementById('priceDisplay');
+            const internshipMap = new Map();
+
+            fetch(API_URL)
+                .then(res => res.json())
+                .then(json => {
+                    if (!json.success) throw new Error('API error');
+                    container.innerHTML = ''; // clear any placeholder cards
+
+                    json.data.forEach(item => {
+                        const type = item.type;
+                        const price = parseFloat(item.price);
+                        internshipMap.set(type, price);
+
+                        // 1) Populate dropdown
+                        const option = document.createElement('option');
+                        option.value = type;
+                        option.textContent = type;
+                        membershipSelect.appendChild(option);
+
+                        // 2) Build card
+                        const card = document.createElement('div');
+                        card.className = 'card premium';
+                        card.dataset.tier = type.toLowerCase();
+
+                        const features = item.description
+                            .split('\n')
+                            .map(line => {
+                                const isBullet = /^\•/.test(line);
+                                const text = line.replace(/^[\•\-\*]\s*/, '');
+                                return `<li${isBullet ? '' : ' class="not-included"'}>${text}</li>`;
+                            }).join('');
+
+                        card.innerHTML = `
+                    <div class="card-header">
+                        <div class="tier">${type}</div>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">${price}</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <ul class="features">${features}</ul>
+                        <button class="select-btn">Select Plan</button>
+                    </div>
+                    <div class="shine"></div>
+                `;
+
+                        container.appendChild(card);
+
+                        // 3) 3D-tilt effect
+                        card.addEventListener('mousemove', e => {
+                            const rect = card.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const y = e.clientY - rect.top;
+                            const rotY = ((x / rect.width) - 0.5) * 20;
+                            const rotX = ((y / rect.height) - 0.5) * -20;
+                            card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+                        });
+                        card.addEventListener('mouseleave', () => {
+                            card.style.transform = '';
+                        });
+
+                        // 4) “Select Plan” button → scroll & select
+                        const selectButton = card.querySelector('.select-btn');
+                        selectButton.addEventListener('click', () => {
+                            membershipSelect.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
+                            membershipSelect.value = type;
+                            membershipSelect.dispatchEvent(new Event('change'));
+                        });
+                    });
+
+                    // equalize heights once cards are in DOM
+                    equalizeHeights();
+                    window.addEventListener('resize', equalizeHeights);
+                })
+                .catch(console.error);
+
+            // show/hide priceDisplay on dropdown change
+            membershipSelect.addEventListener('change', () => {
+                const selected = membershipSelect.value;
+                const price = internshipMap.get(selected);
+                if (price) {
+                    priceDisplay.textContent = `$${price.toFixed(2)} / month`;
+                    priceDisplay.style.display = 'inline-block';
+                } else {
+                    priceDisplay.style.display = 'none';
+                }
+            });
+
+            // helper to equalize all card heights
+            function equalizeHeights() {
+                const cards = document.querySelectorAll('.card');
+                let max = 0;
+                cards.forEach(c => {
+                    c.style.height = 'auto';
+                    max = Math.max(max, c.offsetHeight);
+                });
+                cards.forEach(c => c.style.height = `${max}px`);
+            }
+        });
+    </script>
+
+
+
+
+
+
+
+
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -833,14 +979,10 @@
     </script>
 
 
-
+    {{-- ----HR LINE DESIGN  --}}
     <hr class="style-one">
 
-
     <style>
-        /* Flaired edges */
-        /* Gradient color1 - color2 - color1 */
-
         hr.style-one {
             margin-bottom: 50px;
             margin-top: 50px;
@@ -854,150 +996,146 @@
             background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
         }
     </style>
+    {{-- ----HR LINE DESIGN END --}}
 
 
-    <style>
-        .application-container {
-            max-width: 1200px;
+    <STYLE>
+                .application-container {
+                max-width: 1200px;
 
-            margin: 0 auto 60px auto;
-            /* top right bottom left */
+                margin: 0 auto 60px auto;
+                /* top right bottom left */
 
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
-        }
+                background: white;
+                padding: 40px;
+                border-radius: 15px;
+                box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+                }
 
-        .form-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+                .form-header {
+                text-align: center;
+                margin-bottom: 40px;
+                }
 
-        .form-header h1 {
-            color: #2c3e50;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
+                .form-header h1 {
+                color: #2c3e50;
+                font-size: 2.5em;
+                margin-bottom: 10px;
+                }
 
-        .form-header p {
-            color: #7f8c8d;
-            font-size: 1.1em;
-        }
+                .form-header p {
+                color: #7f8c8d;
+                font-size: 1.1em;
+                }
 
-        .form-group {
-            margin-bottom: 25px;
-        }
+                .form-group {
+                margin-bottom: 25px;
+                }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
+                .form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 25px;
+                }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #34495e;
-            font-weight: 600;
-            font-size: 0.95em;
-        }
+                label {
+                display: block;
+                margin-bottom: 8px;
+                color: #34495e;
+                font-weight: 600;
+                font-size: 0.95em;
+                }
 
-        input,
-        select,
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s ease;
-        }
+                input,
+                select,
+                textarea {
+                width: 100%;
+                padding: 12px;
+                border: 2px solid #e0e0e0;
+                border-radius: 8px;
+                font-size: 1em;
+                transition: border-color 0.3s ease;
+                }
 
-        input:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #3498db;
-        }
+                input:focus,
+                select:focus,
+                textarea:focus {
+                outline: none;
+                border-color: #3498db;
+                }
 
-        textarea {
-            height: 120px;
-            resize: vertical;
-        }
+                textarea {
+                height: 120px;
+                resize: vertical;
+                }
 
-        .submit-btn {
-            background: #3498db;
-            color: white;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            display: block;
-            margin: 30px auto 0;
-        }
+                .submit-btn {
+                background: #3498db;
+                color: white;
+                padding: 15px 40px;
+                border: none;
+                border-radius: 8px;
+                font-size: 1.1em;
+                cursor: pointer;
+                transition: background 0.3s ease;
+                display: block;
+                margin: 30px auto 0;
+                }
 
-        .submit-btn:hover {
-            background: #2980b9;
-        }
+                .submit-btn:hover {
+                background: #2980b9;
+                }
 
-        .file-upload {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-        }
+                .file-upload {
+                position: relative;
+                overflow: hidden;
+                display: inline-block;
+                }
 
-        .file-upload input[type="file"] {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            cursor: pointer;
-            height: 100%;
-            width: 100%;
-        }
+                .file-upload input[type="file"] {
+                position: absolute;
+                left: 0;
+                top: 0;
+                opacity: 0;
+                cursor: pointer;
+                height: 100%;
+                width: 100%;
+                }
 
-        .custom-file-upload {
-            border: 2px solid #3498db;
-            color: #3498db;
-            padding: 10px 25px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+                .custom-file-upload {
+                border: 2px solid #3498db;
+                color: #3498db;
+                padding: 10px 25px;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                }
 
-        .custom-file-upload:hover {
-            background: #3498db;
-            color: white;
-        }
-    </style>
+                .custom-file-upload:hover {
+                background: #3498db;
+                color: white;
+                }
 
-    <style>
-        /* Your existing styles here... */
-
-        /* Make it responsive on mobile */
-        @media (max-width: 768px) {
-            .form-row {
+                /* Make it responsive on mobile */
+                @media (max-width: 768px) {
+                .form-row {
                 grid-template-columns: 1fr;
                 /* Stack fields vertically */
-            }
+                }
 
-            .application-container {
+                .application-container {
                 padding: 20px;
                 margin: 20px;
-            }
+                }
 
-            .submit-btn {
+                .submit-btn {
                 width: 100%;
                 /* Button takes full width on mobile */
-            }
-        }
-    </style>
+                }
+                }
 
-
+    </STYLE>
     <div class="application-container">
         <div class="form-header">
             <h1 class="main-title"><span>Application</span></h1>
@@ -1083,16 +1221,63 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="membershipType">Membership Type</label>
+            <style>
+                .form-row {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    margin-bottom: 1.5rem;
+                    flex-wrap: wrap;
+                }
+
+                .form-row label {
+                    font-weight: 600;
+                    margin-right: 0.5rem;
+                    min-width: 140px;
+                }
+
+                #membershipType {
+                    padding: 0.5rem 0.75rem;
+                    font-size: 1rem;
+                    border-radius: 6px;
+                    border: 1px solid #ccc;
+                    min-width: 200px;
+                    background-color: #fff;
+                    transition: border-color 0.3s ease;
+                }
+
+                #membershipType:focus {
+                    border-color: #007BFF;
+                    outline: none;
+                }
+
+                #priceDisplay {
+                    display: none;
+                    /* hidden by default */
+                    font-size: 1.1rem;
+                    color: #007BFF;
+                    font-weight: bold;
+                    min-width: 120px;
+                    padding: 0.5rem 0.75rem;
+                    background-color: #f0f8ff;
+                    border: 1px solid #cce5ff;
+                    border-radius: 6px;
+                }
+            </style>
+
+            <div class="form-row">
+                <label for="membershipType">Internship Type</label>
                 <select id="membershipType" name="membershipType" required>
                     <option value="">Select Membership</option>
-                    <option value="Student Member">Student Member</option>
-                    <option value="Professional Member">Professional Member</option>
-                    <option value="Guest Member">Guest Member</option>
-                    <option value="Lifetime Member">Lifetime Member</option>
                 </select>
+                <div id="priceDisplay"></div>
             </div>
+
+
+
+
+
+
 
             <div class="form-group">
                 <label for="coverLetter">Cover Letter</label>
@@ -1190,12 +1375,12 @@
                             position: 'right',
                             style: {
                                 background: 'linear-gradient(to right, #ff6b6b, #ff0000)',
-                                  color: '#fff',
-                                  fontWeight: 'bold',
-                                  borderRadius: '8px',
-                                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                                  padding: '16px',
-                                  fontSize: '14px',
+                                color: '#fff',
+                                fontWeight: 'bold',
+                                borderRadius: '8px',
+                                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                                padding: '16px',
+                                fontSize: '14px',
 
                             }
                         }).showToast();
@@ -1211,12 +1396,12 @@
                         position: 'right',
                         style: {
                             background: 'linear-gradient(to right, #ff6b6b, #ff0000)',
-                              color: '#fff',
-                              fontWeight: 'bold',
-                              borderRadius: '8px',
-                              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                              padding: '16px',
-                              fontSize: '14px',
+                            color: '#fff',
+                            fontWeight: 'bold',
+                            borderRadius: '8px',
+                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                            padding: '16px',
+                            fontSize: '14px',
 
                         }
                     }).showToast();
