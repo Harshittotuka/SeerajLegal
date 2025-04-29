@@ -34,7 +34,7 @@ Route::prefix('interns')->group(function () {
     Route::get('/', [InternController::class, 'index']);
     Route::post('/', [InternController::class, 'store']);
     Route::get('/{id}', [InternController::class, 'show']);
-    Route::put('/{id}', [InternController::class, 'update']);
+    Route::post('/{id}', [InternController::class, 'update']);
     Route::delete('/{id}', [InternController::class, 'destroy']);
 });
 Route::patch('/interns/{id}/status', [InternController::class, 'changeStatus']);

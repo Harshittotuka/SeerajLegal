@@ -21,107 +21,107 @@ class InternController extends Controller
         }
     }
 
- public function store(Request $request)
-{
-    try {
-        $data = $request->validate([
-            'firstName' => 'required|string',
-            'lastName' => 'required|string',
-            'email' => 'required|email|unique:interns',
-            'phone' => 'required|string',
-            'dob' => 'required|date',
-            'address' => 'required|string',
-            'city' => 'required|string',
-            'state' => 'required|string',
-            'country' => 'required|string',
-            'pincode' => 'required|string',
-            'collegeName' => 'required|string',
-            'degree' => 'required|string',
-            'graduationYear' => 'required|date_format:Y',
-            'membershipType' => 'required|string',
-            'coverLetter' => 'required|string',
-            'resume' => 'required|file|mimes:pdf|max:2048', // Only PDF, Max 2MB
-            'status' => 'nullable|string',
-        ]);
+    public function store(Request $request)
+    {
+        try {
+            $data = $request->validate([
+                'firstName' => 'required|string',
+                'lastName' => 'required|string',
+                'email' => 'required|email|unique:interns',
+                'phone' => 'required|string',
+                'dob' => 'required|date',
+                'address' => 'required|string',
+                'city' => 'required|string',
+                'state' => 'required|string',
+                'country' => 'required|string',
+                'pincode' => 'required|string',
+                'collegeName' => 'required|string',
+                'degree' => 'required|string',
+                'graduationYear' => 'required|date_format:Y',
+                'membershipType' => 'required|string',
+                'coverLetter' => 'required|string',
+                'resume' => 'required|file|mimes:pdf|max:2048', // Only PDF, Max 2MB
+                'status' => 'nullable|string',
+            ]);
 
-        // Fetch price from the internship_types table based on membershipType
-        $membershipType = $data['membershipType'];
-        $internshipType = \App\Models\InternshipType::where('type', $membershipType)->first();
+            // Fetch price from the internship_types table based on membershipType
+            $membershipType = $data['membershipType'];
+            $internshipType = \App\Models\InternshipType::where('type', $membershipType)->first();
 
-        if ($internshipType) {
-            // Get the price for the selected membership type
-            $price = $internshipType->price;
-        } else {
-            // Default price or handle error if type doesn't exist
-            $price = null;
-        }
-
-        // First, create the intern without resumePath
-        $intern = Intern::create([
-            ...$data,
-            'price' => $price,  // Add price to the intern record
-            'resumePath' => '', // temporarily empty
-        ]);
-
-        // Handle file upload
-        if ($request->hasFile('resume')) {
-            $file = $request->file('resume');
-
-            // Create a custom file name
-            $firstName = preg_replace('/\s+/', '', strtolower($data['firstName']));
-            $lastName = preg_replace('/\s+/', '', strtolower($data['lastName']));
-            $fileName = "resume_{$firstName}{$lastName}_{$intern->id}.pdf";
-
-            // Destination path (public/assets/dynamic/resumes)
-            $destinationPath = public_path('assets/dynamic/resumes');
-
-            // Create the directory if it doesn't exist
-            if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0755, true);
+            if ($internshipType) {
+                // Get the price for the selected membership type
+                $price = $internshipType->price;
+            } else {
+                // Default price or handle error if type doesn't exist
+                $price = null;
             }
 
-            // Move file to public/assets/dynamic/resumes
-            $file->move($destinationPath, $fileName);
-
-            // Define the file path relative to the public directory
-            $filePath = 'assets/dynamic/resumes/' . $fileName;
-
-            // Update the intern record with the file path
-            $intern->update([
-                'resumePath' => $filePath,
+            // First, create the intern without resumePath
+            $intern = Intern::create([
+                ...$data,
+                'price' => $price, // Add price to the intern record
+                'resumePath' => '', // temporarily empty
             ]);
-        } else {
+
+            // Handle file upload
+            if ($request->hasFile('resume')) {
+                $file = $request->file('resume');
+
+                // Create a custom file name
+                $firstName = preg_replace('/\s+/', '', strtolower($data['firstName']));
+                $lastName = preg_replace('/\s+/', '', strtolower($data['lastName']));
+                $fileName = "resume_{$firstName}{$lastName}_{$intern->id}.pdf";
+
+                // Destination path (public/assets/dynamic/resumes)
+                $destinationPath = public_path('assets/dynamic/resumes');
+
+                // Create the directory if it doesn't exist
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0755, true);
+                }
+
+                // Move file to public/assets/dynamic/resumes
+                $file->move($destinationPath, $fileName);
+
+                // Define the file path relative to the public directory
+                $filePath = 'assets/dynamic/resumes/' . $fileName;
+
+                // Update the intern record with the file path
+                $intern->update([
+                    'resumePath' => $filePath,
+                ]);
+            } else {
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' => 'Resume upload failed.',
+                    ],
+                    400,
+                );
+            }
+
             return response()->json(
                 [
-                    'success' => false,
-                    'message' => 'Resume upload failed.',
+                    'success' => true,
+                    'message' => 'Intern created successfully.',
+                    'data' => $intern,
                 ],
-                400
+                201,
             );
+        } catch (ValidationException $e) {
+            return response()->json(['success' => false, 'errors' => $e->errors()], 422);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to create intern.', 'error' => $e->getMessage()], 500);
         }
-
-        return response()->json(
-            [
-                'success' => true,
-                'message' => 'Intern created successfully.',
-                'data' => $intern,
-            ],
-            201
-        );
-    } catch (ValidationException $e) {
-        return response()->json(['success' => false, 'errors' => $e->errors()], 422);
-    } catch (\Exception $e) {
-        return response()->json(['success' => false, 'message' => 'Failed to create intern.', 'error' => $e->getMessage()], 500);
     }
-}
 
-    
+    // 5) Finally update the rest
     public function update(Request $request, $id)
     {
         try {
             $intern = Intern::findOrFail($id);
 
-            // 1) Validate
+            // Validate data
             $data = $request->validate([
                 'firstName' => 'sometimes|string',
                 'lastName' => 'sometimes|string',
@@ -142,16 +142,31 @@ class InternController extends Controller
                 'status' => 'sometimes|string',
             ]);
 
-            // 2) Compute sanitized name parts
-            $newFirst = isset($data['firstName']) ? preg_replace('/\s+/', '', strtolower($data['firstName'])) : preg_replace('/\s+/', '', strtolower($intern->firstName));
+            // Fetch price from the internship_types table based on membershipType
+            if (isset($data['membershipType'])) {
+                $membershipType = $data['membershipType'];
+                $internshipType = \App\Models\InternshipType::where('type', $membershipType)->first();
 
+                if ($internshipType) {
+                    $price = $internshipType->price;
+                } else {
+                    // Default price or handle error if type doesn't exist
+                    $price = null;
+                }
+
+                // Add price to the data array for updating the intern record
+                $data['price'] = $price;
+            }
+
+            // Compute sanitized name parts and resume file handling
+            $newFirst = isset($data['firstName']) ? preg_replace('/\s+/', '', strtolower($data['firstName'])) : preg_replace('/\s+/', '', strtolower($intern->firstName));
             $newLast = isset($data['lastName']) ? preg_replace('/\s+/', '', strtolower($data['lastName'])) : preg_replace('/\s+/', '', strtolower($intern->lastName));
 
             $newFileName = "resume_{$newFirst}{$newLast}_{$intern->id}.pdf";
             $publicDirPath = public_path('assets/dynamic/resumes');
             $newRelPath = "assets/dynamic/resumes/{$newFileName}";
 
-            // 3) If a new file was uploaded → delete old & move new
+            // If a new file was uploaded → delete old & move new
             if ($request->hasFile('resume')) {
                 // Delete old file if it exists
                 if ($intern->resumePath && file_exists(public_path($intern->resumePath))) {
@@ -169,7 +184,7 @@ class InternController extends Controller
                 // Update DB path
                 $data['resumePath'] = $newRelPath;
             }
-            // 4) Else if name changed but no new file → rename existing file
+            // Else if name changed but no new file → rename existing file
             elseif (($request->filled('firstName') || $request->filled('lastName')) && $intern->resumePath && file_exists(public_path($intern->resumePath))) {
                 $oldFullPath = public_path($intern->resumePath);
 
@@ -184,7 +199,7 @@ class InternController extends Controller
                 $data['resumePath'] = $newRelPath;
             }
 
-            // 5) Finally update the rest
+            // Finally update the rest
             $intern->update($data);
 
             return response()->json(
