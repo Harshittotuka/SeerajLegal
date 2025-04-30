@@ -1000,141 +1000,139 @@
 
 
     <STYLE>
-                .application-container {
-                max-width: 1200px;
+        .application-container {
+            max-width: 1200px;
+            margin: 100px auto 150px auto;
+            /* top right bottom left */
 
-                margin: 0 auto 60px auto;
-                /* top right bottom left */
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+        }
 
-                background: white;
-                padding: 40px;
-                border-radius: 15px;
-                box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
-                }
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
 
-                .form-header {
-                text-align: center;
-                margin-bottom: 40px;
-                }
+        .form-header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
 
-                .form-header h1 {
-                color: #2c3e50;
-                font-size: 2.5em;
-                margin-bottom: 10px;
-                }
+        .form-header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
 
-                .form-header p {
-                color: #7f8c8d;
-                font-size: 1.1em;
-                }
+        .form-group {
+            margin-bottom: 25px;
+        }
 
-                .form-group {
-                margin-bottom: 25px;
-                }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
 
-                .form-row {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 25px;
-                }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
 
-                label {
-                display: block;
-                margin-bottom: 8px;
-                color: #34495e;
-                font-weight: 600;
-                font-size: 0.95em;
-                }
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
 
-                input,
-                select,
-                textarea {
-                width: 100%;
-                padding: 12px;
-                border: 2px solid #e0e0e0;
-                border-radius: 8px;
-                font-size: 1em;
-                transition: border-color 0.3s ease;
-                }
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
 
-                input:focus,
-                select:focus,
-                textarea:focus {
-                outline: none;
-                border-color: #3498db;
-                }
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
 
-                textarea {
-                height: 120px;
-                resize: vertical;
-                }
+        .submit-btn {
+            background: #3498db;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: block;
+            margin: 30px auto 0;
+        }
 
-                .submit-btn {
-                background: #3498db;
-                color: white;
-                padding: 15px 40px;
-                border: none;
-                border-radius: 8px;
-                font-size: 1.1em;
-                cursor: pointer;
-                transition: background 0.3s ease;
-                display: block;
-                margin: 30px auto 0;
-                }
+        .submit-btn:hover {
+            background: #2980b9;
+        }
 
-                .submit-btn:hover {
-                background: #2980b9;
-                }
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
 
-                .file-upload {
-                position: relative;
-                overflow: hidden;
-                display: inline-block;
-                }
+        .file-upload input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+            height: 100%;
+            width: 100%;
+        }
 
-                .file-upload input[type="file"] {
-                position: absolute;
-                left: 0;
-                top: 0;
-                opacity: 0;
-                cursor: pointer;
-                height: 100%;
-                width: 100%;
-                }
+        .custom-file-upload {
+            border: 2px solid #3498db;
+            color: #3498db;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-                .custom-file-upload {
-                border: 2px solid #3498db;
-                color: #3498db;
-                padding: 10px 25px;
-                border-radius: 8px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                }
+        .custom-file-upload:hover {
+            background: #3498db;
+            color: white;
+        }
 
-                .custom-file-upload:hover {
-                background: #3498db;
-                color: white;
-                }
-
-                /* Make it responsive on mobile */
-                @media (max-width: 768px) {
-                .form-row {
+        /* Make it responsive on mobile */
+        @media (max-width: 768px) {
+            .form-row {
                 grid-template-columns: 1fr;
                 /* Stack fields vertically */
-                }
+            }
 
-                .application-container {
+            .application-container {
                 padding: 20px;
                 margin: 20px;
-                }
+            }
 
-                .submit-btn {
+            .submit-btn {
                 width: 100%;
                 /* Button takes full width on mobile */
-                }
-                }
-
+            }
+        }
     </STYLE>
     <div class="application-container">
         <div class="form-header">
@@ -1274,11 +1272,6 @@
             </div>
 
 
-
-
-
-
-
             <div class="form-group">
                 <label for="coverLetter">Cover Letter</label>
                 <textarea id="coverLetter" name="coverLetter" placeholder="Explain why you're interested in this internship..."
@@ -1303,10 +1296,24 @@
         </form>
     </div>
 
+
+
+
+
+
     <!-- Toastify and SweetAlert2 scripts -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+
+    {{-- ----HR LINE DESIGN  --}}
+    <hr class="style-one">
+
+
 
     <script>
         // File input label update
@@ -1323,7 +1330,6 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Manual check for resume file selection
             if (!resumeInput.files.length) {
                 Toastify({
                     text: '🚫 Please upload your resume before submitting!',
@@ -1342,7 +1348,7 @@
                     },
                     stopOnFocus: true,
                 }).showToast();
-                return; // Stop the form submission if no file
+                return;
             }
 
             const formData = new FormData(form);
@@ -1356,17 +1362,57 @@
                 .then(async response => {
                     const data = await response.json();
                     if (data.success) {
+                        const userStatusId = data.UserStatusId;
+
                         Swal.fire({
-                            icon: 'success',
-                            title: 'Submitted',
-                            text: 'Your form has been submitted. You will receive a payment link once confirmed by our admin.',
-                            confirmButtonText: 'OK'
+                            title: "✅ Application Received!",
+                            html: `
+            <div style="font-size:16px; color:#444;">
+              <p style="margin-bottom:10px;">Your application has been submitted successfully.</p>
+              <p style="font-weight:600; margin:0;">User Number:</p>
+              <div style="display:flex; align-items:center; justify-content:center; gap:10px; margin:12px 0;">
+                <code id="stmt-code" style="background:#f0f0f0; padding:8px 12px; border-radius:6px; font-size:15px; font-weight:600; color:#2c3e50;">${userStatusId}</code>
+                <button id="copyBtn" style="padding:8px 12px; border:none; border-radius:6px; cursor:pointer; font-size:14px;">📋</button>
+              </div>
+              <p style="color:#888; font-size:14px;">Please keep this number safe to check your status later.</p>
+              <p style="margin-top:20px; font-weight:500;">
+                ⚠️ You will receive a payment link if your request is confirmed by admin.
+              </p>
+            </div>
+          `,
+                            icon: "success",
+                            confirmButtonText: "OK, Go to Home",
+                            customClass: {
+                                popup: 'swal-wide'
+                            },
+                            didOpen: () => {
+                                document.getElementById('copyBtn').addEventListener('click',
+                                    () => {
+                                        navigator.clipboard.writeText(userStatusId);
+                                        Swal.fire({
+                                            toast: true,
+                                            icon: 'success',
+                                            title: 'Copied to clipboard!',
+                                            position: 'top-end',
+                                            showConfirmButton: false,
+                                            timer: 1500,
+                                            timerProgressBar: true
+                                        });
+                                    });
+                            }
+                        }).then(() => {
+                            setTimeout(() => {
+                                location.replace("{{ route('home') }}");
+                            }, 2000);
+
                         });
+
                         form.reset();
                         fileLabel.innerHTML = '<i class="fas fa-upload"></i> Choose File';
                     } else {
-                        const errors = data.errors ? Object.values(data.errors).flat().join(' ') : data
-                            .message;
+                        const errors = data.errors ?
+                            Object.values(data.errors).flat().join(' ') :
+                            data.message;
                         Toastify({
                             text: `Submission failed: ${errors}`,
                             duration: 3000,
@@ -1381,7 +1427,6 @@
                                 boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
                                 padding: '16px',
                                 fontSize: '14px',
-
                             }
                         }).showToast();
                     }
@@ -1402,12 +1447,124 @@
                             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
                             padding: '16px',
                             fontSize: '14px',
-
                         }
                     }).showToast();
                 });
         });
     </script>
+    <!-- Toastify and SweetAlert2 scripts  END-->
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Improved Application Status Checker -->
+<div class="py-20 flex items-center justify-center">
+
+        <div class="w-full max-w-2xl bg-white rounded-2xl shadow-lg overflow-hidden">
+            <!-- Decorative Header Strip -->
+            <div class="h-2 bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500"></div>
+
+            <div class="p-8 lg:p-12 space-y-8">
+                <!-- Header Section -->
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-50 rounded-2xl mx-auto mb-4">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                        </svg>
+                    </div>
+                    <h1 class="text-4xl font-extrabold text-gray-900">Application Tracker</h1>
+                    <p class="mt-2 text-gray-600">Monitor your internship application progress in real-time</p>
+                </div>
+
+                <!-- Input Section -->
+                <div class="flex flex-col sm:flex-row items-stretch gap-4">
+                    <div class="relative flex-1 w-full">
+                        <label for="statusCodeInput" class="sr-only">Application ID</label>
+                        <input type="text" id="statusCodeInput"
+                            placeholder="Enter your 36-character Application ID"
+                            class="w-full h-14 pl-6 pr-6 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-500 placeholder-gray-400" />
+                    </div>
+                    <button onclick="checkStatus()"
+                        class="w-full sm:w-auto h-14 px-8 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-transform transform hover:scale-105">
+                        <i class="fa-regular fa-magnifying-glass"></i>
+
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Include SweetAlert2 -->
+    <script>
+        async function checkStatus() {
+            const userStatusId = document.getElementById('statusCodeInput').value.trim();
+
+            if (!userStatusId) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Missing Status ID',
+                    text: 'Please enter your User Status ID to proceed.',
+                    confirmButtonColor: '#3085d6'
+                });
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/check-status/${userStatusId}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'info',
+                        title: '📋 Application Status',
+                        html: `
+            <div style="font-size:16px; color:#333;">
+              <p><strong>Name:</strong> ${data.name}</p>
+              <p><strong>Email:</strong> ${data.email}</p>
+              <p><strong>Status:</strong> <span style="font-weight:600;">${data.status}</span></p>
+              <hr style="margin: 12px 0;" />
+              <p style="font-size:14px; color:#777;">📢 You will receive a Email if your requests Status is Changed by our admin.</p>
+            </div>
+          `,
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#3085d6'
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Not Found',
+                        text: data.message || 'No application found with this ID.',
+                        confirmButtonColor: '#e3342f'
+                    });
+                }
+            } catch (err) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Server Error',
+                    text: 'An error occurred while checking your status. Please try again later.',
+                    confirmButtonColor: '#e3342f'
+                });
+                console.error(err);
+            }
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

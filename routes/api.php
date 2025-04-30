@@ -38,6 +38,8 @@ Route::prefix('interns')->group(function () {
     Route::delete('/{id}', [InternController::class, 'destroy']);
 });
 Route::patch('/interns/{id}/status', [InternController::class, 'changeStatus']);
+Route::get('/check-status/{userStatusId}', [InternController::class, 'checkStatus']);
+
 
 Route::prefix('internship-types')->group(function () {
      Route::get('/', [InternshipTypeController::class, 'index']);    // Create

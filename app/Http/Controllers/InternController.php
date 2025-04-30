@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
+use App\Mail\PaymentPendingMail;
 
 class InternController extends Controller
 {
@@ -56,6 +60,7 @@ class InternController extends Controller
                 $price = null;
             }
 
+        $data['UserStatusId'] = (string) Str::uuid();
             // First, create the intern without resumePath
             $intern = Intern::create([
                 ...$data,
@@ -104,7 +109,7 @@ class InternController extends Controller
                 [
                     'success' => true,
                     'message' => 'Intern created successfully.',
-                    'data' => $intern,
+                    'UserStatusId' => $intern->UserStatusId,
                 ],
                 201,
             );
@@ -284,6 +289,14 @@ class InternController extends Controller
             $intern->status = $request->status;
             $intern->save();
 
+            // If we just moved to payment-pending, fire off the mail:
+            if ($intern->status === 'payment-pending') {
+                // create a signed URL valid for, say, 24 hours
+                $paymentUrl = URL::temporarySignedRoute('intern.payment.form', now()->addDay(), ['intern' => $intern->id]);
+
+                Mail::to($intern->email)->send(new PaymentPendingMail($intern, $paymentUrl));
+            }
+
             return response()->json([
                 'success' => true,
                 'message' => 'Intern status updated successfully.',
@@ -297,4 +310,72 @@ class InternController extends Controller
             return response()->json(['success' => false, 'message' => 'Failed to update status.', 'error' => $e->getMessage()], 500);
         }
     }
+    public function showPaymentForm(Request $request, Intern $intern)
+    {
+        // default: no error
+        $errorType = null;
+
+        // 1) signed URL valid?
+        if (!$request->hasValidSignature()) {
+            $errorType = 'invalid_signature';
+        }
+        // 2) already submitted?
+        elseif ($intern->payment_submitted) {
+            $errorType = 'already_submitted';
+        }
+
+        // 3) render the form view in all cases, passing the errorType
+        return response()->view('interns.payment_form', compact('intern', 'errorType'))->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')->header('Pragma', 'no-cache');
+    }
+
+    public function submitPayment(Request $request, $id)
+    {
+        $request->validate([
+            'statement_number' => 'required|string|unique:interns,statement_number',
+            'payment_confirmation' => 'required|image|mimes:jpeg,png,webp|max:2048',
+        ]);
+
+        $intern = Intern::findOrFail($id);
+
+        $file = $request->file('payment_confirmation');
+
+        $filename = 'uniqueid_' . Str::slug($intern->firstName . $intern->lastName) . '.' . $file->extension();
+        $path = 'assets/dynamic/interns_payment';
+        $filename = uniqid() . '_' . Str::slug($intern->firstName . $intern->lastName) . '.' . 'webp';
+
+        $destinationPath = public_path($path);
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0755, true);
+        }
+        $file->move($destinationPath, $filename);
+
+        $intern->statement_number = $request->statement_number;
+        $intern->payment_image_path = $path . '/' . $filename;
+        $intern->payment_submitted = true;
+        $intern->status = 'payment-done-waiting-for-approval';
+        $intern->save();
+
+        return back()->with('success', 'Payment submitted successfully!');
+    }
+
+
+    public function checkStatus($userStatusId)
+{
+    $intern = Intern::where('UserStatusId', $userStatusId)->first();
+
+    if (!$intern) {
+        return response()->json([
+            'success' => false,
+            'message' => 'No application found with this User Status ID.',
+        ], 404);
+    }
+
+    return response()->json([
+        'success' => true,
+        'status' => $intern->status ?? 'Pending',
+        'name' => $intern->firstName . ' ' . $intern->lastName,
+        'email' => $intern->email,
+    ]);
+}
+
 }

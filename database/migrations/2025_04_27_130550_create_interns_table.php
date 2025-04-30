@@ -10,6 +10,7 @@ class CreateInternsTable extends Migration
     {
         Schema::create('interns', function (Blueprint $table) {
             $table->id();
+            $table->String('UserStatusId')->unique();
             $table->string('firstName');
             $table->string('lastName');
             $table->string('email')->unique();
@@ -28,6 +29,9 @@ class CreateInternsTable extends Migration
             $table->text('coverLetter')->nullable();
             $table->string('resumePath'); // <-- new (file path of uploaded pdf)
             $table->enum('status', ['pending', 'rejected', 'payment-pending', 'payment-done-waiting-for-approval', 'approved'])->default('pending');
+            $table->string('statement_number')->nullable()->unique();
+            $table->string('payment_image_path')->nullable();
+            $table->boolean('payment_submitted')->default(false);
             $table->timestamps();
         });
     }

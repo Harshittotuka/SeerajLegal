@@ -28,5 +28,9 @@ class Intern extends Model
         'coverLetter',
         'resumePath', // Path to the uploaded resume
         'price',
+        'statement_number',
+        'payment_image_path',
+        'payment_submitted',
+        'UserStatusId',
     ];
 }
