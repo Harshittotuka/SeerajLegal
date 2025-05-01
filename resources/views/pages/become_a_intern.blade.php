@@ -736,7 +736,7 @@
     <!-- 3) Updated script: fetch → render → equalize heights → 3D tilt on mousemove -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const API_URL = 'http://localhost:8000/api/internship-types';
+            const API_URL = '/api/internship-types';
             const container = document.querySelector('.pricing-cards');
             const membershipSelect = document.getElementById('membershipType');
             const priceDisplay = document.getElementById('priceDisplay');
