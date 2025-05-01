@@ -153,12 +153,10 @@ class MembershipController extends Controller
             $paymentLink = route('membership.payment', ['id' => $membership->id]);
 
             // Send mail via queue
-            if (config('queue.default') !== 'sync') {
-                Mail::to($membership->email)->queue(new PaymentLinkMail($membership->firstName, $paymentLink));
-            } else {
+          
                 // fallback in case queue is not configured
                 Mail::to($membership->email)->send(new PaymentLinkMail($membership->firstName, $paymentLink));
-            }
+           
 
             return response()->json(['message' => 'Membership approved. Payment link sent to member\'s email.']);
         } catch (\Exception $e) {

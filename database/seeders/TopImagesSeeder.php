@@ -89,6 +89,15 @@ class TopImagesSeeder extends Seeder {
                 'image_resolution' => json_encode([1792, 1024]),
                 'icon' => "fa-solid fa-house",
             ],
+            [
+                'image_id' => 'TopImg_int',
+                'page_name' => 'Become a Intern',
+                'title' => 'Internship',
+                'sub_title' => 'Become a Intern',
+                'image_url' => 'assets/dynamic/Top/TopImg_int.webp',
+                'image_resolution' => json_encode([1792, 1024]),
+                'icon' => "fa-regular fa-id-badge",
+            ],
         ];
 
         foreach ($topImages as $topImage) {

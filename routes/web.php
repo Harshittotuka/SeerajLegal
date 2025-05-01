@@ -14,12 +14,25 @@ use App\Http\Controllers\AuthAdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Request;
+use App\Http\Controllers\InternController;
+use Illuminate\Support\Facades\Mail;
 
+
+
+// Route to PAYMENT FOR INTERNSHIP
+Route::get('/intern/{intern}/payment', [InternController::class, 'showPaymentForm'])
+     ->name('intern.payment.form')
+     ->middleware('signed');
+     
+Route::post('/interns/{id}/submit-payment', [InternController::class, 'submitPayment'])->name('interns.submitPayment');
+
+
+
+
+// Dashboard Route
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
 
-
-use Illuminate\Support\Facades\Mail;
 
 Route::get('/test-mail', function () {
     Mail::raw('This is a test email from Laravel using Gmail SMTP.', function ($message) {
