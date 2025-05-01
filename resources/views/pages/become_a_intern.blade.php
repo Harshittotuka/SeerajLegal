@@ -710,62 +710,6 @@
     </style>
 
 
-    {{-- <div id="pricing" class="container1">
-
-        <h1 class="main-title"><span>Pricing</span> Plans</h1>
-        <p class="subtitle">Choose the perfect plan that suits your needs</p>
-
-        <div class="pricing-cards">
-          
-            <div class="card premium" data-tier="basic">
-
-                <div class="card-header">
-                    <div class="tier">Basic</div>
-                    <div class="price"><span class="currency">$</span><span class="amount">29</span><span
-                            class="period">/month</span></div>
-                </div>
-                <div class="card-content">
-                    <ul class="features">
-                        <li>Single user license</li>
-                        <li>5 projects</li>
-                        <li>50GB storage</li>
-                        <li>Basic support</li>
-                        <li class="not-included">Priority access</li>
-                        <li class="not-included">Custom branding</li>
-                    </ul>
-                    <button class="select-btn">Select Plan</button>
-                </div>
-                <div class="shine"></div>
-            </div>
-
-           
-            <div class="card premium" data-tier="premium">
-             
-                <div class="card-header">
-                    <div class="tier">Premium</div>
-                    <div class="price"><span class="currency">$</span><span class="amount">79</span><span
-                            class="period">/month</span></div>
-                </div>
-                <div class="card-content">
-                    <ul class="features">
-                        <li>Up to 5 users</li>
-                        <li>20 projects</li>
-                        <li>250GB storage</li>
-                        <li>Priority support</li>
-                        <li>Priority access</li>
-                        <li class="not-included">Custom branding</li>
-                    </ul>
-                    <button class="select-btn">Select Plan</button>
-                </div>
-                <div class="shine"></div>
-            </div>
-
-
-        </div>
-
-
-        
-    </div> --}}
 
     <style>
         .card-content {
@@ -1455,10 +1399,11 @@
     <!-- Toastify and SweetAlert2 scripts  END-->
 
 
-    <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
 
     <!-- Improved Application Status Checker -->
-<div class="py-20 flex items-center justify-center">
+    <div class="py-20 flex items-center justify-center">
 
         <div class="w-full max-w-2xl bg-white rounded-2xl shadow-lg overflow-hidden">
             <!-- Decorative Header Strip -->
@@ -1523,14 +1468,14 @@
                         icon: 'info',
                         title: '📋 Application Status',
                         html: `
-            <div style="font-size:16px; color:#333;">
-              <p><strong>Name:</strong> ${data.name}</p>
-              <p><strong>Email:</strong> ${data.email}</p>
-              <p><strong>Status:</strong> <span style="font-weight:600;">${data.status}</span></p>
-              <hr style="margin: 12px 0;" />
-              <p style="font-size:14px; color:#777;">📢 You will receive a Email if your requests Status is Changed by our admin.</p>
-            </div>
-          `,
+                        <div style="font-size:16px; color:#333;">
+                        <p><strong>Name:</strong> ${data.name}</p>
+                        <p><strong>Email:</strong> ${data.email}</p>
+                        <p><strong>Status:</strong> <span style="font-weight:600;">${data.status}</span></p>
+                        <hr style="margin: 12px 0;" />
+                        <p style="font-size:14px; color:#777;">📢 You will receive a Email if your requests Status is Changed by our admin.</p>
+                        </div>
+                    `,
                         confirmButtonText: 'OK',
                         confirmButtonColor: '#3085d6'
                     });
