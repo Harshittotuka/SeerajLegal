@@ -1,21 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="zxx">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Seeraj Legal Relief Foundation</title>
 
 
-    <title>Complete Your Payment</title>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.2/css/intlTelInput.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" />
+
+
+    <!-- code for topimage.js -->
+    <script src="{{ asset('assets/js/topimage.js') }}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetchPageContent("TopImg_int");
+        });
+    </script>
+    
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f7fa;
-            margin: 0;
-            padding: 20px;
-        }
 
         .payment-container {
             max-width: 600px;
@@ -26,12 +45,12 @@
             padding: 30px;
         }
 
-        .header {
+        .header1 {
             text-align: center;
             margin-bottom: 30px;
         }
 
-        .header h1 {
+        .header1 h1 {
             color: #2c3e50;
             margin: 0;
             font-size: 28px;
@@ -148,20 +167,43 @@
         }
     </style>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 </head>
 
 <body>
+    <!-- Navbar -->
+    @include('partials.navbar')
 
- 
+
+
+    <!-- Header Banner -->
+    <div id="page-bg" class="banner-header valign bg-img bg-fixed" data-overlay-dark="5"
+        style="padding: 60px 0; height:300px">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 caption mt-60 text-center">
+                    <h6>
+                        <div class="icon"> <i id="page-icon" class="fas fa-user-check fa-3x"></i></div>
+
+                        <span id="page-title">Membership Confirmation</span>
+
+                    </h6>
+                    <h1><span id="page-subtitle">Secure Your Spot Today</span></h1>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     {{-- right after your <body> tag, before any scripts --}}
-    @if (is_null($errorType) && !session('success'))
+    {{-- @if (is_null($errorType) && !session('success')) --}}
         <div id="payment-wrapper">
 
             <div class="payment-container">
-                <div class="header">
+                <div class="header1">
                     <h1>Complete Your Payment</h1>
                 </div>
 
@@ -215,7 +257,7 @@
                 </form>
             </div>
         </div>
-    @endif
+    {{-- @endif --}}
 
 
     <script>
@@ -260,9 +302,9 @@
                         });
                     }
                 }).then(() => {
-                   setTimeout(() => {
-                   location.replace("{{ route('home') }}");
-                   }, 2000);
+                    setTimeout(() => {
+                        location.replace("{{ route('home') }}");
+                    }, 2000);
 
                 });
                 return; // <— stop here if success
@@ -293,7 +335,7 @@
             const fileInput = document.getElementById('payment_confirmation');
             if (fileInput) {
                 fileInput.addEventListener('change', function() {
-                    const fileName = this.files[0]?.name || 'No file chosen';
+                    const fileName = this.files[0] ?.name || 'No file chosen';
                     document.getElementById('file-name').textContent = fileName;
                 });
             }
@@ -318,8 +360,6 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script>
         if (performance.navigation.type === 2) {
             // User used back or forward button
@@ -328,10 +368,37 @@
     </script>
 
 
+
+
+
+
+
+
+
+
+
+    <!-- Get in touch -->
+
+    <!-- Footer -->
+    @include('partials.footer')
+
+    <!-- jQuery -->
+    <script src="{{ asset('assets/js/jquery-migrate-3.0.0.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-3.6.3.min.js') }}"></script>
+    <script src="{{ asset('assets/js/modernizr-2.6.2.min.js') }}"></script>
+    <script src="{{ asset('assets/js/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.isotope.v3.0.2.js') }}"></script>
+    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/scrollIt.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.stellar.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.magnific-popup.js') }}"></script>
+    <script src="{{ asset('assets/js/YouTubePopUp.js') }}"></script>
+    <script src="{{ asset('assets/js/smooth-scroll.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vegas.slider.min.js') }}"></script>
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
 </body>
-
-</html>
-
-
 
 </html>

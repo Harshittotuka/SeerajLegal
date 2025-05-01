@@ -769,7 +769,7 @@
                             .map(line => {
                                 const isBullet = /^\•/.test(line);
                                 const text = line.replace(/^[\•\-\*]\s*/, '');
-                                return `<li${isBullet ? '' : ' class="not-included"'}>${text}</li>`;
+                                return `<li${isBullet ? '' : ' class=""'}>${text}</li>`;
                             }).join('');
 
                         card.innerHTML = `
