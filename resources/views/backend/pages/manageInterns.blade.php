@@ -164,83 +164,116 @@
                 </div>
             </div>
 
- <style>
-     .btn-icon-square {
-         width: 44px;
-         height: 44px;
-         display: inline-flex;
-         justify-content: center;
-         align-items: center;
-         padding: 0;
-         font-size: 1rem;
-         border-radius: 0.5rem;
-     }
+            <style>
+                .btn-icon-square {
+                    width: 44px;
+                    height: 44px;
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0;
+                    font-size: 1rem;
+                    border-radius: 0.5rem;
+                }
 
 
-     /* Optional hover effect */
-     .btn-icon-square:hover {
-         background-color: #e9f5ff;
-         border-color: #007bff;
-     }
+                /* Optional hover effect */
+                .btn-icon-square:hover {
+                    background-color: #e9f5ff;
+                    border-color: #007bff;
+                }
+            </style>
+            <!-- Payment Verification Modal -->
+            <div class="modal fade" id="verifyPaymentModal" tabindex="-1" aria-labelledby="verifyPaymentModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                    <div class="modal-content shadow">
+                        <div class="modal-header bg-dark text-white">
+                            <h5 class="modal-title" id="verifyPaymentModalLabel">Verify Payment</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-3" id="verifyPaymentDetailsContainer">
+                                <!-- Payment details will be dynamically inserted here -->
+                            </div>
+                        </div>
+                        <div class="modal-footer bg-light d-flex justify-content-between">
+                            <button type="button" class="btn btn-success" id="confirmPaymentBtn">
+                                <i class="material-symbols-rounded align-middle">check_circle</i> Confirm
+                            </button>
+                            <button type="button" class="btn btn-danger" id="rejectPaymentBtn">
+                                <i class="material-symbols-rounded align-middle">cancel</i> Reject
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
- </style>
+            <script>
+                document.addEventListener("DOMContentLoaded", async function() {
+                    const apiUrl = "/api/interns";
 
- <script>
-     document.addEventListener("DOMContentLoaded", async function() {
-         const apiUrl = "/api/interns";
+                    async function fetchInterns() {
+                        try {
+                            const response = await fetch(apiUrl);
+                            const result = await response.json();
 
-         async function fetchInterns() {
-             try {
-                 const response = await fetch(apiUrl);
-                 const result = await response.json();
+                            console.log("Interns fetched:", result); // Debugging
 
-                 console.log("Interns fetched:", result); // Debugging
+                            const interns = result.data; // ✅ Correct place to grab data array
 
-                 const interns = result.data; // ✅ Correct place to grab data array
+                            const tableBody = document.getElementById("membersTableBody");
+                            tableBody.innerHTML = "";
 
-                 const tableBody = document.getElementById("membersTableBody");
-                 tableBody.innerHTML = "";
+                            interns.forEach((intern, index) => {
+                                let actionHTML = '';
 
-                 interns.forEach((intern, index) => {
-                     let actionHTML = '';
-
-                     if (intern.status === "pending" || intern.status === "payment pending" ||
-                         intern.status === "payment done waiting approval") {
-                         actionHTML = `
+                                if (intern.status === "pending") {
+                                    actionHTML = `
            <button class="btn btn-sm btn-outline-success me-1" onclick='changeInternStatus(${intern.id}, "payment-pending")'>
                <i class="material-symbols-rounded">check_circle</i> Accept
            </button>
            <button class="btn btn-sm btn-outline-danger" onclick='changeInternStatus(${intern.id}, "rejected")'>
                <i class="material-symbols-rounded">cancel</i> Reject
            </button>`;
-                     } else {
-                         let statusColor = "secondary"; // default
+                                } else if (intern.status === "payment-done-waiting-for-approval") {
+                                    actionHTML = `
+                                <span class="badge bg-primary text-capitalize">${intern.status.replaceAll('-', ' ')}</span>
+                                <button class="btn btn-lg btn-outline-warning ms-2" style="background-color: black;" onclick='openVerifyPaymentModal(${JSON.stringify(intern)})'>
 
-                         switch (intern.status) {
-                             case "pending":
-                                 statusColor = "warning"; // Yellow
-                                 break;
-                             case "payment-pending":
-                                 statusColor = "info"; // Light Blue
-                                 break;
-                             case "payment-done-waiting-for-approval":
-                                 statusColor = "primary"; // Darker Blue
-                                 break;
-                             case "approved":
-                                 statusColor = "success"; // Green
-                                 break;
-                             case "rejected":
-                                 statusColor = "danger"; // Red
-                                 break;
-                         }
+                              <i class="fa-solid fa-person-circle-check"></i>
+
+                                </button>`;
+                                } else {
+                                    let statusColor = "secondary"; // default
+
+                                    switch (intern.status) {
+                                        case "pending":
+                                            statusColor = "warning"; // Yellow
+                                            break;
+                                        case "payment-pending":
+                                            statusColor = "info"; // Light Blue
+                                            break;
+                                        case "payment-done-waiting-for-approval":
+                                            statusColor = "primary"; // Darker Blue
+                                            break;
+                                        case "approved":
+                                            statusColor = "success"; // Green
+                                            break;
+                                        case "rejected":
+                                            statusColor = "danger"; // Red
+                                            break;
+                                    }
 
 
 
-                         actionHTML =
-                             `<span class="badge bg-${statusColor} text-capitalize">${intern.status}</span>`;
-                     }
+                                    actionHTML =
+                                        `<span class="badge bg-${statusColor} text-capitalize">${intern.status}</span>`;
+                                }
 
-                     const row = `
+                                const row = `
            <tr>
                <td class="text-center align-middle">${index + 1}</td>
                <td>${intern.firstName} ${intern.lastName}</td>
@@ -256,72 +289,73 @@
                <td>${actionHTML}</td>
            </tr>`;
 
-                     tableBody.insertAdjacentHTML("beforeend", row);
-                 });
+                                tableBody.insertAdjacentHTML("beforeend", row);
+                            });
 
-                 if (!$.fn.DataTable.isDataTable('#membersTable')) {
-                     $('#membersTable').DataTable({
-                         paging: true
-                         , searching: true
-                         , ordering: true
-                         , responsive: true
-                     });
-                 }
+                            if (!$.fn.DataTable.isDataTable('#membersTable')) {
+                                $('#membersTable').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    ordering: true,
+                                    responsive: true
+                                });
+                            }
 
-             } catch (error) {
-                 console.error("Error loading interns:", error);
-                 showToast("Failed to fetch interns.", true);
-             }
-         }
+                        } catch (error) {
+                            console.error("Error loading interns:", error);
+                            showToast("Failed to fetch interns.", true);
+                        }
+                    }
 
 
 
-         window.changeInternStatus = async (id, newStatus) => {
-             try {
-                 const response = await fetch(`/api/interns/${id}/status`, {
-                     method: 'PATCH'
-                     , headers: {
-                         'Content-Type': 'application/json'
-                     }
-                     , body: JSON.stringify({
-                         status: newStatus
-                     })
-                 });
+                    window.changeInternStatus = async (id, newStatus) => {
+                        try {
+                            const response = await fetch(`/api/interns/${id}/status`, {
+                                method: 'PATCH',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    status: newStatus
+                                })
+                            });
 
-                 const result = await response.json();
+                            const result = await response.json();
 
-                 if (response.ok) {
-                     showToast("Payment link has been sent to the user."|| "Status updated successfully.");
-                     refreshTable();
-                 } else {
-                     showToast(result.message || "Failed to update status.", true);
-                 }
-             } catch (error) {
-                 console.error("Change status error:", error);
-                 showToast("Error changing status.", true);
-             }
-         };
+                            if (response.ok) {
+                                showToast("Payment link has been sent to the user." ||
+                                    "Status updated successfully.");
+                                refreshTable();
+                            } else {
+                                showToast(result.message || "Failed to update status.", true);
+                            }
+                        } catch (error) {
+                            console.error("Change status error:", error);
+                            showToast("Error changing status.", true);
+                        }
+                    };
 
-     window.viewInternDetails = (intern) => {
-     const detailBlock = (label, value) => `
+                    window.viewInternDetails = (intern) => {
+                        const detailBlock = (label, value) => `
      <div class="col-md-6">
          <div class="border rounded p-2">
              <strong>${label}:</strong><br> ${value || 'N/A'}
          </div>
      </div>`;
 
-     const sectionTitle = (title) => `
+                        const sectionTitle = (title) => `
      <div class="col-12 mt-3">
          <h6 class="text-primary border-bottom pb-1">${title}</h6>
      </div>`;
 
-     const resumeDownload = intern.resumePath
-     ? `<a href="/${intern.resumePath}" class="btn btn-outline-primary btn-sm mt-2" target="_blank">
+                        const resumeDownload = intern.resumePath ?
+                            `<a href="/${intern.resumePath}" class="btn btn-outline-primary btn-sm mt-2" target="_blank">
          <i class="fas fa-download"></i> Download Resume
-     </a>`
-     : 'No Resume Uploaded';
+     </a>` :
+                            'No Resume Uploaded';
 
-     const detailsHTML = `
+                        const detailsHTML = `
      ${sectionTitle('Basic Information')}
      ${detailBlock('Name', `${intern.firstName} ${intern.lastName}`)}
      ${detailBlock('Email', intern.email)}
@@ -351,68 +385,121 @@
      ${detailBlock('Created At', new Date(intern.created_at).toLocaleString())}
      `;
 
-     document.getElementById("memberDetailsContainer").innerHTML = detailsHTML;
+                        document.getElementById("memberDetailsContainer").innerHTML = detailsHTML;
 
-     // Set up approve/reject buttons visibility and actions
-     const approveBtn = document.getElementById("approveBtn");
-     const rejectBtn = document.getElementById("rejectBtn");
+                        // Set up approve/reject buttons visibility and actions
+                        const approveBtn = document.getElementById("approveBtn");
+                        const rejectBtn = document.getElementById("rejectBtn");
 
-     if (intern.status === "pending" || intern.status === "payment pending" || intern.status === "payment done waiting approval") {
-     approveBtn.classList.remove('d-none');
-     rejectBtn.classList.remove('d-none');
+                        if (intern.status === "pending" || intern.status === "payment pending" || intern.status ===
+                            "payment done waiting approval") {
+                            approveBtn.classList.remove('d-none');
+                            rejectBtn.classList.remove('d-none');
 
-     approveBtn.onclick = () => {
-     changeInternStatus(intern.id, "payment-pending");
-     bootstrap.Modal.getInstance(document.getElementById("memberDetailsModal")).hide();
-     };
+                            approveBtn.onclick = () => {
+                                changeInternStatus(intern.id, "payment-pending");
+                                bootstrap.Modal.getInstance(document.getElementById("memberDetailsModal"))
+                                    .hide();
+                            };
 
-     rejectBtn.onclick = () => {
-     changeInternStatus(intern.id, "rejected");
-     bootstrap.Modal.getInstance(document.getElementById("memberDetailsModal")).hide();
-     };
-     } else {
-     approveBtn.classList.add('d-none');
-     rejectBtn.classList.add('d-none');
-     }
+                            rejectBtn.onclick = () => {
+                                changeInternStatus(intern.id, "rejected");
+                                bootstrap.Modal.getInstance(document.getElementById("memberDetailsModal"))
+                                    .hide();
+                            };
+                        } else {
+                            approveBtn.classList.add('d-none');
+                            rejectBtn.classList.add('d-none');
+                        }
 
-     const modal = new bootstrap.Modal(document.getElementById("memberDetailsModal"));
-     modal.show();
-     };
-
-
-
-
-
-         function showToast(message, isError = false) {
-             Toastify({
-                 text: message
-                 , backgroundColor: isError ?
-                     "linear-gradient(to right, #ff416c, #ff4b2b)" : "linear-gradient(to right, #00b09b, #96c93d)"
-                 , duration: 3000
-             }).showToast();
-         }
-
-         function refreshTable() {
-             if ($.fn.DataTable.isDataTable('#membersTable')) {
-                 $('#membersTable').DataTable().destroy();
-             }
-             fetchInterns();
-         }
-
-         document.getElementById("refreshMembers")?.addEventListener("click", () => {
-             refreshTable();
-         });
-
-         fetchInterns();
-     });
-
- </script>
+                        const modal = new bootstrap.Modal(document.getElementById("memberDetailsModal"));
+                        modal.show();
+                    };
 
 
 
+
+
+                    function showToast(message, isError = false) {
+                        Toastify({
+                            text: message,
+                            backgroundColor: isError ?
+                                "linear-gradient(to right, #ff416c, #ff4b2b)" :
+                                "linear-gradient(to right, #00b09b, #96c93d)",
+                            duration: 3000
+                        }).showToast();
+                    }
+
+                    function refreshTable() {
+                        if ($.fn.DataTable.isDataTable('#membersTable')) {
+                            $('#membersTable').DataTable().destroy();
+                        }
+                        fetchInterns();
+                    }
+
+                    document.getElementById("refreshMembers")?.addEventListener("click", () => {
+                        refreshTable();
+                    });
+
+                    fetchInterns();
+                });
+            </script>
+
+
+            <script>
+                // ...existing code...
+                window.openVerifyPaymentModal = (intern) => {
+                    const detailBlock = (label, value) => `
+    <div class="col-md-6">
+        <div class="border rounded p-2">
+            <strong>${label}:</strong><br> ${value || 'N/A'}
+        </div>
+    </div>`;
+
+                    const paymentImage = intern.payment_image_path ?
+                        `<img src="/${intern.payment_image_path}" alt="Payment Proof" class="img-fluid rounded mt-2">` :
+                        'No Payment Image Uploaded';
+
+                    const detailsHTML = `
+    ${detailBlock('Statement Number', intern.statement_number)}
+    ${detailBlock('Price', intern.price ? `$${intern.price}` : 'N/A')}
+    ${detailBlock('Membership Type', intern.membershipType)}
+    ${detailBlock('Name', `${intern.firstName} ${intern.lastName}`)}
+    ${detailBlock('Email', intern.email)}
+    ${detailBlock('Phone', intern.phone)}
+    ${detailBlock('Created Date', new Date(intern.created_at).toLocaleString())}
+    <div class="col-12 mt-3">
+        <h6 class="text-primary border-bottom pb-1">Payment Image</h6>
+        ${paymentImage}
+    </div>`;
+
+                    document.getElementById("verifyPaymentDetailsContainer").innerHTML = detailsHTML;
+
+                    const confirmBtn = document.getElementById("confirmPaymentBtn");
+                    const rejectBtn = document.getElementById("rejectPaymentBtn");
+
+                    confirmBtn.onclick = () => {
+                        changeInternStatus(intern.id, "approved");
+                       
+                        bootstrap.Modal.getInstance(document.getElementById("verifyPaymentModal")).hide();
+                        showToast("Payment confirmed successfully.");
+                    
+                    };
+
+                    rejectBtn.onclick = () => {
+                        changeInternStatus(intern.id, "rejected");
+                        bootstrap.Modal.getInstance(document.getElementById("verifyPaymentModal")).hide();
+                        showToast("Payment rejected.");
+                    };
+
+                    const modal = new bootstrap.Modal(document.getElementById("verifyPaymentModal"));
+                    modal.show();
+                };
+                // ...existing code...
+            </script>
     </main>
 
-   
+
 
 
 

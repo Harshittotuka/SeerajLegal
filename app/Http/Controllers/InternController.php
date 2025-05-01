@@ -283,7 +283,7 @@ class InternController extends Controller
             $intern = Intern::findOrFail($id);
 
             $request->validate([
-                'status' => 'required|string|in:pending,accepted,rejected,payment-pending,payment-done-waiting-for-approval',
+                'status' => 'required|string|in:pending,accepted,rejected,payment-pending,payment-done-waiting-for-approval,approved',
             ]);
 
             $intern->status = $request->status;
