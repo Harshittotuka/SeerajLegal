@@ -697,7 +697,7 @@
                     <a class="nav-link dropdown-toggle {{ request()->routeIs('service_rules') ? 'active' : '' }}"
                         href="#" role="button" data-bs-toggle="dropdown">Rules <i class="ti-angle-down"></i></a>
                     <ul class="dropdown-menu" id="rulesDropdown">
-                       s <!-- Dynamic rules links will be inserted here -->
+                        <!-- Dynamic rules links will be inserted here -->
                     </ul>
                 </li>
 
