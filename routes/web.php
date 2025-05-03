@@ -18,7 +18,7 @@ use App\Http\Controllers\InternController;
 use Illuminate\Support\Facades\Mail;
 
 
-
+Route::post('/contact/send', [ContactController::class, 'sendMail'])->name('contact.send');
 // Route to PAYMENT FOR INTERNSHIP
 Route::get('/intern/{intern}/payment', [InternController::class, 'showPaymentForm'])
      ->name('intern.payment.form')

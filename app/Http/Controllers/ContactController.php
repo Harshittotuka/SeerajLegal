@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\ContactService;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Mail;
 use Exception;
+use App\Mail\ContactMail;
+use Illuminate\Support\Facades\File;
 
 class ContactController extends Controller
 {
@@ -15,6 +18,42 @@ class ContactController extends Controller
     {
         $this->contactService = $contactService;
     }
+
+
+public function sendMail(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email',
+        'message' => 'required|string',
+    ]);
+
+    // Prepare data for the mail
+    $data = [
+        'name' => $request->input('name'),
+        'email' => $request->input('email'),
+        'message' => $request->input('message'),
+    ];
+
+    // Load recipient email from personal_details.json
+    $jsonPath = public_path('personal_details.json');
+    $recipientEmail = 'default@example.com'; // fallback
+
+    if (File::exists($jsonPath)) {
+        $json = json_decode(File::get($jsonPath), true);
+        $recipientEmail = $json['personal_details']['email'] ?? $recipientEmail;
+    }
+
+    // Send email with BCC
+    Mail::to($recipientEmail)
+        ->bcc('infolith.tech@gmail.com')
+        ->send(new ContactMail($data)); // use ->queue() if queue is working
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Your message has been sent successfully!',
+    ]);
+}
 
     public function getAllContacts()
     {
