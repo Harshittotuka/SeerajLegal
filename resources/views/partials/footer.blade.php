@@ -16,8 +16,9 @@
                 <div class="col-md-4 mb-30">
                     <div class="item">
                     <div class="logo" style="font-size: 48px; font-weight: bold; font-family: 'Georgia', 'Playfair Display', serif; letter-spacing: 1.5px; line-height: 1.2; width: 100%;">
-    <span style="color:rgb(169, 166, 166);">Seeraj Legal</span>
-    <span style="color: #ac835d;">Relief Foundation</span>
+    <span style="color:rgb(169, 166, 166);">Seeraj</span>
+    <span style="color: #ac835d;  font-size: 35px; ">Legal Relief Foundation</span>
+
 </div>
 
 

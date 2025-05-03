@@ -9,12 +9,13 @@
             1,
             3
         ],
-        "title": "Seeraj Legal <br> Relief Foundation",
-        "para": "Non-Government organization registered under ministry of corporate affairs",
+        "title": "Seeraj <br> Legal Relief Foundation",
+        "para": "Non-Government Organization registered under Ministry of Corporate Affairs",
         "points": [
-            "Registration Number : <br><h4>093001</h4>",
-            "CIN Number : <br><h4>U94120RJ2024NPL093001</h4>",
-            "Date of Incorporation : <br><h4>28/02/2024</h4>"],
+            "Registration Number : <br><h4>093001<\/h4>",
+            "CIN Number : <br><h4>U94120RJ2024NPL093001<\/h4>",
+            "Date of Incorporation : <br><h4>28\/02\/2024<\/h4>"
+        ],
         "flag": "enabled",
         "icon_Type": "fontawesome",
         "icon": "fas fa-gavel",
@@ -69,5 +70,24 @@
         "icon_Type": "fontawesome",
         "icon": "fa-solid fa-location-dot",
         "ss": "\/assets\/backend\/img\/previews\/S_id8.png"
+    },
+    {
+        "usage": [
+            "home"
+        ],
+        "S_id": 11,
+        "S_order": 11,
+        "s_include": [
+            1,
+            3
+        ],
+        "title": "Our <span>Expertise<\/span>",
+        "para": "We provide expert legal solutions across various domains.",
+        "points": null,
+        "flag": "enabled",
+        "icon_Type": "fontawesome",
+        "icon": "fa-brands fa-servicestack",
+        "ss": "\/assets\/backend\/img\/previews\/S_id5home.png",
+        "source": "home.json"
     }
 ]
