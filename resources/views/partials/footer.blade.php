@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-12 text-end">
-                    <p>Copyright 2025 by <a href="#">DevLancers</a></p>
+                    <p>Copyright 2025 by <a href="https://infolith.tech">Infolith</a></p>
                 </div>
             </div>
         </div>

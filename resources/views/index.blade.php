@@ -128,6 +128,13 @@
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
+            /* smaller font for the legal relief foundation from title */
+            .small-title {
+                font-size: 2rem; /* Or 1.8rem, depending on what you prefer */
+                display: block;
+                margin-top: 10px;
+            }
+
 
             /* smaller font for the legal relief foundation from title */
             .small-title {
