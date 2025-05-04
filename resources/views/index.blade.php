@@ -19,16 +19,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Seeraj Legal Relief Foundation | Legal Aid & ADR Services Across India</title>
+    <title>Seeraj Legal Relief Foundation | Legal Aid & ADR Services Across Rajasthan</title>
     <meta name="description"
-        content="Seeraj Legal Relief Foundation is a registered NGO offering legal aid, ADR services, and dispute resolution across India.">
+        content="Seeraj Legal Relief Foundation is a registered NGO offering legal aid, ADR services, and dispute resolution across Rajasthan's 33+ districts.">
     <meta name="keywords"
-        content="legal aid NGO Rajasthan,seeraj , NGO ,ADR services India, alternative dispute resolution, Seeraj Legal, legal help NGO, legal support ">
+        content="legal aid NGO Rajasthan,seeraj , NGO ,ADR services India, alternative dispute resolution, Seeraj Legal, legal help NGO, legal support Rajasthan">
 
     <!-- Open Graph for social previews -->
-    <meta property="og:title" content="Seeraj Legal Relief Foundation | Legal Help Across India">
+    <meta property="og:title" content="Seeraj Legal Relief Foundation | Legal Help Across Rajasthan">
     <meta property="og:description"
-        content="Bringing justice to every corner of India with affordable legal services, mediation, and NGO-driven legal aid.">
+        content="Bringing justice to every corner of Rajasthan with affordable legal services, mediation, and NGO-driven legal aid.">
     <meta property="og:image" content="https://seerajlegal.com/assets/dynamic/logo/seerajlegal_card.webp">
     <meta property="og:url" content="https://seerajlegal.com/">
     <meta property="og:type" content="website">
@@ -36,7 +36,8 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Seeraj Legal Relief Foundation">
-    <meta name="twitter:description" content="Legal aid, ADR, and dispute resolution all over India.">
+    <meta name="twitter:description"
+        content="Legal aid, ADR, and dispute resolution across all 33+ districts of Rajasthan.">
     <meta name="twitter:image" content="https://seerajlegal.com/assets/dynamic/logo/seerajlegal_card.webp">
 
 
@@ -267,61 +268,59 @@
             </div>
         </div>
     </aside>
-<style>
-.small-text {
-font-size: 0.7em;
-font-style: normal; /* Ensures text is NOT italic */
-color: #555; /* Optional: subtle contrast */
-}
-
-
-
-</style>
+    <style>
+        .small-text {
+            font-size: 0.7em;
+            font-style: normal;
+            /* Ensures text is NOT italic */
+            color: #555;
+            /* Optional: subtle contrast */
+        }
+    </style>
 
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            fetch("home.json")
-                .then(response => response.json())
-                .then(data => {
-                    const sliderData = data.find(item => item.S_id === 10);
-                    if (!sliderData) {
-                        console.warn("S_id:10 not found in home.json");
-                        return;
-                    }
+                    fetch("home.json")
+                        .then(response => response.json())
+                        .then(data => {
+                                const sliderData = data.find(item => item.S_id === 10);
+                                if (!sliderData) {
+                                    console.warn("S_id:10 not found in home.json");
+                                    return;
+                                }
 
-                    // Inject icon
-                    document.getElementById("slider-icon").innerHTML = `<i class="${sliderData.icon}"></i>`;
+                                // Inject icon
+                                document.getElementById("slider-icon").innerHTML = `<i class="${sliderData.icon}"></i>`;
 
-                  let title = sliderData.title;
+                                let title = sliderData.title;
 
-                  // Replace the <br> with <br><span> and close the span at the end
-                    title = sliderData.title.replace(/<br\s*\ /?>/i, "<br><span class='small-text'>") + "</span>";
-                        document.getElementById("slider-title").innerHTML = title;
+                                // Replace the <br> with <br><span> and close the span at the end
+                          // Optional: adjust regex if your data has `<br>` or `<br />` or `<br />`
+                        //   title = sliderData.title.replace(/<br/?>/i, "<br><span class='small-text'>") + "</span>";
+                                    document.getElementById("slider-title").innerHTML = title;
 
 
 
+                                    document.getElementById("slider-para").textContent = sliderData.para;
 
-                    document.getElementById("slider-para").textContent = sliderData.para;
+                                    // Feature icon fallback list
+                                    const iconClasses = [
+                                        "fa-solid fa-thumbtack"
 
-                    // Feature icon fallback list
-                    const iconClasses = [
-                        "fa-solid fa-thumbtack"
+                                    ];
 
-                    ];
+                                    // Render feature boxes
+                                    const desktopBoxContainer = document.getElementById("feature-boxes-desktop");
+                                    const mobileCarouselContainer = document.getElementById("feature-boxes-mobile");
 
-                    // Render feature boxes
-                    const desktopBoxContainer = document.getElementById("feature-boxes-desktop");
-                    const mobileCarouselContainer = document.getElementById("feature-boxes-mobile");
+                                    desktopBoxContainer.innerHTML = ""; mobileCarouselContainer.innerHTML = "";
 
-                    desktopBoxContainer.innerHTML = "";
-                    mobileCarouselContainer.innerHTML = "";
+                                    sliderData.points.forEach((point, index) => {
+                                        const iconClass = iconClasses[index % iconClasses.length];
 
-                    sliderData.points.forEach((point, index) => {
-                        const iconClass = iconClasses[index % iconClasses.length];
-
-                        // Desktop feature box
-                        const desktopBox = `
+                                        // Desktop feature box
+                                        const desktopBox = `
                         <div class="col-lg-4 col-md-6 text-center mb-4">
                             <div class="feature-box">
                                 <div class="icon mb-3"><i class="${iconClass} fa-2x"></i></div>
@@ -329,11 +328,11 @@ color: #555; /* Optional: subtle contrast */
                             </div>
                         </div>
                     `;
-                        desktopBoxContainer.innerHTML += desktopBox;
+                                        desktopBoxContainer.innerHTML += desktopBox;
 
-                        // Mobile carousel feature box
-                        const activeClass = index === 0 ? "active" : "";
-                        const mobileBox = `
+                                        // Mobile carousel feature box
+                                        const activeClass = index === 0 ? "active" : "";
+                                        const mobileBox = `
                         <div class="carousel-item ${activeClass}">
                             <div class="feature-box mx-3">
                                 <div class="icon mb-3"><i class="${iconClass} fa-2x"></i></div>
@@ -341,13 +340,13 @@ color: #555; /* Optional: subtle contrast */
                             </div>
                         </div>
                     `;
-                        mobileCarouselContainer.innerHTML += mobileBox;
-                    });
-                })
-                .catch(error => {
-                    console.error("Error loading home.json:", error);
-                });
-        });
+                                        mobileCarouselContainer.innerHTML += mobileBox;
+                                    });
+                                })
+                            .catch(error => {
+                                console.error("Error loading home.json:", error);
+                            });
+                        });
     </script>
 
 
