@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello {{ $intern->firstName }} {{ $intern->lastName }},
 
-Thank you for choosing our {{ $intern->membershipType }} membership.
+Thank you for choosing our {{ $intern->membershipType }} Internship.
 The amount due is **₹{{ $intern->price }}**.
 
 @component('mail::button', ['url' => $paymentUrl])
