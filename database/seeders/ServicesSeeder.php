@@ -22,7 +22,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-briefcase",
-                 'top_image' => 'assets/dynamic/services/top_arbitration.webp',
+                 'top_image' => 'assets/dynamic/services/top_Arbitration.webp',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -35,7 +35,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-briefcase",
-                 'top_image' => 'assets/dynamic/services/top_arbitration.webp',
+                 'top_image' => 'assets/dynamic/services/top_Arbitration.webp',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -48,7 +48,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-briefcase",
-                 'top_image' => 'assets/dynamic/services/top_arbitration.webp',
+                 'top_image' => 'assets/dynamic/services/top_Arbitration.webp',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -61,7 +61,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-briefcase",
-                 'top_image' => 'assets/dynamic/services/top_arbitration.webp',
+                 'top_image' => 'assets/dynamic/services/top_Arbitration.webp',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -74,7 +74,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-briefcase",
-                 'top_image' => 'assets/dynamic/services/top_arbitration.webp',
+                 'top_image' => 'assets/dynamic/services/top_Arbitration.webp',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -87,7 +87,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-briefcase",
-                 'top_image' => 'assets/dynamic/services/top_arbitration.webp',
+                 'top_image' => 'assets/dynamic/services/top_Arbitration.webp',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -100,7 +100,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-briefcase",
-                 'top_image' => 'assets/dynamic/services/top_arbitration.webp',
+                 'top_image' => 'assets/dynamic/services/top_Arbitration.webp',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -113,7 +113,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-briefcase",
-                 'top_image' => 'assets/dynamic/services/top_arbitration.webp',
+                 'top_image' => 'assets/dynamic/services/top_Arbitration.webp',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -126,7 +126,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-briefcase",
-                 'top_image' => 'assets/dynamic/services/top_arbitration.webp',
+                 'top_image' => 'assets/dynamic/services/top_Arbitration.webp',
             ],
             [
                 'service_name' => 'Arbitration',
@@ -139,7 +139,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-briefcase",
-                 'top_image' => 'assets/dynamic/services/top_arbitration.webp',
+                 'top_image' => 'assets/dynamic/services/top_Arbitration.webp',
             ],
 
             [
@@ -153,7 +153,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'icon' => "fa-solid fa-user-graduate",
-                 'top_image' => 'assets/dynamic/services/top_mediation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Mediation.webp',
             ],
             [
                 'service_name' => 'Mediation',
@@ -166,7 +166,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'icon' => "fa-solid fa-user-graduate",
-                 'top_image' => 'assets/dynamic/services/top_mediation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Mediation.webp',
             ],
             [
                 'service_name' => 'Mediation',
@@ -179,7 +179,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'icon' => "fa-solid fa-user-graduate",
-                 'top_image' => 'assets/dynamic/services/top_mediation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Mediation.webp',
             ],
             [
                 'service_name' => 'Mediation',
@@ -192,7 +192,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'icon' => "fa-solid fa-user-graduate",
-                 'top_image' => 'assets/dynamic/services/top_mediation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Mediation.webp',
             ],
             [
                 'service_name' => 'Mediation',
@@ -205,7 +205,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'icon' => "fa-solid fa-user-graduate",
-                 'top_image' => 'assets/dynamic/services/top_mediation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Mediation.webp',
             ],
             [
                 'service_name' => 'Mediation',
@@ -218,7 +218,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'icon' => "fa-solid fa-user-graduate",
-                'top_image' => 'assets/dynamic/services/top_mediation.webp',
+                'top_image' => 'assets/dynamic/services/top_Mediation.webp',
             ],
             
             [
@@ -232,7 +232,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'icon' => "fa-solid fa-user-graduate",
-                 'top_image' => 'assets/dynamic/services/top_mediation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Mediation.webp',
             ],
             [
                 'service_name' => 'Mediation',
@@ -245,7 +245,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'icon' => "fa-solid fa-user-graduate",
-                 'top_image' => 'assets/dynamic/services/top_mediation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Mediation.webp',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -258,7 +258,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-building-columns',
-                 'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
+                 'top_image' => 'assets/dynamic/services/top_Lok_Adalat.webp',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -271,7 +271,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-building-columns',
-                 'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
+                 'top_image' => 'assets/dynamic/services/top_Lok_Adalat.webp',
             ],
 
             [
@@ -285,7 +285,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-building-columns',
-                 'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
+                 'top_image' => 'assets/dynamic/services/top_Lok_Adalat.webp',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -298,7 +298,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-building-columns',
-                 'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
+                 'top_image' => 'assets/dynamic/services/top_Lok_Adalat.webp',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -311,7 +311,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-building-columns',
-                 'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
+                 'top_image' => 'assets/dynamic/services/top_Lok_Adalat.webp',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -324,7 +324,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-building-columns',
-                 'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
+                 'top_image' => 'assets/dynamic/services/top_Lok_Adalat.webp',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -337,7 +337,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-building-columns',
-                 'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
+                 'top_image' => 'assets/dynamic/services/top_Lok_Adalat.webp',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -350,7 +350,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-building-columns',
-                 'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
+                 'top_image' => 'assets/dynamic/services/top_Lok_Adalat.webp',
             ],
             [
                 'service_name' => 'Lok Adalat',
@@ -363,7 +363,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => 'fa-solid fa-building-columns',
-                 'top_image' => 'assets/dynamic/services/top_lok_adalat.webp',
+                 'top_image' => 'assets/dynamic/services/top_Lok_Adalat.webp',
             ],
             [
                 'service_name' => 'Conciliation',
@@ -376,7 +376,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-scale-balanced",
-                 'top_image' => 'assets/dynamic/services/top_conciliation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Conciliation.webp',
             ],
             [
                 'service_name' => 'Conciliation',
@@ -389,7 +389,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-scale-balanced",
-                 'top_image' => 'assets/dynamic/services/top_conciliation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Conciliation.webp',
             ],
             [
                 'service_name' => 'Conciliation',
@@ -402,7 +402,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-scale-balanced",
-                 'top_image' => 'assets/dynamic/services/top_conciliation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Conciliation.webp',
             ],
             [
                 'service_name' => 'Conciliation',
@@ -415,7 +415,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-scale-balanced",
-                 'top_image' => 'assets/dynamic/services/top_conciliation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Conciliation.webp',
             ],
             [
                 'service_name' => 'Conciliation',
@@ -428,7 +428,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-scale-balanced",
-                 'top_image' => 'assets/dynamic/services/top_conciliation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Conciliation.webp',
             ],
             [
                 'service_name' => 'Conciliation',
@@ -441,7 +441,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-scale-balanced",
-                 'top_image' => 'assets/dynamic/services/top_conciliation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Conciliation.webp',
             ],
             [
                 'service_name' => 'Conciliation',
@@ -454,7 +454,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-scale-balanced",
-                 'top_image' => 'assets/dynamic/services/top_conciliation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Conciliation.webp',
             ],
 
             [
@@ -468,7 +468,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-user-injured",
-                 'top_image' => 'assets/dynamic/services/top_negotiation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Negotiation.webp',
             ],
             [
                 'service_name' => 'Negotiation',
@@ -481,7 +481,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-user-injured",
-                 'top_image' => 'assets/dynamic/services/top_negotiation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Negotiation.webp',
             ],
             [
                 'service_name' => 'Negotiation',
@@ -494,7 +494,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-user-injured",
-                 'top_image' => 'assets/dynamic/services/top_negotiation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Negotiation.webp',
             ],
             [
                 'service_name' => 'Negotiation',
@@ -507,7 +507,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-user-injured",
-                 'top_image' => 'assets/dynamic/services/top_negotiation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Negotiation.webp',
             ],
             [
                 'service_name' => 'Negotiation',
@@ -520,7 +520,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-user-injured",
-                 'top_image' => 'assets/dynamic/services/top_negotiation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Negotiation.webp',
             ],
             [
                 'service_name' => 'Negotiation',
@@ -533,7 +533,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-user-injured",
-                 'top_image' => 'assets/dynamic/services/top_negotiation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Negotiation.webp',
             ],
             [
                 'service_name' => 'Negotiation',
@@ -546,7 +546,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-user-injured",
-                 'top_image' => 'assets/dynamic/services/top_negotiation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Negotiation.webp',
             ],
             [
                 'service_name' => 'Negotiation',
@@ -559,7 +559,7 @@ class ServicesSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'icon' => "fa-solid fa-user-injured",
-                 'top_image' => 'assets/dynamic/services/top_negotiation.webp',
+                 'top_image' => 'assets/dynamic/services/top_Negotiation.webp',
             ],
         ]);
     }

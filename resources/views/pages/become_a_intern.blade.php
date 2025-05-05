@@ -826,7 +826,7 @@
                 const selected = membershipSelect.value;
                 const price = internshipMap.get(selected);
                 if (price) {
-                    priceDisplay.textContent = `$${price.toFixed(2)} / month`;
+                    priceDisplay.textContent = `₹${price.toFixed(2)} / month`;
                     priceDisplay.style.display = 'inline-block';
                 } else {
                     priceDisplay.style.display = 'none';

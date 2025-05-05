@@ -462,7 +462,7 @@
 
                     const detailsHTML = `
     ${detailBlock('Statement Number', intern.statement_number)}
-    ${detailBlock('Price', intern.price ? `$${intern.price}` : 'N/A')}
+    ${detailBlock('Price', intern.price ? `₹${intern.price}` : 'N/A')}
     ${detailBlock('Membership Type', intern.membershipType)}
     ${detailBlock('Name', `${intern.firstName} ${intern.lastName}`)}
     ${detailBlock('Email', intern.email)}
