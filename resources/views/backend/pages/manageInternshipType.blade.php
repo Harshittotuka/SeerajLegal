@@ -84,7 +84,8 @@
                         <div class="form-group">
                             <label for="newPriority">Priority:</label>
                             <input type="number" id="newPriority" class="form-input number-input" min="1"
-                                 value="1" style="width: 100%; box-sizing: border-box;">
+                                 value="1" required style="width: 100%; box-sizing: border-box;">
+
                         </div>
                         <div class="form-group">
                             <label for="newPrice">Price:</label>
@@ -94,8 +95,7 @@
                         <div class="form-group">
                             <label for="newDescription">Description:</label>
                             <textarea id="newDescription" class="form-input" rows="5"
-                                placeholder="Enter each point on a new line, for example:&#10;Point 1&#10;Point 2&#10;Point 3"
-                                style="width: 100%; box-sizing: border-box;"></textarea>
+                                placeholder="Enter each point on a new line, for example:&#10;Point 1&#10;Point 2&#10;Point 3" required style="width: 100%; box-sizing: border-box;"></textarea>
                         </div>
                         <button type="submit" class="btn-save">Save</button>
                     </form>
@@ -119,7 +119,8 @@
                         <div class="form-group">
                             <label for="editPriority">Priority:</label>
                             <input type="number" id="editPriority" class="form-input number-input" min="1"
-                                max="10" style="width: 100%; box-sizing: border-box;">
+                                max="10" required style="width: 100%; box-sizing: border-box;">
+
                         </div>
                         <div class="form-group">
                             <label for="editPrice">Price:</label>
@@ -128,8 +129,7 @@
                         </div>
                         <div class="form-group">
                             <label for="editDescription">Description:</label>
-                            <textarea id="editDescription" class="form-input" placeholder="Enter description"
-                                style="width: 100%; box-sizing: border-box;"></textarea>
+                            <textarea id="editDescription" class="form-input" placeholder="Enter description" required style="width: 100%; box-sizing: border-box;"></textarea>
                         </div>
                         <button type="submit" class="btn-save">Update</button>
                     </form>
