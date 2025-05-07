@@ -157,8 +157,14 @@
                     <div class="col-12">
                         <textarea class="form-control" id="Quote" rows="2" disabled></textarea>
                     </div>
-                    <h5 class="mt-4">Top Bar Points:</h5>
+
+                    <h5 class="mt-4">GetinTouch:</h5>
                     <div class="col-12">
+                        <textarea class="form-control" id="GetinTouch" rows="2" disabled></textarea>
+                    </div>
+
+                    <h5 class="mt-4">Top Bar Points:</h5>
+                    <div class="col-12 mb-4">
                        <input type="text" class="form-control" id="top_bar_points" placeholder="Enter multiple points, separated by commas" disabled>
                     </div>
 
