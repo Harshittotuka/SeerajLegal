@@ -58,22 +58,41 @@
                         <h6 class="dropdown-header fw-bold text-dark">Notifications</h6>
                         <div class="dropdown-divider"></div>
 
-                        {{-- Pending Requests Message --}}
-                        <a href="{{ route('backend.manage.members') }}" id="pendingRequestLink"
+                        {{-- Pending Member Requests --}}
+                        {{-- Pending Member Requests --}}
+                        <a href="{{ route('backend.manage.members') }}"
                             class="notification-item text-decoration-none d-block text-dark">
-                            <span id="pendingMessage" class="pending-message d-flex align-items-center gap-3">
-                                <i class="material-symbols-rounded text-warning"
-                                    style="font-size: 1.5rem;">notifications</i>
+                            <span id="pendingMessage" class="d-flex align-items-center gap-3">
+                                <i class="fas fa-bell text-warning" style="font-size: 1.5rem;"></i>
                                 <span id="pendingText">Loading pending requests...</span>
+                            </span>
+                        </a>
+
+                        {{-- Pending Intern Applications --}}
+                        <a href="{{ route('backend.manage.interns') }}"
+                            class="notification-item text-decoration-none d-block text-dark">
+                            <span id="internPendingMessage" class="d-flex align-items-center gap-3">
+                                <i class="fas fa-user-clock text-info" style="font-size: 1.5rem;"></i>
+                                <span id="internPendingText">Loading pending intern applications...</span>
+                            </span>
+                        </a>
+
+                        {{-- Pending Payment Confirmations --}}
+                        <a href="{{ route('backend.manage.interns') }}"
+                            class="notification-item text-decoration-none d-block text-dark">
+                            <span id="internPaymentMessage" class="d-flex align-items-center gap-3">
+                                <i class="fas fa-money-check-alt text-success" style="font-size: 1.5rem;"></i>
+                                <span id="internPaymentText">Loading payment confirmations...</span>
                             </span>
                         </a>
 
 
 
                         <div class="dropdown-divider"></div>
-                        <a href="{{ route('backend.manage.members') }}"
-                            class="dropdown-item text-center text-primary fw-medium">View All</a>
+                        {{-- <a href="{{ route('backend.manage.members') }}" class="dropdown-item text-center text-primary fw-medium">View All</a> --}}
                     </div>
+
+
 
 
 
@@ -94,40 +113,65 @@
                         const dropdown = document.getElementById("notificationDropdown");
                         const wrapper = document.getElementById("notificationWrapper");
                         const badge = document.getElementById("notificationBadge");
-                        const pendingMessage = document.getElementById("pendingMessage");
 
-                        // Toggle dropdown visibility
+                        const pendingText = document.getElementById("pendingText");
+                        const internPendingText = document.getElementById("internPendingText");
+                        const internPaymentText = document.getElementById("internPaymentText");
+
+                        // Toggle dropdown
                         toggle.addEventListener("click", function(e) {
-                            e.stopPropagation(); // Prevent closing immediately
-                            const isVisible = dropdown.style.display === "block";
-                            dropdown.style.display = isVisible ? "none" : "block";
+                            e.stopPropagation();
+                            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
                         });
 
-                        // Hide dropdown if clicked outside
+                        // Hide dropdown if clicking outside
                         document.addEventListener("click", function(e) {
                             if (!wrapper.contains(e.target)) {
                                 dropdown.style.display = "none";
                             }
                         });
 
-                        // Fetch pending count from API and update UI
-                        fetch("/api/members/pending/count")
-                            .then(response => response.json())
-                            .then(data => {
-                                const count = data.pending_count || 0;
-                                badge.textContent = count;
-                                pendingMessage.innerHTML = `
-                            <i class="material-symbols-rounded text-warning " style="font-size: 1.5rem;">notifications</i>
-                            <span id="pendingText">There ${count === 1 ? 'is' : 'are'} <strong>${count}</strong> pending member request${count === 1 ? '' : 's'}</span>
-                            `;
+                        // Function to fetch and update notifications
+                        function updateNotifications() {
+                            Promise.all([
+                                fetch("/api/members/pending/count").then(res => res.json())
+                                , fetch("/api/interns/pending/count").then(res => res.json())
+                                , fetch("/api/interns/pendingPaymentConfirmation/count").then(res => res.json())
+                            ]).then(([memberData, internData, paymentData]) => {
+                                const memberCount = memberData.pending_count || 0;
+                                const internCount = internData.pending_count || 0;
+                                const paymentCount = paymentData.payment_done_waiting_for_approval || 0;
 
-                            })
-                            .catch(error => {
-                                console.error("Error fetching pending count:", error);
-                                pendingMessage.textContent = "Failed to load pending requests.";
+                                const totalCount = memberCount + internCount + paymentCount;
+                                badge.textContent = totalCount;
+                                badge.style.display = totalCount > 0 ? "inline-block" : "none";
+
+                                pendingText.innerHTML =
+                                    `There ${memberCount === 1 ? 'is' : 'are'} <strong>${memberCount}</strong> pending member request${memberCount === 1 ? '' : 's'}`;
+                                internPendingText.innerHTML =
+                                    `There ${internCount === 1 ? 'is' : 'are'} <strong>${internCount}</strong> pending intern application${internCount === 1 ? '' : 's'}`;
+                                internPaymentText.innerHTML =
+                                    `There ${paymentCount === 1 ? 'is' : 'are'} <strong>${paymentCount}</strong> payment confirmation${paymentCount === 1 ? '' : 's'}`;
+                            }).catch(error => {
+                                console.error("Error fetching notification counts:", error);
+                                pendingText.textContent = "Failed to load member requests.";
+                                internPendingText.textContent = "Failed to load intern applications.";
+                                internPaymentText.textContent = "Failed to load payment confirmations.";
                             });
+                        }
+
+                        // Initial fetch
+                        updateNotifications();
+
+                        // Repeat every 60 seconds
+                        setInterval(updateNotifications, 15000); // 60000ms = 1 minute
                     });
+
                 </script>
+
+
+
+
 
 
 

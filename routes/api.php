@@ -39,6 +39,10 @@ Route::prefix('interns')->group(function () {
 });
 Route::patch('/interns/{id}/status', [InternController::class, 'changeStatus']);
 Route::get('/check-status/{userStatusId}', [InternController::class, 'checkStatus']);
+Route::get('/interns/pending/count', [InternController::class, 'pendingCount']);
+Route::get('/interns/pendingPaymentConfirmation/count', [InternController::class,'pendingPaymentConfirmationCount']);
+
+
 
 
 Route::prefix('internship-types')->group(function () {

@@ -60,7 +60,7 @@ class InternController extends Controller
                 $price = null;
             }
 
-        $data['UserStatusId'] = (string) Str::uuid();
+            $data['UserStatusId'] = (string) Str::uuid();
             // First, create the intern without resumePath
             $intern = Intern::create([
                 ...$data,
@@ -358,24 +358,70 @@ class InternController extends Controller
         return back()->with('success', 'Payment submitted successfully!');
     }
 
-
     public function checkStatus($userStatusId)
-{
-    $intern = Intern::where('UserStatusId', $userStatusId)->first();
+    {
+        $intern = Intern::where('UserStatusId', $userStatusId)->first();
 
-    if (!$intern) {
+        if (!$intern) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'No application found with this User Status ID.',
+                ],
+                404,
+            );
+        }
+
         return response()->json([
-            'success' => false,
-            'message' => 'No application found with this User Status ID.',
-        ], 404);
+            'success' => true,
+            'status' => $intern->status ?? 'Pending',
+            'name' => $intern->firstName . ' ' . $intern->lastName,
+            'email' => $intern->email,
+        ]);
+    }
+    public function pendingCount()
+    {
+        try {
+            $count = Intern::where('status', 'Pending')->count();
+            return response()->json(
+                [
+                    'success' => true,
+                    'pending_count' => $count,
+                ],
+                200,
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Failed to fetch pending count',
+                    'error' => $e->getMessage(),
+                ],
+                500,
+            );
+        }
     }
 
-    return response()->json([
-        'success' => true,
-        'status' => $intern->status ?? 'Pending',
-        'name' => $intern->firstName . ' ' . $intern->lastName,
-        'email' => $intern->email,
-    ]);
-}
-
+    public function pendingPaymentConfirmationCount()
+    {
+        try {
+            $count = Intern::where('status', 'payment-done-waiting-for-approval')->count();
+            return response()->json(
+                [
+                    'success' => true,
+                    'payment_done_waiting_for_approval' => $count,
+                ],
+                200,
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Failed to fetch payment confirmation count',
+                    'error' => $e->getMessage(),
+                ],
+                500,
+            );
+        }
+    }
 }
