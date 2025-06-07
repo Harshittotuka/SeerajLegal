@@ -369,7 +369,8 @@
                 });
 
             this.reset();
-            modal.style.display = "none";
+            modal.classList.remove("show");
+
         });
     });
 </script>
@@ -524,75 +525,81 @@
 </div>
 
 <style>
-.top-strip {
-    height: 35px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 100;
-    font-size: 13px;
-    padding: 0 40px;
-    background: transparent !important;  /* even idk how i mafe this transparent */
-    transition: top 0.3s ease-in-out;
-    color: #fff;
-    pointer-events: auto;
-}
-
-.scrolling-text-wrapper {
-    overflow: hidden;
-    white-space: nowrap;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.scrolling-text {
-    display: flex;  /* Change from inline-flex to flex to use gap */
-    align-items: center;
-    white-space: nowrap;
-    animation: scroll-right-to-left 20s linear infinite;
-    will-change: transform;
-    gap: 4rem; /* Adjust the gap here */
-}
-
-.scroll-gap {
-    margin-right: 6rem;
-}
-
-@keyframes scroll-right-to-left {
-    0% {
-        transform: translateX(100%);
+    .top-strip {
+        height: 35px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        font-size: 13px;
+        padding: 0 40px;
+        background: transparent !important;
+        /* even idk how i mafe this transparent */
+        transition: top 0.3s ease-in-out;
+        color: #fff;
+        pointer-events: auto;
     }
-    100% {
-        transform: translateX(-100%);
-    }
-}
 
-.static-info {
-    gap: 4rem;
-    white-space: nowrap;
-}
-/* More clean targeting for mobile devices */
-@media screen and (max-width: 600px) and (pointer: coarse) {
     .scrolling-text-wrapper {
-        display: none;  /* Hides scrolling text on phones and devices with coarse pointers (touch) */
+        overflow: hidden;
+        white-space: nowrap;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    .scrolling-text {
+        display: flex;
+        /* Change from inline-flex to flex to use gap */
+        align-items: center;
+        white-space: nowrap;
+        animation: scroll-right-to-left 20s linear infinite;
+        will-change: transform;
+        gap: 4rem;
+        /* Adjust the gap here */
+    }
+
+    .scroll-gap {
+        margin-right: 6rem;
+    }
+
+    @keyframes scroll-right-to-left {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(-100%);
+        }
     }
 
     .static-info {
-        width: 100% !important;
-        gap: 1rem;
-        justify-content: space-between;
+        gap: 4rem;
+        white-space: nowrap;
     }
-}
+
+    /* More clean targeting for mobile devices */
+    @media screen and (max-width: 600px) and (pointer: coarse) {
+        .scrolling-text-wrapper {
+            display: none;
+            /* Hides scrolling text on phones and devices with coarse pointers (touch) */
+        }
+
+        .static-info {
+            width: 100% !important;
+            gap: 1rem;
+            justify-content: space-between;
+        }
+    }
 </style>
 
 <script>
     let lastScrollTop = 0;
     const topStrip = document.querySelector('.top-strip');
 
-    window.addEventListener('scroll', function () {
+    window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         topStrip.style.top = (scrollTop > lastScrollTop) ? "-40px" : "0";
         lastScrollTop = Math.max(scrollTop, 0);
@@ -634,7 +641,8 @@
 
             // Fallbacks
             document.getElementById('dynamic-email').textContent = "info@seerajlegal.org";
-            document.getElementById('dynamic-email').href = "https://mail.google.com/mail/?view=cm&to=info@seerajlegal.org";
+            document.getElementById('dynamic-email').href =
+                "https://mail.google.com/mail/?view=cm&to=info@seerajlegal.org";
 
             document.getElementById('dynamic-phone').textContent = "+91-12345-67890";
             document.getElementById('dynamic-phone').href = "tel:+911234567890";
@@ -653,8 +661,8 @@
         <!-- Logo -->
         <a class="logo" href="javascript:void(0)" id="logo" style="cursor: pointer;">
             <img src="{{ asset('assets\\dynamic\\logo\\logo-f1.png') }}" class="logo-img" alt="Logo"
-             data-default-logo="{{ asset('assets\\dynamic\\logo\\logo-f1.png') }}">
-            </a>
+                data-default-logo="{{ asset('assets\\dynamic\\logo\\logo-f1.png') }}">
+        </a>
 
 
 
@@ -695,69 +703,69 @@
 
                 <li class="nav-item dropdown" id="rulesMenuItem" style="display:none;">
                     <a class="nav-link dropdown-toggle {{ request()->routeIs('service_rules') ? 'active' : '' }}"
-                        href="#" role="button" data-bs-toggle="dropdown">Rules <i class="ti-angle-down"></i></a>
+                        href="#" role="button" data-bs-toggle="dropdown">Rules <i
+                            class="ti-angle-down"></i></a>
                     <ul class="dropdown-menu" id="rulesDropdown">
                         <!-- Dynamic rules links will be inserted here -->
                     </ul>
                 </li>
 
 
-              <script>
-                  document.addEventListener("DOMContentLoaded", function() {
-                      // Use Promise.all to fetch services and rules concurrently
-                      Promise.all([
-                              fetch("/api/services/list").then(response => response.json()), // Services fetch
-                              fetch("/api/rules").then(response => response.json()) // Rules fetch
-                          ])
-                          .then(([servicesData, rulesData]) => {
-                              let servicesDropdown = document.getElementById('servicesDropdown');
-                              let rulesDropdown = document.getElementById('rulesDropdown');
-                              let servicesMenuItem = document.getElementById('servicesMenuItem');
-                              let rulesMenuItem = document.getElementById('rulesMenuItem');
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        // Use Promise.all to fetch services and rules concurrently
+                        Promise.all([
+                                fetch("/api/services/list").then(response => response.json()), // Services fetch
+                                fetch("/api/rules").then(response => response.json()) // Rules fetch
+                            ])
+                            .then(([servicesData, rulesData]) => {
+                                let servicesDropdown = document.getElementById('servicesDropdown');
+                                let rulesDropdown = document.getElementById('rulesDropdown');
+                                let servicesMenuItem = document.getElementById('servicesMenuItem');
+                                let rulesMenuItem = document.getElementById('rulesMenuItem');
 
-                              // Clear existing content
-                              servicesDropdown.innerHTML = '';
-                              rulesDropdown.innerHTML = '';
+                                // Clear existing content
+                                servicesDropdown.innerHTML = '';
+                                rulesDropdown.innerHTML = '';
 
-                              // Handle services data
-                              if (servicesData.success && servicesData.data.length > 0) {
-                                  let services = servicesData.data;
-                                  services.forEach(service => {
-                                      if (service.flag === "enabled") {
-                                          let encodedServiceName = encodeURIComponent(service.service_name);
+                                // Handle services data
+                                if (servicesData.success && servicesData.data.length > 0) {
+                                    let services = servicesData.data;
+                                    services.forEach(service => {
+                                        if (service.flag === "enabled") {
+                                            let encodedServiceName = encodeURIComponent(service.service_name);
 
-                                          // Add service link (redirect using name)
-                                          let serviceItem = document.createElement('li');
-                                          serviceItem.innerHTML =
-                                              `<a href="/service/${encodedServiceName}" class="dropdown-item">${service.service_name}</a>`;
-                                          servicesDropdown.appendChild(serviceItem);
-                                      }
-                                  });
+                                            // Add service link (redirect using name)
+                                            let serviceItem = document.createElement('li');
+                                            serviceItem.innerHTML =
+                                                `<a href="/service/${encodedServiceName}" class="dropdown-item">${service.service_name}</a>`;
+                                            servicesDropdown.appendChild(serviceItem);
+                                        }
+                                    });
 
-                                  // Show the services menu item if there are services
-                                  servicesMenuItem.style.display = 'block';
-                              }
+                                    // Show the services menu item if there are services
+                                    servicesMenuItem.style.display = 'block';
+                                }
 
-                              // Handle rules data
-                              if (rulesData.length > 0) {
-                                  rulesData.forEach(rule => {
-                                      let ruleId = rule.id;
+                                // Handle rules data
+                                if (rulesData.length > 0) {
+                                    rulesData.forEach(rule => {
+                                        let ruleId = rule.id;
 
-                                      // Add each rule to the dropdown with the ID in the URL
-                                      let ruleItem = document.createElement('li');
-                                      ruleItem.innerHTML =
-                                          `<a href="/service_rules?rule=${ruleId}" class="dropdown-item">${rule.name}</a>`;
-                                      rulesDropdown.appendChild(ruleItem);
-                                  });
+                                        // Add each rule to the dropdown with the ID in the URL
+                                        let ruleItem = document.createElement('li');
+                                        ruleItem.innerHTML =
+                                            `<a href="/service_rules?rule=${ruleId}" class="dropdown-item">${rule.name}</a>`;
+                                        rulesDropdown.appendChild(ruleItem);
+                                    });
 
-                                  // Show the rules menu item if there are rules
-                                  rulesMenuItem.style.display = 'block';
-                              }
-                          })
-                          .catch(error => console.error("Error fetching data:", error));
-                  });
-
-              </script>
+                                    // Show the rules menu item if there are rules
+                                    rulesMenuItem.style.display = 'block';
+                                }
+                            })
+                            .catch(error => console.error("Error fetching data:", error));
+                    });
+                </script>
 
 
 
@@ -786,9 +794,9 @@
                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('team') ? 'active' : '' }}"
                         href="{{ route('team') }}">Team</a></li>
 
-               
-               <!-- saved for future use -->
-                        <!-- <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button"
+
+                <!-- saved for future use -->
+                <!-- <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button"
                         data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Gallery <i
                             class="ti-angle-down"></i></a>
                     <ul class="dropdown-menu">
@@ -801,36 +809,54 @@
                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}"
                         href="{{ route('contact') }}">Contact</a></li>
             </ul>
-            <div class="navbar-right me-2">
+            <!-- Only show on md and up -->
+            <div class="navbar-right me-2 d-none d-md-block">
                 <div class="button"><a href="{{ route('contact') }}">Get Consultancy</a></div>
             </div>
-            <div class="navbar-right">
+            <div class="navbar-right d-none d-md-block">
                 <div class="button"><a href="{{ route('intern.become') }}">Become Intern</a></div>
-
             </div>
 
+            <!-- For mobile -->
+            <ul class="navbar-nav d-block d-md-none blue-shadow-text">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('contact') }}">Get Consultancy</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('intern.become') }}">Become Intern</a>
+                </li>
+            </ul>
+            
+<style>
+    .blue-shadow-text .nav-link {
+    text-shadow: 2px 2px 4px rgb(255, 0, 0); /* blue shadow */
+   
+    }
+
+
+</style>
         </div>
     </div>
 </nav>
 
 <!-- JavaScript for long-click detection (at the end of the page) -->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const logoElement = document.getElementById('logo');
         let pressTimer;
         let isLongPress = false;
         const holdDuration = 5000; // 5 seconds
 
-        logoElement.addEventListener('mousedown', function (e) {
+        logoElement.addEventListener('mousedown', function(e) {
             isLongPress = false;
 
-            pressTimer = setTimeout(function () {
+            pressTimer = setTimeout(function() {
                 isLongPress = true;
                 window.open("/backend/admin/login", "_blank"); // Open admin panel in new tab
             }, holdDuration);
         });
 
-        logoElement.addEventListener('mouseup', function (e) {
+        logoElement.addEventListener('mouseup', function(e) {
             clearTimeout(pressTimer);
 
             if (!isLongPress) {
@@ -839,7 +865,7 @@
             }
         });
 
-        logoElement.addEventListener('mouseleave', function () {
+        logoElement.addEventListener('mouseleave', function() {
             clearTimeout(pressTimer); // Cancel if mouse leaves the logo
         });
     });
@@ -847,39 +873,38 @@
 
 
 <script>
-  let buffer = "";
+    let buffer = "";
 
-  document.addEventListener("keydown", function (e) {
-    const activeElement = document.activeElement;
-    const isTypingField = activeElement.tagName === "INPUT" || 
-                          activeElement.tagName === "TEXTAREA" || 
-                          activeElement.isContentEditable;
+    document.addEventListener("keydown", function(e) {
+        const activeElement = document.activeElement;
+        const isTypingField = activeElement.tagName === "INPUT" ||
+            activeElement.tagName === "TEXTAREA" ||
+            activeElement.isContentEditable;
 
-    if (isTypingField) return;
+        if (isTypingField) return;
 
-    // Only allow a-z or A-Z letters
-    if (e.key.length === 1 && /^[a-zA-Z]$/.test(e.key)) {
-      buffer += e.key.toLowerCase();
-      buffer = buffer.slice(-5);
+        // Only allow a-z or A-Z letters
+        if (e.key.length === 1 && /^[a-zA-Z]$/.test(e.key)) {
+            buffer += e.key.toLowerCase();
+            buffer = buffer.slice(-5);
 
-      if (buffer === "admin") {
-        // Show toast
-        Toastify({
-          text: "Redirecting to Admin panel",
-          duration: 1500,
-          gravity: "top",
-          position: "center",
-          backgroundColor: "#333",
-        }).showToast();
+            if (buffer === "admin") {
+                // Show toast
+                Toastify({
+                    text: "Redirecting to Admin panel",
+                    duration: 1500,
+                    gravity: "top",
+                    position: "center",
+                    backgroundColor: "#333",
+                }).showToast();
 
-        // Delay 1.5s then redirect
-        setTimeout(() => {
-          window.open("/backend/admin/login", "_blank"); // change URL if needed
-        }, 1500);
-      }
-    } else {
-      buffer = ""; // reset if not a letter
-    }
-  });
+                // Delay 1.5s then redirect
+                setTimeout(() => {
+                    window.open("/backend/admin/login", "_blank"); // change URL if needed
+                }, 1500);
+            }
+        } else {
+            buffer = ""; // reset if not a letter
+        }
+    });
 </script>
-
