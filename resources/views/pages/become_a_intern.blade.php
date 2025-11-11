@@ -319,28 +319,32 @@
                         <h1 class="main-title">Why Choose our <span> Company</span> ?</h1>
 
 
-                        <p class="mb-4">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
-                        </p>
-                        <ul class="list-unstyled mb-4">
-                            <li class="d-flex align-items-start mb-2">
-                                <i class="fas fa-check text-success me-2 mt-1"></i>
-                                <p class="mb-0">Business consulting services dolor sit amet, consectetur.</p>
-                            </li>
-                            <li class="d-flex align-items-start mb-2">
-                                <i class="fas fa-check text-success me-2 mt-1"></i>
-                                <p class="mb-0">Social media marketing agency dolor sit amet, consectetur.</p>
-                            </li>
-                            <li class="d-flex align-items-start mb-2">
-                                <i class="fas fa-check text-success me-2 mt-1"></i>
-                                <p class="mb-0">Purchase strategy plans dolor sit amet, consectetur sodic.</p>
-                            </li>
-                            <li class="d-flex align-items-start mb-2">
-                                <i class="fas fa-check text-success me-2 mt-1"></i>
-                                <p class="mb-0">Design plans dolor sit amet, consectetur adipisicing elit.</p>
-                            </li>
-                        </ul>
+                       <p class="mb-4">
+                           At <strong>Seeraj Legal</strong>, we believe in nurturing young legal minds through hands-on experience.
+                           Our internship program offers law students the opportunity to work on real cases, conduct legal research,
+                           and understand the practical aspects of litigation and corporate law.
+                       </p>
+
+                       <ul class="list-unstyled mb-4">
+                           <li class="d-flex align-items-start mb-2">
+                               <i class="fas fa-check text-success me-2 mt-1"></i>
+                               <p class="mb-0">Gain practical exposure to case management and legal drafting.</p>
+                           </li>
+                           <li class="d-flex align-items-start mb-2">
+                               <i class="fas fa-check text-success me-2 mt-1"></i>
+                               <p class="mb-0">Assist senior advocates in research and document preparation.</p>
+                           </li>
+                           <li class="d-flex align-items-start mb-2">
+                               <i class="fas fa-check text-success me-2 mt-1"></i>
+                               <p class="mb-0">Participate in client consultations and learn professional ethics.</p>
+                           </li>
+                           <li class="d-flex align-items-start mb-2">
+                               <i class="fas fa-check text-success me-2 mt-1"></i>
+                               <p class="mb-0">Receive mentorship and guidance from experienced legal professionals.</p>
+                           </li>
+                       </ul>
+
+
 
                         <a href="#pricing" class="btn btn-primary">
                             Learn More
