@@ -158,7 +158,7 @@
 
     function reloadPage() {
         setTimeout(() => {
-           // location.reload();
+            location.reload();
         }, 1000); // Delay to ensure the user sees the success message
     }
 

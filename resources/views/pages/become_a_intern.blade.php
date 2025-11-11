@@ -776,7 +776,7 @@
                     <div class="card-header">
                         <div class="tier">${type}</div>
                         <div class="price">
-                            <span class="currency">$</span>
+                            <span class="currency">₹</span>
                             <span class="amount">${price}</span>
                             <span class="period">/month</span>
                         </div>
