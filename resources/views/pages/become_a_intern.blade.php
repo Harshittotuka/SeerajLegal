@@ -328,7 +328,7 @@
                        <ul class="list-unstyled mb-4">
                            <li class="d-flex align-items-start mb-2">
                                <i class="fas fa-check text-success me-2 mt-1"></i>
-                               <p class="mb-0">Gain practical exposure to case management and legal drafting. </p>
+                               <p class="mb-0">Gain practical exposure to case management and legal drafting.</p>
                            </li>
                            <li class="d-flex align-items-start mb-2">
                                <i class="fas fa-check text-success me-2 mt-1"></i>
