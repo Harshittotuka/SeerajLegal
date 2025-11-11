@@ -14,25 +14,26 @@ class AdminSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        // Define custom email prefixes
-        $emailPrefixes = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
+        // Define custom email prefixes/
 
-        foreach ($emailPrefixes as $prefix) {
-            Admin::create([
-                'name' => $faker->name,
-                'email' => "{$prefix}@gmail.com",
-                'password' => Hash::make('1234'),
-                'phone' => $faker->phoneNumber,
-                'profile_image' => $faker->imageUrl(),
-                'type' => $faker->randomElement(['Admin', 'Superadmin']),
-            ]);
-        }
+        // $emailPrefixes = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
+
+        // foreach ($emailPrefixes as $prefix) {
+        //     Admin::create([
+        //         'name' => $faker->name,
+        //         'email' => "{$prefix}@gmail.com",
+        //         'password' => Hash::make('1234'),
+        //         'phone' => $faker->phoneNumber,
+        //         'profile_image' => $faker->imageUrl(),
+        //         'type' => $faker->randomElement(['Admin', 'Superadmin']),
+        //     ]);
+        // }
 
         // Existing custom admin
         Admin::create([
             'name' => 'Harshit',
-            'email' => '1',
-            'password' => Hash::make('1'),
+            'email' => 'test',
+            'password' => Hash::make('test'),
             'phone' => $faker->phoneNumber,
             'profile_image' => $faker->imageUrl(),
             'type' => 'Superadmin',
